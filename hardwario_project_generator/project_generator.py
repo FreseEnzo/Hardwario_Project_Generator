@@ -77,7 +77,7 @@ def generate_app_config_c():
     try:
         os.mkdir('./src')
     except:
-        print('folder already exists')
+        print('Folder already exists')
 
     # Includes import
     app_config_c_includes.append('\n')
@@ -197,7 +197,6 @@ def generate_prj_config_file():
     global_prj_conf.append('\n# Extra parameters\n')
     new_extras = [line + '\n' for line in data['extras']]
     global_prj_conf += new_extras
-    print(global_prj_conf)
     write_to_file(global_prj_conf,'./prj.conf')
 
 def main():

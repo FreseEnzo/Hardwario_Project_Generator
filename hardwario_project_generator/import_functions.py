@@ -30,7 +30,6 @@ def create_c_commands(app_config_c, data):
             config_show_beggining = '\n\nint app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)\n{\n'
             config = config_show_beggining 
             for parameter in data['parameters']:
-                print(parameter)
                 if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int':
                     config += f'''\tprint_{parameter['var']}(shell); \n'''
             config_show_end = '\n\treturn 0;\n}'
@@ -194,12 +193,6 @@ static int init(void) {{
         return ret;
     }}
 """
-
-    # Print statements for debugging
-    print("set_settings:")
-    print(set_settings)
-    print("export_settings:")
-    print(export_settings)
 
     if set_settings.strip() and export_settings.strip():
         c_code = c_code_template.replace('%s', set_settings).replace('%s', export_settings)
