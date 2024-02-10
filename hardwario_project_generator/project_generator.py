@@ -7,7 +7,9 @@ Coded by Frese
 # Imports 
 import yaml # pip install PyYAML
 import re
+import os
 from import_functions import *
+
 
 # File Paths
 functions_file = './hardwario_project_generator/params_source/functions.c'
@@ -16,34 +18,16 @@ app_config_c = './src/app_config.c'
 app_config_h = './src/app_config.h'
 shell_c = './src/app_shell.c'
 
-# --- Includes ---
+# Includes 
 app_config_c_includes = ['Copyrigh','License','app_config']
 app_config_h_includes = ['Zephyr','shell','Standard','stddef']
 chester_includes = ['CHESTER','ctr_config']
 standard_includes = ['Standard','ctype', 'stdbool','stdio','stdlib','string']
 zephyr_includes = ['Zephyr','init','kernel','log','settings','shell']
-shell_includes = ['app_config','app_work']
+shell_includes = ['app_config']
 
 # Functions
-app_config_functions = ['print_app_config_mode','app_config_cmd_config_mode','h_set','h_commit','init']
-shell_functions = ['cmd_sample','cmd_send','cmd_aggreg']
-shell_standard_functions = [
-    'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
-    '\tsub_app,\n',
-    '\n',
-    '\tSHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.",\n',
-    '\t\t      print_help, 1, 0),\n',
-    '\n',
-    '\tSHELL_SUBCMD_SET_END\n',
-    ');\n',
-    '\n',
-    'SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);\n',
-    'SHELL_CMD_REGISTER(sample, NULL, "Sample immediately.", cmd_sample);\n',
-    'SHELL_CMD_REGISTER(send, NULL, "Send data immediately.", cmd_send);\n',
-    'SHELL_CMD_REGISTER(aggreg, NULL, "Aggregate data immediately.", cmd_aggreg);\n',
-    '\n',
-    '/* clang-format on */\n'
-]
+
 
 # Shell Parameters
 basic_parameters = ['# Basic Parameters\n','CONFIG_ARM=y\n','CONFIG_BOARD_CHESTER_NRF52840=y\n']
@@ -73,12 +57,23 @@ config_parameters = {
     'zcbor': 'CONFIG_ZCBOR=y\n'
 }
 
+
 # YAML file
 yaml_file = "./params.yaml"
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
 
+def transform_to_slug(text):
+    # Converter para minúsculas
+    slug = text.lower()
+    # Remover caracteres especiais
+    slug = re.sub(r'[^a-zA-Z0-9\s]', '', slug)
+    # Substituir espaços por hífens
+    slug = slug.replace(' ', '-')
+    return slug
+
 def generate_app_config_c():
+    
     try:
         os.mkdir('./src')
     except:
@@ -89,15 +84,18 @@ def generate_app_config_c():
     chester_includes.append('\n')
     standard_includes.append('\n')
     shell_includes.append('\n')
-
     app_config_includes =  app_config_c_includes + chester_includes + standard_includes + zephyr_includes 
     for include in app_config_includes:
         import_include(include,includes_file,app_config_c)
 
     # LOG
-    write_to_file('\n\nLOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);\n',app_config_c)
+    write_to_file('\n\nLOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);\n', app_config_c)
+
+    # Define
+    write_to_file(f'''\n#define SETTINGS_PFX "{transform_to_slug(data['project']['name'])}"\n''', app_config_c)
 
     # Creating Struct
+    create_c_struct(app_config_c,'app_config',' g_app_config', None)
     create_c_struct(app_config_c,'app_config','m_app_config_interim', data)
 
     #Functions Creations
@@ -107,56 +105,83 @@ def generate_app_config_c():
         except:
             pass
 
+    # Creating Config Show
+    create_c_commands(app_config_c, data)
+
     # Functions import 
-    for function in app_config_functions:
-        func_list = import_function(function,functions_file,app_config_c)
-        print(func_list)
+    create_app_config_init(app_config_c,data)
     write_to_file('\nSYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);',app_config_c)
  
 def generate_app_config_h():
+
     # Ifndef
     write_to_file('#ifndef APP_CONFIG_H_\n#define APP_CONFIG_H_\n',app_config_h)
+
     # Includes
     app_config_h_includes.append('\n')
     for include in app_config_h_includes:
         import_include(include,includes_file,app_config_h)
+
     # Ifndef cpp
-    write_to_file('\n#ifdef __cplusplus\nextern "C" {\n#endif',app_config_h)
+    write_to_file('\n#ifdef __cplusplus\nextern "C" {\n#endif\n',app_config_h)
+
     # Struct
+    create_h_struct(app_config_h,'app_config g_app_config',None)
     create_h_struct(app_config_h,'app_config', data)
+    # Primitives 
+ 
+    app_config_h_primitives(app_config_h,data)
+       
     # Ifndef
-    write_to_file('\n#ifdef __cplusplus\n}\n#endif  /* APP_CONFIG_H_ */',app_config_h)
+    write_to_file('\n\n#ifdef __cplusplus\n}\n#endif\n\n#endif /* APP_CONFIG_H_ */',app_config_h)
 
 def generate_shell():
     # Includes
+    commands = data['commands']
     shell_includes.append('\n')
     zephyr_includes.append('\n')
     standard_includes.append('\n')
     app_shell_includes = shell_includes + zephyr_includes + standard_includes
     for include in app_shell_includes: 
         import_include(include,includes_file,shell_c)
+        
     #LOG
-    write_to_file('\nLOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);\n',shell_c)
-    # Functions
-    for function in shell_functions:
-        func_list = import_function(function,functions_file,shell_c)
-    #print(func_list)
+    write_to_file('\nLOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);\n\n',shell_c)
+
     # Shell CMD
     shell_cmds = [
+                '/* clang-format off */\n\n'
                 'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
                 '\tsub_app_config,\n',
                 '\n',
-                '\tSHELL_CMD_ARG(show, NULL, "List current configuration." app_config_cmd_config_show, 1, 0),\n',
-                '\tSHELL_CMD_ARG(interval-report, NULL,"Get/Set report interval in seconds (format: <30-86400>).",app_config_cmd_config_interval_report, 1, 1),\n\n'
                 ]
+    for command in commands:
+        if command['name'] =='show':
+            shell_cmds.append('\tSHELL_CMD_ARG(show, NULL, "List current configuration." app_config_cmd_config_show, 1, 0),\n\n')
     for parameter in data['parameters']:
         try:
             shell_cmds += f"\tSHELL_CMD_ARG({parameter['name']}, NULL, \"{parameter['help']}\", app_config_cmd_{parameter['var']}, 1, 1),\n"
         except:
-            pass
+            continue
     shell_cmds += '\nSHELL_SUBCMD_SET_END\n);\n\n'
     write_to_file(shell_cmds,shell_c)
-    write_to_file(shell_standard_functions,shell_c)
+    shell_cmds_middle = [
+    'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
+    '\tsub_app,\n',
+    '\n',
+    '\tSHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.",\n,print_help, 1, 0),\n',
+    '\n',
+    '\tSHELL_SUBCMD_SET_END\n',
+    ');\n',
+    '\n',
+    'SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);\n']
+    shell_cmds_end = [
+    '\n',
+    '/* clang-format on */\n']
+    for command in commands:
+        shell_cmds_middle.append(f'''SHELL_CMD_REGISTER({command['name']}, NULL, '{command['help']}', '{command['callback']}');\n''')
+    shell_cmds_middle += shell_cmds_end
+    write_to_file(shell_cmds_middle,shell_c)
 
 def generate_prj_config_file():
     # Basic Parameters

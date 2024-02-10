@@ -51,6 +51,10 @@ commands:
   name: send
   callback: app_send
   help: 'Set report interval (default: 3600)'
+- domain: app
+  name: show
+  callback: show
+  help: 'Show all configs'
 extras:
 - CONFIG_BT=n
 - CONFIG_APP_INIT_PRIORITY=50

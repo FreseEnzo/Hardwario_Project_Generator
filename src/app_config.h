@@ -9,6 +9,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern struct app_config g_app_config;
+
 static struct app_config  = {
 	int report_interval;
 	int counter_interval_aggreg;
@@ -16,9 +19,24 @@ static struct app_config  = {
 	float temperature;
 };
 
+
+int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_app_send(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
+
 #ifdef __cplusplus
 }
-#endif  /* APP_CONFIG_H_ */#ifndef APP_CONFIG_H_
+#endif
+
+#endif /* APP_CONFIG_H_ */#ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
 /* Zephyr includes */
@@ -29,6 +47,9 @@ static struct app_config  = {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern struct app_config g_app_config;
+
 static struct app_config  = {
 	int report_interval;
 	int counter_interval_aggreg;
@@ -36,26 +57,21 @@ static struct app_config  = {
 	float temperature;
 };
 
+
+int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_app_send(const struct shell *shell, size_t argc, char **argv);
+
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
+
 #ifdef __cplusplus
 }
-#endif  /* APP_CONFIG_H_ */#ifndef APP_CONFIG_H_
-#define APP_CONFIG_H_
-
-/* Zephyr includes */
-#include <zephyr/shell/shell.h>
-/* Standard includes */
-#include <stddef.h>
-
-#ifdef __cplusplus
-extern "C" {
 #endif
-static struct app_config  = {
-	int report_interval;
-	int counter_interval_aggreg;
-	bool debug_mode;
-	float temperature;
-};
 
-#ifdef __cplusplus
-}
-#endif  /* APP_CONFIG_H_ */
+#endif /* APP_CONFIG_H_ */
