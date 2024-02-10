@@ -1,33 +1,29 @@
+'''
+CHESTER SDK Project Generator
+08/02/2024
+Coded by Frese
+
+'''
 import os
 import os.path
 import pickle
 import re
 import sys
 import csv
+
 type_list = ['int', 'char', 'float', 'double', 'bool', 'void', 'short', 'long', 'signed', 'struct',]
 
 functions = []
 
 def create_h_struct(filename, struct_name, struct_fields):
-    """
-    Create a C struct in a .c file.
-
-    Parameters:
-    - filename: Name of the .c file
-    - struct_name: Name of the struct
-    - struct_fields: Dictionary containing field names and types of the struct
-                     Example: {'field1': 'int', 'field2': 'float'}
-
-    Returns:
-    - None
-    """
+  
     with open(filename, 'a') as f:
         f.write('struct ' + struct_name + ' {\n')
         for field, field_type in struct_fields.items():
             f.write('    ' + field_type + ' ' + field + ';\n')
         f.write('};\n\n')
 
-count_struct = 0
+
 def create_c_struct(c_file, struct_name, struct_interim_name, data):
 
     with open(c_file, 'a') as file:
@@ -90,8 +86,9 @@ def cmd_config_function(file_c, parameter):
     cmd_config_bool = f"""static void print_##_name_u(const struct shell *shell)                                     
     {{                                                                                          
         shell_print(shell, "app config #_name_d  %s",m_app_config_interim._name_u ? "true" : "false");                      
-    }}                                                                                          
-    int app_config_cmd_config_##_name_u(const struct shell *shell, size_t argc, char **argv)   
+    }}     
+
+int app_config_cmd_config_##_name_u(const struct shell *shell, size_t argc, char **argv)   
     {{                                                                                          
         if (argc == 1) {{                                                                   
             print_##_name_u(shell);                                                    
@@ -118,7 +115,8 @@ def cmd_config_function(file_c, parameter):
     {{                                                                                          
         shell_print(shell, "app config  #_name_d  %d", m_app_config_interim._name_u);    
     }}                                                                                          
-    int app_config_cmd_config_##_name_u(const struct shell *shell, size_t argc, char **argv)   
+
+int app_config_cmd_config_##_name_u(const struct shell *shell, size_t argc, char **argv)   
     {{                                                                                          
         if (argc == 1) {{                                                                   
             print_##_name_u(shell);                                                    
@@ -148,7 +146,8 @@ def cmd_config_function(file_c, parameter):
     {{                                                                                          
         shell_print(shell, "app config " #name_d " %.1f", m_app_config_interim._name_u);  
     }}                                                                                          
-    int app_config_cmd_config_##name_u(const struct shell *shell, size_t argc, char **argv)   
+
+int app_config_cmd_config_##name_u(const struct shell *shell, size_t argc, char **argv)   
     {{                                                                                          
         if (argc == 1) {{                                                                   
             print_##name_u(shell);                                                    
@@ -181,19 +180,6 @@ def cmd_config_function(file_c, parameter):
     # Write the function to a C file
     with open(file_c, "a") as file:
         file.write(config)
-
-def pickle_dump(root_path, data, file_name):
-    os.chdir(root_path)
-    fp = open(file_name, "w")
-    pickle.dump(data, fp)
-    fp.close()
-
-def pickle_load(root_path, file_name):
-    os.chdir(root_path)
-    fp_case = open(file_name, "r")
-    dict_case = pickle.load(fp_case)
-    fp_case.close()
-    return dict_case
 
 
 def is_valid_name(name):
@@ -261,7 +247,6 @@ def is_func(line):
 def get_line_type(line):
     line = line.strip()
     if line.startswith("/*"):
-#        print line
         return "comment_paragraph"
     elif line.startswith("//"):
         return "comment_line"
@@ -269,13 +254,7 @@ def get_line_type(line):
         return "macro"
     return "other"
 
-def is_comment_begin(line):
-    if line.startswith("/*"):
-        return True
-    return False
-
 def is_comment_end(line):
-    #print line
     line = line.strip()
     if line.endswith('*/'):
         return True
@@ -295,7 +274,6 @@ def func_name_extract(file_path):
     if not os.path.isfile(file_path):
         print('fdsafafasd')
         return
-    
 
     file_list = []
     with open(file_path, "r") as fp:
@@ -339,26 +317,26 @@ def write_to_file(list, output_file):
         for line in list:
             file.write(line)
 
-def copy_lines(nome_arquivo_entrada, nome_arquivo_saida, func_name, inicio, fim):
+def copy_lines(input_path, output_path, func_name, start, end):
     try:
-        with open(nome_arquivo_entrada, 'r') as arquivo_entrada:
-            linhas = arquivo_entrada.readlines()
+        with open(input_path, 'r') as file:
+            lines = file.readlines()
 
             #check if is a valid interval
-            if inicio < 1 or fim > len(linhas) or inicio > fim:
-                print("Intervalo de linhas inválido!")
+            if start < 1 or end > len(lines) or start > end:
+                print("Interval not valid!")
                 return
 
            
-            with open(nome_arquivo_saida, 'a') as arquivo_saida:
-                arquivo_saida.write('\n\n') 
-                for i in range(inicio - 1, fim):
-                    arquivo_saida.write(linhas[i])
+            with open(output_path, 'a') as file:
+                file.write('\n\n') 
+                for i in range(start - 1, end):
+                    file.write(lines[i])
 
-        print(f"function: {func_name} lines {inicio} to {fim} copied to {nome_arquivo_saida}.")
+        print(f"function: {func_name} lines {start} to {end} copied to {output_path}.")
 
     except FileNotFoundError:
-        print("Arquivo não encontrado!")
+        print("Path doesn't found!")
 
 def import_function(function_name, source_file, out_file_name):
 

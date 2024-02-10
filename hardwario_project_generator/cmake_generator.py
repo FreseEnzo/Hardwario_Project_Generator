@@ -1,3 +1,10 @@
+'''
+CHESTER SDK Project Generator
+08/02/2024
+Coded by Frese
+
+'''
+
 import os
 import yaml # pip install PyYAML
 
@@ -18,9 +25,9 @@ cmake_minimum_required(VERSION 3.20.0)
 
 # Supported shields: {SHIELDS}
 set(SHIELD {SHIELDS})
-find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project({PROJECT_NAME})\n\n"""
 
+project({PROJECT_NAME})\n\n"""
+# find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE}) test later
 # Template for target_sources_ifdef line
 TARGET_SOURCES_IFDEF_TEMPLATE = "target_sources_ifdef(CONFIG_{CONFIG} app PRIVATE {SRC})\n"
 

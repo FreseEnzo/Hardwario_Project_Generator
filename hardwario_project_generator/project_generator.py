@@ -114,13 +114,17 @@ def generate_app_config_c():
     write_to_file('\nSYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);',app_config_c)
  
 def generate_app_config_h():
-
+    # Ifndef
     write_to_file('#ifndef APP_CONFIG_H_\n#define APP_CONFIG_H_\n',app_config_h)
+    # Includes
     app_config_h_includes.append('\n')
     for include in app_config_h_includes:
         import_include(include,includes_file,app_config_h)
+    # Ifndef cpp
     write_to_file('\n#ifdef __cplusplus\nextern "C" {\n#endif',app_config_h)
+    # Struct
     create_h_struct(app_config_h,'app_config', data)
+    # Ifndef
     write_to_file('\n#ifdef __cplusplus\n}\n#endif  /* APP_CONFIG_H_ */',app_config_h)
 
 def generate_shell():
@@ -136,8 +140,7 @@ def generate_shell():
     # Functions
     for function in shell_functions:
         func_list = import_function(function,functions_file,shell_c)
-    print(func_list)
-
+    #print(func_list)
     # Shell CMD
     shell_cmds = [
                 'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
@@ -154,12 +157,6 @@ def generate_shell():
     shell_cmds += '\nSHELL_SUBCMD_SET_END\n);\n\n'
     write_to_file(shell_cmds,shell_c)
     write_to_file(shell_standard_functions,shell_c)
-        
-
-def generate_cmake_file():
-    # Generate the CMakeLists.txt file based on instructions
-    # You can implement your logic here
-    pass
 
 def generate_prj_config_file():
     # Basic Parameters
