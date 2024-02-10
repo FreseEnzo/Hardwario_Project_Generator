@@ -145,9 +145,25 @@ def generate_shell():
     for include in app_shell_includes: 
         import_include(include,includes_file,shell_c)
         
-    #LOG
+    # LOG
     write_to_file('\nLOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);\n\n',shell_c)
 
+    # Shell Help
+    shell_help = [
+    'static int print_help(const struct shell *shell, size_t argc, char **argv)\n',
+    '{\n',
+    '\tif (argc > 1) {\n',
+    '\t\tshell_error(shell, "command not found: %s", argv[1]);\n',
+    '\t\tshell_help(shell);\n',
+    '\t\treturn -EINVAL;\n',
+    '\t}\n',
+    '\n',
+    '\tshell_help(shell);\n',
+    '\n',
+    '\treturn 0;\n',
+    '}\n\n']
+    write_to_file(shell_help,shell_c)
+    
     # Shell CMD
     shell_cmds = [
                 '/* clang-format off */\n\n'
