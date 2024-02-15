@@ -5,7 +5,14 @@
 - [x] CMakeList.text
 - [x] prj.conf
 - [ ] app.overlay
-- [x] West
+- [ ] West
+## Last Changes
+- Added 'len:' and 'var:' to parameter with type (string) in YAML
+- Added 'shields:' in YAML
+- All imported to Jinja2
+## Next Steps
+- Multiple YAML config
+- West
 ## CHESTER SDK Project Generator
 
 **Coded by Frese**
@@ -37,6 +44,11 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.3
+shields:
+- ctr_ds18b20 
+- ctr_lte 
+- ctr_x0_a 
+- ctr_z
 features:
 - bluetooth
 - lte
@@ -63,7 +75,9 @@ parameters:
   help: 'Set report interval (default: 3600)'
 - domain: lte
   name: apn
+  var: apn
   type: string
+  len: 63 + 1
   default: onomondo
   help: Set APN network name
 - domain: app
