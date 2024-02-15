@@ -75,9 +75,9 @@ parameters:
   help: 'Set report interval (default: 3600)'
 - domain: lte
   name: apn
-  var: apn
+  var: apn # added 
   type: string
-  len: 63 + 1
+  len: 63 + 1 # added
   default: onomondo
   help: Set APN network name
 - domain: app
