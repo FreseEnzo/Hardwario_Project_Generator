@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2023 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+#ifndef APP_CONFIG_H_
+#define APP_CONFIG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+{% if struct_data %}
+struct app_config = {
+    {%- for param in struct_data['parameters'] %}
+        {{ param['type'] }} {{ param['var'] }};
+    {%- endfor %}
+};
+{% endif %}
+{%- for command in data['commands'] -%}
+    {%- if command['name'] == 'show' %}
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
+    {%- endif -%}
+{%- endfor -%}
+{% for parameter in data['parameters'] %}
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float'  %}
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
+{%- endif %}
+{%- endfor %}
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* APP_CONFIG_H_ */

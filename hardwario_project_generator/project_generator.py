@@ -114,26 +114,11 @@ def generate_app_config_c():
  
 def generate_app_config_h():
 
-    # Ifndef
-    write_to_file('#ifndef APP_CONFIG_H_\n#define APP_CONFIG_H_\n',app_config_h)
-
-    # Includes
-    app_config_h_includes.append('\n')
-    for include in app_config_h_includes:
-        import_include(include,includes_file,app_config_h)
-
-    # Ifndef cpp
-    write_to_file('\n#ifdef __cplusplus\nextern "C" {\n#endif\n',app_config_h)
-
-    # Struct
-    create_h_struct(app_config_h,'app_config g_app_config',None)
-    create_h_struct(app_config_h,'app_config', data)
-    # Primitives 
- 
-    app_config_h_primitives(app_config_h,data)
-       
-    # Ifndef
-    write_to_file('\n\n#ifdef __cplusplus\n}\n#endif\n\n#endif /* APP_CONFIG_H_ */',app_config_h)
+     # Setup Jinja environment
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_h.j2')
+    rendered_code = template.render(struct_data = data,data = data)
+    write_to_file(rendered_code,app_config_h)
 
 def generate_shell():
     # Setup Jinja environment
@@ -165,7 +150,7 @@ def generate_prj_config_file():
 def main():
     
     generate_app_config_c()
-    #generate_app_config_h()
+    generate_app_config_h()
     #generate_prj_config_file()
     generate_shell()
    

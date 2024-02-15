@@ -1,5 +1,5 @@
 # Hardwario YAML file for code generation
-# Always use Tab for identation
+# Always use Tab for indentation
 version: 1
 project:
   bundle: com.hardwario.chester.clime
@@ -31,6 +31,7 @@ parameters:
   help: 'Set report interval (default: 3600)'
 - domain: lte
   name: apn
+  var: apn
   type: string
   default: onomondo
   help: Set APN network name

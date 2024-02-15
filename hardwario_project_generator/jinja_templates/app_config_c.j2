@@ -1,4 +1,3 @@
-{# app_config_c.j2 #}
 /*
  * Copyright (c) 2023 HARDWARIO a.s.
  *
@@ -28,17 +27,22 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 #define SETTINGS_PFX "{{ setting_pfx['name'] }}"
 
 struct app_config g_app_config;
-
-{% if struct_data %}
+{% if data %}
 static struct app_config g_app_config = {
-{% for param in struct_data['parameters'] %}
+{% for param in data['parameters'] %}
+    {% if param['type'] == 'string'  -%}
+    .{{ param['var'] }} = "{{ param['default'] }}",
+    {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
+    {%- endif -%}
 {%- endfor %}
 };
-{% endif %}
+{%- endif %}
+
 {% for parameter in parameters %}
 {%- if parameter['type'] == 'bool' %}
-static void print_{{ parameter['var'] }}(const struct shell *shell){                                   
+static void print_{{ parameter['var'] }}(const struct shell *shell)
+{                                   
 {%- raw -%}
 {% endraw %}
     shell_print(shell, "app config {{ parameter['name'] }}  %s", m_app_config_interim.{{ parameter['var'] }} ? "true" : "false");                      
@@ -46,7 +50,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell){
 {% endraw %}
 }
 
-int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{
 {%- raw -%}
 {% endraw %}
     if (argc == 1) {
@@ -72,7 +77,8 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {%- endif %}
 
 {%- if parameter['type'] == 'int' %}
-static void print_{{ parameter['var'] }}(const struct shell *shell){                               
+static void print_{{ parameter['var'] }}(const struct shell *shell)
+{                               
 {%- raw -%}
 {% endraw %}
     shell_print(shell, "app config  {{ parameter['name'] }}  %d", m_app_config_interim.{{ parameter['var'] }});
@@ -80,7 +86,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell){
 {% endraw %}
 }
 
-int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv){ 
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{ 
 {%- raw -%}
 {% endraw %}
     if (argc == 1) {
@@ -109,7 +116,8 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {%- endif %}
 
 {%- if parameter['type'] == 'float' %}
-static void print_{{ parameter['var'] }}(const struct shell *shell){                                  
+static void print_{{ parameter['var'] }}(const struct shell *shell)
+{                                  
 {%- raw -%}
 {% endraw %}
     shell_print(shell, "app config {{ parameter['name'] }} %.1f", m_app_config_interim.{{ parameter['var'] }});
@@ -117,7 +125,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell){
 {% endraw %}
 }
 
-int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{
 {%- raw -%}
 {% endraw %}
     if (argc == 1) {
@@ -138,6 +147,47 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
         m_app_config_interim.{{ parameter['var'] }} = value;
         return 0;
     }
+    shell_help(shell);
+    return -EINVAL;
+}
+{%- endif %}
+{%- if parameter['type'] == 'string' %}
+static void print_{{ parameter['var'] }}(const struct shell *shell)
+{                                  
+{%- raw -%}
+{% endraw %}
+    shell_print(shell, "app config {{ parameter['name'] }} %.1f", m_app_config_interim.{{ parameter['var'] }});
+{%- raw -%}
+{% endraw %}
+}
+
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{
+{%- raw -%}
+{% endraw %}
+    if (argc == 1) {
+        print_{{ parameter['var'] }}(shell);
+        return 0;
+    }
+    if (argc == 2) {
+            size_t len = strlen(argv[1]);
+
+            if (len >= sizeof(m_config_interim.{{ parameter['var'] }})) {
+                shell_error(shell, "invalid format");
+                return -EINVAL;
+            }
+
+            for (size_t i = 0; i < len; i++) {
+                char c = argv[1][i];
+                if (!isalnum((int)c) && c != '-' && c != '.') {
+                    shell_error(shell, "invalid format");
+                    return -EINVAL;
+                }
+            }
+
+            strcpy(m_config_interim.{{ parameter['var'] }}, argv[1]);
+            return 0;
+        }
     shell_help(shell);
     return -EINVAL;
 }
@@ -221,3 +271,5 @@ static int init(void) {
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+
+

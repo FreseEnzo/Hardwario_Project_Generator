@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2023 HARDWARIO a.s.
  *
@@ -36,7 +35,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(show, NULL, "List current configuration.", app_config_cmd_config_show, 1, 0),
     SHELL_CMD_ARG(report-interval, NULL, "Set report interval (default: 3600)", app_config_cmd_report_interval, 1, 1),
     SHELL_CMD_ARG(counter-interval-aggreg, NULL, "Set report interval (default: 3600)", app_config_cmd_counter_interval_aggreg, 1, 1),
-    SHELL_CMD_ARG(apn, NULL, "Set APN network name", app_config_cmd_, 1, 1),
+    SHELL_CMD_ARG(apn, NULL, "Set APN network name", app_config_cmd_apn, 1, 1),
     SHELL_CMD_ARG(debug-mode, NULL, "Set debug mode (T/F)", app_config_cmd_debug_mode, 1, 1),
     SHELL_CMD_ARG(temperature, NULL, "Set Temperature 0.0f to 50.f", app_config_cmd_temperature, 1, 1),
         

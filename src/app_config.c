@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2023 HARDWARIO a.s.
  *
@@ -29,22 +28,23 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 struct app_config g_app_config;
 
-
 static struct app_config g_app_config = {
 
     .report_interval = 3600,
     .counter_interval_aggreg = 25,
-    . = onomondo,
+    .apn = "onomondo",
     .debug_mode = True,
     .temperature = 24.54,
 };
 
 
-static void print_report_interval(const struct shell *shell){
+static void print_report_interval(const struct shell *shell)
+{
     shell_print(shell, "app config  report-interval  %d", m_app_config_interim.report_interval);
 }
 
-int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv)
+{
     if (argc == 1) {
         print_report_interval(shell);
         return 0;
@@ -69,11 +69,13 @@ int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc
     return -EINVAL;
 }
 
-static void print_counter_interval_aggreg(const struct shell *shell){
+static void print_counter_interval_aggreg(const struct shell *shell)
+{
     shell_print(shell, "app config  counter-interval-aggreg  %d", m_app_config_interim.counter_interval_aggreg);
 }
 
-int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
+{
     if (argc == 1) {
         print_counter_interval_aggreg(shell);
         return 0;
@@ -98,12 +100,47 @@ int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, siz
     return -EINVAL;
 }
 
+static void print_apn(const struct shell *shell)
+{
+    shell_print(shell, "app config apn %.1f", m_app_config_interim.apn);
+}
 
-static void print_debug_mode(const struct shell *shell){
+int app_config_cmd_config_apn(const struct shell *shell, size_t argc, char **argv)
+{
+    if (argc == 1) {
+        print_apn(shell);
+        return 0;
+    }
+    if (argc == 2) {
+            size_t len = strlen(argv[1]);
+
+            if (len >= sizeof(m_config_interim.apn)) {
+                shell_error(shell, "invalid format");
+                return -EINVAL;
+            }
+
+            for (size_t i = 0; i < len; i++) {
+                char c = argv[1][i];
+                if (!isalnum((int)c) && c != '-' && c != '.') {
+                    shell_error(shell, "invalid format");
+                    return -EINVAL;
+                }
+            }
+
+            strcpy(m_config_interim.apn, argv[1]);
+            return 0;
+        }
+    shell_help(shell);
+    return -EINVAL;
+}
+
+static void print_debug_mode(const struct shell *shell)
+{
     shell_print(shell, "app config debug-mode  %s", m_app_config_interim.debug_mode ? "true" : "false");
 }
 
-int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv)
+{
     if (argc == 1) {
         print_debug_mode(shell);                                                    
         return 0;
@@ -125,11 +162,13 @@ int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, cha
     return -EINVAL;
 }
 
-static void print_temperature(const struct shell *shell){
+static void print_temperature(const struct shell *shell)
+{
     shell_print(shell, "app config temperature %.1f", m_app_config_interim.temperature);
 }
 
-int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv){
+int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv)
+{
     if (argc == 1) {
         print_temperature(shell);
         return 0;
@@ -292,3 +331,4 @@ static int init(void) {
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+
