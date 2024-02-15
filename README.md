@@ -34,6 +34,9 @@ To use the CHESTER SDK Project Generator, ensure you have the required dependenc
 ```bash
 pip install PyYAML
 ```
+```bash
+pip install Jinja2
+```
 ### YAML Configuration Example
 
 ```yaml
