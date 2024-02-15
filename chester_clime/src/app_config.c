@@ -24,7 +24,7 @@
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
-#define SETTINGS_PFX "CHESTER Clime"
+#define SETTINGS_PFX "chester_clime"
 
 struct app_config g_app_config;
 

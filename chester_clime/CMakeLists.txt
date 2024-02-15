@@ -10,8 +10,9 @@ cmake_minimum_required(VERSION 3.20.0)
 set(SHIELD ctr_ds18b20 ctr_lte ctr_x0_a ctr_z)
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(CHESTER Clime)
+
+project(chester_clime)
 
 
-target_sources(app PRIVATE src/app_config.c)
-target_sources(app PRIVATE src/app_shell.c)
+target_sources(app PRIVATE ./chester_clime/src/app_config.c)
+target_sources(app PRIVATE ./chester_clime/src/app_shell.c)

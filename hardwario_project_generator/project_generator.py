@@ -11,10 +11,7 @@ import os
 
 from jinja2 import Environment, FileSystemLoader
 
-# File Paths
-app_config_c = './src/app_config.c'
-app_config_h = './src/app_config.h'
-shell_c = './src/app_shell.c'
+
 
 # Includes 
 config_c_includes = ['"app_config.h"']
@@ -27,7 +24,11 @@ zephyr_includes = ['<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/shell/s
 shell_includes = ['"app_config.h"','"app_work.h"']
 standard_shell_includes = ['<errno.h>','<stdlib.h>']
 
-
+# File Paths
+app_config_c = './src/app_config.c'
+app_config_h = './src/app_config.h'
+shell_c = './src/app_shell.c'
+prj_conf = './'
 # Shell Parameters
 dict_features = {
     'shell': 'CONFIG_ADC_SHELL=y\n',
@@ -62,9 +63,26 @@ with open(yaml_file, 'r') as stream:
 # Setup Jinja environment
 env = Environment(loader=FileSystemLoader('.'))
 
+def generate_project_folder(project_name):
+    # Create the project directory if it doesn't exist
+    project_dir = os.path.join('.', project_name)
+    if not os.path.exists(project_dir):
+        os.makedirs(project_dir)
+    return project_dir
+
+def create_project_structure(data):
+
+    # Extract project name from data
+    project_name = data.get('project', {}).get('name')
+    if not project_name:
+        print("Project name not provided in the data.")
+        return
+    # You can add more folder creation logic here if needed
+    print("Project structure creation completed.")
+
 def write_to_file(list, output_file):
     # Write the function to a C file
-    with open(output_file, "a") as file:
+    with open(output_file, "w") as file:
         for line in list:
             file.write(line)
 
@@ -74,21 +92,19 @@ def transform_to_slug(text):
     # Remover caracteres especiais
     slug = re.sub(r'[^a-zA-Z0-9\s]', '', slug)
     # Substituir espaços por hífens
-    slug = slug.replace(' ', '-')
+    slug = slug.replace(' ', '_')
     return slug
 
-def generate_app_config_c():
-    
-    try:
-        os.mkdir('./src')
-    except:
-        print('Folder already exists')
+
+def generate_app_config_c(project_dir,project_name):
+    src_dir = os.path.join(project_dir, 'src')
+    if not os.path.exists(src_dir):
+        os.makedirs(src_dir)
+    app_config_c = os.path.join(src_dir, 'app_config.c')
 
     # Setup Jinja environment
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_c.j2')
-    setting_pfx = data['project']
-
     parameters = data['parameters']
     
     # Render the template with data
@@ -98,18 +114,20 @@ def generate_app_config_c():
                                      standard_config_includes=standard_config_includes,
                                      struct_data=data,
                                      commands=data['commands'],
-                                     setting_pfx = setting_pfx,
+                                     setting_pfx = project_name,
                                      parameters = parameters,
                                      data = data,
                                      )
     write_to_file(rendered_code,app_config_c)
  
-def generate_app_config_h():
+def generate_app_config_h(project_dir):
+    app_config_h = os.path.join(project_dir, 'src', 'app_config.h')
     template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_h.j2')
     rendered_code = template.render(struct_data = data,data = data)
     write_to_file(rendered_code,app_config_h)
 
-def generate_shell():
+def generate_shell(project_dir):
+    shell_c = os.path.join(project_dir, 'src', 'app_shell.c')
     template = env.get_template('./hardwario_project_generator/jinja_templates/shell_c.j2')
 
     # Render the template with data
@@ -122,22 +140,23 @@ def generate_shell():
     write_to_file(rendered_code,shell_c)
 
 
-def generate_prj_config_file():
-
+def generate_prj_config_file(project_dir):
+    prj_conf = os.path.join(project_dir, 'prj.conf')
     template = env.get_template('./hardwario_project_generator/jinja_templates/prj_conf.j2')
 
     # Render the template with data
     rendered_code = template.render(data=data,dict_features = dict_features)
-
-    write_to_file(rendered_code,'./prj.conf')
+    write_to_file(rendered_code,prj_conf)
 
 def main():
-    
-    generate_app_config_c()
-    generate_app_config_h()
-    generate_prj_config_file()
-    generate_shell()
-   
+    project_name = transform_to_slug(data['project']['name'])
+    project_dir = generate_project_folder(project_name)
+    create_project_structure(data)
+    generate_app_config_c(project_dir,project_name)
+    generate_app_config_h(project_dir)
+    generate_shell(project_dir)
+    generate_prj_config_file(project_dir)
+
 if __name__ == "__main__":
     main()
     
