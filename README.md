@@ -1,3 +1,11 @@
+### Jinja Progress
+- [x] shell.c
+- [x] app_config.c (just nees to import string mode)
+- [ ] app_config.h
+- [x] CMakeList.text
+- [x] prj.conf
+- [ ] app.overlay
+- [x] West
 ## CHESTER SDK Project Generator
 
 **Coded by Frese**
@@ -129,3 +137,5 @@ project(CHESTER Clime)
 target_sources(app PRIVATE src/app_config.c)
 target_sources(app PRIVATE src/app_shell.c)
 ```
+### Problems and Solutions
+- Apparently Jinja has some problems with global variables
