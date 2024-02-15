@@ -10,6 +10,7 @@
 - Added 'len:' and 'var:' to parameter with type (string) in YAML
 - Added 'shields:' in YAML
 - All imported to Jinja2
+- Folder creation with project name ex: ( name: CHESTER-CLIME) -> folder (chester_clime)
 ## Next Steps
 - Multiple YAML config
 - West
