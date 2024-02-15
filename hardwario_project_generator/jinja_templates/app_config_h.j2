@@ -6,14 +6,25 @@
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
+/* Zephyr includes */
+#include <zephyr/shell/shell.h>
+
+/* Standard includes */
+#include <stdbool.h>
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 {% if struct_data %}
 struct app_config = {
-    {%- for param in struct_data['parameters'] %}
+    {% for param in struct_data['parameters'] %}
+        {%- if param['type'] == 'string'  %}
+        char {{ param['var'] }} [{{param['len']}}];
+        {%- else %}
         {{ param['type'] }} {{ param['var'] }};
+        {%- endif %}
     {%- endfor %}
 };
 {% endif %}

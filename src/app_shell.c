@@ -17,7 +17,8 @@
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
-static int print_help(const struct shell *shell, size_t argc, char **argv) {
+static int print_help(const struct shell *shell, size_t argc, char **argv)
+{
     if (argc > 1) {
         shell_error(shell, "command not found: %s", argv[1]);
         shell_help(shell);

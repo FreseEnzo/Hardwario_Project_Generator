@@ -1,66 +1,30 @@
-'''
-CHESTER SDK Project Generator
-08/02/2024
-Coded by Frese
-
-'''
-
 import os
-import yaml # pip install PyYAML
+import yaml
+from jinja2 import Environment, FileSystemLoader
 
 # YAML file
 yaml_file = "./params.yaml"
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
 
-# Header for the generated CMakeLists.txt
-HEADER = """\
-#
-# Copyright (c) 2024 HARDWARIO a.s.
-#
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-#
-
-cmake_minimum_required(VERSION 3.20.0)
-
-# Supported shields: {SHIELDS}
-set(SHIELD {SHIELDS})
-
-find_package(Zephyr REQUIRED HINTS $ENV{{ZEPHYR_BASE}})
-project({PROJECT_NAME})\n\n"""
-
-# Template for target_sources_ifdef line
-TARGET_SOURCES_IFDEF_TEMPLATE = "target_sources_ifdef(CONFIG_{CONFIG} app PRIVATE {SRC})\n"
-
-# Template for target_sources line
-TARGET_SOURCES_TEMPLATE = "target_sources(app PRIVATE {SRC})\n"
-
-# Directory to scan for source files
-SRC_DIR = "src"
-
-# List of source file extensions to include
-SOURCE_EXTENSIONS = [".c"]
+# Jinja Template for CMakeLists.txt
 
 
-def generate_cmake_lists(project_name, shields):
-    cmake_content = HEADER.format(PROJECT_NAME=project_name, SHIELDS=' '.join(shields))
+# Convert YAML data to appropriate format for Jinja
+sources = []
+for root, dirs, files in os.walk("src"):
+    sources.append((root, dirs, files))
 
-    # Iterate over the files in the src directory
-    for root, dirs, files in os.walk(SRC_DIR):
-        for file in files:
-            if any(file.endswith(ext) for ext in SOURCE_EXTENSIONS):
-                src_file_path = os.path.join(root, file)
-                # Convert the path to use forward slashes
-                src_file_path = src_file_path.replace(os.sep, '/')
-                cmake_content += TARGET_SOURCES_TEMPLATE.format(SRC=src_file_path)
+env = Environment(loader=FileSystemLoader('.'))
+template = env.get_template('./hardwario_project_generator/jinja_templates/CMakeLists.j2')
 
-    # Write the generated CMakeLists.txt content to a file
-    with open("CMakeLists.txt", "w") as f:
-        f.write(cmake_content)
+# Render the template with data
+project = data['project']
+rendered_template = template.render(project_name=project['name'], supported_shields = data['shields'], shields=' '.join(data['shields']), sources=sources)
 
 
-if __name__ == "__main__":
-    project_name = data['project']['name']
-    shields = input("Enter the supported shields (separated by space): ").split()
 
-    generate_cmake_lists(project_name, shields)
+# Write the rendered template to CMakeLists.txt
+with open("CMakeLists.txt", "w") as f:
+    f.write(rendered_template)
+

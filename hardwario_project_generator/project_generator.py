@@ -8,12 +8,10 @@ Coded by Frese
 import yaml # pip install PyYAML
 import re
 import os
-from import_functions import *
+
 from jinja2 import Environment, FileSystemLoader
 
 # File Paths
-functions_file = './hardwario_project_generator/params_source/functions.c'
-includes_file = './hardwario_project_generator/params_source/includes.c'
 app_config_c = './src/app_config.c'
 app_config_h = './src/app_config.h'
 shell_c = './src/app_shell.c'
@@ -28,23 +26,10 @@ zephyr_config_c_includes = ['<zephyr/init.h>','<zephyr/kernel.h>','<zephyr/loggi
 zephyr_includes = ['<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/shell/shell.h>']
 shell_includes = ['"app_config.h"','"app_work.h"']
 standard_shell_includes = ['<errno.h>','<stdlib.h>']
-# Functions
-items = [
-    '#include <chester/ctr_config.h>',
-    '#include <ctype.h>',
-    '#include <stdbool.h>',
-    '#include <stdlib.h>',
-    '#include <string.h>',
-    '#include <zephyr/init.h>',
-    '#include <zephyr/kernel.h>',
-    '#include <zephyr/logging/log.h>',
-    '#include <zephyr/settings/settings.h>',
-    '#include <zephyr/shell/shell.h>'
-]
+
 
 # Shell Parameters
-basic_parameters = ['# Basic Parameters\n','CONFIG_ARM=y\n','CONFIG_BOARD_CHESTER_NRF52840=y\n']
-config_parameters = {
+dict_features = {
     'shell': 'CONFIG_ADC_SHELL=y\n',
     'accel': 'CONFIG_CTR_ACCEL=y\n',
     'adc': 'CONFIG_CTR_ADC=y\n',
@@ -70,11 +55,18 @@ config_parameters = {
     'zcbor': 'CONFIG_ZCBOR=y\n'
 }
 
-
 # YAML file
 yaml_file = "./params.yaml"
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
+# Setup Jinja environment
+env = Environment(loader=FileSystemLoader('.'))
+
+def write_to_file(list, output_file):
+    # Write the function to a C file
+    with open(output_file, "a") as file:
+        for line in list:
+            file.write(line)
 
 def transform_to_slug(text):
     # Converter para minúsculas
@@ -113,45 +105,37 @@ def generate_app_config_c():
     write_to_file(rendered_code,app_config_c)
  
 def generate_app_config_h():
-
-     # Setup Jinja environment
-    env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_h.j2')
     rendered_code = template.render(struct_data = data,data = data)
     write_to_file(rendered_code,app_config_h)
 
 def generate_shell():
-    # Setup Jinja environment
-    env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('./hardwario_project_generator/jinja_templates/shell_c.j2')
 
     # Render the template with data
-    rendered_code = template.render(shell_includes=shell_includes,zephyr_includes=zephyr_includes, standard_shell_includes=standard_shell_includes,commands=data['commands'], parameters=data['parameters'])
+    rendered_code = template.render(shell_includes=shell_includes,
+                                    zephyr_includes=zephyr_includes,
+                                    standard_shell_includes=standard_shell_includes,
+                                    commands=data['commands'],
+                                    parameters=data['parameters'])
 
     write_to_file(rendered_code,shell_c)
 
 
 def generate_prj_config_file():
-    # Basic Parameters
-    global_prj_conf = basic_parameters
-    
-    # Feature Parameters
-    global_prj_conf.append('\n#Parameters specified by features\n')
-    for feature in data['features']:
-        if feature in config_parameters:
-            global_prj_conf.append(config_parameters[feature])
 
-    #Extra Parameters
-    global_prj_conf.append('\n# Extra parameters\n')
-    new_extras = [line + '\n' for line in data['extras']]
-    global_prj_conf += new_extras
-    write_to_file(global_prj_conf,'./prj.conf')
+    template = env.get_template('./hardwario_project_generator/jinja_templates/prj_conf.j2')
+
+    # Render the template with data
+    rendered_code = template.render(data=data,dict_features = dict_features)
+
+    write_to_file(rendered_code,'./prj.conf')
 
 def main():
     
     generate_app_config_c()
     generate_app_config_h()
-    #generate_prj_config_file()
+    generate_prj_config_file()
     generate_shell()
    
 if __name__ == "__main__":

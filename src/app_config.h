@@ -6,15 +6,23 @@
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
+/* Zephyr includes */
+#include <zephyr/shell/shell.h>
+
+/* Standard includes */
+#include <stdbool.h>
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
 struct app_config = {
+    
         int report_interval;
         int counter_interval_aggreg;
-        string apn;
+        char apn [63 + 1];
         bool debug_mode;
         float temperature;
 };
