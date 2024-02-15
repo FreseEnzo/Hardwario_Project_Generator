@@ -1,7 +1,7 @@
 ## Project Progress
 - [x] shell.c
-- [x] app_config.c (just nees to import string mode)
-- [ ] app_config.h
+- [x] app_config.c 
+- [x] app_config.h
 - [x] CMakeList.text
 - [x] prj.conf
 - [ ] app.overlay
