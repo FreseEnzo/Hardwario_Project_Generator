@@ -4,6 +4,7 @@ CHESTER SDK Project Generator
 Coded by Frese
 
 '''
+from jinja2 import Template
 
 def create_c_struct(c_file, struct_name, struct_interim_name, data):
     if data == None:

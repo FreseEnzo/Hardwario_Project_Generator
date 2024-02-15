@@ -9,7 +9,7 @@ import yaml # pip install PyYAML
 import re
 import os
 from import_functions import *
-
+from jinja2 import Environment, FileSystemLoader
 
 # File Paths
 functions_file = './hardwario_project_generator/params_source/functions.c'
@@ -19,15 +19,28 @@ app_config_h = './src/app_config.h'
 shell_c = './src/app_shell.c'
 
 # Includes 
-app_config_c_includes = ['Copyrigh','License','app_config']
-app_config_h_includes = ['Zephyr','shell','Standard','stddef']
-chester_includes = ['CHESTER','ctr_config']
-standard_includes = ['Standard','ctype', 'stdbool','stdio','stdlib','string']
-zephyr_includes = ['Zephyr','init','kernel','log','settings','shell']
-shell_includes = ['app_config']
-
+config_c_includes = ['"app_config.h"']
+app_config_c_includes =['<chester/ctr_config.h>']
+app_config_h_includes = []
+standard_config_includes = ['<ctype.h>', '<stdbool.h>','<stdio.h>','<stdlib.h>','<string.h>']
+zephyr_config_c_includes = ['<zephyr/init.h>','<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/settings/settings.h>','<zephyr/shell/shell.h>']
+#Shell
+zephyr_includes = ['<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/shell/shell.h>']
+shell_includes = ['"app_config.h"','"app_work.h"']
+standard_shell_includes = ['<errno.h>','<stdlib.h>']
 # Functions
-
+items = [
+    '#include <chester/ctr_config.h>',
+    '#include <ctype.h>',
+    '#include <stdbool.h>',
+    '#include <stdlib.h>',
+    '#include <string.h>',
+    '#include <zephyr/init.h>',
+    '#include <zephyr/kernel.h>',
+    '#include <zephyr/logging/log.h>',
+    '#include <zephyr/settings/settings.h>',
+    '#include <zephyr/shell/shell.h>'
+]
 
 # Shell Parameters
 basic_parameters = ['# Basic Parameters\n','CONFIG_ARM=y\n','CONFIG_BOARD_CHESTER_NRF52840=y\n']
@@ -79,38 +92,25 @@ def generate_app_config_c():
     except:
         print('Folder already exists')
 
-    # Includes import
-    app_config_c_includes.append('\n')
-    chester_includes.append('\n')
-    standard_includes.append('\n')
-    shell_includes.append('\n')
-    app_config_includes =  app_config_c_includes + chester_includes + standard_includes + zephyr_includes 
-    for include in app_config_includes:
-        import_include(include,includes_file,app_config_c)
+    # Setup Jinja environment
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_c.j2')
+    setting_pfx = data['project']
 
-    # LOG
-    write_to_file('\n\nLOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);\n', app_config_c)
-
-    # Define
-    write_to_file(f'''\n#define SETTINGS_PFX "{transform_to_slug(data['project']['name'])}"\n''', app_config_c)
-
-    # Creating Struct
-    create_c_struct(app_config_c,'app_config',' g_app_config', None)
-    create_c_struct(app_config_c,'app_config','m_app_config_interim', data)
-
-    #Functions Creations
-    for parameter in data['parameters']:
-        try:
-            cmd_config_function(app_config_c,parameter)
-        except:
-            pass
-
-    # Creating Config Show
-    create_c_commands(app_config_c, data)
-
-    # Functions import 
-    create_app_config_init(app_config_c,data)
-    write_to_file('\nSYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);',app_config_c)
+    parameters = data['parameters']
+    
+    # Render the template with data
+    rendered_code = template.render(config_c_includes=config_c_includes,
+                                     app_config_c_includes=app_config_c_includes,
+                                     zephyr_config_c_includes=zephyr_config_c_includes,
+                                     standard_config_includes=standard_config_includes,
+                                     struct_data=data,
+                                     commands=data['commands'],
+                                     setting_pfx = setting_pfx,
+                                     parameters = parameters,
+                                     data = data,
+                                     )
+    write_to_file(rendered_code,app_config_c)
  
 def generate_app_config_h():
 
@@ -136,68 +136,15 @@ def generate_app_config_h():
     write_to_file('\n\n#ifdef __cplusplus\n}\n#endif\n\n#endif /* APP_CONFIG_H_ */',app_config_h)
 
 def generate_shell():
-    # Includes
-    commands = data['commands']
-    shell_includes.append('\n')
-    zephyr_includes.append('\n')
-    standard_includes.append('\n')
-    app_shell_includes = shell_includes + zephyr_includes + standard_includes
-    for include in app_shell_includes: 
-        import_include(include,includes_file,shell_c)
-        
-    # LOG
-    write_to_file('\nLOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);\n\n',shell_c)
+    # Setup Jinja environment
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template('./hardwario_project_generator/jinja_templates/shell_c.j2')
 
-    # Shell Help
-    shell_help = [
-    'static int print_help(const struct shell *shell, size_t argc, char **argv)\n',
-    '{\n',
-    '\tif (argc > 1) {\n',
-    '\t\tshell_error(shell, "command not found: %s", argv[1]);\n',
-    '\t\tshell_help(shell);\n',
-    '\t\treturn -EINVAL;\n',
-    '\t}\n',
-    '\n',
-    '\tshell_help(shell);\n',
-    '\n',
-    '\treturn 0;\n',
-    '}\n\n']
-    write_to_file(shell_help,shell_c)
-    
-    # Shell CMD
-    shell_cmds = [
-                '/* clang-format off */\n\n'
-                'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
-                '\tsub_app_config,\n',
-                '\n',
-                ]
-    for command in commands:
-        if command['name'] =='show':
-            shell_cmds.append('\tSHELL_CMD_ARG(show, NULL, "List current configuration." app_config_cmd_config_show, 1, 0),\n\n')
-    for parameter in data['parameters']:
-        try:
-            shell_cmds += f"\tSHELL_CMD_ARG({parameter['name']}, NULL, \"{parameter['help']}\", app_config_cmd_{parameter['var']}, 1, 1),\n"
-        except:
-            continue
-    shell_cmds += '\nSHELL_SUBCMD_SET_END\n);\n\n'
-    write_to_file(shell_cmds,shell_c)
-    shell_cmds_middle = [
-    'SHELL_STATIC_SUBCMD_SET_CREATE(\n',
-    '\tsub_app,\n',
-    '\n',
-    '\tSHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.",\n,print_help, 1, 0),\n',
-    '\n',
-    '\tSHELL_SUBCMD_SET_END\n',
-    ');\n',
-    '\n',
-    'SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);\n']
-    shell_cmds_end = [
-    '\n',
-    '/* clang-format on */\n']
-    for command in commands:
-        shell_cmds_middle.append(f'''SHELL_CMD_REGISTER({command['name']}, NULL, '{command['help']}', '{command['callback']}');\n''')
-    shell_cmds_middle += shell_cmds_end
-    write_to_file(shell_cmds_middle,shell_c)
+    # Render the template with data
+    rendered_code = template.render(shell_includes=shell_includes,zephyr_includes=zephyr_includes, standard_shell_includes=standard_shell_includes,commands=data['commands'], parameters=data['parameters'])
+
+    write_to_file(rendered_code,shell_c)
+
 
 def generate_prj_config_file():
     # Basic Parameters
@@ -218,8 +165,8 @@ def generate_prj_config_file():
 def main():
     
     generate_app_config_c()
-    generate_app_config_h()
-    generate_prj_config_file()
+    #generate_app_config_h()
+    #generate_prj_config_file()
     generate_shell()
    
 if __name__ == "__main__":
