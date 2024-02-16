@@ -14,6 +14,162 @@
 ## Next Steps
 - Multiple YAML config
 - West
+## About Multiple YAML config
+I create a code that compare two .yaml (paramters.yaml) and a variant like (CHESTER_Clime.yaml) where the product of this concatenation is a project.yaml where it contains all stuff of both yaml.
+If in parametes.yaml the user create the same variable, the code ovelap the value in project .yaml
+### Example
+parametes.yaml
+```yaml
+version: 1
+project:
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Clime
+  version: v1.0.3
+features:
+- led
+- button 
+parameters:
+- domain: app
+  name: interval-report
+  var: interval_report
+  type: int
+  min: 0
+  max: 40000  
+  default: 3600
+  help: 'Set report interval (default: 3600)'
+- domain: app
+  name: counter-interval-aggreg
+  var: counter_interval_aggreg
+  type: int
+  min: 32
+  max: 324  
+  default: 25
+  help: 'Set report interval (default: 3600)'
+- domain: lte
+  name: apn
+  var: apn
+  type: string
+  len: 63 + 1
+  default: onomondo
+  help: Set APN network name
+extras:
+- CONFIG_BT=n
+- CONFIG_APP_INIT_PRIORITY=50
+```
+CHESTER_Clime.yaml
+```yaml
+shields:
+  - ctr_lte
+  - ctr_s2
+features:
+- bluetooth
+- lte
+- lorawan
+- shell
+parameters:
+  - domain: app
+    name: interval-report
+    var: interval_report
+    type: int
+    min: 0
+    max: 65535
+    default: 60
+    help: 'Set interval report (default: 60)'
+  - domain: app
+    name: interval-aggreg
+    var: interval_aggreg
+    type: int
+    min: 0
+    max: 65535
+    default: 1800
+    help: 'Set interval aggreg (default: 25)'
+  - domain: app
+    name: interval-sample
+    var: interval_sample
+    type: int
+    min: 0
+    max: 65535
+    default: 25
+    help: 'Set interval aggreg (default: 25)'
+  - domain: app
+    name: event-report-delay
+    var: event_report_delay
+    type: int
+    min: 0
+    max: 65535
+    default: 1
+    help: 'Set event_report_delay (default: 1)'
+
+```
+project.yaml
+``` yaml
+version: 1
+project:
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Clime
+  version: v1.0.3
+features:
+- led
+- button
+- bluetooth
+- lte
+- lorawan
+- shell
+parameters:
+- domain: app
+  name: interval-report 3600 <--- (overlapped)
+  var: interval_report
+  type: int
+  min: 0
+  max: 40000  
+  default: 3600 <--- (overlapped)
+  help: 'Set report interval (default: 3600)'
+- domain: app
+  name: counter-interval-aggreg
+  var: counter_interval_aggreg
+  type: int
+  min: 32
+  max: 324  
+  default: 25
+  help: 'Set report interval (default: 3600)'
+- domain: lte
+  name: apn
+  var: apn
+  type: string
+  len: 63 + 1
+  default: onomondo
+  help: Set APN network name
+- domain: app
+  name: interval-aggreg
+  var: interval_aggreg
+  type: int
+  min: 0
+  max: 65535
+  default: 1800
+  help: 'Set interval aggreg (default: 25)'
+- domain: app
+  name: interval-sample
+  var: interval_sample
+  type: int
+  min: 0
+  max: 65535
+  default: 25
+  help: 'Set interval aggreg (default: 25)'
+- domain: app
+  name: event-report-delay
+  var: event_report_delay
+  type: int
+  min: 0
+  max: 65535
+  default: 1
+  help: 'Set event_report_delay (default: 1)'
+extras:
+- CONFIG_BT=n
+- CONFIG_APP_INIT_PRIORITY=50
+shields:
+  - ctr_lte
+  - ctr_s2
+```
 ## CHESTER SDK Project Generator
 
 **Coded by Frese**
