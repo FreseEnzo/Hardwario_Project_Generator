@@ -21,7 +21,7 @@ template = env.get_template('./hardwario_project_generator/jinja_templates/CMake
 # Render the template with data
 project = data['project']
 rendered_template = template.render(project_name=project_name, supported_shields = data['shields'], shields=' '.join(data['shields']), sources=sources)
-
+print(sources)
 
 # Write the rendered template to CMakeLists.txt
 with open('./' + project_name+'/CMakeLists.txt', "w") as f:

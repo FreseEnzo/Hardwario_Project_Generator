@@ -16,7 +16,7 @@ project({{ project_name }})
 {% for root, dirs, files in sources %}
 {%- for file in files %}
 {%- if file.endswith(".c") %}
-target_sources(app PRIVATE {{ root }}/{{ file }})
+target_sources(app PRIVATE src/{{ file }})
 {%- endif %}
 {%- endfor %}
 {%- endfor %}

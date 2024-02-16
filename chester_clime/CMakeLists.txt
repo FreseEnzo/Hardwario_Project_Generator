@@ -14,5 +14,5 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(chester_clime)
 
 
-target_sources(app PRIVATE ./chester_clime/src/app_config.c)
-target_sources(app PRIVATE ./chester_clime/src/app_shell.c)
+target_sources(app PRIVATE src/app_config.c)
+target_sources(app PRIVATE src/app_shell.c)
