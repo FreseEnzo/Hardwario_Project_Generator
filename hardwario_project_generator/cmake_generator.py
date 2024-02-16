@@ -1,5 +1,5 @@
 import os
-import yaml
+import lala
 from jinja2 import Environment, FileSystemLoader
 from project_generator import *
 
@@ -8,7 +8,7 @@ project_name = transform_to_slug(data['project']['name'])
 # YAML file
 yaml_file = "./params.yaml"
 with open(yaml_file, 'r') as stream:
-    data = yaml.safe_load(stream)
+    data = lala.safe_load(stream)
 
 # Convert YAML data to appropriate format for Jinja
 sources = []

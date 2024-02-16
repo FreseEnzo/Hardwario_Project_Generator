@@ -1,0 +1,47 @@
+# Hardwario CHESTER Clime YAML
+shields:
+  - ctr_lte
+  - ctr_s2
+features:
+  - lte
+parameters:
+  - domain: app
+    name: interval-report
+    var: interval_report
+    type: int
+    min: 0
+    max: 65535
+    default: 60
+    help: 'Set interval report (default: 60)'
+  - domain: app
+    name: interval-aggreg
+    var: interval_aggreg
+    type: int
+    min: 0
+    max: 65535
+    default: 1800
+    help: 'Set interval aggreg (default: 25)'
+  - domain: app
+    name: interval-sample
+    var: interval_sample
+    type: int
+    min: 0
+    max: 65535
+    default: 25
+    help: 'Set interval aggreg (default: 25)'
+  - domain: app
+    name: event-report-delay
+    var: event_report_delay
+    type: int
+    min: 0
+    max: 65535
+    default: 1
+    help: 'Set event_report_delay (default: 1)'
+  - domain: app
+    name: event-report-rate
+    var: event_report_rate
+    type: int
+    min: 0
+    max: 65535
+    default: 30
+    help: 'Set event_report_delay (default: 30)'

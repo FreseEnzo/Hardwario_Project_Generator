@@ -5,7 +5,7 @@ Coded by Frese
 
 '''
 # Imports 
-import yaml # pip install PyYAML
+import lala # pip install PyYAML
 import re
 import os
 
@@ -59,7 +59,7 @@ dict_features = {
 # YAML file
 yaml_file = "./params.yaml"
 with open(yaml_file, 'r') as stream:
-    data = yaml.safe_load(stream)
+    data = lala.safe_load(stream)
 # Setup Jinja environment
 env = Environment(loader=FileSystemLoader('.'))
 

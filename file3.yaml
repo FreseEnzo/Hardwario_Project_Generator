@@ -1,0 +1,108 @@
+# Hardwario YAML file for code generation
+# Always use Tab for indentation
+version: 1
+project:
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Clime
+  version: v1.0.3
+shields:
+- ctr_ds18b20
+- ctr_lte
+- ctr_x0_a
+- ctr_z
+- ctr_s2
+features:
+- bluetooth
+- lte
+- lorawan
+- shell
+- led
+- button
+parameters:
+- domain: app
+  name: report-interval
+  var: report_interval
+  type: int
+  min: 0
+  max: 40000
+  default: 3600
+  help: 'Set report interval (default: 3600)'
+- domain: app
+  name: counter-interval-aggreg
+  var: counter_interval_aggreg
+  type: int
+  min: 32
+  max: 324
+  default: 25
+  help: 'Set report interval (default: 3600)'
+- domain: lte
+  name: apn
+  var: apn
+  type: string
+  len: 63 + 1
+  default: onomondo
+  help: Set APN network name
+- domain: app
+  name: debug-mode
+  var: debug_mode
+  type: bool
+  default: true
+  help: Set debug mode (T/F)
+- domain: app
+  name: temperature
+  var: temperature
+  type: float
+  default: 24.54
+  help: Set Temperature 0.0f to 50.f
+- domain: app
+  name: interval-report
+  var: interval_report
+  type: int
+  min: 0
+  max: 65535
+  default: 60
+  help: 'Set interval report (default: 60)'
+- domain: app
+  name: interval-aggreg
+  var: interval_aggreg
+  type: int
+  min: 0
+  max: 65535
+  default: 1800
+  help: 'Set interval aggreg (default: 25)'
+- domain: app
+  name: interval-sample
+  var: interval_sample
+  type: int
+  min: 0
+  max: 65535
+  default: 25
+  help: 'Set interval aggreg (default: 25)'
+- domain: app
+  name: event-report-delay
+  var: event_report_delay
+  type: int
+  min: 0
+  max: 65535
+  default: 1
+  help: 'Set event_report_delay (default: 1)'
+- domain: app
+  name: event-report-rate
+  var: event_report_rate
+  type: int
+  min: 0
+  max: 65535
+  default: 30
+  help: 'Set event_report_delay (default: 30)'
+commands:
+- domain: app
+  name: send
+  callback: app_send
+  help: 'Set report interval (default: 3600)'
+- domain: app
+  name: show
+  callback: show
+  help: Show all configs
+extras:
+- CONFIG_BT=n
+- CONFIG_APP_INIT_PRIORITY=50
