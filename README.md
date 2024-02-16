@@ -16,7 +16,7 @@
 - West
 ## About Multiple YAML config
 I create a code that compare two .yaml (paramters.yaml) and a variant like (CHESTER_Clime.yaml) where the product of this concatenation is a project.yaml where it contains all stuff of both yaml.
-If in parametes.yaml the user create the same variable, the code ovelap the value in project .yaml
+If in parametes.yaml the user create the same variable, the code ovelap the values in project.yaml
 ### Example
 parametes.yaml
 ```yaml
@@ -33,7 +33,7 @@ parameters:
   name: interval-report
   var: interval_report
   type: int
-  min: 0
+  min: 200
   max: 40000  
   default: 3600
   help: 'Set report interval (default: 3600)'
@@ -120,7 +120,7 @@ parameters:
   name: interval-report 3600 <--- (overlapped)
   var: interval_report
   type: int
-  min: 0
+  min: 200 <--- (overlapped)
   max: 40000  
   default: 3600 <--- (overlapped)
   help: 'Set report interval (default: 3600)'
