@@ -4,12 +4,13 @@
 - [x] app_config.h
 - [x] CMakeList.text
 - [x] prj.conf
-- [ ] app.overlay
-- [ ] West
+- [ ] app.overlay (I need more details)
+- [ ] West (learning)
 ## Last Changes
 - Added 'len:' and 'var:' to parameter with type (string) in YAML
 - Added 'shields:' in YAML
 - All imported to Jinja2
+- Folder creation with project name ex: ( name: CHESTER-CLIME) -> folder (chester_clime)
 ## Next Steps
 - Multiple YAML config
 - West
