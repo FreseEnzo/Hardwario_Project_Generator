@@ -8,9 +8,8 @@ Coded by Frese
 import yaml # pip install PyYAML
 import re
 import os
-
+from yaml_overlap import generate_project_yaml
 from jinja2 import Environment, FileSystemLoader
-
 
 
 # Includes 
@@ -57,7 +56,9 @@ dict_features = {
 }
 
 # YAML file
-yaml_file = "./params.yaml"
+generate_project_yaml()
+
+yaml_file = "./project.yaml"
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
 # Setup Jinja environment

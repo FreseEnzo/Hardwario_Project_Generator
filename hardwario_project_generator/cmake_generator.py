@@ -6,7 +6,7 @@ from project_generator import *
 project_name = transform_to_slug(data['project']['name'])
 
 # YAML file
-yaml_file = "./params.yaml"
+yaml_file = "./project.yaml"
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
 

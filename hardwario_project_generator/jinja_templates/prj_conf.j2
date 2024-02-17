@@ -14,4 +14,7 @@
     {%- endfor -%}
     {%- if not found -%}
     {%- endif %}
+{%- endfor -%}
+{%- for extra in data['extras'] %}
+{{extra}}
 {%- endfor %}
