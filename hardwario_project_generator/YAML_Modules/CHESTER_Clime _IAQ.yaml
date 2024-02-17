@@ -1,7 +1,7 @@
 # Hardwario CHESTER Clime Z YAML
 shields:
- - ctr_lte 
- - ctr_s1
+  - ctr_lte 
+  - ctr_s1
 features:
   - lte
 parameters:

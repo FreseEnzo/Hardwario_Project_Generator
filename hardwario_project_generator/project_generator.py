@@ -11,7 +11,6 @@ import os
 from yaml_overlap import generate_project_yaml
 from jinja2 import Environment, FileSystemLoader
 
-
 # Includes 
 config_c_includes = ['"app_config.h"']
 app_config_c_includes =['<chester/ctr_config.h>']
@@ -28,6 +27,7 @@ app_config_c = './src/app_config.c'
 app_config_h = './src/app_config.h'
 shell_c = './src/app_shell.c'
 prj_conf = './'
+
 # Shell Parameters
 dict_features = {
     'shell': 'CONFIG_ADC_SHELL=y\n',
