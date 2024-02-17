@@ -28,7 +28,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 struct app_config g_app_config;
 {% if data %}
-static struct app_config g_app_config = {
+static struct app_config m_app_config_interim = {
 {% for param in data['parameters'] %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
@@ -174,7 +174,12 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {%- raw -%}
 {% endraw %}
 }
-
+static int h_commit(void)
+{
+	LOG_DBG("Loaded settings in full");
+	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+	return 0;
+}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
 {
 {%- raw -%}
@@ -208,11 +213,11 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {%- endif %}
 {% endfor %}
 // Function to handle setting configurations
-static int set_setting(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;
     const char *next;
 {% for parameter in data['parameters'] %}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' -%}
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' -%}
         if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
             if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
                 return -EINVAL;
@@ -228,25 +233,19 @@ static int set_setting(const char *key, size_t len, settings_read_cb read_cb, vo
 {% endfor %}
 }
 // Function to export configurations
-static int export_settings(int (*export_func)(const char *name, const void *val, size_t val_len)) {
+static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len)) {
     int ret;
 
 {%- for parameter in data['parameters'] -%}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' %}
-    if (settings_name_steq(key, "{{parameter['name']}}", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.{{parameter['var']}})) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.{{parameter['var']}}, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
+    ret = export_func("{{parameter['name']}}", & m_app_config_interim.{{parameter['var']}}, sizeof( m_app_config_interim.{{parameter['var']}}));
+    if (ret < 0) {
+        return ret;
     }
 {% endif %}
 {%- endfor -%}
 }
+
 
 // Initialization function
 static int init(void) {
@@ -256,9 +255,9 @@ static int init(void) {
 
     static struct settings_handler sh = {
         .name = SETTINGS_PFX,
-        .h_set = set_setting,
-        .h_commit = commit_settings,
-        .h_export = export_settings,
+        .h_set = h_set,
+        .h_commit = h_commit,
+        .h_export = h_export,
     };
 
     ret = settings_register(&sh);
