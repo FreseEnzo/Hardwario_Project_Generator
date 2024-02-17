@@ -4,6 +4,7 @@
 - [x] app_config.h
 - [x] CMakeList.text
 - [x] prj.conf
+- [x] variants YAML
 - [ ] app.overlay (I need more details)
 - [ ] West (learning)
 ## Last Changes
@@ -11,10 +12,11 @@
 - Added 'shields:' in YAML
 - All imported to Jinja2
 - Folder creation with project name ex: ( name: CHESTER-CLIME) -> folder (chester_clime)
+- Extras added to prj.conf
 ## Next Steps
 - Multiple YAML config
 - West
-## About Multiple YAML config (In Development)
+## About Multiple YAML config (Working)
 I create a code that compare two .yaml (paramters.yaml) and a variant like (CHESTER_Clime.yaml) where the product of this concatenation is a project.yaml where it contains all stuff of both yaml.
 If in parametes.yaml the user create the same variable, the code ovelap the values in project.yaml
 ### Example
@@ -24,6 +26,7 @@ version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
+  variant: CHESTER Clime Z
   version: v1.0.3
 features:
 - led
@@ -56,7 +59,7 @@ extras:
 - CONFIG_BT=n
 - CONFIG_APP_INIT_PRIORITY=50
 ```
-CHESTER_Clime.yaml
+CHESTER_Clime_Z.yaml
 ```yaml
 shields:
   - ctr_lte
@@ -107,6 +110,7 @@ version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
+  variant: CHESTER Clime Z
   version: v1.0.3
 features:
 - led
