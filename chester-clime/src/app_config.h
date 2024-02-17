@@ -27,9 +27,7 @@ enum app_config_mode {
 struct app_config = {
     
         int interval_report;
-        int counter_interval_aggreg;
         char apn [63 + 1];
-        bool debug_mode;
         float temperature;
         int interval_aggreg;
         int interval_sample;
@@ -41,8 +39,6 @@ struct app_config = {
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv);

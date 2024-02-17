@@ -174,12 +174,6 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {%- raw -%}
 {% endraw %}
 }
-static int h_commit(void)
-{
-	LOG_DBG("Loaded settings in full");
-	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
-	return 0;
-}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
 {
 {%- raw -%}
@@ -212,6 +206,13 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 }
 {%- endif %}
 {% endfor %}
+
+static int h_commit(void)
+{
+	LOG_DBG("Loaded settings in full");
+	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+	return 0;
+}
 // Function to handle setting configurations
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;

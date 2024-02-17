@@ -31,9 +31,7 @@ struct app_config g_app_config;
 static struct app_config m_app_config_interim = {
 
     .interval_report = 3600,
-    .counter_interval_aggreg = 25,
     .apn = "onomondo",
-    .debug_mode = true,
     .temperature = 24.54,
     .interval_aggreg = 1800,
     .interval_sample = 25,
@@ -77,46 +75,9 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
     return -EINVAL;
 }
 
-static void print_counter_interval_aggreg(const struct shell *shell)
-{
-    shell_print(shell, "app config  counter-interval-aggreg  %d", m_app_config_interim.counter_interval_aggreg);
-}
-
-int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_counter_interval_aggreg(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < 32 || value > 324) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.counter_interval_aggreg = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
-}
-
 static void print_apn(const struct shell *shell)
 {
     shell_print(shell, "app config apn %.1f", m_app_config_interim.apn);
-}
-static int h_commit(void)
-{
-	LOG_DBG("Loaded settings in full");
-	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
-	return 0;
 }
 int app_config_cmd_config_apn(const struct shell *shell, size_t argc, char **argv)
 {
@@ -143,34 +104,6 @@ int app_config_cmd_config_apn(const struct shell *shell, size_t argc, char **arg
             strcpy(m_config_interim.apn, argv[1]);
             return 0;
         }
-    shell_help(shell);
-    return -EINVAL;
-}
-
-static void print_debug_mode(const struct shell *shell)
-{
-    shell_print(shell, "app config debug-mode  %s", m_app_config_interim.debug_mode ? "true" : "false");
-}
-
-int app_config_cmd_config_debug_mode(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_debug_mode(shell);                                                    
-        return 0;
-    }
-    if (argc == 2) {
-        bool is_false = !strcmp(argv[1], "false");
-        bool is_true = !strcmp(argv[1], "true");
-        if (is_false) {
-            m_app_config_interim.debug_mode = false;
-        } else if (is_true) {
-            m_app_config_interim.debug_mode = true;
-        } else {
-            shell_error(shell, "invalid format");
-            return -EINVAL;
-        }
-        return 0;
-    }
     shell_help(shell);
     return -EINVAL;
 }
@@ -384,6 +317,13 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
     return -EINVAL;
 }
 
+
+static int h_commit(void)
+{
+	LOG_DBG("Loaded settings in full");
+	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+	return 0;
+}
 // Function to handle setting configurations
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;
@@ -400,35 +340,11 @@ if (settings_name_steq(key, "interval-report", &next) && !next) {
             return 0;
         }
 
-if (settings_name_steq(key, "counter-interval-aggreg", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.counter_interval_aggreg)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.counter_interval_aggreg, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
 if (settings_name_steq(key, "apn", &next) && !next) {
             if (len != sizeof(m_app_config_interim.apn)) {
                 return -EINVAL;
             }
             ret = read_cb(cb_arg, &m_app_config_interim.apn, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "debug-mode", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.debug_mode)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.debug_mode, len);
             if (ret < 0) {
                 LOG_ERR("Call `read_cb` failed: %d", ret);
                 return ret;
@@ -530,17 +446,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
         return ret;
     }
 
-    ret = export_func("counter-interval-aggreg", & m_app_config_interim.counter_interval_aggreg, sizeof( m_app_config_interim.counter_interval_aggreg));
-    if (ret < 0) {
-        return ret;
-    }
-
     ret = export_func("apn", & m_app_config_interim.apn, sizeof( m_app_config_interim.apn));
-    if (ret < 0) {
-        return ret;
-    }
-
-    ret = export_func("debug-mode", & m_app_config_interim.debug_mode, sizeof( m_app_config_interim.debug_mode));
     if (ret < 0) {
         return ret;
     }
