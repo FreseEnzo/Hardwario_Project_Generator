@@ -28,7 +28,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 struct app_config g_app_config;
 
-static struct app_config g_app_config = {
+static struct app_config m_app_config_interim = {
 
     .interval_report = 3600,
     .counter_interval_aggreg = 25,
@@ -112,7 +112,12 @@ static void print_apn(const struct shell *shell)
 {
     shell_print(shell, "app config apn %.1f", m_app_config_interim.apn);
 }
-
+static int h_commit(void)
+{
+	LOG_DBG("Loaded settings in full");
+	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+	return 0;
+}
 int app_config_cmd_config_apn(const struct shell *shell, size_t argc, char **argv)
 {
     if (argc == 1) {
@@ -380,7 +385,7 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 }
 
 // Function to handle setting configurations
-static int set_setting(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;
     const char *next;
 if (settings_name_steq(key, "interval-report", &next) && !next) {
@@ -407,6 +412,17 @@ if (settings_name_steq(key, "counter-interval-aggreg", &next) && !next) {
             return 0;
         }
 
+if (settings_name_steq(key, "apn", &next) && !next) {
+            if (len != sizeof(m_app_config_interim.apn)) {
+                return -EINVAL;
+            }
+            ret = read_cb(cb_arg, &m_app_config_interim.apn, len);
+            if (ret < 0) {
+                LOG_ERR("Call `read_cb` failed: %d", ret);
+                return ret;
+            }
+            return 0;
+        }
 
 if (settings_name_steq(key, "debug-mode", &next) && !next) {
             if (len != sizeof(m_app_config_interim.debug_mode)) {
@@ -507,128 +523,64 @@ if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
 
 }
 // Function to export configurations
-static int export_settings(int (*export_func)(const char *name, const void *val, size_t val_len)) {
+static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len)) {
     int ret;
-    if (settings_name_steq(key, "interval-report", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.interval_report)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.interval_report, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("interval-report", & m_app_config_interim.interval_report, sizeof( m_app_config_interim.interval_report));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "counter-interval-aggreg", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.counter_interval_aggreg)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.counter_interval_aggreg, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("counter-interval-aggreg", & m_app_config_interim.counter_interval_aggreg, sizeof( m_app_config_interim.counter_interval_aggreg));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "debug-mode", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.debug_mode)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.debug_mode, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("apn", & m_app_config_interim.apn, sizeof( m_app_config_interim.apn));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "temperature", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.temperature)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.temperature, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("debug-mode", & m_app_config_interim.debug_mode, sizeof( m_app_config_interim.debug_mode));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.interval_aggreg)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.interval_aggreg, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("temperature", & m_app_config_interim.temperature, sizeof( m_app_config_interim.temperature));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "interval-sample", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.interval_sample)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.interval_sample, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("interval-aggreg", & m_app_config_interim.interval_aggreg, sizeof( m_app_config_interim.interval_aggreg));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "event-report-delay", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.event_report_delay)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.event_report_delay, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("interval-sample", & m_app_config_interim.interval_sample, sizeof( m_app_config_interim.interval_sample));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "event-report-rate", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.event_report_rate)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.event_report_rate, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("event-report-delay", & m_app_config_interim.event_report_delay, sizeof( m_app_config_interim.event_report_delay));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.backup_report_connected)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.backup_report_connected, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("event-report-rate", & m_app_config_interim.event_report_rate, sizeof( m_app_config_interim.event_report_rate));
+    if (ret < 0) {
+        return ret;
     }
 
-    if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.backup_report_disconnected, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
+    ret = export_func("backup-report-connected", & m_app_config_interim.backup_report_connected, sizeof( m_app_config_interim.backup_report_connected));
+    if (ret < 0) {
+        return ret;
+    }
+
+    ret = export_func("backup-report-disconnected", & m_app_config_interim.backup_report_disconnected, sizeof( m_app_config_interim.backup_report_disconnected));
+    if (ret < 0) {
+        return ret;
     }
 }
+
 
 // Initialization function
 static int init(void) {
@@ -638,9 +590,9 @@ static int init(void) {
 
     static struct settings_handler sh = {
         .name = SETTINGS_PFX,
-        .h_set = set_setting,
-        .h_commit = commit_settings,
-        .h_export = export_settings,
+        .h_set = h_set,
+        .h_commit = h_commit,
+        .h_export = h_export,
     };
 
     ret = settings_register(&sh);
