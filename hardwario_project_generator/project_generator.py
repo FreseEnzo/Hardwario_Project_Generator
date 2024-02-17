@@ -93,7 +93,7 @@ def transform_to_slug(text):
     # Remover caracteres especiais
     slug = re.sub(r'[^a-zA-Z0-9\s]', '', slug)
     # Substituir espaços por hífens
-    slug = slug.replace(' ', '_')
+    slug = slug.replace(' ', '-')
     return slug
 
 
