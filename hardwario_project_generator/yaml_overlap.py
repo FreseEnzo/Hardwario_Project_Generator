@@ -1,11 +1,30 @@
 import ruamel.yaml
+import os
+import yaml
 
-def compare_yaml(file1, file2, output_file):
+def encontrar_yaml(nome_projeto, pasta):
+    # Caminho completo para o arquivo YAML com base no nome do projeto
+    nome_arquivo_yaml = nome_projeto.replace(" ", "_") + ".yaml"
+    caminho_completo = os.path.join(pasta, nome_arquivo_yaml)
+
+    # Verifica se o arquivo YAML existe na pasta especificada
+    if os.path.exists(caminho_completo):
+        return caminho_completo
+    else:
+        # Se o arquivo não existir, retorna None
+        return None
+
+# Exemplo de uso da f
+def compare_yaml(file1, variant, output_file):
+
+
     yaml = ruamel.yaml.YAML()
+
     with open(file1, 'r') as f1:
         yaml1 = yaml.load(f1)
+    
 
-    with open(file2, 'r') as f2:
+    with open(encontrar_yaml(variant,'hardwario_project_generator\YAML_Modules'), 'r') as f2:
         yaml2 = yaml.load(f2)
 
     # Merge yaml2 into yaml1
@@ -20,13 +39,11 @@ def compare_yaml(file1, file2, output_file):
                     merge_commands(yaml1, value)
                 elif key == 'extras':
                     merge_extras(yaml1, value)
-                else:
-                    yaml1[key] += value
-            elif isinstance(value, dict):
-                if key == 'parameters':
+                elif key == 'parameters':
                     yaml1[key] = merge_parameters(yaml1[key], value)
                 else:
-                    yaml1[key].update(value)
+                    yaml1[key] += value
+
         else:
             yaml1[key] = value
 
@@ -59,25 +76,26 @@ def merge_extras(yaml1, extras2):
             yaml1['extras'].append(extra)
 
 def merge_parameters(params1, params2):
-    merged_params = []
-    for param1 in params1:
-        found = False
-        for param2 in params2:
-            if param1['name'] == param2['name']:
-                merged_params.append({**param1, **param2})
-                found = True
-                break
-        if not found:
-            merged_params.append(param1)
-    return merged_params
+    param_dict = {param['name']: param for param in params1}
+    for param in params2:
+        if param['name'] not in param_dict:
+            params1.append(param)
+      
+        else:
+            existing_param = param_dict[param['name']]
+            for key, value in param.items():
+                if key not in existing_param:
+                    existing_param[key] = value
+    return params1
 
-if __name__ == "__main__":
+def generate_project_yaml():
     file1 = "./params.yaml"
-    file2 = "hardwario_project_generator\YAML_Modules\CHESTER_Clime.yaml"
-    output_file = "./file3.yaml"
-    compare_yaml(file1, file2, output_file)
-    print(f"Merged YAML file has been created: {output_file}")
-    yaml = ruamel.yaml.YAML()
-    with open(output_file, 'r') as f1:
-        yaml1 = yaml.load(f1)
+    output_file = "./project.yaml"
+
+    with open(file1, 'r') as stream:
+        data = yaml.safe_load(stream)
+
+    compare_yaml(file1, data['project']['variant'], output_file)
+    print(f"Project YAML file has been created: {output_file}")
+
 

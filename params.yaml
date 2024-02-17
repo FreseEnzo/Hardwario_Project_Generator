@@ -5,22 +5,16 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.3
-shields:
-- ctr_ds18b20 
-- ctr_lte 
-- ctr_x0_a 
-- ctr_z
+  variant: CHESTER Clime Z
 features:
 - bluetooth
-- lte
-- lorawan
 - shell
 - led
 - button
 parameters:
 - domain: app
-  name: report-interval
-  var: report_interval
+  name: interval-report
+  var: interval_report
   type: int
   min: 0
   max: 40000  

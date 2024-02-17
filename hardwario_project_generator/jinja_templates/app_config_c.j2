@@ -32,10 +32,24 @@ static struct app_config g_app_config = {
 {% for param in data['parameters'] %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
+    {%- elif param['type'] == 'bool' -%}
+    .{{ param['var'] }} = {{ param['default'] | lower }},
     {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
     {%- endif -%}
 {%- endfor %}
+
+{%- for feature in data['features'] %}
+    {%- if feature == 'lte' and 'lorawan' not in data['features'] %}
+    .mode = APP_CONFIG_MODE_LTE,
+    {%- elif feature == 'lorawan' and 'lte' not in data['features'] %}
+    .mode = APP_CONFIG_MODE_LRW,
+    {%- endif %}
+{%- endfor %}
+{# Se nenhum dos casos anteriores se aplicar #}
+{%- if ('lte' not in data['features'] and 'lorawan' not in data['features']) or ('lte' in data['features'] and 'lorawan' in data['features']) %}
+    .mode = APP_CONFIG_MODE_NONE,
+{%- endif %}
 };
 {%- endif %}
 

@@ -17,6 +17,12 @@
 extern "C" {
 #endif
 
+enum app_config_mode {
+	APP_CONFIG_MODE_NONE = 0,
+	APP_CONFIG_MODE_LTE = 1,
+	APP_CONFIG_MODE_LRW = 2,
+};
+
 {% if struct_data %}
 struct app_config = {
     {% for param in struct_data['parameters'] %}
