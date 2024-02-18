@@ -24,7 +24,7 @@ def compare_yaml(file1, variant, output_file):
         yaml1 = yaml.load(f1)
     
 
-    with open(encontrar_yaml(variant,'hardwario_project_generator\YAML_Modules'), 'r') as f2:
+    with open(encontrar_yaml(variant,'hardwario_project_generator/YAML_Modules'), 'r') as f2:
         yaml2 = yaml.load(f2)
 
     # Merge yaml2 into yaml1
