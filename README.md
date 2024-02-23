@@ -11,7 +11,7 @@
 ## Last Changes
 - west scaffold command to generate all skeleton and CMakeLists.txt
 - no more concatenations
-- project.yaml moved to /Applications
+- project.yaml moved to /applications
 ## Next Steps
 - app.overlay
 ## CHESTER SDK Project Generator
@@ -112,7 +112,7 @@ extras:
 ```
 Note: Example generation files can be found in the src directory of this repository
 ## Usage
-This command should be used in /Applications folder with a project.yaml
+This command should be used in /applications folder with a project.yaml
 ```bash
 west scaffold
 ```
