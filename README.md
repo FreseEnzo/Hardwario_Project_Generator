@@ -5,175 +5,15 @@
 - [x] CMakeList.text
 - [x] prj.conf
 - [x] variants YAML
-- [ ] app.overlay (I need more details)
-- [ ] West (learning)
-## Last Changes
-- Added 'len:' and 'var:' to parameter with type (string) in YAML
-- Added 'shields:' in YAML
-- All imported to Jinja2
-- Folder creation with project name ex: ( name: CHESTER-CLIME) -> folder (chester_clime)
-- Extras added to prj.conf
-## Next Steps
-- Multiple YAML config
-- West
-## About Multiple YAML config (Working)
-I create a code that compare two .yaml (paramters.yaml) and a variant like (CHESTER_Clime.yaml) where the product of this concatenation is a project.yaml where it contains all stuff of both yaml.
-If in parametes.yaml the user create the same variable, the code ovelap the values in project.yaml
-### Example
-parametes.yaml
-```yaml
-version: 1
-project:
-  bundle: com.hardwario.chester.clime
-  name: CHESTER Clime
-  variant: CHESTER Clime Z
-  version: v1.0.3
-features:
-- led
-- button 
-parameters:
-- domain: app
-  name: interval-report
-  var: interval_report
-  type: int
-  min: 200
-  max: 40000  
-  default: 3600
-  help: 'Set report interval (default: 3600)'
-- domain: app
-  name: counter-interval-aggreg
-  var: counter_interval_aggreg
-  type: int
-  min: 32
-  max: 324  
-  default: 25
-  help: 'Set report interval (default: 3600)'
-- domain: lte
-  name: apn
-  var: apn
-  type: string
-  len: 63 + 1
-  default: onomondo
-  help: Set APN network name
-extras:
-- CONFIG_BT=n
-- CONFIG_APP_INIT_PRIORITY=50
-```
-CHESTER_Clime_Z.yaml
-```yaml
-shields:
-  - ctr_lte
-  - ctr_s2
-features:
-- bluetooth
-- lte
-- lorawan
-- shell
-parameters:
-  - domain: app
-    name: interval-report
-    var: interval_report
-    type: int
-    min: 0
-    max: 65535
-    default: 60
-    help: 'Set interval report (default: 60)'
-  - domain: app
-    name: interval-aggreg
-    var: interval_aggreg
-    type: int
-    min: 0
-    max: 65535
-    default: 1800
-    help: 'Set interval aggreg (default: 25)'
-  - domain: app
-    name: interval-sample
-    var: interval_sample
-    type: int
-    min: 0
-    max: 65535
-    default: 25
-    help: 'Set interval aggreg (default: 25)'
-  - domain: app
-    name: event-report-delay
-    var: event_report_delay
-    type: int
-    min: 0
-    max: 65535
-    default: 1
-    help: 'Set event_report_delay (default: 1)'
+- [x] West 
+- [ ] app.overlay (developing)
 
-```
-project.yaml
-``` yaml
-version: 1
-project:
-  bundle: com.hardwario.chester.clime
-  name: CHESTER Clime
-  variant: CHESTER Clime Z
-  version: v1.0.3
-features:
-- led
-- button
-- bluetooth
-- lte
-- lorawan
-- shell
-parameters:
-- domain: app
-  name: interval-report 3600 <--- (overlapped)
-  var: interval_report
-  type: int
-  min: 200 <--- (overlapped)
-  max: 40000  
-  default: 3600 <--- (overlapped)
-  help: 'Set report interval (default: 3600)'
-- domain: app
-  name: counter-interval-aggreg
-  var: counter_interval_aggreg
-  type: int
-  min: 32
-  max: 324  
-  default: 25
-  help: 'Set report interval (default: 3600)'
-- domain: lte
-  name: apn
-  var: apn
-  type: string
-  len: 63 + 1
-  default: onomondo
-  help: Set APN network name
-- domain: app
-  name: interval-aggreg
-  var: interval_aggreg
-  type: int
-  min: 0
-  max: 65535
-  default: 1800
-  help: 'Set interval aggreg (default: 25)'
-- domain: app
-  name: interval-sample
-  var: interval_sample
-  type: int
-  min: 0
-  max: 65535
-  default: 25
-  help: 'Set interval aggreg (default: 25)'
-- domain: app
-  name: event-report-delay
-  var: event_report_delay
-  type: int
-  min: 0
-  max: 65535
-  default: 1
-  help: 'Set event_report_delay (default: 1)'
-extras:
-- CONFIG_BT=n
-- CONFIG_APP_INIT_PRIORITY=50
-shields:
-  - ctr_lte
-  - ctr_s2
-```
+## Last Changes
+- west scaffold command to generate all skeleton and CMakeLists.txt
+- no more concatenations
+- project.yaml moved to /Applications
+## Next Steps
+- app.overlay
 ## CHESTER SDK Project Generator
 
 **Coded by Frese**
@@ -198,8 +38,9 @@ pip install PyYAML
 ```bash
 pip install Jinja2
 ```
-### YAML Configuration Example
 
+### YAML Configuration Example
+project.yaml
 ```yaml
 # Hardwario YAML file for code generation
 # Always use Tab for indentation
@@ -270,7 +111,11 @@ extras:
 - CONFIG_APP_INIT_PRIORITY=50
 ```
 Note: Example generation files can be found in the src directory of this repository
-
+## Usage
+This command should be used in /Applications folder with a project.yaml
+```bash
+west scaffold
+```
 ## CHESTER SDK CMakeLists.txt Generator
 
 This Python script generates a CMakeLists.txt file for a CHESTER SDK project. It scans the 'src' directory for source files and creates target_sources directives accordingly, taking into account conditional compilation based on configuration options.
