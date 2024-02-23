@@ -2,6 +2,8 @@ import ruamel.yaml
 import os
 import yaml
 
+current_directory = os.getcwd()
+
 def encontrar_yaml(nome_projeto, pasta):
     # Caminho completo para o arquivo YAML com base no nome do projeto
     nome_arquivo_yaml = nome_projeto.replace(" ", "_") + ".yaml"
@@ -23,8 +25,9 @@ def compare_yaml(file1, variant, output_file):
     with open(file1, 'r') as f1:
         yaml1 = yaml.load(f1)
     
+    YAML_Modules_path = os.path.join(current_directory,'scripts/west_commands/hardwario_project_generator/YAML_Modules')
 
-    with open(encontrar_yaml(variant,'hardwario_project_generator/YAML_Modules'), 'r') as f2:
+    with open(encontrar_yaml(variant,YAML_Modules_path), 'r') as f2:
         yaml2 = yaml.load(f2)
 
     # Merge yaml2 into yaml1
@@ -89,13 +92,13 @@ def merge_parameters(params1, params2):
     return params1
 
 def generate_project_yaml():
-    file1 = "./params.yaml"
-    output_file = "./project.yaml"
+    file1 = os.path.join(current_directory, "params.yaml")
 
+    output_file = os.path.join(current_directory,"./project.yaml")
     with open(file1, 'r') as stream:
         data = yaml.safe_load(stream)
 
     compare_yaml(file1, data['project']['variant'], output_file)
-    print(f"Project YAML file has been created: {output_file}")
+    #print(f"Project YAML file has been created: {output_file}")
 
 

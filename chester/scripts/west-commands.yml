@@ -1,0 +1,23 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+west-commands:
+  - file: scripts/west_commands/chester.py
+    commands:
+      - name: chester-gen-bt-uuid
+        class: ChesterGenerateBluetoothUuid
+        help: generate Bluetooth UUID
+  - file: scripts/west_commands/check-ret-log.py
+    commands:
+      - name: check-ret-log
+        class: CheckRetLog
+        help: check LOG messages consistency
+  - file: scripts/west_commands/hardwario_project_generator/west_generator.py
+    commands:
+      - name: scaffold
+        class: ProjectGenerator
+        help: Generate Hardwario Project Application
+

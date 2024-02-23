@@ -11,6 +11,8 @@ import os
 from yaml_overlap import generate_project_yaml
 from jinja2 import Environment, FileSystemLoader
 
+current_directory = os.getcwd()
+
 # Includes 
 config_c_includes = ['"app_config.h"']
 app_config_c_includes =['<chester/ctr_config.h>']
@@ -56,17 +58,19 @@ dict_features = {
 }
 
 # YAML file
-generate_project_yaml()
 
-yaml_file = "./project.yaml"
+
+yaml_file = os.path.join(current_directory, "project.yaml")
+
 with open(yaml_file, 'r') as stream:
     data = yaml.safe_load(stream)
+    
 # Setup Jinja environment
-env = Environment(loader=FileSystemLoader('.'))
+env = Environment(loader=FileSystemLoader('..'))
 
 def generate_project_folder(project_name):
     # Create the project directory if it doesn't exist
-    project_dir = os.path.join('.', project_name)
+    project_dir = project_name
     if not os.path.exists(project_dir):
         os.makedirs(project_dir)
     return project_dir
@@ -98,17 +102,17 @@ def transform_to_slug(text):
 
 
 def generate_app_config_c(project_dir,project_name):
+    current_directory = os.getcwd()
     src_dir = os.path.join(project_dir, 'src')
     if not os.path.exists(src_dir):
         os.makedirs(src_dir)
     app_config_c = os.path.join(src_dir, 'app_config.c')
 
     # Setup Jinja environment
-    env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_c.j2')
+    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/app_config_c.j2')
+    template = env.get_template(jinja_path)
     parameters = data['parameters']
-    
-    # Render the template with data
+
     rendered_code = template.render(config_c_includes=config_c_includes,
                                      app_config_c_includes=app_config_c_includes,
                                      zephyr_config_c_includes=zephyr_config_c_includes,
@@ -123,13 +127,15 @@ def generate_app_config_c(project_dir,project_name):
  
 def generate_app_config_h(project_dir):
     app_config_h = os.path.join(project_dir, 'src', 'app_config.h')
-    template = env.get_template('./hardwario_project_generator/jinja_templates/app_config_h.j2')
+    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/app_config_h.j2')
+    template = env.get_template(jinja_path)
     rendered_code = template.render(struct_data = data,data = data)
     write_to_file(rendered_code,app_config_h)
 
 def generate_shell(project_dir):
     shell_c = os.path.join(project_dir, 'src', 'app_shell.c')
-    template = env.get_template('./hardwario_project_generator/jinja_templates/shell_c.j2')
+    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/shell_c.j2')
+    template = env.get_template(jinja_path)
 
     # Render the template with data
     rendered_code = template.render(shell_includes=shell_includes,
@@ -143,13 +149,14 @@ def generate_shell(project_dir):
 
 def generate_prj_config_file(project_dir):
     prj_conf = os.path.join(project_dir, 'prj.conf')
-    template = env.get_template('./hardwario_project_generator/jinja_templates/prj_conf.j2')
+    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/prj_conf.j2')
+    template = env.get_template(jinja_path)
 
     # Render the template with data
     rendered_code = template.render(data=data,dict_features = dict_features)
     write_to_file(rendered_code,prj_conf)
 
-def main():
+def run():
     project_name = transform_to_slug(data['project']['name'])
     project_dir = generate_project_folder(project_name)
     create_project_structure(data)
@@ -158,6 +165,8 @@ def main():
     generate_shell(project_dir)
     generate_prj_config_file(project_dir)
 
+def main():
+    run()
 if __name__ == "__main__":
     main()
     
