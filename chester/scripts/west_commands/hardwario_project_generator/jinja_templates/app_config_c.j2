@@ -3,26 +3,36 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-{%- for config_c_include in config_c_includes %}
-#include {{config_c_include}}
-{%- endfor %}
+
+/* Includes ------------------------------------------------------------------*/
+
+#include "app_config.h"
+
+/* Private includes --------------------------------------------------------------------*/
 
 /* CHESTER includes */
-{%- for app_config_c_include in app_config_c_includes %}
-#include {{app_config_c_include}}
-{%- endfor %}
+#include <chester/ctr_config.h>
 
 /* Zephyr includes */
-{%- for zephyr_config_c_include in zephyr_config_c_includes %}
-#include {{ zephyr_config_c_include }}
-{%- endfor %}
+#include <zephyr/init.h>
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include <zephyr/settings/settings.h>
+#include <zephyr/shell/shell.h>
 
 /* Standard includes */
-{%- for std_include in standard_config_includes %}
-#include {{ std_include }}
-{%- endfor %}
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* USER CODE BEGIN Includes */
+/* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
+
+/* Private Variables -------------------------------------------------------------------*/
 
 #define SETTINGS_PFX "{{ setting_pfx }}"
 
@@ -53,6 +63,10 @@ static struct app_config m_app_config_interim = {
 };
 {%- endif %}
 
+/* USER CODE BEGIN Variables */
+/* USER CODE END Variables */
+
+/* Private Functions -------------------------------------------------------------------*/
 {% for parameter in parameters %}
 {%- if parameter['type'] == 'bool' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
@@ -206,6 +220,8 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 }
 {%- endif %}
 {% endfor %}
+/* USER CODE BEGIN Functions 1 */
+/* USER CODE END Functions 1 */
 
 static int h_commit(void)
 {
@@ -213,27 +229,29 @@ static int h_commit(void)
 	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
 	return 0;
 }
-// Function to handle setting configurations
+
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;
     const char *next;
 {% for parameter in data['parameters'] %}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' -%}
-        if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var'] }}, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' %}
+    if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
+            return -EINVAL;
         }
+        ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var'] }}, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
 {% endif %}
 {% endfor %}
+/* USER CODE BEGIN Functions 2 */
+/* USER CODE END Functions 2 */
 }
-// Function to export configurations
+
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len)) {
     int ret;
 
@@ -245,6 +263,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     }
 {% endif %}
 {%- endfor -%}
+/* USER CODE BEGIN Functions 3 */
+/* USER CODE END Functions 3 */
 }
 
 
@@ -281,9 +301,11 @@ static int init(void) {
     {% endif -%}
 {%- endfor %}
 
+
+/* USER CODE BEGIN Functions 4 */
+/* USER CODE END Functions 4 */
+
     return 0;
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
-
-

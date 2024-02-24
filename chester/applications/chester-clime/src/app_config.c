@@ -3,7 +3,12 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
+
+/* Includes ------------------------------------------------------------------*/
+
 #include "app_config.h"
+
+/* Private includes --------------------------------------------------------------------*/
 
 /* CHESTER includes */
 #include <chester/ctr_config.h>
@@ -22,7 +27,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* USER CODE BEGIN Includes */
+/* USER CODE END Includes */
+
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
+
+/* Private Variables -------------------------------------------------------------------*/
 
 #define SETTINGS_PFX "chester-clime"
 
@@ -43,6 +53,10 @@ static struct app_config m_app_config_interim = {
 
 };
 
+/* USER CODE BEGIN Variables */
+/* USER CODE END Variables */
+
+/* Private Functions -------------------------------------------------------------------*/
 
 static void print_interval_report(const struct shell *shell)
 {
@@ -317,6 +331,8 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
     return -EINVAL;
 }
 
+/* USER CODE BEGIN Functions 1 */
+/* USER CODE END Functions 1 */
 
 static int h_commit(void)
 {
@@ -324,121 +340,132 @@ static int h_commit(void)
 	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
 	return 0;
 }
-// Function to handle setting configurations
+
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
     int ret;
     const char *next;
-if (settings_name_steq(key, "interval-report", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.interval_report)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.interval_report, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
+
+    if (settings_name_steq(key, "interval-report", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.interval_report)) {
+            return -EINVAL;
         }
-
-if (settings_name_steq(key, "apn", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.apn)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.apn, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
+        ret = read_cb(cb_arg, &m_app_config_interim.interval_report, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
         }
-
-if (settings_name_steq(key, "temperature", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.temperature)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.temperature, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.interval_aggreg)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.interval_aggreg, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "interval-sample", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.interval_sample)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.interval_sample, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "event-report-delay", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.event_report_delay)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.event_report_delay, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "event-report-rate", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.event_report_rate)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.event_report_rate, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.backup_report_connected)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.backup_report_connected, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
-            if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
-                return -EINVAL;
-            }
-            ret = read_cb(cb_arg, &m_app_config_interim.backup_report_disconnected, len);
-            if (ret < 0) {
-                LOG_ERR("Call `read_cb` failed: %d", ret);
-                return ret;
-            }
-            return 0;
-        }
-
-
+        return 0;
 }
-// Function to export configurations
+
+
+    if (settings_name_steq(key, "apn", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.apn)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.apn, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "temperature", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.temperature)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.temperature, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.interval_aggreg)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.interval_aggreg, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "interval-sample", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.interval_sample)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.interval_sample, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "event-report-delay", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.event_report_delay)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.event_report_delay, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "event-report-rate", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.event_report_rate)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.event_report_rate, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.backup_report_connected)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.backup_report_connected, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+    if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.backup_report_disconnected, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+}
+
+
+/* USER CODE BEGIN Functions 2 */
+/* USER CODE END Functions 2 */
+}
+
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len)) {
     int ret;
     ret = export_func("interval-report", & m_app_config_interim.interval_report, sizeof( m_app_config_interim.interval_report));
@@ -485,6 +512,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     if (ret < 0) {
         return ret;
     }
+/* USER CODE BEGIN Functions 3 */
+/* USER CODE END Functions 3 */
 }
 
 
@@ -517,8 +546,11 @@ static int init(void) {
     ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show)
     
 
+
+/* USER CODE BEGIN Functions 4 */
+/* USER CODE END Functions 4 */
+
     return 0;
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
-
