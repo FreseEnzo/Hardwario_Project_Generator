@@ -5,7 +5,7 @@
 - [x] CMakeList.text
 - [x] prj.conf
 - [x] West (west scaffold)
-- [x] user code area and automatic code as in STMCubeIDE
+- [x] User code area and automatic code as in STMCubeIDE
 - [ ] app.overlay (developing)
 
 ## Last Changes
