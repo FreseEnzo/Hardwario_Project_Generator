@@ -4,13 +4,12 @@
 - [x] app_config.h
 - [x] CMakeList.text
 - [x] prj.conf
-- [x] variants YAML
 - [x] West 
 - [ ] app.overlay (developing)
-
+- [ ] user code area and automatic code as in STMCubeIDE (developing)
 ## Last Changes
-- west scaffold command to generate all skeleton and CMakeLists.txt
-- no more concatenations
+- west scaffold command to generate the skeleton and CMakeLists.txt
+- no more yaml concatenations
 - project.yaml moved to /applications
 ## Next Steps
 - app.overlay
@@ -122,7 +121,7 @@ This Python script generates a CMakeLists.txt file for a CHESTER SDK project. It
 
 ### Usage
 
-1. **Project Configuration**: Ensure you have a 'params.yaml' file that specifies project configurations such as project name, shields, and other settings.
+1. **Project Configuration**: Ensure you have a 'project.yaml' file that specifies project configurations such as project name, shields, and other settings.
 
 2. **Run the Generator**: Execute the Python script. It will prompt you to enter the supported shields for your project, separated by spaces.
 
@@ -163,3 +162,4 @@ target_sources(app PRIVATE src/app_shell.c)
 ```
 ### Problems and Solutions
 - Apparently Jinja has some problems with global variables
+
