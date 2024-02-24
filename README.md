@@ -6,8 +6,9 @@
 - [x] prj.conf
 - [x] West 
 - [ ] app.overlay (developing)
-- [ ] user code area and automatic code as in STMCubeIDE (developing)
+- [ ] user code area and automatic code as in STMCubeIDE (developing 70%)
 ## Last Changes
+- user code area in app_config.c
 - west scaffold command to generate the skeleton and CMakeLists.txt
 - no more yaml concatenations
 - project.yaml moved to /applications
@@ -20,7 +21,11 @@
 This Python project generates a project structure and configuration files for the CHESTER SDK. It provides functionalities to streamline the initialization of projects, including configuration management and shell command setup.
 
 ### Features
-
+- **Preservation of User Code**:
+    When the function updates the app_config.c file, it first reads the existing content of the file.
+    It then iterates through the USER CODE list to identify the sections of user code within the existing content. This is done by searching for the specified marker comments ('begin' and 'end') in the file content.
+    For each identified section of user code, the function stores the content between the corresponding begin and end markers in a dictionary named preserved_sections.
+    During the update process, the function replaces the user code sections in the new content with the preserved content obtained from the existing file. This ensures that any customizations made by the user are retained in the updated file.
 - **YAML Configuration**: Utilizes YAML files for project configuration, making it easy to define parameters, features, and extras for the project.
 
 - **Structured Configuration Files**: Automatically generates C header and source files (`app_config.h` , `app_config.c` , `shell.c`, `prj.conf`) based on the YAML configuration, ensuring consistency and ease of maintenance.
