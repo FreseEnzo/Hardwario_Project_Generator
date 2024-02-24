@@ -24,7 +24,7 @@ This Python project generates a project structure and configuration files for th
 
 ### Features
 - **Preservation of User Code**:
-    When the function updates the app_config.c file, it first reads the existing content of the file.
+    When the function updates a file, it first reads the existing content of the file.
     It then iterates through the USER CODE list to identify the sections of user code within the existing content. This is done by searching for the specified marker comments ('begin' and 'end') in the file content.
     For each identified section of user code, the function stores the content between the corresponding begin and end markers in a dictionary named preserved_sections.
     During the update process, the function replaces the user code sections in the new content with the preserved content obtained from the existing file. This ensures that any customizations made by the user are retained in the updated file.
