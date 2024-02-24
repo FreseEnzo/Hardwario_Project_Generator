@@ -6,6 +6,7 @@
 - [x] prj.conf
 - [x] West (west scaffold)
 - [x] User code area and automatic code as in STMCubeIDE
+- [ ] clang-format (updating)
 - [ ] app.overlay (developing)
 
 ## Last Changes
