@@ -56,10 +56,42 @@ dict_features = {
     'zcbor_stop_on_error': 'CONFIG_ZCBOR_STOP_ON_ERROR=y\n',
     'zcbor': 'CONFIG_ZCBOR=y\n'
 }
-
+user_code_markers = [
+{
+    'begin': '/* USER CODE BEGIN Includes */',
+    'end': '/* USER CODE END Includes */'
+},
+{
+    'begin': '/* USER CODE BEGIN Variables */',
+    'end': '/* USER CODE END Variables */'
+},
+    {
+    'begin': '/* USER CODE BEGIN Functions 0 */',
+    'end': '/* USER CODE END Functions 0 */'
+},
+        {
+    'begin': '/* USER CODE BEGIN Functions 1 */',
+    'end': '/* USER CODE END Functions 1 */'
+},
+        {
+    'begin': '/* USER CODE BEGIN Functions 2 */',
+    'end': '/* USER CODE END Functions 2 */'
+},
+        {
+    'begin': '/* USER CODE BEGIN Functions 3 */',
+    'end': '/* USER CODE END Functions 3 */'
+},
+        {
+    'begin': '/* USER CODE BEGIN Functions 4 */',
+    'end': '/* USER CODE END Functions 4 */'
+},
+        {
+    'begin': '# USER CODE BEGIN Config',
+    'end': '# USER CODE END Config'
+}
+]
+   
 # YAML file
-
-
 yaml_file = os.path.join(current_directory, "project.yaml")
 
 with open(yaml_file, 'r') as stream:
@@ -102,36 +134,7 @@ def transform_to_slug(text):
 
 
 def generate_app_config_c(project_dir,project_name):
-    user_code_markers = [
-    {
-        'begin': '/* USER CODE BEGIN Includes */',
-        'end': '/* USER CODE END Includes */'
-    },
-    {
-        'begin': '/* USER CODE BEGIN Variables */',
-        'end': '/* USER CODE END Variables */'
-    },
-       {
-        'begin': '/* USER CODE BEGIN Functions 0 */',
-        'end': '/* USER CODE END Functions 0 */'
-    },
-           {
-        'begin': '/* USER CODE BEGIN Functions 1 */',
-        'end': '/* USER CODE END Functions 1 */'
-    },
-           {
-        'begin': '/* USER CODE BEGIN Functions 2 */',
-        'end': '/* USER CODE END Functions 2 */'
-    },
-            {
-        'begin': '/* USER CODE BEGIN Functions 3 */',
-        'end': '/* USER CODE END Functions 3 */'
-    },
-            {
-        'begin': '/* USER CODE BEGIN Functions 4 */',
-        'end': '/* USER CODE END Functions 4 */'
-    }
-    ]
+ 
     src_dir = os.path.join(project_dir, 'src')
     if not os.path.exists(src_dir):
         os.makedirs(src_dir)
@@ -162,7 +165,7 @@ def generate_app_config_c(project_dir,project_name):
         with open(app_config_c, 'r') as file:
             existing_content = file.read()
 
-        template = env.get_template(jinja_path)
+        #template = env.get_template(jinja_path)
         parameters = data['parameters']
         
         # Render the template with data
@@ -191,7 +194,6 @@ def generate_app_config_c(project_dir,project_name):
                 if end_index == -1:
                     break
                 preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
-                print(existing_content[begin_index:end_index-1])
                 start_index = end_index -1
  
         # Combine preserved sections with new content
@@ -207,33 +209,125 @@ def generate_app_config_h(project_dir):
     app_config_h = os.path.join(project_dir, 'src', 'app_config.h')
     jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/app_config_h.j2')
     template = env.get_template(jinja_path)
-    rendered_code = template.render(struct_data = data,data = data)
-    write_to_file(rendered_code,app_config_h,'w')
+    if not os.path.exists(app_config_h):
+        rendered_code = template.render(struct_data = data,data = data)
+        write_to_file(rendered_code,app_config_h,'w')
+    else:
+        with open(app_config_h, 'r') as file:
+            existing_content = file.read()
+        new_content = template.render(struct_data = data,data = data)
+                # Identify and preserve sections to keep
+        preserved_sections = {}
+        for marker in user_code_markers:
+            begin_marker = marker['begin']
+            end_marker = marker['end']
+            preserved_sections[begin_marker] = []
+            start_index = 0
+            while True:
+                begin_index = existing_content.find(begin_marker, start_index)
+                if begin_index == -1:
+                    break
+                end_index = existing_content.find(end_marker, begin_index)
+                if end_index == -1:
+                    break
+                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
+                start_index = end_index -1
+ 
+        # Combine preserved sections with new content
+        for begin_marker, sections in preserved_sections.items():
+            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
+            new_content = new_content.replace(begin_marker, f"{preserved_content}")
+    
+    
+        write_to_file(new_content, app_config_h, 'w')
+        
 
 def generate_shell(project_dir):
     shell_c = os.path.join(project_dir, 'src', 'app_shell.c')
     jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/shell_c.j2')
     template = env.get_template(jinja_path)
+    if not os.path.exists(shell_c):
+        # Render the template with data
+        rendered_code = template.render(shell_includes=shell_includes,
+                                        zephyr_includes=zephyr_includes,
+                                        standard_shell_includes=standard_shell_includes,
+                                        commands=data['commands'],
+                                        parameters=data['parameters'])
 
-    # Render the template with data
-    rendered_code = template.render(shell_includes=shell_includes,
-                                    zephyr_includes=zephyr_includes,
-                                    standard_shell_includes=standard_shell_includes,
-                                    commands=data['commands'],
-                                    parameters=data['parameters'])
-
-    write_to_file(rendered_code,shell_c,'w')
+        write_to_file(rendered_code,shell_c,'w')
+    else:
+        with open(shell_c, 'r') as file:
+            existing_content = file.read()
+        new_content = template.render(shell_includes=shell_includes,
+                                        zephyr_includes=zephyr_includes,
+                                        standard_shell_includes=standard_shell_includes,
+                                        commands=data['commands'],
+                                        parameters=data['parameters'])
+        # Identify and preserve sections to keep
+        preserved_sections = {}
+        for marker in user_code_markers:
+            begin_marker = marker['begin']
+            end_marker = marker['end']
+            preserved_sections[begin_marker] = []
+            start_index = 0
+            while True:
+                begin_index = existing_content.find(begin_marker, start_index)
+                if begin_index == -1:
+                    break
+                end_index = existing_content.find(end_marker, begin_index)
+                if end_index == -1:
+                    break
+                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
+                start_index = end_index -1
+ 
+        # Combine preserved sections with new content
+        for begin_marker, sections in preserved_sections.items():
+            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
+            new_content = new_content.replace(begin_marker, f"{preserved_content}")
+    
+    
+        write_to_file(new_content, shell_c, 'w')
+        
+        
 
 
 def generate_prj_config_file(project_dir):
     prj_conf = os.path.join(project_dir, 'prj.conf')
     jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/prj_conf.j2')
     template = env.get_template(jinja_path)
-
-    # Render the template with data
-    rendered_code = template.render(data=data,dict_features = dict_features)
-    write_to_file(rendered_code,prj_conf,'w')
-
+    if not os.path.exists(prj_conf):
+        # Render the template with data
+        rendered_code = template.render(data=data,dict_features = dict_features)
+        write_to_file(rendered_code,prj_conf,'w')
+    else:
+        with open(prj_conf, 'r') as file:
+            existing_content = file.read()
+        new_content = template.render(data=data,dict_features = dict_features)
+        # Identify and preserve sections to keep
+        preserved_sections = {}
+        for marker in user_code_markers:
+            begin_marker = marker['begin']
+            end_marker = marker['end']
+            preserved_sections[begin_marker] = []
+            start_index = 0
+            while True:
+                begin_index = existing_content.find(begin_marker, start_index)
+                if begin_index == -1:
+                    break
+                end_index = existing_content.find(end_marker, begin_index)
+                if end_index == -1:
+                    break
+                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
+                start_index = end_index -1
+ 
+        # Combine preserved sections with new content
+        for begin_marker, sections in preserved_sections.items():
+            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
+            new_content = new_content.replace(begin_marker, f"{preserved_content}")
+    
+    
+        write_to_file(new_content, prj_conf, 'w')
+        
 def run():
     project_name = transform_to_slug(data['project']['name'])
     project_dir = generate_project_folder(project_name)

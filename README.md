@@ -4,11 +4,12 @@
 - [x] app_config.h
 - [x] CMakeList.text
 - [x] prj.conf
-- [x] West 
+- [x] West (west scaffold)
+- [x] user code area and automatic code as in STMCubeIDE
 - [ ] app.overlay (developing)
-- [ ] user code area and automatic code as in STMCubeIDE (developing 70%)
+
 ## Last Changes
-- user code area in app_config.c
+- user code area in all files
 - west scaffold command to generate the skeleton and CMakeLists.txt
 - no more yaml concatenations
 - project.yaml moved to /applications

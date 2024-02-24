@@ -3,8 +3,13 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
+ 
+/* Includes ------------------------------------------------------------------*/
+
 #include "app_config.h"
 #include "app_work.h"
+
+/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -15,7 +20,13 @@
 #include <errno.h>
 #include <stdlib.h>
 
+/* USER CODE BEGIN Includes */
+/* USER CODE END Includes */
+
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
+
+/* USER CODE BEGIN Variables */
+/* USER CODE END Variables */
 
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
@@ -43,7 +54,10 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(event-report-rate, NULL, "Set event report rate (default: 30)", app_config_cmd_event_report_rate, 1, 1),
     SHELL_CMD_ARG(backup-report-connected, NULL, "Set backup report connected (default: true)", app_config_cmd_backup_report_connected, 1, 1),
     SHELL_CMD_ARG(backup-report-disconnected, NULL, "Set backup report disconnected (default: true)", app_config_cmd_backup_report_disconnected, 1, 1),
-        
+
+/* USER CODE BEGIN Functions 1 */
+/* USER CODE END Functions 1 */
+
 SHELL_SUBCMD_SET_END
 );
 
@@ -53,9 +67,17 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.", print_help, 1, 0),
         
     SHELL_SUBCMD_SET_END
+
+/* USER CODE BEGIN Functions 2 */
+/* USER CODE END Functions 2 */
+
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 SHELL_CMD_ARG(send, NULL, "Set report interval (default: 3600)", app_config_cmd_app_send, 1, 1),
 SHELL_CMD_ARG(show, NULL, "Show all configs", app_config_cmd_show, 1, 1),
+
+/* USER CODE BEGIN Functions 3 */
+/* USER CODE END Functions 3 */
+
 /* clang-format on */

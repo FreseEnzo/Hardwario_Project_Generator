@@ -3,21 +3,30 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-{%- for shell_include in shell_includes %}
-#include {{ shell_include }}
-{%- endfor %}
+ 
+/* Includes ------------------------------------------------------------------*/
+
+#include "app_config.h"
+#include "app_work.h"
+
+/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
-{%- for zephyr_include in zephyr_includes %}
-#include {{ zephyr_include }}
-{%- endfor %}
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include <zephyr/shell/shell.h>
 
 /* Standard includes */
-{%- for std_include in standard_shell_includes %}
-#include {{ std_include }}
-{%- endfor %}
+#include <errno.h>
+#include <stdlib.h>
+
+/* USER CODE BEGIN Includes */
+/* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
+
+/* USER CODE BEGIN Variables */
+/* USER CODE END Variables */
 
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
@@ -45,7 +54,10 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     {%- for parameter in parameters %}
     SHELL_CMD_ARG({{ parameter.name }}, NULL, "{{ parameter.help }}", app_config_cmd_{{ parameter.var }}, 1, 1),
     {%- endfor %}
-        
+
+/* USER CODE BEGIN Functions 1 */
+/* USER CODE END Functions 1 */
+
 SHELL_SUBCMD_SET_END
 );
 
@@ -55,10 +67,18 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.", print_help, 1, 0),
         
     SHELL_SUBCMD_SET_END
+
+/* USER CODE BEGIN Functions 2 */
+/* USER CODE END Functions 2 */
+
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 {%- for command in commands %}
 SHELL_CMD_ARG({{ command.name }}, NULL, "{{ command.help }}", app_config_cmd_{{ command.callback }}, 1, 1),
 {%- endfor %}
+
+/* USER CODE BEGIN Functions 3 */
+/* USER CODE END Functions 3 */
+
 /* clang-format on */

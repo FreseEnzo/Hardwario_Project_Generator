@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
 
+# Configurations ------------------------------------------------------------------ #
 {% for feature in data['features'] -%}
     {%- set found = false %}
     {%- for key, value in dict_features.items() %}
@@ -14,7 +15,12 @@
     {%- endfor -%}
     {%- if not found -%}
     {%- endif %}
-{%- endfor -%}
+{%- endfor %}
+# Extra configurations ------------------------------------------------------------------ #
+
 {%- for extra in data['extras'] %}
 {{extra}}
 {%- endfor %}
+
+# USER CODE BEGIN Config 
+# USER CODE END Config 
