@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
-/* Includes -----------------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
 
@@ -140,7 +140,8 @@ int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, ch
             shell_error(shell, "invalid value");
             return -EINVAL;
         }
-        if (value <  || value > ) {
+        if (value <  || value > ) 
+        {
             shell_error(shell, "invalid range");
             return -EINVAL;
         }
@@ -341,7 +342,8 @@ static int h_commit(void)
 	return 0;
 }
 
-static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) {
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
+{
     int ret;
     const char *next;
 
@@ -466,7 +468,8 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 /* USER CODE END Functions 2 */
 }
 
-static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len)) {
+static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
+{
     int ret;
     ret = export_func("interval-report", & m_app_config_interim.interval_report, sizeof( m_app_config_interim.interval_report));
     if (ret < 0) {
@@ -518,7 +521,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 
 
 // Initialization function
-static int init(void) {
+static int init(void) 
+{
     int ret;
 
     LOG_INF("System initialization");
