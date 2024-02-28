@@ -12,10 +12,15 @@
 - [ ] app.overlay (developing)
 
 ## Last Changes
+- Redone code comments
+- Added unique function with kwarg arguments
+- Added suggestive names to Jinja templates
+- Added cmake function in project_generator.py
+- Deleted unused folders and files
 - User code area in all files
 - Added West scaffold command to generate the skeleton and CMakeLists.txt
 - Removed yaml concatenations
-- Movedd project.yaml /applications
+- Moved project.yaml /applications
 
 ## Next Steps
 - app.overlay
