@@ -8,10 +8,12 @@ Coded by Frese
 import yaml
 import re
 import os
+import sys
 from jinja2 import Environment, FileSystemLoader
 
 # Getting current directory
 current_directory = os.getcwd()
+env = Environment(loader=FileSystemLoader(".."))
 
 # Shell features dictionary
 dict_features: dict[str, str] = {
@@ -70,17 +72,35 @@ user_code_markers: list[dict[str, str]] = [
     {"begin": "# USER CODE BEGIN Config", "end": "# USER CODE END Config"},
 ]
 
-# YAML file
-yaml_file = os.path.join(current_directory, "project.yaml")
 
-with open(yaml_file, "r") as stream:
-    data = yaml.safe_load(stream)
+def folder_verification():
+    yaml_file = os.path.join(current_directory, "project.yaml")
+    _, folder_name = os.path.split(current_directory)
+    if not folder_name == "applications":
+        print("Error: Make sure you're in /applications folder")
+        if not os.path.exists(yaml_file):
+            print(
+                "Error: Project.yaml file not found.\nMake sure you are in the /applications folder and there is a project.yaml in it."
+            )
+        sys.exit(1)  # Close run
+    else:
+        if not os.path.exists(yaml_file):
+            print(
+                "Error: Project.yaml file not found.\nake sure project.yaml exists in /applications folder."
+            )
+            sys.exit(1)  # Close run
 
-# Setup Jinja environment base
-env = Environment(loader=FileSystemLoader(".."))
+
+def yaml_source():
+    # YAML file
+    yaml_file = os.path.join(current_directory, "project.yaml")
+
+    with open(yaml_file, "r") as stream:
+        data = yaml.safe_load(stream)
+    return data
 
 
-def generate_project_folder(project_name):
+def generate_project_folder(project_name: str):
     # Create the project directory if it doesn't exist
     project_dir = project_name
     if not os.path.exists(project_dir):
@@ -88,7 +108,7 @@ def generate_project_folder(project_name):
     return project_dir
 
 
-def create_project_structure(data):
+def create_project_structure(data: dict):
     # Extract project name from data
     project_name = data.get("project", {}).get("name")
     if not project_name:
@@ -107,14 +127,16 @@ def write_to_file(list: list, output_file: str, type: str):
 def transform_to_slug(text: str):
     # Convert to lower
     slug = text.lower()
+
     # Remove special caracters
     slug = re.sub(r"[^a-zA-Z0-9\s]", "", slug)
+
     # Replace spaces with hyphens
     slug = slug.replace(" ", "-")
     return slug
 
 
-def cmake(project_name: str):
+def cmake(project_name: str, data):
     # YAML file
     yaml_file = os.path.join(current_directory, "project.yaml")
     with open(yaml_file, "r") as stream:
@@ -165,9 +187,9 @@ def generate_file(**kwargs):
         # Render the template with data
         rendered_code = template.render(
             setting_pfx=kwargs["project_name"],
-            parameters=data["parameters"],
-            commands=data["commands"],
-            data=data,
+            parameters=kwargs["data"]["parameters"],
+            commands=kwargs["data"]["commands"],
+            data=kwargs["data"],
             dict_features=dict_features,
         )
 
@@ -181,11 +203,11 @@ def generate_file(**kwargs):
 
         # Render the template with data
         new_content = template.render(
-            struct_data=data,
-            commands=data["commands"],
+            struct_data=kwargs["data"],
+            commands=kwargs["data"]["commands"],
             setting_pfx=kwargs["project_name"],
-            parameters=data["parameters"],
-            data=data,
+            parameters=kwargs["data"]["parameters"],
+            data=kwargs["data"],
             dict_features=dict_features,
         )
 
@@ -219,6 +241,8 @@ def generate_file(**kwargs):
 
 def run():
 
+    folder_verification()
+    data = yaml_source()
     project_name = transform_to_slug(data["project"]["name"])
     project_dir = generate_project_folder(project_name)
     create_project_structure(data)
@@ -227,6 +251,7 @@ def run():
     generate_file(
         project_dir=project_dir,
         project_name=project_name,
+        data=data,
         src_dir="src",
         out_dir="app_config.c",
         jinja_path="app_config_c.j2",
@@ -236,6 +261,7 @@ def run():
     generate_file(
         project_dir=project_dir,
         project_name=project_name,
+        data=data,
         src_dir="src",
         out_dir="app_config.h",
         jinja_path="app_config_h.j2",
@@ -245,6 +271,7 @@ def run():
     generate_file(
         project_dir=project_dir,
         project_name=project_name,
+        data=data,
         src_dir="src",
         out_dir="app_shell.c",
         jinja_path="app_shell_c.j2",
@@ -254,13 +281,14 @@ def run():
     generate_file(
         project_dir=project_dir,
         project_name=project_name,
+        data=data,
         src_dir="",
         out_dir="prj.conf",
         jinja_path="prj_conf.j2",
     )
 
     # Generate CMakeLists.txt
-    cmake(project_name)
+    cmake(project_name, data)
 
 
 if __name__ == "__main__":
