@@ -12,6 +12,7 @@
 - [ ] app.overlay (developing)
 
 ## Last Changes
+- Added folder and file verification with error message before running the code
 - Redone code comments
 - Added unique function with kwarg arguments
 - Added suggestive names to Jinja templates
