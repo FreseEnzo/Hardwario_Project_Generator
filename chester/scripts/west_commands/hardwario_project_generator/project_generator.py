@@ -70,7 +70,87 @@ user_code_markers: list[dict[str, str]] = [
         "end": "/* USER CODE END Functions 4 */",
     },
     {"begin": "# USER CODE BEGIN Config", "end": "# USER CODE END Config"},
+    {
+        "begin": "/* USER CODE BEGIN Overlay */",
+        "end": "/* USER CODE END Overlay */",
+    },
 ]
+
+shields_overlay: dict[str, str] = {
+    "ctr_lte": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
+    "ctr_lrw": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
+    "ctr_z": '&ctr_z {\n\tstatus = "okay";\n};',
+    "ctr_x0_a": '&ctr_x0_a {\n\tstatus = "okay";\n};\n\n&ctr_x0_pcal6416a_a {\n\tstatus = "okay";\n};',
+    "ctr_s2": '&sht30_ext {\n\tstatus = "okay";\n};',
+    "ctr_s1": '&ctr_s1 {\n\tstatus = "okay";\n};',
+    "ctr_ds18b20": "&ds2484 {\n\t"
+    + "ds18b20_0: ds18b20_0 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_1: ds18b20_1 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_2: ds18b20_2 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_3: ds18b20_3 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_4: ds18b20_4 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_5: ds18b20_5 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_6: ds18b20_6 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_7: ds18b20_7 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_8: ds18b20_8 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n\t"
+    + "ds18b20_9: ds18b20_9 {\n\t\t"
+    + 'compatible = "maxim,ds18b20";\n\t\t'
+    + "resolution = <12>;\n\t\t"
+    + "family-code = <0x28>;\n\t};\n"
+    + "};",
+    "ctr_rtd_a": '&ctr_x3_a {\n\tstatus = "okay";\n};\n\n'
+    + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
+    + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
+}
+
+chester_variants: dict[str, dict[str, str]] = {
+    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2"},
+    "Clime Z": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_z"},
+    "Clime IAQ": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_s1",
+    },
+    "Clime 1W": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_ds18b20",
+    },
+    "Clime 1WH": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_ds18b20",
+        "shield_3": "ctr_s2",
+    },
+    "Clime RTD": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_rtd_a",
+    },
+}
 
 
 def folder_verification():
@@ -191,6 +271,9 @@ def generate_file(**kwargs):
             commands=kwargs["data"]["commands"],
             data=kwargs["data"],
             dict_features=dict_features,
+            chester_variants=chester_variants,
+            shields_overlay=shields_overlay,
+            variant_name=kwargs["data"]["project"]["variant"],
         )
 
         # Write in destination file
@@ -209,6 +292,9 @@ def generate_file(**kwargs):
             parameters=kwargs["data"]["parameters"],
             data=kwargs["data"],
             dict_features=dict_features,
+            chester_variants=chester_variants,
+            shields_overlay=shields_overlay,
+            variant_name=kwargs["data"]["project"]["variant"],
         )
 
         # Identify and save sections to keep
@@ -285,6 +371,15 @@ def run():
         src_dir="",
         out_dir="prj.conf",
         jinja_path="prj_conf.j2",
+    )
+    # Generate prj.conf
+    generate_file(
+        project_dir=project_dir,
+        project_name=project_name,
+        data=data,
+        src_dir="",
+        out_dir="app.overlay",
+        jinja_path="app_overlay.j2",
     )
 
     # Generate CMakeLists.txt
