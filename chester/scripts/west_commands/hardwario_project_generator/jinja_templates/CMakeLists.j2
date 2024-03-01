@@ -6,9 +6,6 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
-# Supported shields: {% for shield in supported_shields %}{{ shield }} {% endfor +%}
-set(SHIELD {{ shields }})
-
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project({{ project_name }})
