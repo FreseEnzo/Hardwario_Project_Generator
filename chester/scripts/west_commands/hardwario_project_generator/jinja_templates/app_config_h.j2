@@ -32,9 +32,9 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LRW = 2,
 };
 
-{% if struct_data %}
+{% if data %}
 struct app_config = {
-    {% for param in struct_data['parameters'] %}
+    {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
         char {{ param['var'] }} [{{param['len']}}];
         {%- else %}
