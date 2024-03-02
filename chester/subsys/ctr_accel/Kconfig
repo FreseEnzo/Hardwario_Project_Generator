@@ -1,0 +1,41 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_ACCEL
+	bool "CTR_ACCEL"
+	select CBPRINTF_FP_SUPPORT if CTR_ACCEL_LOG_LEVEL_DBG || CTR_ACCEL_SHELL
+	select I2C
+	select LIS2DH
+	select REQUIRES_FULL_LIBC
+	select SENSOR
+
+if CTR_ACCEL
+
+module = CTR_ACCEL
+module-str = CHESTER Accelerometer Subsystem
+source "subsys/logging/Kconfig.template.log_config"
+
+config CTR_ACCEL_SHELL
+	bool "CTR_ACCEL_SHELL"
+	depends on SHELL
+	default y
+
+choice LIS2DH_ACCEL_RANGE
+	default LIS2DH_ACCEL_RANGE_4G
+endchoice
+
+config LIS2DH_BLOCK_DATA_UPDATE
+	default y
+
+choice LIS2DH_ODR
+	default LIS2DH_ODR_2
+endchoice
+
+choice LIS2DH_TRIGGER_MODE
+	default LIS2DH_TRIGGER_GLOBAL_THREAD
+endchoice
+
+endif # CTR_ACCEL

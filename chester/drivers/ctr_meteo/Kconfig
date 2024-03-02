@@ -1,0 +1,32 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_METEO
+	bool "HARDWARIO CHESTER Meteo Driver"
+	select CTR_ADC
+	select CTR_EDGE
+	select GPIO
+	select I2C
+	select REQUIRES_FULL_LIBC
+
+if CTR_METEO
+
+module = CTR_METEO
+module-str = ctr_meteo
+source "subsys/logging/Kconfig.template.log_config"
+
+config CTR_METEO_INIT_PRIORITY
+	int "Init priority"
+	default 99
+	help
+	  Device driver initialization priority.
+
+config CTR_METEO_SHELL
+	bool "CTR_METEO_SHELL"
+	depends on SHELL
+	default y
+
+endif # CTR_METEO

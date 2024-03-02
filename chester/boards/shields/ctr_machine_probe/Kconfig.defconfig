@@ -1,0 +1,12 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+if SHIELD_CTR_MACHINE_PROBE
+
+config CTR_MACHINE_PROBE
+	default y
+
+endif # SHIELD_CTR_MACHINE_PROBE

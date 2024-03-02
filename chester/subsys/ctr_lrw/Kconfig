@@ -1,0 +1,33 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_LRW
+	bool "CTR_LRW"
+	default y
+	depends on DT_HAS_HARDWARIO_CTR_LRW_IF_ENABLED
+	select CTR_CONFIG
+	select CTR_RFMUX
+	select CTR_SHELL
+	select CTR_UTIL
+	select PM_DEVICE
+	select REQUIRES_FULL_LIBC
+	select RING_BUFFER
+
+if CTR_LRW
+
+config CTR_LRW_THREAD_STACK_SIZE
+	int "CTR_LRW_THREAD_STACK_SIZE"
+	default 4096
+
+config CTR_LRW_THREAD_PRIORITY
+	int "CTR_LRW_THREAD_PRIORITY"
+	default 10
+
+module = CTR_LRW
+module-str = CHESTER LoRaWAN Subsystem
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # CTR_LRW

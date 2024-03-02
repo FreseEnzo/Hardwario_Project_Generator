@@ -1,0 +1,20 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+description: HARDWARIO CHESTER-Meteo
+
+compatible: "hardwario,ctr-meteo"
+
+include: base.yaml
+
+properties:
+  slot:
+    type: string
+    required: true
+    description: Slot position (A or B) on CHESTER mainboard
+    enum:
+      - "A"
+      - "B"

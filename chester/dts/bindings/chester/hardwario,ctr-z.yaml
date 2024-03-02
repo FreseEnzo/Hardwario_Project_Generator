@@ -1,0 +1,23 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+description: HARDWARIO CHESTER-Z Cover Module
+
+compatible: "hardwario,ctr-z"
+
+include: i2c-device.yaml
+
+properties:
+  irq-gpios:
+    type: phandle-array
+    required: true
+    description: |
+      Alert line (active low); Needs external pull-up resistor.
+
+  auto-beep:
+    type: boolean
+    description: |
+      Enables the panel to automatically beep on a button press.

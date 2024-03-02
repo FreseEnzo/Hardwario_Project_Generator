@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2023 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
+/ {
+	chosen {
+		zephyr,console = &ctr_x2_sc16is740_b;
+	};
+};
+
+&ctr_x3_ads122c04_a1 {
+	gain = <7>;
+	vref = <1>;
+};
+
+&ctr_x3_ads122c04_a2 {
+	gain = <7>;
+	vref = <1>;
+};
+
+&ctr_x3_ads122c04_b1 {
+	gain = <7>;
+	vref = <1>;
+};
+
+&ctr_x3_ads122c04_b2 {
+	gain = <7>;
+	vref = <1>;
+};

@@ -1,0 +1,35 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_DEFAULTS
+	bool "CTR_DEFAULTS"
+
+config IDLE_STACK_SIZE
+	default 2048 if CTR_DEFAULTS
+
+config ISR_STACK_SIZE
+	default 4096 if CTR_DEFAULTS
+
+config HEAP_MEM_POOL_SIZE
+	default 8192 if CTR_DEFAULTS
+
+config MAIN_STACK_SIZE
+	default 4096 if CTR_DEFAULTS
+
+config PRIVILEGED_STACK_SIZE
+	default 4096 if CTR_DEFAULTS
+
+config SEGGER_RTT_BUFFER_SIZE_DOWN
+	default 4096 if CTR_DEFAULTS && CTR_SHELL
+
+config SEGGER_RTT_BUFFER_SIZE_UP
+	default 4096 if CTR_DEFAULTS && CTR_SHELL
+
+config SYSTEM_WORKQUEUE_STACK_SIZE
+	default 4096 if CTR_DEFAULTS
+
+config IMG_BLOCK_BUF_SIZE
+	default 256 if CTR_DEFAULTS

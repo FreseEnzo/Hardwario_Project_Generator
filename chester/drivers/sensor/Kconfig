@@ -1,0 +1,16 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+menuconfig SENSOR
+	bool "Sensor Drivers"
+	help
+		Include sensor drivers in config
+
+if SENSOR
+
+rsource "mpl3115a2/Kconfig"
+
+endif # SENSOR

@@ -1,0 +1,34 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+menu "Drivers"
+
+rsource "adc/Kconfig"
+rsource "ctr_a1/Kconfig"
+rsource "ctr_b1/Kconfig"
+rsource "ctr_batt/Kconfig"
+rsource "ctr_k1/Kconfig"
+rsource "ctr_lrw_if/Kconfig"
+rsource "ctr_lte_if/Kconfig"
+rsource "ctr_lte_if_v2/Kconfig"
+rsource "ctr_meteo/Kconfig"
+rsource "ctr_rfmux/Kconfig"
+rsource "ctr_s1/Kconfig"
+rsource "ctr_x0/Kconfig"
+rsource "ctr_x3/Kconfig"
+rsource "ctr_x4/Kconfig"
+rsource "ctr_x7/Kconfig"
+rsource "ctr_x9/Kconfig"
+rsource "ctr_x10/Kconfig"
+rsource "ctr_z/Kconfig"
+rsource "gnss/Kconfig"
+rsource "mb7066/Kconfig"
+rsource "people_counter/Kconfig"
+rsource "sensor/Kconfig"
+rsource "serial/Kconfig"
+rsource "w1/Kconfig"
+
+endmenu

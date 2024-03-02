@@ -1,0 +1,26 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_LED
+	bool "CTR_LED"
+	select LED
+
+if CTR_LED
+
+module = CTR_LED
+module-str = CHESTER LED Subsystem
+source "subsys/logging/Kconfig.template.log_config"
+
+config CTR_LED_SHELL
+	bool "CTR_LED_SHELL"
+	depends on SHELL
+	default y
+
+config CTR_LED_INIT_PRIORITY
+	int "Initialization priority"
+	default APPLICATION_INIT_PRIORITY
+
+endif # CTR_LED

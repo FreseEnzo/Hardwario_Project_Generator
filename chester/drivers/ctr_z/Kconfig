@@ -1,0 +1,18 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+config CTR_Z
+	bool "HARDWARIO CHESTER-Z Cover Module"
+	depends on GPIO
+	depends on I2C
+
+if CTR_Z
+
+module = CTR_Z
+module-str = ctr_z
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # CTR_Z

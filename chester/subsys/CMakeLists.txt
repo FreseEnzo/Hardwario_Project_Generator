@@ -1,0 +1,31 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+add_subdirectory_ifdef(CONFIG_CTR_ACCEL ctr_accel)
+add_subdirectory_ifdef(CONFIG_CTR_ADC ctr_adc)
+add_subdirectory_ifdef(CONFIG_CTR_BLE ctr_ble)
+add_subdirectory_ifdef(CONFIG_CTR_BUTTON ctr_button)
+add_subdirectory_ifdef(CONFIG_CTR_CONFIG ctr_config)
+add_subdirectory_ifdef(CONFIG_CTR_DS18B20 ctr_ds18b20)
+add_subdirectory_ifdef(CONFIG_CTR_EDGE ctr_edge)
+add_subdirectory_ifdef(CONFIG_CTR_FLASH ctr_flash)
+add_subdirectory_ifdef(CONFIG_CTR_GNSS ctr_gnss)
+add_subdirectory_ifdef(CONFIG_CTR_GPIO ctr_gpio)
+add_subdirectory_ifdef(CONFIG_CTR_HYGRO ctr_hygro)
+add_subdirectory_ifdef(CONFIG_CTR_INFO ctr_info)
+add_subdirectory_ifdef(CONFIG_CTR_LED ctr_led)
+add_subdirectory_ifdef(CONFIG_CTR_LRW ctr_lrw)
+add_subdirectory_ifdef(CONFIG_CTR_LTE ctr_lte)
+add_subdirectory_ifdef(CONFIG_CTR_MACHINE_PROBE ctr_machine_probe)
+add_subdirectory_ifdef(CONFIG_CTR_RTC ctr_rtc)
+add_subdirectory_ifdef(CONFIG_CTR_RTD ctr_rtd)
+add_subdirectory_ifdef(CONFIG_CTR_SIGNAL ctr_signal)
+add_subdirectory_ifdef(CONFIG_CTR_SOIL_SENSOR ctr_soil_sensor)
+add_subdirectory_ifdef(CONFIG_CTR_TEST ctr_test)
+add_subdirectory_ifdef(CONFIG_CTR_THERM ctr_therm)
+add_subdirectory_ifdef(CONFIG_CTR_W1 ctr_w1)
+add_subdirectory_ifdef(CONFIG_CTR_WDOG ctr_wdog)
+add_subdirectory_ifdef(CONFIG_CTR_WEIGHT_PROBE ctr_weight_probe)
