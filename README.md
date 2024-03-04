@@ -12,8 +12,8 @@
 - [x] app.overlay (Verify with Pavel if this solutions is good)
 
 ## Last Changes
-- Added Hardwario Skeleton (easier to test 'west scaffold')
-- Added poetry
+- Added .west 
+- Added poetry and dependecies 
 - Deleted shield section in CMakeLists.txt
 - Added app.overlay generation file
 - Added folder and file verification with error message before running the code
