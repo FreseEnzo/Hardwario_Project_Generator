@@ -1,5 +1,0 @@
-/ {
-	zephyr,user {
-		tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
-	};
-};
