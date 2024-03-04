@@ -1,6 +1,0 @@
-.DS_Store
-.DS_Store?
-build/
-scripts/west_commands/__pycache__/*.pyc
-doc/html
-doc/latex

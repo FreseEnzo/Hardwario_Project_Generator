@@ -1,10 +1,4 @@
 [manifest]
-path = vendor
+path = chester
 file = west.yml
-
-[build]
-board = chester_nrf52840
-
-[zephyr]
-base = zephyr
 
