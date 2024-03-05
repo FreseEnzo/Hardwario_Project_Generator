@@ -99,14 +99,15 @@ def cmake(project_name: str, data):
             sources=sources,
         )
 
-        # Write the rendered template to CMakeLists.txt
-        with open(project_name + "/CMakeLists.txt", "w") as f:
-            f.write(rendered_template)
+        # Log message
         if os.path.exists(project_name + "/CMakeLists.txt"):
             log.inf("CMakeLists.txt successfully updated", colorize=True)
         else:
             log.inf("CMakeLists.txt successfully created", colorize=True)
 
+        # Write the rendered template to CMakeLists.txt
+        with open(project_name + "/CMakeLists.txt", "w") as f:
+            f.write(rendered_template)
     except:
         log.err("CMakeLists.txt unsuccessfully created")
 
