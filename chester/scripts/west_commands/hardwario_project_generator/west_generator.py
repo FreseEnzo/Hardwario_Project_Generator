@@ -34,6 +34,8 @@ class ProjectGenerator(WestCommand):
         return parser  # gets stored as self.parser
 
     def do_run(self, args, unknown_args):
-        run()
-        log.inf("Project successfully created")
-        log.inf("CMakeLists.txt successfully created")
+        try:
+            run()
+            log.inf("Project successfully created", colorize=True)
+        except:
+            log.err("Project unsuccessfully created")
