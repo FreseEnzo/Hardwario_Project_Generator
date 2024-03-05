@@ -259,16 +259,13 @@ def run():
 
     # Successfull creation log information
     if len(sucessfully_created) > 0:
-        log.inf(
-            f"Files: {', '.join(sucessfully_created)} successfully created",
-            colorize=True,
-        )
+        log.inf("Created files:", colorize=True)
+        for file in sucessfully_created:
+            log.inf(f"• {file}", colorize=True)
     if len(sucessfully_updated) > 0:
-        log.inf(
-            f"Files: {', '.join(sucessfully_updated)} successfully updated",
-            colorize=True,
-        )
-
+        log.inf("Updated files:", colorize=True)
+        for file in sucessfully_updated:
+            log.inf(f"• {file}", colorize=True)
     # Generate CMakeLists.txt
     cmake(project_name, data)
 
