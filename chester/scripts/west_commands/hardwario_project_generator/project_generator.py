@@ -26,12 +26,12 @@ def folder_verification():
     _, folder_name = os.path.split(current_directory)
 
     if not folder_name == "applications":
-        log.err("Make sure you're in /applications folder")
+        log.wrn("Make sure you're in /applications folder")
         sys.exit(1)  # Close run
     else:
         if not os.path.exists(yaml_file):
 
-            log.err(
+            log.wrn(
                 "project.yaml file not found. Make sure project.yaml exists in /applications folder."
             )
             sys.exit(1)  # Close run
@@ -205,7 +205,7 @@ def run():
         project_name = transform_to_slug(data["project"]["name"])
         project_dir = generate_project_folder(project_name)
     except:
-        log.err("No project name found in project.yaml")
+        log.wrn("No project name found in project.yaml")
         sys.exit(1)  # Close run
 
     # Generate app_config.c
@@ -268,7 +268,6 @@ def run():
             log.inf(f"• {file}", colorize=True)
     # Generate CMakeLists.txt
     cmake(project_name, data)
-
 
 if __name__ == "__main__":
     run()
