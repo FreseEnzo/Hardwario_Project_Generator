@@ -14,18 +14,15 @@ from project_data import *
 
 # Getting current directory
 current_directory = os.getcwd()
-env = Environment(loader=FileSystemLoader(".."))
 
 
 def folder_verification():
+
     yaml_file = os.path.join(current_directory, "project.yaml")
     _, folder_name = os.path.split(current_directory)
+
     if not folder_name == "applications":
         print("Error: Make sure you're in /applications folder")
-        if not os.path.exists(yaml_file):
-            print(
-                "Error: Project.yaml file not found.\nMake sure you are in the /applications folder and there is a project.yaml in it."
-            )
         sys.exit(1)  # Close run
     else:
         if not os.path.exists(yaml_file):
@@ -81,22 +78,24 @@ def transform_to_slug(text: str):
 
 
 def cmake(project_name: str, data):
-    # YAML file
-    yaml_file = os.path.join(current_directory, "project.yaml")
-    with open(yaml_file, "r") as stream:
-        data = yaml.safe_load(stream)
+
+    # Setup Jinja environment
+    jinja_templates_dir = (
+        "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    )
+    current_dir = os.path.dirname(current_directory)
+    jinja_templates_folder = os.path.join(
+        current_dir,
+        *jinja_templates_dir.split("/"),
+    )
+    env = Environment(loader=FileSystemLoader(jinja_templates_folder))
 
     # Walking into files
     sources = []
     for root, dirs, files in os.walk(project_name + "/src"):
         sources.append((root, dirs, files))
 
-    # Jinja CMake path 
-    cmake_path = os.path.join(
-        current_directory,
-        "/scripts/west_commands/hardwario_project_generator/jinja_templates/CMakeLists.j2",
-    )
-    template = env.get_template(cmake_path)
+    template = env.get_template("CMakeLists.j2")
 
     # Render the template with data
     rendered_template = template.render(
@@ -110,19 +109,24 @@ def cmake(project_name: str, data):
 
 
 def generate_file(project_dir, project_name, src_dir, out_dir, jinja_path, **kwargs):
+
+    # Setup Jinja environment
+    jinja_templates_dir = (
+        "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    )
+    current_dir = os.path.dirname(current_directory)
+    jinja_templates_folder = os.path.join(
+        current_dir,
+        *jinja_templates_dir.split("/"),
+    )
+    env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+    template = env.get_template(jinja_path)
+
     # Dir source
     src_dir = os.path.join(project_dir, src_dir)
     if not os.path.exists(src_dir):
         os.makedirs(src_dir)
     destination = os.path.join(src_dir, out_dir)
-
-    # Setup Jinja environment
-    jinja_path = os.path.join(
-        current_directory,
-        "/scripts/west_commands/hardwario_project_generator/jinja_templates",
-        jinja_path,
-    )
-    template = env.get_template(jinja_path)
 
     if not os.path.exists(destination):
 
