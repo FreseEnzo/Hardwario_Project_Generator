@@ -263,7 +263,7 @@ def run():
             f"Files: {', '.join(sucessfully_created)} successfully created",
             colorize=True,
         )
-    elif len(sucessfully_updated) > 0:
+    if len(sucessfully_updated) > 0:
         log.inf(
             f"Files: {', '.join(sucessfully_updated)} successfully updated",
             colorize=True,
