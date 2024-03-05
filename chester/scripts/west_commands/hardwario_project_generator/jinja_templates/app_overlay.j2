@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2023 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
+
+/* {{ variant_name }} -------------------------------------------------*/
+{% for variant, variant_dsc in chester_variants.items() -%}
+    {%- if variant == variant_name -%}
+        {% for _, shield in variant_dsc.items() -%}
+            {%- for shield_name, shield_dsc in shields_overlay.items() -%}
+                {% if shield_name == shield %}
+/* {{shield_name}} ----------------------------------------------------------------------*/
+{{shield_dsc}}
+                {%endif%}
+            {%- endfor %}
+        {%- endfor %}
+    {%endif-%}
+{% endfor %}
+
+/* USER CODE BEGIN Overlay */
+/* USER CODE END Overlay */

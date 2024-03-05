@@ -50,6 +50,7 @@ struct app_config = {
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
+/* Private Functions -------------------------------------------------------------------*/
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);

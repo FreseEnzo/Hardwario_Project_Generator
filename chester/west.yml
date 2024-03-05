@@ -1,0 +1,5 @@
+manifest:
+  version: "0.12"
+  self:
+    path: chester
+    west-commands: scripts/west-commands.yml

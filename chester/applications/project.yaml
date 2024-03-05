@@ -5,7 +5,7 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.3
-  variant: CHESTER Clime
+  variant: Clime 1WH
 features:
 - bluetooth
 - shell
