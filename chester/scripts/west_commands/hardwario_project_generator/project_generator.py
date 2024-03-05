@@ -15,8 +15,9 @@ from project_data import *
 # Getting current directory
 current_directory = os.getcwd()
 
+
 def folder_verification():
-    
+
     yaml_file = os.path.join(current_directory, "project.yaml")
     _, folder_name = os.path.split(current_directory)
 
@@ -79,7 +80,9 @@ def transform_to_slug(text: str):
 def cmake(project_name: str, data):
 
     # Setup Jinja environment
-    jinja_templates_dir = "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    jinja_templates_dir = (
+        "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    )
     current_dir = os.path.dirname(current_directory)
     jinja_templates_folder = os.path.join(
         current_dir,
@@ -92,7 +95,7 @@ def cmake(project_name: str, data):
     for root, dirs, files in os.walk(project_name + "/src"):
         sources.append((root, dirs, files))
 
-    template = env.get_template('CMakeLists.j2')
+    template = env.get_template("CMakeLists.j2")
 
     # Render the template with data
     rendered_template = template.render(
@@ -108,21 +111,23 @@ def cmake(project_name: str, data):
 def generate_file(project_dir, project_name, src_dir, out_dir, jinja_path, **kwargs):
 
     # Setup Jinja environment
-    jinja_templates_dir = "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    jinja_templates_dir = (
+        "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+    )
     current_dir = os.path.dirname(current_directory)
     jinja_templates_folder = os.path.join(
         current_dir,
         *jinja_templates_dir.split("/"),
     )
     env = Environment(loader=FileSystemLoader(jinja_templates_folder))
-    template = env.get_template(jinja_path) 
+    template = env.get_template(jinja_path)
 
     # Dir source
     src_dir = os.path.join(project_dir, src_dir)
     if not os.path.exists(src_dir):
         os.makedirs(src_dir)
     destination = os.path.join(src_dir, out_dir)
-   
+
     if not os.path.exists(destination):
 
         # Render the template with data
