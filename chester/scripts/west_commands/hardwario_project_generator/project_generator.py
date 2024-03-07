@@ -253,6 +253,7 @@ def run():
         jinja_path="prj_conf.j2",
         **data,
     )
+    
     # Generate prj.conf
     generate_file(
         project_dir,
