@@ -16,9 +16,6 @@ from west import log
 # Getting current directory
 current_directory = os.getcwd()
 
-sucessfully_created = []
-sucessfully_updated = []
-
 
 def folder_verification():
 
@@ -112,7 +109,9 @@ def cmake(project_name: str, data):
         log.err("CMakeLists.txt unsuccessfully created")
 
 
-def generate_file(project_dir, project_name, src_dir, out_dir, jinja_path, **kwargs):
+def generate_file(
+    project_dir, project_name, file_status, src_dir, out_dir, jinja_path, **kwargs
+):
     try:
         # Setup Jinja environment
         jinja_templates_dir = (
@@ -148,7 +147,7 @@ def generate_file(project_dir, project_name, src_dir, out_dir, jinja_path, **kwa
 
             # Write in destination file
             write_to_file(rendered_code, destination, "w")
-            sucessfully_created.append(out_dir)
+            file_status["created"].append(out_dir)
         else:
             # Opening destination file
             with open(destination, "r") as file:
@@ -192,15 +191,18 @@ def generate_file(project_dir, project_name, src_dir, out_dir, jinja_path, **kwa
 
             # Write in destination file
             write_to_file(new_content, destination, "w")
-            sucessfully_updated.append(out_dir)
+            file_status["updated"].append(out_dir)
     except:
         log.err(f"{out_dir} unsuccessfully created")
 
 
 def run():
 
+    file_status: dict[str, list] = {"created": [], "updated": []}
+
     folder_verification()
     data = yaml_source()
+
     try:
         project_name = transform_to_slug(data["project"]["name"])
         project_dir = generate_project_folder(project_name)
@@ -212,6 +214,7 @@ def run():
     generate_file(
         project_dir,
         project_name,
+        file_status,
         src_dir="src",
         out_dir="app_config.c",
         jinja_path="app_config_c.j2",
@@ -222,6 +225,7 @@ def run():
     generate_file(
         project_dir,
         project_name,
+        file_status,
         src_dir="src",
         out_dir="app_config.h",
         jinja_path="app_config_h.j2",
@@ -230,8 +234,9 @@ def run():
 
     # Generate app_shell.c
     generate_file(
-        project_dir=project_dir,
-        project_name=project_name,
+        project_dir,
+        project_name,
+        file_status,
         src_dir="src",
         out_dir="app_shell.c",
         jinja_path="app_shell_c.j2",
@@ -242,6 +247,7 @@ def run():
     generate_file(
         project_dir,
         project_name,
+        file_status,
         src_dir="",
         out_dir="prj.conf",
         jinja_path="prj_conf.j2",
@@ -251,6 +257,7 @@ def run():
     generate_file(
         project_dir,
         project_name,
+        file_status,
         src_dir="",
         out_dir="app.overlay",
         jinja_path="app_overlay.j2",
@@ -258,16 +265,18 @@ def run():
     )
 
     # Successfull creation log information
-    if len(sucessfully_created) > 0:
+    if len(file_status["created"]) > 0:
         log.inf("Created files:", colorize=True)
-        for file in sucessfully_created:
+        for file in file_status["created"]:
             log.inf(f"• {file}", colorize=True)
-    if len(sucessfully_updated) > 0:
+    if len(file_status["updated"]) > 0:
         log.inf("Updated files:", colorize=True)
-        for file in sucessfully_updated:
+        for file in file_status["updated"]:
             log.inf(f"• {file}", colorize=True)
+
     # Generate CMakeLists.txt
     cmake(project_name, data)
+
 
 if __name__ == "__main__":
     run()
