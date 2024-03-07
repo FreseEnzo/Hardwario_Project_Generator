@@ -17,7 +17,7 @@ from west import log
 current_directory = os.getcwd()
 
 
-def folder_verification():
+def project_verification(data):
 
     yaml_file = os.path.join(current_directory, "project.yaml")
     _, folder_name = os.path.split(current_directory)
@@ -32,6 +32,9 @@ def folder_verification():
                 "project.yaml file not found. Make sure project.yaml exists in /applications folder."
             )
             sys.exit(1)  # Close run
+
+    if not data["project"]["variant"]:
+        log.wrn("No project variant found in project.yaml")
 
 
 def yaml_source():
@@ -100,7 +103,7 @@ def cmake(project_name: str, data):
         if os.path.exists(project_name + "/CMakeLists.txt"):
             log.inf("CMakeLists.txt successfully updated", colorize=True)
         else:
-            log.inf("CMakeLists.txt successfully created", colorize=True)
+            log.inf("CMakeLists.txt successfully generated", colorize=True)
 
         # Write the rendered template to CMakeLists.txt
         with open(project_name + "/CMakeLists.txt", "w") as f:
@@ -199,9 +202,9 @@ def generate_file(
 def run():
 
     file_status: dict[str, list] = {"created": [], "updated": []}
-
-    folder_verification()
     data = yaml_source()
+
+    project_verification(data)
 
     try:
         project_name = transform_to_slug(data["project"]["name"])
@@ -253,7 +256,7 @@ def run():
         jinja_path="prj_conf.j2",
         **data,
     )
-    
+
     # Generate prj.conf
     generate_file(
         project_dir,
