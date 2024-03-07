@@ -1,348 +1,286 @@
-'''
+"""
 CHESTER SDK Project Generator
 08/02/2024
 Coded by Frese
+"""
 
-'''
-# Imports 
-import yaml # pip install PyYAML
+# Imports
+import yaml
 import re
 import os
-from yaml_overlap import generate_project_yaml
+import sys
 from jinja2 import Environment, FileSystemLoader
+from project_data import *
+from west import log
 
+# Getting current directory
 current_directory = os.getcwd()
 
-# Includes 
-config_c_includes = ['"app_config.h"']
-app_config_c_includes =['<chester/ctr_config.h>']
-app_config_h_includes = []
-standard_config_includes = ['<ctype.h>', '<stdbool.h>','<stdio.h>','<stdlib.h>','<string.h>']
-zephyr_config_c_includes = ['<zephyr/init.h>','<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/settings/settings.h>','<zephyr/shell/shell.h>']
-#Shell
-zephyr_includes = ['<zephyr/kernel.h>','<zephyr/logging/log.h>','<zephyr/shell/shell.h>']
-shell_includes = ['"app_config.h"','"app_work.h"']
-standard_shell_includes = ['<errno.h>','<stdlib.h>']
 
-# File Paths
-app_config_c = './src/app_config.c'
-app_config_h = './src/app_config.h'
-shell_c = './src/app_shell.c'
-prj_conf = './'
+def project_verification(data):
 
-# Shell Parameters
-dict_features = {
-    'shell': 'CONFIG_ADC_SHELL=y\n',
-    'accel': 'CONFIG_CTR_ACCEL=y\n',
-    'adc': 'CONFIG_CTR_ADC=y\n',
-    'batt': 'CONFIG_CTR_BATT=y\n',
-    'bluetooth': 'CONFIG_CTR_BLE=y\n',
-    'buf': 'CONFIG_CTR_BUF=y\n',
-    'button': 'CONFIG_CTR_BUTTON=y\n',
-    'defaults': 'CONFIG_CTR_DEFAULTS=y\n',
-    'edge': 'CONFIG_CTR_EDGE=y\n',
-    'info': 'CONFIG_CTR_INFO=y\n',
-    'led': 'CONFIG_CTR_LED=y\n',
-    'log': 'CONFIG_CTR_LOG=y\n',
-    'lte': 'CONFIG_CTR_LTE_CLKSYNC=y\n',
-    'lorawan': 'CONFIG_CTR_LRW=y\n',
-    'rtc': 'CONFIG_CTR_RTC=y\n',
-    'shell': 'CONFIG_CTR_SHELL=y\n',
-    'therm': 'CONFIG_CTR_THERM=y\n',
-    'wdog': 'CONFIG_CTR_WDOG=y\n',
-    'entropy_generator': 'CONFIG_ENTROPY_GENERATOR=y\n',
-    'tinycrypt_sha256': 'CONFIG_TINYCRYPT_SHA256=y\n',
-    'tinycrypt': 'CONFIG_TINYCRYPT=y\n',
-    'zcbor_stop_on_error': 'CONFIG_ZCBOR_STOP_ON_ERROR=y\n',
-    'zcbor': 'CONFIG_ZCBOR=y\n'
-}
-user_code_markers = [
-{
-    'begin': '/* USER CODE BEGIN Includes */',
-    'end': '/* USER CODE END Includes */'
-},
-{
-    'begin': '/* USER CODE BEGIN Variables */',
-    'end': '/* USER CODE END Variables */'
-},
-    {
-    'begin': '/* USER CODE BEGIN Functions 0 */',
-    'end': '/* USER CODE END Functions 0 */'
-},
-        {
-    'begin': '/* USER CODE BEGIN Functions 1 */',
-    'end': '/* USER CODE END Functions 1 */'
-},
-        {
-    'begin': '/* USER CODE BEGIN Functions 2 */',
-    'end': '/* USER CODE END Functions 2 */'
-},
-        {
-    'begin': '/* USER CODE BEGIN Functions 3 */',
-    'end': '/* USER CODE END Functions 3 */'
-},
-        {
-    'begin': '/* USER CODE BEGIN Functions 4 */',
-    'end': '/* USER CODE END Functions 4 */'
-},
-        {
-    'begin': '# USER CODE BEGIN Config',
-    'end': '# USER CODE END Config'
-}
-]
-   
-# YAML file
-yaml_file = os.path.join(current_directory, "project.yaml")
+    yaml_file = os.path.join(current_directory, "project.yaml")
+    _, folder_name = os.path.split(current_directory)
 
-with open(yaml_file, 'r') as stream:
-    data = yaml.safe_load(stream)
-    
-# Setup Jinja environment
-env = Environment(loader=FileSystemLoader('..'))
+    if not folder_name == "applications":
+        log.wrn("Make sure you're in /applications folder")
+        sys.exit(1)  # Close run
+    else:
+        if not os.path.exists(yaml_file):
 
-def generate_project_folder(project_name):
+            log.wrn(
+                "project.yaml file not found. Make sure project.yaml exists in /applications folder."
+            )
+            sys.exit(1)  # Close run
+
+    if not data["project"]["variant"]:
+        log.wrn("No project variant found in project.yaml")
+
+
+def yaml_source():
+    # YAML file
+    yaml_file = os.path.join(current_directory, "project.yaml")
+
+    with open(yaml_file, "r") as stream:
+        data = yaml.safe_load(stream)
+    return data
+
+
+def generate_project_folder(project_name: str):
     # Create the project directory if it doesn't exist
     project_dir = project_name
     if not os.path.exists(project_dir):
         os.makedirs(project_dir)
     return project_dir
 
-def create_project_structure(data):
 
-    # Extract project name from data
-    project_name = data.get('project', {}).get('name')
-    if not project_name:
-        print("Project name not provided in the data.")
-        return
-    # You can add more folder creation logic here if needed
-    print("Project structure creation completed.")
-
-def write_to_file(list, output_file,type):
-    # Write the function to a C file
+def write_to_file(list: list, output_file: str, type: str):
+    # Write in a file
     with open(output_file, type) as file:
         for line in list:
             file.write(line)
 
-def transform_to_slug(text):
-    # Converter para minúsculas
+
+def transform_to_slug(text: str):
+    # Convert to lower
     slug = text.lower()
-    # Remover caracteres especiais
-    slug = re.sub(r'[^a-zA-Z0-9\s]', '', slug)
-    # Substituir espaços por hífens
-    slug = slug.replace(' ', '-')
+
+    # Remove special caracters
+    slug = re.sub(r"[^a-zA-Z0-9\s]", "", slug)
+
+    # Replace spaces with hyphens
+    slug = slug.replace(" ", "-")
     return slug
 
 
-def generate_app_config_c(project_dir,project_name):
- 
-    src_dir = os.path.join(project_dir, 'src')
-    if not os.path.exists(src_dir):
-        os.makedirs(src_dir)
-    app_config_c = os.path.join(src_dir, 'app_config.c')
-
-    # Setup Jinja environment
-    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/app_config_c.j2')
-    template = env.get_template(jinja_path)
-    
-    if not os.path.exists(app_config_c):
+def cmake(project_name: str, data):
+    try:
         # Setup Jinja environment
-       
-        parameters = data['parameters']
-        
+        jinja_templates_dir = (
+            "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+        )
+        current_dir = os.path.dirname(current_directory)
+        jinja_templates_folder = os.path.join(
+            current_dir,
+            *jinja_templates_dir.split("/"),
+        )
+        env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+
+        # Walking into files
+        sources = []
+        for root, dirs, files in os.walk(project_name + "/src"):
+            sources.append((root, dirs, files))
+
+        template = env.get_template("CMakeLists.j2")
+
         # Render the template with data
-        rendered_code = template.render(config_c_includes=config_c_includes,
-                                        app_config_c_includes=app_config_c_includes,
-                                        zephyr_config_c_includes=zephyr_config_c_includes,
-                                        standard_config_includes=standard_config_includes,
-                                        struct_data=data,
-                                        commands=data['commands'],
-                                        setting_pfx=project_name,
-                                        parameters=parameters,
-                                        data=data,
-                                        )
-        write_to_file(rendered_code, app_config_c, 'w')
-    else:
-        with open(app_config_c, 'r') as file:
-            existing_content = file.read()
+        rendered_template = template.render(
+            project_name=project_name,
+            sources=sources,
+        )
 
-        #template = env.get_template(jinja_path)
-        parameters = data['parameters']
-        
-        # Render the template with data
-        new_content = template.render(config_c_includes=config_c_includes,
-                                        app_config_c_includes=app_config_c_includes,
-                                        zephyr_config_c_includes=zephyr_config_c_includes,
-                                        standard_config_includes=standard_config_includes,
-                                        struct_data=data,
-                                        commands=data['commands'],
-                                        setting_pfx=project_name,
-                                        parameters=parameters,
-                                        data=data,
-                                        )
-        # Identify and preserve sections to keep
-        preserved_sections = {}
-        for marker in user_code_markers:
-            begin_marker = marker['begin']
-            end_marker = marker['end']
-            preserved_sections[begin_marker] = []
-            start_index = 0
-            while True:
-                begin_index = existing_content.find(begin_marker, start_index)
-                if begin_index == -1:
-                    break
-                end_index = existing_content.find(end_marker, begin_index)
-                if end_index == -1:
-                    break
-                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
-                start_index = end_index -1
- 
-        # Combine preserved sections with new content
-        for begin_marker, sections in preserved_sections.items():
-            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
-            new_content = new_content.replace(begin_marker, f"{preserved_content}")
-    
-    
-        write_to_file(new_content, app_config_c, 'w')
-   
- 
-def generate_app_config_h(project_dir):
-    app_config_h = os.path.join(project_dir, 'src', 'app_config.h')
-    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/app_config_h.j2')
-    template = env.get_template(jinja_path)
-    if not os.path.exists(app_config_h):
-        rendered_code = template.render(struct_data = data,data = data)
-        write_to_file(rendered_code,app_config_h,'w')
-    else:
-        with open(app_config_h, 'r') as file:
-            existing_content = file.read()
-        new_content = template.render(struct_data = data,data = data)
-                # Identify and preserve sections to keep
-        preserved_sections = {}
-        for marker in user_code_markers:
-            begin_marker = marker['begin']
-            end_marker = marker['end']
-            preserved_sections[begin_marker] = []
-            start_index = 0
-            while True:
-                begin_index = existing_content.find(begin_marker, start_index)
-                if begin_index == -1:
-                    break
-                end_index = existing_content.find(end_marker, begin_index)
-                if end_index == -1:
-                    break
-                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
-                start_index = end_index -1
- 
-        # Combine preserved sections with new content
-        for begin_marker, sections in preserved_sections.items():
-            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
-            new_content = new_content.replace(begin_marker, f"{preserved_content}")
-    
-    
-        write_to_file(new_content, app_config_h, 'w')
-        
+        # Log message
+        if os.path.exists(project_name + "/CMakeLists.txt"):
+            log.inf("CMakeLists.txt successfully updated", colorize=True)
+        else:
+            log.inf("CMakeLists.txt successfully generated", colorize=True)
 
-def generate_shell(project_dir):
-    shell_c = os.path.join(project_dir, 'src', 'app_shell.c')
-    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/shell_c.j2')
-    template = env.get_template(jinja_path)
-    if not os.path.exists(shell_c):
-        # Render the template with data
-        rendered_code = template.render(shell_includes=shell_includes,
-                                        zephyr_includes=zephyr_includes,
-                                        standard_shell_includes=standard_shell_includes,
-                                        commands=data['commands'],
-                                        parameters=data['parameters'])
-
-        write_to_file(rendered_code,shell_c,'w')
-    else:
-        with open(shell_c, 'r') as file:
-            existing_content = file.read()
-        new_content = template.render(shell_includes=shell_includes,
-                                        zephyr_includes=zephyr_includes,
-                                        standard_shell_includes=standard_shell_includes,
-                                        commands=data['commands'],
-                                        parameters=data['parameters'])
-        # Identify and preserve sections to keep
-        preserved_sections = {}
-        for marker in user_code_markers:
-            begin_marker = marker['begin']
-            end_marker = marker['end']
-            preserved_sections[begin_marker] = []
-            start_index = 0
-            while True:
-                begin_index = existing_content.find(begin_marker, start_index)
-                if begin_index == -1:
-                    break
-                end_index = existing_content.find(end_marker, begin_index)
-                if end_index == -1:
-                    break
-                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
-                start_index = end_index -1
- 
-        # Combine preserved sections with new content
-        for begin_marker, sections in preserved_sections.items():
-            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
-            new_content = new_content.replace(begin_marker, f"{preserved_content}")
-    
-    
-        write_to_file(new_content, shell_c, 'w')
-        
-        
+        # Write the rendered template to CMakeLists.txt
+        with open(project_name + "/CMakeLists.txt", "w") as f:
+            f.write(rendered_template)
+    except:
+        log.err("CMakeLists.txt unsuccessfully created")
 
 
-def generate_prj_config_file(project_dir):
-    prj_conf = os.path.join(project_dir, 'prj.conf')
-    jinja_path = os.path.join(current_directory,'/scripts/west_commands/hardwario_project_generator/jinja_templates/prj_conf.j2')
-    template = env.get_template(jinja_path)
-    if not os.path.exists(prj_conf):
-        # Render the template with data
-        rendered_code = template.render(data=data,dict_features = dict_features)
-        write_to_file(rendered_code,prj_conf,'w')
-    else:
-        with open(prj_conf, 'r') as file:
-            existing_content = file.read()
-        new_content = template.render(data=data,dict_features = dict_features)
-        # Identify and preserve sections to keep
-        preserved_sections = {}
-        for marker in user_code_markers:
-            begin_marker = marker['begin']
-            end_marker = marker['end']
-            preserved_sections[begin_marker] = []
-            start_index = 0
-            while True:
-                begin_index = existing_content.find(begin_marker, start_index)
-                if begin_index == -1:
-                    break
-                end_index = existing_content.find(end_marker, begin_index)
-                if end_index == -1:
-                    break
-                preserved_sections[begin_marker].append(existing_content[begin_index:end_index-1])
-                start_index = end_index -1
- 
-        # Combine preserved sections with new content
-        for begin_marker, sections in preserved_sections.items():
-            preserved_content = '\n'.join(sections)  # Concatena todas as seções preservadas
-            new_content = new_content.replace(begin_marker, f"{preserved_content}")
-    
-    
-        write_to_file(new_content, prj_conf, 'w')
-        
+def generate_file(
+    project_dir, project_name, file_status, src_dir, out_dir, jinja_path, **kwargs
+):
+    try:
+        # Setup Jinja environment
+        jinja_templates_dir = (
+            "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+        )
+        current_dir = os.path.dirname(current_directory)
+        jinja_templates_folder = os.path.join(
+            current_dir,
+            *jinja_templates_dir.split("/"),
+        )
+        env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+        template = env.get_template(jinja_path)
+
+        # Dir source
+        src_dir = os.path.join(project_dir, src_dir)
+        if not os.path.exists(src_dir):
+            os.makedirs(src_dir)
+        destination = os.path.join(src_dir, out_dir)
+
+        if not os.path.exists(destination):
+
+            # Render the template with data
+            rendered_code = template.render(
+                setting_pfx=project_name,
+                parameters=kwargs.get("parameters", ""),
+                commands=kwargs.get("commands", ""),
+                data=kwargs,
+                dict_features=DICT_FEATURES,
+                chester_variants=CHESTER_VARIANTS,
+                shields_overlay=SHIELDS_OVERLAY,
+                variant_name=kwargs.get("project", {}).get("variant", ""),
+            )
+
+            # Write in destination file
+            write_to_file(rendered_code, destination, "w")
+            file_status["created"].append(out_dir)
+        else:
+            # Opening destination file
+            with open(destination, "r") as file:
+                existing_content = file.read()
+
+            # Render the template with data
+            new_content = template.render(
+                setting_pfx=project_name,
+                parameters=kwargs.get("parameters", ""),
+                commands=kwargs.get("commands", ""),
+                data=kwargs,
+                dict_features=DICT_FEATURES,
+                chester_variants=CHESTER_VARIANTS,
+                shields_overlay=SHIELDS_OVERLAY,
+                variant_name=kwargs.get("project", {}).get("variant", ""),
+            )
+
+            # Identify and save sections to keep
+            saved_sections: dict = {}
+            for marker in USER_CODE_MARKERS:
+                begin_marker = marker["begin"]
+                end_marker = marker["end"]
+                saved_sections[begin_marker] = []
+                start_index = 0
+                while True:
+                    begin_index = existing_content.find(begin_marker, start_index)
+                    if begin_index == -1:
+                        break
+                    end_index = existing_content.find(end_marker, begin_index)
+                    if end_index == -1:
+                        break
+                    saved_sections[begin_marker].append(
+                        existing_content[begin_index : end_index - 1]
+                    )
+                    start_index = end_index - 1
+
+            # Combine saved sections with new content
+            for begin_marker, sections in saved_sections.items():
+                saved_content = "\n".join(sections)  # Concatenate all saved sections
+                new_content = new_content.replace(begin_marker, f"{saved_content}")
+
+            # Write in destination file
+            write_to_file(new_content, destination, "w")
+            file_status["updated"].append(out_dir)
+    except:
+        log.err(f"{out_dir} unsuccessfully created")
+
+
 def run():
-    project_name = transform_to_slug(data['project']['name'])
-    project_dir = generate_project_folder(project_name)
-    create_project_structure(data)
-    generate_app_config_c(project_dir,project_name)
-    generate_app_config_h(project_dir)
-    generate_shell(project_dir)
-    generate_prj_config_file(project_dir)
 
-def main():
-    run()
+    file_status: dict[str, list] = {"created": [], "updated": []}
+    data = yaml_source()
+
+    project_verification(data)
+
+    try:
+        project_name = transform_to_slug(data["project"]["name"])
+        project_dir = generate_project_folder(project_name)
+    except:
+        log.wrn("No project name found in project.yaml")
+        sys.exit(1)  # Close run
+
+    # Generate app_config.c
+    generate_file(
+        project_dir,
+        project_name,
+        file_status,
+        src_dir="src",
+        out_dir="app_config.c",
+        jinja_path="app_config_c.j2",
+        **data,
+    )
+
+    # Generate app_config.h
+    generate_file(
+        project_dir,
+        project_name,
+        file_status,
+        src_dir="src",
+        out_dir="app_config.h",
+        jinja_path="app_config_h.j2",
+        **data,
+    )
+
+    # Generate app_shell.c
+    generate_file(
+        project_dir,
+        project_name,
+        file_status,
+        src_dir="src",
+        out_dir="app_shell.c",
+        jinja_path="app_shell_c.j2",
+        **data,
+    )
+
+    # Generate prj.confroject.
+    generate_file(
+        project_dir,
+        project_name,
+        file_status,
+        src_dir="",
+        out_dir="prj.conf",
+        jinja_path="prj_conf.j2",
+        **data,
+    )
+
+    # Generate prj.conf
+    generate_file(
+        project_dir,
+        project_name,
+        file_status,
+        src_dir="",
+        out_dir="app.overlay",
+        jinja_path="app_overlay.j2",
+        **data,
+    )
+
+    # Successfull creation log information
+    if len(file_status["created"]) > 0:
+        log.inf("Created files:", colorize=True)
+        for file in file_status["created"]:
+            log.inf(f"• {file}", colorize=True)
+    if len(file_status["updated"]) > 0:
+        log.inf("Updated files:", colorize=True)
+        for file in file_status["updated"]:
+            log.inf(f"• {file}", colorize=True)
+
+    # Generate CMakeLists.txt
+    cmake(project_name, data)
+
+
 if __name__ == "__main__":
-    main()
-    
-   
-   
-    
-
+    run()
