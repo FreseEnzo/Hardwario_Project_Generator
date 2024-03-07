@@ -4,7 +4,7 @@
 - [x] shell.c
 - [x] app_config.c 
 - [x] app_config.h
-- [x] CMakeList.text
+- [x] CMakeList.txt
 - [x] prj.conf
 - [x] West (west scaffold)
 - [x] User code area and automatic code as in STMCubeIDE
@@ -48,10 +48,8 @@ This Python project generates a project structure and configuration files for th
 
 - **Structured Configuration Files**
   - Automatically generates C header and source files (`app_config.h` , `app_config.c` , `shell.c`, `prj.conf`) based on the YAML configuration, ensuring consistency and ease of maintenance.
-
-- **Shell Commands**
-  - Sets up shell commands based on project parameters, allowing users to interactively configure the application through a shell interface.
-
+- **Generated CMakeLists.txt**
+  - The script generates a CMakeLists.txt file based on the project configuration and source files found in the 'src' directory.
 ### Installation
 
 To use the CHESTER SDK Project Generator, ensure you have the required dependencies installed:
@@ -70,11 +68,7 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.3
-shields:
-- ctr_ds18b20 
-- ctr_lte 
-- ctr_x0_a 
-- ctr_z
+  variant: Clime 1WH
 features:
 - bluetooth
 - lte
@@ -132,33 +126,18 @@ extras:
 - CONFIG_APP_INIT_PRIORITY=50
 ```
 Note: Example generation files can be found in the src directory of this repository
-## Usage
-This command should be used in /applications folder with a project.yaml
-```bash
-west scaffold
-```
-## CHESTER SDK Project Generator
 
-This Python script generates a CMakeLists.txt file for a CHESTER SDK project. It scans the 'src' directory for source files and creates target_sources directives accordingly, taking into account conditional compilation based on configuration options.
 
 ### Usage
 
 1. **Project Configuration**: Ensure you have a 'project.yaml' file that specifies project configurations such as project name, shields, and other settings.
 
-2. **Run the Generator**: Execute the Python script. It will prompt you to enter the supported shields for your project, separated by spaces.
+2. **Run the Generator**: This command should be used in /applications folder with a project.yaml previously configured
+```bash
+west scaffold
+```
 
-3. **Generated CMakeLists.txt**: The script generates a CMakeLists.txt file based on the project configuration and source files found in the 'src' directory.
-
-### How It Works
-
-- The script reads project configurations from 'project.yaml' using the PyYAML library.
-- It constructs a header for the CMakeLists.txt file, specifying project information and required Zephyr components.
-- The script scans the 'src' directory for source files with specific extensions (e.g., .c).
-- It generates target_sources directives, considering conditional compilation based on configuration options specified in the 'params.yaml'.
-- The user provides input for the supported shields, which influences the generated content.
-- Finally, the script writes the generated CMakeLists.txt content to a file.
-
-### Example Usage
+### Usage Example
 
 Assuming 'projects.yaml' specifies project configurations, including the project name, you would run the script, provide the supported shields when prompted, and the CMakeLists.txt file will be generated accordingly.
 
@@ -171,9 +150,6 @@ Assuming 'projects.yaml' specifies project configurations, including the project
 #
 
 cmake_minimum_required(VERSION 3.20.0)
-
-# Supported shields: ctr_ds18b20 ctr_lte ctr_x0_a ctr_z 
-set(SHIELD ctr_ds18b20 ctr_lte ctr_x0_a ctr_z)
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(CHESTER Clime)
