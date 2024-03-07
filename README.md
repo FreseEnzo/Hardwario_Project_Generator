@@ -31,8 +31,9 @@
 - Improvements
 
 ## CHESTER SDK Project Generator
-
 **Author**: [Enzo Frese](https://github.com/FreseEnzo)
+
+**Reviewer** : [José Mendes](https://github.com/jpbaltazar)
 
 This Python project generates a project structure and configuration files for the CHESTER SDK. It provides functionalities to streamline the initialization of projects, including configuration management and shell command setup.
 
