@@ -3,7 +3,7 @@
 version: 1
 project:
   bundle: com.hardwario.chester.clime
-  name: Chester Clime
+  name: CHESTER Clime
   version: v1.0.3
   variant: Clime 1WH
 features:
@@ -90,3 +90,4 @@ commands:
 extras:
 - CONFIG_BT=n
 - CONFIG_APP_INIT_PRIORITY=50
+

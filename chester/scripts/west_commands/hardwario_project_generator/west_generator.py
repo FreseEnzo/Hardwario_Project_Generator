@@ -31,11 +31,10 @@ class ProjectGenerator(WestCommand):
             self.name, help=self.help, description=self.description
         )
 
-        return parser  # gets stored as self.parser
-
+        return parser  
     def do_run(self, args, unknown_args):
         try:
             run()
-            log.inf("Project successfully created", colorize=True)
+            log.inf("★ Project successfully created", colorize=True)
         except:
             log.err("Project unsuccessfully created")
