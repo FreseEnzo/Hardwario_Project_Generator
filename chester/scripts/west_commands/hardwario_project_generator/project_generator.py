@@ -16,33 +16,28 @@ from west import log
 # Getting current directory
 current_directory = os.getcwd()
 
-
-def project_verification(data):
-
-    yaml_file = os.path.join(current_directory, "project.yaml")
-    _, folder_name = os.path.split(current_directory)
-
-    if not folder_name == "applications":
-        log.wrn("Make sure you're in /applications folder")
+def project_verification():
+    if not os.path.basename(os.path.dirname(current_directory)) == "applications":
+        log.wrn("Make sure you're into your /project folder in /applications folder")
         sys.exit(1)  # Close run
-    else:
-        if not os.path.exists(yaml_file):
-
-            log.wrn(
-                "project.yaml file not found. Make sure project.yaml exists in /applications folder."
-            )
-            sys.exit(1)  # Close run
-
-    if not data["project"]["variant"]:
-        log.wrn("No project variant found in project.yaml")
 
 
 def yaml_source():
+   
     # YAML file
-    yaml_file = os.path.join(current_directory, "project.yaml")
+    try:
+        yaml_file = os.path.join(current_directory, "project.yaml")
+        with open(yaml_file, "r") as stream:
+            data = yaml.safe_load(stream)
+    except:
+        log.wrn(
+            "project.yaml file not found. Make sure project.yaml exists in /project folder into /applications folder."
+        )
+        sys.exit(1)  # Close run
+    
+    if not data["project"]["variant"]:
+        log.wrn("No project variant found in project.yml. The file app.overlay won't be correctly generated")
 
-    with open(yaml_file, "r") as stream:
-        data = yaml.safe_load(stream)
     return data
 
 
@@ -79,7 +74,7 @@ def cmake(project_name: str, data):
         jinja_templates_dir = (
             "/scripts/west_commands/hardwario_project_generator/jinja_templates"
         )
-        current_dir = os.path.dirname(current_directory)
+        current_dir = os.path.dirname(os.path.dirname(current_directory))
         jinja_templates_folder = os.path.join(
             current_dir,
             *jinja_templates_dir.split("/"),
@@ -88,7 +83,7 @@ def cmake(project_name: str, data):
 
         # Walking into files
         sources = []
-        for root, dirs, files in os.walk(project_name + "/src"):
+        for root, dirs, files in os.walk("src"):
             sources.append((root, dirs, files))
 
         template = env.get_template("CMakeLists.j2")
@@ -100,13 +95,13 @@ def cmake(project_name: str, data):
         )
 
         # Log message
-        if os.path.exists(project_name + "/CMakeLists.txt"):
+        if os.path.exists("CMakeLists.txt"):
             log.inf("CMakeLists.txt successfully updated", colorize=True)
         else:
             log.inf("CMakeLists.txt successfully generated", colorize=True)
 
         # Write the rendered template to CMakeLists.txt
-        with open(project_name + "/CMakeLists.txt", "w") as f:
+        with open("CMakeLists.txt", "w") as f:
             f.write(rendered_template)
     except:
         log.err("CMakeLists.txt unsuccessfully created")
@@ -120,7 +115,7 @@ def generate_file(
         jinja_templates_dir = (
             "/scripts/west_commands/hardwario_project_generator/jinja_templates"
         )
-        current_dir = os.path.dirname(current_directory)
+        current_dir = os.path.dirname(os.path.dirname(current_directory))
         jinja_templates_folder = os.path.join(
             current_dir,
             *jinja_templates_dir.split("/"),
@@ -200,22 +195,22 @@ def generate_file(
 
 
 def run():
+  
+    file_status: dict[str, list] = {"created": [], "updated": [], 'error':[]}
 
-    file_status: dict[str, list] = {"created": [], "updated": []}
+    project_verification()
+
     data = yaml_source()
-
-    project_verification(data)
 
     try:
         project_name = transform_to_slug(data["project"]["name"])
-        project_dir = generate_project_folder(project_name)
     except:
         log.wrn("No project name found in project.yaml")
         sys.exit(1)  # Close run
 
     # Generate app_config.c
     generate_file(
-        project_dir,
+        current_directory,
         project_name,
         file_status,
         src_dir="src",
@@ -226,7 +221,7 @@ def run():
 
     # Generate app_config.h
     generate_file(
-        project_dir,
+        current_directory,
         project_name,
         file_status,
         src_dir="src",
@@ -237,7 +232,7 @@ def run():
 
     # Generate app_shell.c
     generate_file(
-        project_dir,
+        current_directory,
         project_name,
         file_status,
         src_dir="src",
@@ -248,7 +243,7 @@ def run():
 
     # Generate prj.confroject.
     generate_file(
-        project_dir,
+        current_directory,
         project_name,
         file_status,
         src_dir="",
@@ -259,7 +254,7 @@ def run():
 
     # Generate prj.conf
     generate_file(
-        project_dir,
+        current_directory,
         project_name,
         file_status,
         src_dir="",
@@ -280,7 +275,6 @@ def run():
 
     # Generate CMakeLists.txt
     cmake(project_name, data)
-
 
 if __name__ == "__main__":
     run()
