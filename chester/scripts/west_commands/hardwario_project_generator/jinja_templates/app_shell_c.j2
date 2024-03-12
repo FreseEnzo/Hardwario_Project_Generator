@@ -56,7 +56,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 
     SHELL_CMD_ARG({{ parameter.name }}, NULL,
                   "{{ parameter.help }}",
-                  app_config_cmd_{{ parameter.var }}, 1, 1),
+                  app_config_cmd_config_{{ parameter.var }}, 1, 1),
     {%- endfor %}
 
 /* USER CODE BEGIN Functions 1 */
@@ -80,15 +80,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 {%- for command in commands %}
-{% if  command == 'show' -%}
-    SHELL_CMD_REGISTER({{ command.name }}, NULL,
-                       "{{ command.help }}",
-                       app_config_cmd_{{ command.callback }}, 1, 1);
-{%- else -%}
     SHELL_CMD_REGISTER({{ command.name }}, NULL,
                        "{{ command.help }}",
                        {{ command.callback }}, 1, 1);
-{%-endif %}
 {%- endfor %}
 
 /* USER CODE BEGIN Functions 3 */

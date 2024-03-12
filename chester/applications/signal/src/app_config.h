@@ -34,7 +34,7 @@ enum app_config_mode {
 };
 
 
-struct app_config = {
+struct app_config {
     
     int measurement_interval;
     int report_interval;
@@ -48,7 +48,6 @@ extern struct app_config g_app_config;
 
 /* Private Functions -------------------------------------------------------------------*/
 
-int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
 

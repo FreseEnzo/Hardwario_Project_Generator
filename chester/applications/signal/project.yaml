@@ -37,8 +37,3 @@ parameters:
   max: 86400
   default: 300
   help: 'Set measurement interval (default: 300)'
-commands:
-- domain: app
-  name: show
-  callback: show
-  help: Show all configs

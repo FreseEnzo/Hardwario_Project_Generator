@@ -34,7 +34,7 @@ enum app_config_mode {
 };
 
 {% if data %}
-struct app_config = {
+struct app_config {
     {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];

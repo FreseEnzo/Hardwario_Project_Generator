@@ -11,7 +11,7 @@
 /* Private includes --------------------------------------------------------------------*/
 
 /* CHESTER includes */
-
+#include <chester/ctr_config.h>
 
 /* Zephyr includes */
 #include <zephyr/init.h>
@@ -32,11 +32,14 @@
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
+#define SETTINGS_PFX "chester-clime"
+
 /* Private Variables -------------------------------------------------------------------*/
 
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
+
     .interval_report = 3600,
     .apn = "onomondo",
     .temperature = 24.54,
@@ -47,6 +50,7 @@ static struct app_config m_app_config_interim = {
     .backup_report_connected = true,
     .backup_report_disconnected = true,
     .mode = APP_CONFIG_MODE_LTE,
+
 };
 
 /* USER CODE BEGIN Variables */
@@ -335,6 +339,7 @@ static int h_commit(void)
 {
 	LOG_DBG("Loaded settings in full");
 	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+
 	return 0;
 }
 
@@ -462,6 +467,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 
 /* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
+    return 0;
 }
 
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
@@ -513,6 +519,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     }
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
+
+    return 0;
 }
 
 
@@ -543,7 +551,7 @@ static int init(void)
         LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
         return ret;
     }
-    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show)
+    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
     
 
 

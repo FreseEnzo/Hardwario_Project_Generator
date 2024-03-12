@@ -56,10 +56,7 @@ static struct app_config m_app_config_interim = {
     .mode = APP_CONFIG_MODE_LRW,
     {%- endif %}
 {%- endfor %}
-{# Se nenhum dos casos anteriores se aplicar #}
-{%- if ('lte' not in data['features'] and 'lorawan' not in data['features']) or ('lte' in data['features'] and 'lorawan' in data['features']) %}
-    .mode = APP_CONFIG_MODE_NONE,
-{%- endif %}
+
 };
 {%- endif %}
 
@@ -228,6 +225,7 @@ static int h_commit(void)
 {
 	LOG_DBG("Loaded settings in full");
 	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+
 	return 0;
 }
 
@@ -252,6 +250,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {% endfor %}
 /* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
+    return 0;
 }
 
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
@@ -268,6 +267,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {%- endfor -%}
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
+
+    return 0;
 }
 
 
@@ -301,7 +302,7 @@ static int init(void)
 
 {%- for command in data['commands'] -%}
     {%- if command['name'] == 'show' %}
-    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show)
+    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
     {% endif -%}
 {%- endfor %}
 

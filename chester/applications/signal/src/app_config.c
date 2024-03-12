@@ -43,7 +43,6 @@ static struct app_config m_app_config_interim = {
     .measurement_interval = 60,
     .report_interval = 300,
 
-    .mode = APP_CONFIG_MODE_NONE,
 };
 
 /* USER CODE BEGIN Variables */
@@ -120,6 +119,7 @@ static int h_commit(void)
 {
 	LOG_DBG("Loaded settings in full");
 	memcpy(&g_app_config, &m_app_config_interim, sizeof(g_app_config));
+
 	return 0;
 }
 
@@ -156,6 +156,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 
 /* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
+    return 0;
 }
 
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
@@ -172,6 +173,8 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     }
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
+
+    return 0;
 }
 
 
@@ -202,8 +205,6 @@ static int init(void)
         LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
         return ret;
     }
-    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show)
-    
 
 
 /* USER CODE BEGIN Functions 4 */

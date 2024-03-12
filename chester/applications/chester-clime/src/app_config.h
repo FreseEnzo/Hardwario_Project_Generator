@@ -11,7 +11,7 @@
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
-
+#include <zephyr/shell/shell.h>
 
 /* Standard includes */
 #include <stdbool.h>
@@ -24,6 +24,7 @@
 extern "C" {
 #endif
 
+
 /* Private Variables -------------------------------------------------------------------*/
 
 enum app_config_mode {
@@ -33,7 +34,8 @@ enum app_config_mode {
 };
 
 
-struct app_config = {
+struct app_config {
+    
     int interval_report;
     char apn [63 + 1];
     float temperature;
