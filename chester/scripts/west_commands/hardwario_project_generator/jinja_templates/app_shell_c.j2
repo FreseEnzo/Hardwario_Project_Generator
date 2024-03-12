@@ -43,8 +43,7 @@ static int print_help(const struct shell *shell, size_t argc, char **argv)
 
 SHELL_STATIC_SUBCMD_SET_CREATE(
     sub_app_config,
-
-    {% for command in commands %}
+    {%- for command in commands %}
     {%- if command.name == 'show' %}
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",

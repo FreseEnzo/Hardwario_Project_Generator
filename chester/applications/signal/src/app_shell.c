@@ -44,8 +44,6 @@ static int print_help(const struct shell *shell, size_t argc, char **argv)
 SHELL_STATIC_SUBCMD_SET_CREATE(
     sub_app_config,
 
-    
-
     SHELL_CMD_ARG(measurement-interval, NULL,
                   "Set measurement interval (default: 60)",
                   app_config_cmd_config_measurement_interval, 1, 1),

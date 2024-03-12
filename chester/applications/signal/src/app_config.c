@@ -138,9 +138,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "report-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.report_interval)) {
             return -EINVAL;
@@ -151,11 +149,18 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
+    }
 
+    /* USER CODE BEGIN Functions 2 */
+   
+   
+   
+   
+   
+   
+   
+    /* USER CODE END Functions 2 */
 
-/* USER CODE BEGIN Functions 2 */
-/* USER CODE END Functions 2 */
     return 0;
 }
 
@@ -171,8 +176,16 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     if (ret < 0) {
         return ret;
     }
-/* USER CODE BEGIN Functions 3 */
-/* USER CODE END Functions 3 */
+
+    /* USER CODE BEGIN Functions 3 */
+   
+   
+   
+   
+   
+   
+   
+    /* USER CODE END Functions 3 */
 
     return 0;
 }
@@ -207,8 +220,15 @@ static int init(void)
     }
 
 
-/* USER CODE BEGIN Functions 4 */
-/* USER CODE END Functions 4 */
+    /* USER CODE BEGIN Functions 4 */
+   
+   
+   
+   
+   
+   
+   
+    /* USER CODE END Functions 4 */
 
     return 0;
 }

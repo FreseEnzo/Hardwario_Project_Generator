@@ -24,7 +24,6 @@
 extern "C" {
 #endif
 
-
 /* Private Variables -------------------------------------------------------------------*/
 
 enum app_config_mode {
@@ -32,10 +31,9 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
-
 {% if data %}
 struct app_config {
-    {% for param in data['parameters'] %}
+    {%- for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
         {%- else %}
@@ -44,7 +42,6 @@ struct app_config {
     {%- endfor %}
 };
 {% endif %}
-
 extern struct app_config g_app_config;
 
 /* USER CODE BEGIN Variables */
