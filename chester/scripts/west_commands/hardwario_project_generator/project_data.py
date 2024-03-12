@@ -133,5 +133,8 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_rtd_a",
     },
-}
+    "Signal": {
+        "shield_1": "ctr_lte",
+    },
+}   
 

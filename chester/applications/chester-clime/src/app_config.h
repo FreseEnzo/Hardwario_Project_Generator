@@ -11,7 +11,7 @@
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
-#include <zephyr/shell/shell.h>
+
 
 /* Standard includes */
 #include <stdbool.h>
@@ -34,18 +34,19 @@ enum app_config_mode {
 
 
 struct app_config = {
-    
-        int interval_report;
-        char apn [63 + 1];
-        float temperature;
-        int interval_aggreg;
-        int interval_sample;
-        int event_report_delay;
-        int event_report_rate;
-        bool backup_report_connected;
-        bool backup_report_disconnected;
+    int interval_report;
+    char apn [63 + 1];
+    float temperature;
+    int interval_aggreg;
+    int interval_sample;
+    int event_report_delay;
+    int event_report_rate;
+    bool backup_report_connected;
+    bool backup_report_disconnected;
 };
 
+
+extern struct app_config g_app_config;
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */

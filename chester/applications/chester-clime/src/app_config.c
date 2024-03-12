@@ -11,7 +11,7 @@
 /* Private includes --------------------------------------------------------------------*/
 
 /* CHESTER includes */
-#include <chester/ctr_config.h>
+
 
 /* Zephyr includes */
 #include <zephyr/init.h>
@@ -34,12 +34,9 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 /* Private Variables -------------------------------------------------------------------*/
 
-#define SETTINGS_PFX "chester-clime"
-
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .interval_report = 3600,
     .apn = "onomondo",
     .temperature = 24.54,
@@ -50,7 +47,6 @@ static struct app_config m_app_config_interim = {
     .backup_report_connected = true,
     .backup_report_disconnected = true,
     .mode = APP_CONFIG_MODE_LTE,
-
 };
 
 /* USER CODE BEGIN Variables */
@@ -60,7 +56,7 @@ static struct app_config m_app_config_interim = {
 
 static void print_interval_report(const struct shell *shell)
 {
-    shell_print(shell, "app config  interval-report  %d", m_app_config_interim.interval_report);
+    shell_print(shell, "app config interval-report  %d", m_app_config_interim.interval_report);
 }
 
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv)
@@ -91,7 +87,7 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
 
 static void print_apn(const struct shell *shell)
 {
-    shell_print(shell, "app config apn %.1f", m_app_config_interim.apn);
+    shell_print(shell, "lte config apn %.1f", m_app_config_interim.apn);
 }
 int app_config_cmd_config_apn(const struct shell *shell, size_t argc, char **argv)
 {
@@ -154,7 +150,7 @@ int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, ch
 
 static void print_interval_aggreg(const struct shell *shell)
 {
-    shell_print(shell, "app config  interval-aggreg  %d", m_app_config_interim.interval_aggreg);
+    shell_print(shell, "app config interval-aggreg  %d", m_app_config_interim.interval_aggreg);
 }
 
 int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
@@ -185,7 +181,7 @@ int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc
 
 static void print_interval_sample(const struct shell *shell)
 {
-    shell_print(shell, "app config  interval-sample  %d", m_app_config_interim.interval_sample);
+    shell_print(shell, "app config interval-sample  %d", m_app_config_interim.interval_sample);
 }
 
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv)
@@ -216,7 +212,7 @@ int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc
 
 static void print_event_report_delay(const struct shell *shell)
 {
-    shell_print(shell, "app config  event-report-delay  %d", m_app_config_interim.event_report_delay);
+    shell_print(shell, "app config event-report-delay  %d", m_app_config_interim.event_report_delay);
 }
 
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv)
@@ -247,7 +243,7 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 
 static void print_event_report_rate(const struct shell *shell)
 {
-    shell_print(shell, "app config  event-report-rate  %d", m_app_config_interim.event_report_rate);
+    shell_print(shell, "app config event-report-rate  %d", m_app_config_interim.event_report_rate);
 }
 
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv)

@@ -1,0 +1,44 @@
+# Hardwario YAML file for code generation
+# Always use Tab for indentation
+version: 1
+project:
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Signal
+  version: v1.0.3
+  variant: Signal
+features:
+- bluetooth
+- buf 
+- defaults 
+- info
+- led
+- log
+- rtc
+- shell
+- therm
+- wdog
+- entropy_generator
+- tinycrypt_sha256
+- tinycrypt
+parameters:
+- domain: app
+  name: measurement-interval
+  var: measurement_interval
+  type: int
+  min: 5
+  max: 3600
+  default: 60
+  help: 'Set measurement interval (default: 60)'
+- domain: app
+  name: report-interval
+  var: report_interval
+  type: int
+  min: 30
+  max: 86400
+  default: 300
+  help: 'Set measurement interval (default: 300)'
+commands:
+- domain: app
+  name: show
+  callback: show
+  help: Show all configs

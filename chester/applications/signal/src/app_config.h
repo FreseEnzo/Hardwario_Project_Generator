@@ -33,17 +33,13 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LRW = 2,
 };
 
-{% if data %}
+
 struct app_config = {
-    {% for param in data['parameters'] %}
-        {%- if param['type'] == 'string'  %}
-    char {{ param['var'] }} [{{param['len']}}];
-        {%- else %}
-    {{ param['type'] }} {{ param['var'] }};
-        {%- endif %}
-    {%- endfor %}
+    
+    int measurement_interval;
+    int report_interval;
 };
-{% endif %}
+
 
 extern struct app_config g_app_config;
 
@@ -51,16 +47,10 @@ extern struct app_config g_app_config;
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-{% for command in data['commands'] -%}
-    {%- if command['name'] == 'show' %}
+
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
-    {%- endif -%}
-{%- endfor -%}
-{% for parameter in data['parameters'] %}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float'  %}
-int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
-{%- endif %}
-{%- endfor %}
+int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

@@ -44,20 +44,18 @@ static int print_help(const struct shell *shell, size_t argc, char **argv)
 SHELL_STATIC_SUBCMD_SET_CREATE(
     sub_app_config,
 
-    {% for command in commands %}
-    {%- if command.name == 'show' %}
+    
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",
                   app_config_cmd_config_show, 1, 0),
-    {%- endif %}
-    {%- endfor %}
-    
-    {%- for parameter in parameters %}
 
-    SHELL_CMD_ARG({{ parameter.name }}, NULL,
-                  "{{ parameter.help }}",
-                  app_config_cmd_{{ parameter.var }}, 1, 1),
-    {%- endfor %}
+    SHELL_CMD_ARG(measurement-interval, NULL,
+                  "Set measurement interval (default: 60)",
+                  app_config_cmd_measurement_interval, 1, 1),
+
+    SHELL_CMD_ARG(report-interval, NULL,
+                  "Set measurement interval (default: 300)",
+                  app_config_cmd_report_interval, 1, 1),
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
@@ -79,17 +77,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
-{%- for command in commands %}
-{% if  command == 'show' -%}
-    SHELL_CMD_REGISTER({{ command.name }}, NULL,
-                       "{{ command.help }}",
-                       app_config_cmd_{{ command.callback }}, 1, 1);
-{%- else -%}
-    SHELL_CMD_REGISTER({{ command.name }}, NULL,
-                       "{{ command.help }}",
-                       {{ command.callback }}, 1, 1);
-{%-endif %}
-{%- endfor %}
+SHELL_CMD_REGISTER(show, NULL,
+                       "Show all configs",
+                       show, 1, 1);
 
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
