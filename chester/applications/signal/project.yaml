@@ -4,7 +4,7 @@ version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Signal
-  version: v1.0.3
+  version: v1.0
   variant: Signal
 features:
 - bluetooth
