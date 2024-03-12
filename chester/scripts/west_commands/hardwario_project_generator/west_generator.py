@@ -19,7 +19,7 @@ class ProjectGenerator(WestCommand):
             # self.description:
             dedent(
                 """
-            This helper command generate Hardwario Skeleton Project based in a YAML."""
+            This helper command generates Hardwario Skeleton Project based in a YAML."""
             ),
         )
 
