@@ -10,8 +10,11 @@
 - [x] User code area and automatic code as in STMCubeIDE
 - [x] clang-format 
 - [x] app.overlay (Verify with Pavel if this solutions is good)
+- [x] Warnings (wrong folder or incomplete project file)
 
 ## Last Changes
+- Updated warnings
+- Moved west command to the project folder
 - Added .west 
 - Added poetry and dependecies 
 - Deleted shield section in CMakeLists.txt
