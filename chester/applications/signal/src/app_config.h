@@ -8,6 +8,7 @@
 #define APP_CONFIG_H_
 
 /* Includes ------------------------------------------------------------------*/
+
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -44,6 +45,7 @@ extern struct app_config g_app_config;
 
 /* Private Functions -------------------------------------------------------------------*/
 
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
 

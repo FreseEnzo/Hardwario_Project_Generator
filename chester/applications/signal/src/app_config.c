@@ -110,6 +110,15 @@ int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc
     return -EINVAL;
 }
 
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
+{
+	print_measurement_interval(shell);
+    
+	print_report_interval(shell);
+    
+    return 0;
+}
+
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
 
@@ -202,6 +211,8 @@ static int init(void)
         LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
         return ret;
     }
+
+    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
 
     /* USER CODE BEGIN Functions 4 */
     /* USER CODE END Functions 4 */

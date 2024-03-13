@@ -8,6 +8,7 @@
 #define APP_CONFIG_H_
 
 /* Includes ------------------------------------------------------------------*/
+
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -48,12 +49,9 @@ extern struct app_config g_app_config;
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-{% for command in data['commands'] -%}
-    {%- if command['name'] == 'show' %}
+
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
-    {%- endif -%}
-{%- endfor -%}
-{% for parameter in data['parameters'] %}
+{%- for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float'  %}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
