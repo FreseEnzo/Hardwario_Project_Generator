@@ -16,6 +16,7 @@ from west import log
 # Getting current directory
 current_directory = os.getcwd()
 
+
 def project_verification():
     if not os.path.basename(os.path.dirname(current_directory)) == "applications":
         log.wrn("Make sure you're into your /project folder in /applications folder")
@@ -23,7 +24,7 @@ def project_verification():
 
 
 def yaml_source():
-   
+
     # YAML file
     try:
         yaml_file = os.path.join(current_directory, "project.yaml")
@@ -34,9 +35,11 @@ def yaml_source():
             "project.yaml file not found. Make sure project.yaml exists in /project folder into /applications folder."
         )
         sys.exit(1)  # Close run
-    
+
     if not data["project"]["variant"]:
-        log.wrn("No project variant found in project.yml. The file app.overlay won't be correctly generated")
+        log.wrn(
+            "No project variant found in project.yml. The file app.overlay won't be correctly generated"
+        )
 
     return data
 
@@ -178,13 +181,14 @@ def generate_file(
                     if end_index == -1:
                         break
                     saved_sections[begin_marker].append(
-                        existing_content[begin_index : end_index - 1]
+                        existing_content[begin_index:end_index]
                     )
-                    start_index = end_index - 1
+                    start_index = end_index
 
             # Combine saved sections with new content
             for begin_marker, sections in saved_sections.items():
-                saved_content = "\n".join(sections)  # Concatenate all saved sections
+                saved_content = "\n".join(section.strip() for section in sections)
+                # Concatenate all saved sections
                 new_content = new_content.replace(begin_marker, f"{saved_content}")
 
             # Write in destination file
@@ -195,8 +199,8 @@ def generate_file(
 
 
 def run():
-  
-    file_status: dict[str, list] = {"created": [], "updated": [], 'error':[]}
+
+    file_status: dict[str, list] = {"created": [], "updated": [], "error": []}
 
     project_verification()
 
@@ -275,6 +279,7 @@ def run():
 
     # Generate CMakeLists.txt
     cmake(project_name, data)
+
 
 if __name__ == "__main__":
     run()

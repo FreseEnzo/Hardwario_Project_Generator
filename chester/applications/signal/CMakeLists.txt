@@ -10,7 +10,6 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project(chester-signal)
 
-
 target_sources(app PRIVATE src/main.c)
 target_sources(app PRIVATE src/app_shell.c)
 target_sources(app PRIVATE src/app_config.c)

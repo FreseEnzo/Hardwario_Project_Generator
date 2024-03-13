@@ -39,7 +39,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .interval_report = 3600,
     .apn = "onomondo",
     .temperature = 24.54,
@@ -50,7 +49,6 @@ static struct app_config m_app_config_interim = {
     .backup_report_connected = true,
     .backup_report_disconnected = true,
     .mode = APP_CONFIG_MODE_LTE,
-
 };
 
 /* USER CODE BEGIN Variables */
@@ -358,9 +356,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "apn", &next) && !next) {
         if (len != sizeof(m_app_config_interim.apn)) {
             return -EINVAL;
@@ -371,9 +367,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "temperature", &next) && !next) {
         if (len != sizeof(m_app_config_interim.temperature)) {
             return -EINVAL;
@@ -384,9 +378,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_aggreg)) {
             return -EINVAL;
@@ -397,9 +389,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
@@ -410,9 +400,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "event-report-delay", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_delay)) {
             return -EINVAL;
@@ -423,9 +411,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "event-report-rate", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_rate)) {
             return -EINVAL;
@@ -436,9 +422,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_connected)) {
             return -EINVAL;
@@ -449,9 +433,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
-
-
+    }
     if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
             return -EINVAL;
@@ -462,69 +444,77 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return ret;
         }
         return 0;
-}
+    }
 
+    /* USER CODE BEGIN Functions 2 */
+    /* USER CODE END Functions 2 */
 
-/* USER CODE BEGIN Functions 2 */
-/* USER CODE END Functions 2 */
     return 0;
 }
 
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-    ret = export_func("interval-report", & m_app_config_interim.interval_report, sizeof( m_app_config_interim.interval_report));
+    ret = export_func("interval-report", & m_app_config_interim.interval_report,
+                      sizeof( m_app_config_interim.interval_report));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("apn", & m_app_config_interim.apn, sizeof( m_app_config_interim.apn));
+    ret = export_func("apn", & m_app_config_interim.apn,
+                      sizeof( m_app_config_interim.apn));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("temperature", & m_app_config_interim.temperature, sizeof( m_app_config_interim.temperature));
+    ret = export_func("temperature", & m_app_config_interim.temperature,
+                      sizeof( m_app_config_interim.temperature));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("interval-aggreg", & m_app_config_interim.interval_aggreg, sizeof( m_app_config_interim.interval_aggreg));
+    ret = export_func("interval-aggreg", & m_app_config_interim.interval_aggreg,
+                      sizeof( m_app_config_interim.interval_aggreg));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("interval-sample", & m_app_config_interim.interval_sample, sizeof( m_app_config_interim.interval_sample));
+    ret = export_func("interval-sample", & m_app_config_interim.interval_sample,
+                      sizeof( m_app_config_interim.interval_sample));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("event-report-delay", & m_app_config_interim.event_report_delay, sizeof( m_app_config_interim.event_report_delay));
+    ret = export_func("event-report-delay", & m_app_config_interim.event_report_delay,
+                      sizeof( m_app_config_interim.event_report_delay));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("event-report-rate", & m_app_config_interim.event_report_rate, sizeof( m_app_config_interim.event_report_rate));
+    ret = export_func("event-report-rate", & m_app_config_interim.event_report_rate,
+                      sizeof( m_app_config_interim.event_report_rate));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("backup-report-connected", & m_app_config_interim.backup_report_connected, sizeof( m_app_config_interim.backup_report_connected));
+    ret = export_func("backup-report-connected", & m_app_config_interim.backup_report_connected,
+                      sizeof( m_app_config_interim.backup_report_connected));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("backup-report-disconnected", & m_app_config_interim.backup_report_disconnected, sizeof( m_app_config_interim.backup_report_disconnected));
+    ret = export_func("backup-report-disconnected", & m_app_config_interim.backup_report_disconnected,
+                      sizeof( m_app_config_interim.backup_report_disconnected));
     if (ret < 0) {
         return ret;
     }
-/* USER CODE BEGIN Functions 3 */
-/* USER CODE END Functions 3 */
+
+    /* USER CODE BEGIN Functions 3 */
+    /* USER CODE END Functions 3 */
 
     return 0;
 }
 
-
-// Initialization function
 static int init(void) 
 {
     int ret;
@@ -554,9 +544,8 @@ static int init(void)
     ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
     
 
-
-/* USER CODE BEGIN Functions 4 */
-/* USER CODE END Functions 4 */
+    /* USER CODE BEGIN Functions 4 */
+    /* USER CODE END Functions 4 */
 
     return 0;
 }

@@ -24,7 +24,6 @@
 extern "C" {
 #endif
 
-
 /* Private Variables -------------------------------------------------------------------*/
 
 enum app_config_mode {
@@ -33,9 +32,7 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LRW = 2,
 };
 
-
 struct app_config {
-    
     int interval_report;
     char apn [63 + 1];
     float temperature;
@@ -46,7 +43,6 @@ struct app_config {
     bool backup_report_connected;
     bool backup_report_disconnected;
 };
-
 
 extern struct app_config g_app_config;
 

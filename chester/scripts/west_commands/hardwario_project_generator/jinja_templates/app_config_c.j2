@@ -39,7 +39,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 {% if data %}
 static struct app_config m_app_config_interim = {
-{% for param in data['parameters'] %}
+{%- for param in data['parameters'] %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
     {%- elif param['type'] == 'bool' -%}
@@ -47,7 +47,7 @@ static struct app_config m_app_config_interim = {
     {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
     {%- endif -%}
-{%- endfor %}
+{%- endfor -%}
 
 {%- for feature in data['features'] %}
     {%- if feature == 'lte' and 'lorawan' not in data['features'] %}
@@ -56,7 +56,6 @@ static struct app_config m_app_config_interim = {
     .mode = APP_CONFIG_MODE_LRW,
     {%- endif %}
 {%- endfor %}
-
 };
 {%- endif %}
 
@@ -261,21 +260,19 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 
 {%- for parameter in data['parameters'] -%}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
-    ret = export_func("{{parameter['name']}}", & m_app_config_interim.{{parameter['var']}}, sizeof( m_app_config_interim.{{parameter['var']}}));
+    ret = export_func("{{parameter['name']}}", & m_app_config_interim.{{parameter['var']}},
+                      sizeof( m_app_config_interim.{{parameter['var']}}));
     if (ret < 0) {
         return ret;
     }
 {% endif %}
 {%- endfor %}
-
     /* USER CODE BEGIN Functions 3 */
     /* USER CODE END Functions 3 */
 
     return 0;
 }
 
-
-// Initialization function
 static int init(void) 
 {
     int ret;

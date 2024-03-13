@@ -39,10 +39,8 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .measurement_interval = 60,
     .report_interval = 300,
-
 };
 
 /* USER CODE BEGIN Variables */
@@ -160,16 +158,17 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-    ret = export_func("measurement-interval", & m_app_config_interim.measurement_interval, sizeof( m_app_config_interim.measurement_interval));
+    ret = export_func("measurement-interval", & m_app_config_interim.measurement_interval,
+                      sizeof( m_app_config_interim.measurement_interval));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("report-interval", & m_app_config_interim.report_interval, sizeof( m_app_config_interim.report_interval));
+    ret = export_func("report-interval", & m_app_config_interim.report_interval,
+                      sizeof( m_app_config_interim.report_interval));
     if (ret < 0) {
         return ret;
     }
-
 
     /* USER CODE BEGIN Functions 3 */
     /* USER CODE END Functions 3 */
@@ -177,8 +176,6 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
     return 0;
 }
 
-
-// Initialization function
 static int init(void) 
 {
     int ret;
