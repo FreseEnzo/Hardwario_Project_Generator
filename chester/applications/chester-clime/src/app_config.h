@@ -43,6 +43,9 @@ struct app_config {
     int event_report_rate;
     bool backup_report_connected;
     bool backup_report_disconnected;
+
+    /* USER CODE BEGIN Struct Variables */
+    /* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;

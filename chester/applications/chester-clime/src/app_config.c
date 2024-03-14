@@ -49,6 +49,9 @@ static struct app_config m_app_config_interim = {
     .backup_report_connected = true,
     .backup_report_disconnected = true,
     .mode = APP_CONFIG_MODE_LTE,
+
+    /* USER CODE BEGIN Struct Variables */
+    /* USER CODE END Struct Variables */
 };
 
 /* USER CODE BEGIN Variables */

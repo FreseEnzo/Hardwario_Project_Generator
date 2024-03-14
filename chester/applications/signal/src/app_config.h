@@ -36,6 +36,9 @@ enum app_config_mode {
 struct app_config {
     int measurement_interval;
     int report_interval;
+
+    /* USER CODE BEGIN Struct Variables */
+    /* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;

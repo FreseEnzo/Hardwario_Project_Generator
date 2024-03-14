@@ -77,6 +77,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 
+
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 

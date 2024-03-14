@@ -41,6 +41,9 @@ struct app_config g_app_config;
 static struct app_config m_app_config_interim = {
     .measurement_interval = 60,
     .report_interval = 300,
+
+    /* USER CODE BEGIN Struct Variables */
+    /* USER CODE END Struct Variables */
 };
 
 /* USER CODE BEGIN Variables */

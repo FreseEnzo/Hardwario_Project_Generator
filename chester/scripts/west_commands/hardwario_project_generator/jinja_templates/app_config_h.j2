@@ -41,6 +41,9 @@ struct app_config {
     {{ param['type'] }} {{ param['var'] }};
         {%- endif %}
     {%- endfor %}
+
+    /* USER CODE BEGIN Struct Variables */
+    /* USER CODE END Struct Variables */
 };
 {% endif %}
 extern struct app_config g_app_config;
