@@ -113,7 +113,6 @@ int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
 	print_measurement_interval(shell);
-    
 	print_report_interval(shell);
     
     return 0;
@@ -167,13 +166,13 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-    ret = export_func("measurement-interval", & m_app_config_interim.measurement_interval,
+    ret = export_func("chester-signal/measurement-interval", &m_app_config_interim.measurement_interval,
                       sizeof( m_app_config_interim.measurement_interval));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("report-interval", & m_app_config_interim.report_interval,
+    ret = export_func("chester-signal/report-interval", &m_app_config_interim.report_interval,
                       sizeof( m_app_config_interim.report_interval));
     if (ret < 0) {
         return ret;

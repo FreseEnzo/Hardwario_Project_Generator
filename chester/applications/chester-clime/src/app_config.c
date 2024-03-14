@@ -330,6 +330,29 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
     return -EINVAL;
 }
 
+int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
+{
+	print_interval_report(shell);
+    
+	print_apn(shell);
+    
+	print_temperature(shell);
+    
+	print_interval_aggreg(shell);
+    
+	print_interval_sample(shell);
+    
+	print_event_report_delay(shell);
+    
+	print_event_report_rate(shell);
+    
+	print_backup_report_connected(shell);
+    
+	print_backup_report_disconnected(shell);
+    
+    return 0;
+}
+
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
 
@@ -541,8 +564,8 @@ static int init(void)
         LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
         return ret;
     }
+
     ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
-    
 
     /* USER CODE BEGIN Functions 4 */
     /* USER CODE END Functions 4 */

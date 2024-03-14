@@ -221,7 +221,8 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 {
     {%- for parameter in parameters %}
 	print_{{ parameter['var'] }}(shell);
-    {% endfor %}
+    {%- endfor %}
+    
     return 0;
 }
 
@@ -268,7 +269,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 
 {%- for parameter in data['parameters'] -%}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
-    ret = export_func("{{parameter['name']}}", & m_app_config_interim.{{parameter['var']}},
+    ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}},
                       sizeof( m_app_config_interim.{{parameter['var']}}));
     if (ret < 0) {
         return ret;
