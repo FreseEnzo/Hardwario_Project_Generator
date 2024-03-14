@@ -1,5 +1,5 @@
 # Hardwario YAML file for code generation
-# Always use Tab for indentation
+
 version: 1
 project:
   bundle: com.hardwario.chester.clime
