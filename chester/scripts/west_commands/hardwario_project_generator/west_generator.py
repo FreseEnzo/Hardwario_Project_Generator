@@ -37,4 +37,4 @@ class ProjectGenerator(WestCommand):
             run()
             log.inf("★ Project successfully created", colorize=True)
         except:
-            log.err("Project unsuccessfully created")
+            log.err("Skeleton unsuccessfully generated")

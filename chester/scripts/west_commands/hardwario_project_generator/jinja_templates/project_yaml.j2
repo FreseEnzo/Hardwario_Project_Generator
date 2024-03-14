@@ -1,18 +1,19 @@
 # Hardwario YAML file for code generation
-
+# (Chester Clime) example
 version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.3 
-  variant: Clime 1WH
-features:
+  variant: Clime 1WH 
+features: 
 - bluetooth
 - shell
 - led
 - button
 - lte
 parameters:
+# Ex (int) parameter
 - domain: app
   name: interval-report
   var: interval_report
@@ -21,6 +22,7 @@ parameters:
   max: 40000
   default: 3600
   help: 'Set report interval (default: 3600)'
+# Ex (string) parameter
 - domain: lte
   name: apn
   var: apn
@@ -28,62 +30,27 @@ parameters:
   len: 63 + 1
   default: onomondo
   help: Set APN network name
+# Ex (float) parameter
 - domain: app
   name: temperature
   var: temperature
   type: float
   default: 24.54
   help: Set Temperature 0.0f to 50.f
-- domain: app
-  name: interval-aggreg
-  var: interval_aggreg
-  type: int
-  min: 0
-  max: 65535
-  default: 1800
-  help: 'Set interval aggreg (default: 25)'
-- domain: app
-  name: interval-sample
-  var: interval_sample
-  type: int
-  min: 0
-  max: 65535
-  default: 25
-  help: 'Set interval aggreg (default: 25)'
-- domain: app
-  name: event-report-delay
-  var: event_report_delay
-  type: int
-  min: 0
-  max: 65535
-  default: 1
-  help: 'Set event report delay (default: 1)'
-- domain: app
-  name: event-report-rate
-  var: event_report_rate
-  type: int
-  min: 0
-  max: 65535
-  default: 30
-  help: 'Set event report rate (default: 30)'
+# Ex (bool) parameter
 - domain: app
   name: backup-report-connected
   var: backup_report_connected
   type: bool
   default: true
   help: 'Set backup report connected (default: true)'
-- domain: app
-  name: backup-report-disconnected
-  var: backup_report_disconnected
-  type: bool
-  default: true
-  help: 'Set backup report disconnected (default: true)'
 commands:
 - domain: app
   name: send
-  callback: app_send
+  callback: app_send # This function should be manually created
   help: 'Set report interval (default: 3600)'
 extras:
+# Extras for prj.conf
 - CONFIG_BT=n
 - CONFIG_APP_INIT_PRIORITY=50
 

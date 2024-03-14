@@ -333,21 +333,13 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
 	print_interval_report(shell);
-    
 	print_apn(shell);
-    
 	print_temperature(shell);
-    
 	print_interval_aggreg(shell);
-    
 	print_interval_sample(shell);
-    
 	print_event_report_delay(shell);
-    
 	print_event_report_rate(shell);
-    
 	print_backup_report_connected(shell);
-    
 	print_backup_report_disconnected(shell);
     
     return 0;
@@ -478,55 +470,55 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-    ret = export_func("interval-report", & m_app_config_interim.interval_report,
+    ret = export_func("chester-clime/interval-report", &m_app_config_interim.interval_report,
                       sizeof( m_app_config_interim.interval_report));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("apn", & m_app_config_interim.apn,
+    ret = export_func("chester-clime/apn", &m_app_config_interim.apn,
                       sizeof( m_app_config_interim.apn));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("temperature", & m_app_config_interim.temperature,
+    ret = export_func("chester-clime/temperature", &m_app_config_interim.temperature,
                       sizeof( m_app_config_interim.temperature));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("interval-aggreg", & m_app_config_interim.interval_aggreg,
+    ret = export_func("chester-clime/interval-aggreg", &m_app_config_interim.interval_aggreg,
                       sizeof( m_app_config_interim.interval_aggreg));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("interval-sample", & m_app_config_interim.interval_sample,
+    ret = export_func("chester-clime/interval-sample", &m_app_config_interim.interval_sample,
                       sizeof( m_app_config_interim.interval_sample));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("event-report-delay", & m_app_config_interim.event_report_delay,
+    ret = export_func("chester-clime/event-report-delay", &m_app_config_interim.event_report_delay,
                       sizeof( m_app_config_interim.event_report_delay));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("event-report-rate", & m_app_config_interim.event_report_rate,
+    ret = export_func("chester-clime/event-report-rate", &m_app_config_interim.event_report_rate,
                       sizeof( m_app_config_interim.event_report_rate));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("backup-report-connected", & m_app_config_interim.backup_report_connected,
+    ret = export_func("chester-clime/backup-report-connected", &m_app_config_interim.backup_report_connected,
                       sizeof( m_app_config_interim.backup_report_connected));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("backup-report-disconnected", & m_app_config_interim.backup_report_disconnected,
+    ret = export_func("chester-clime/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
                       sizeof( m_app_config_interim.backup_report_disconnected));
     if (ret < 0) {
         return ret;

@@ -32,9 +32,27 @@ def yaml_source():
             data = yaml.safe_load(stream)
     except:
         log.wrn(
-            "project.yaml file not found. Make sure project.yaml exists in /project folder into /applications folder."
+            "project.yaml file was not found in the current folder. Creating...\nCall 'west scaffold' with your configurated project.yaml to generate the Skeleton Project"
         )
-        sys.exit(1)  # Close run
+        try:
+            # Setup Jinja environment
+            jinja_templates_dir = (
+                "/scripts/west_commands/hardwario_project_generator/jinja_templates/"
+            )
+            current_dir = os.path.dirname(os.path.dirname(current_directory))
+            jinja_templates_folder = os.path.join(
+                current_dir,
+                *jinja_templates_dir.split("/"),
+            )
+            env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+            template = env.get_template("project_yaml.j2")
+
+            # Render the template with data
+            rendered_template = template.render()
+            with open("project.yaml", "w") as f:
+                f.write(rendered_template)
+        except:
+            log.err("Problem during project.yaml generation")
 
     if not data["project"]["variant"]:
         log.wrn(
