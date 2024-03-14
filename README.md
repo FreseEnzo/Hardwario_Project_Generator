@@ -11,8 +11,10 @@
 - [x] clang-format 
 - [x] app.overlay (Verify with Pavel if this solutions is good)
 - [x] Warnings (wrong folder or incomplete project file)
+- [x] Sinal application working 
 
 ## Last Changes
+- Signal project.yaml
 - Updated warnings
 - Moved west command to the project folder
 - Added .west 
