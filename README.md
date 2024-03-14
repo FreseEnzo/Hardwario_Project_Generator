@@ -14,6 +14,7 @@
 - [x] Sinal application working 
 
 ## Last Changes
+- Improved user code saved
 - Signal project.yaml
 - Updated warnings
 - Moved west command to the project folder
