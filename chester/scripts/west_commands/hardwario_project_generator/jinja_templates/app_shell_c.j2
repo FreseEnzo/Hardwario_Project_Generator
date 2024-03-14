@@ -75,10 +75,8 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
-{%- for command in commands %}
-    SHELL_CMD_REGISTER({{ command.name }}, NULL,
-                       "{{ command.help }}",
-                       {{ command.callback }}, 1, 1);
+{% for command in commands %}
+SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}",{{ command.callback }}, 1, 1);
 {%- endfor %}
 
 /* USER CODE BEGIN Functions 3 */

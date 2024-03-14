@@ -104,12 +104,8 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
-    SHELL_CMD_REGISTER(send, NULL,
-                       "Set report interval (default: 3600)",
-                       app_send, 1, 1);
-    SHELL_CMD_REGISTER(show, NULL,
-                       "Show all configs",
-                       show, 1, 1);
+
+SHELL_CMD_REGISTER(send, NULL,"Set report interval (default: 3600)",app_send, 1, 1);
 
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
