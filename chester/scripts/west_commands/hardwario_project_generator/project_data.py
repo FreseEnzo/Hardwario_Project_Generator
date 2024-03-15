@@ -118,7 +118,7 @@ SHIELDS_OVERLAY : dict[str, str] = {
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {
-    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2"},
+    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_lrw"},
     "Clime Z": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_z"},
     "Clime IAQ": {
         "shield_1": "ctr_lte",

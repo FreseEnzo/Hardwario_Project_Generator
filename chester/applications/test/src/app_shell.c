@@ -60,29 +60,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
                   "Set Temperature 0.0f to 50.f",
                   app_config_cmd_config_temperature, 1, 1),
 
-    SHELL_CMD_ARG(interval-aggreg, NULL,
-                  "Set interval aggreg (default: 25)",
-                  app_config_cmd_config_interval_aggreg, 1, 1),
-
-    SHELL_CMD_ARG(interval-sample, NULL,
-                  "Set interval aggreg (default: 25)",
-                  app_config_cmd_config_interval_sample, 1, 1),
-
-    SHELL_CMD_ARG(event-report-delay, NULL,
-                  "Set event report delay (default: 1)",
-                  app_config_cmd_config_event_report_delay, 1, 1),
-
-    SHELL_CMD_ARG(event-report-rate, NULL,
-                  "Set event report rate (default: 30)",
-                  app_config_cmd_config_event_report_rate, 1, 1),
-
     SHELL_CMD_ARG(backup-report-connected, NULL,
                   "Set backup report connected (default: true)",
                   app_config_cmd_config_backup_report_connected, 1, 1),
-
-    SHELL_CMD_ARG(backup-report-disconnected, NULL,
-                  "Set backup report disconnected (default: true)",
-                  app_config_cmd_config_backup_report_disconnected, 1, 1),
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

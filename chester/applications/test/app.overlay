@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2023 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
+
+/* Clime -------------------------------------------------*/
+
+/* ctr_lte ----------------------------------------------------------------------*/
+&ctr_lte_if {
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+                
+/* ctr_s2 ----------------------------------------------------------------------*/
+&sht30_ext {
+	status = "okay";
+};
+                
+/* ctr_lrw ----------------------------------------------------------------------*/
+&ctr_lrw_if {
+	status = "okay";
+};
+
+&uart1 {
+	status = "okay";
+};
+                
+    
+/* USER CODE BEGIN Overlay */
+/* USER CODE END Overlay */
