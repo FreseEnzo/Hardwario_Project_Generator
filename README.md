@@ -137,9 +137,11 @@ Note: Example generation files can be found in the src directory of this reposit
 
 ### Usage
 
-1. **Project Configuration**: Ensure you have a 'project.yaml' file that specifies project configurations such as project name, shields, and other settings.
-
-2. **Run the Generator**: This command should be used in /applications folder with a project.yaml previously configured
+1. **Project Configuration**: Ensure you have a 'project.yaml' file that specifies project configurations such as project name, shields, and other settings. Otherwise, just use the command below into your project folder to generate a project.yaml example.
+```bash
+west scaffold
+```
+2. **Run the Generator**: This command should be used in project folder with a project.yaml previously configured
 ```bash
 west scaffold
 ```
