@@ -23,7 +23,6 @@ DICT_FEATURES: dict[str, str] = {
     "tinycrypt": "CONFIG_TINYCRYPT=y\n",
     "zcbor_stop_on_error": "CONFIG_ZCBOR_STOP_ON_ERROR=y\n",
     "zcbor": "CONFIG_ZCBOR=y\n",
-   
 }
 
 # User save markers
@@ -33,7 +32,7 @@ USER_CODE_MARKERS: list[dict[str, str]] = [
         "begin": "/* USER CODE BEGIN Variables */",
         "end": "/* USER CODE END Variables */",
     },
-     {
+    {
         "begin": "/* USER CODE BEGIN Struct Variables */",
         "end": "/* USER CODE END Struct Variables */",
     },
@@ -64,7 +63,7 @@ USER_CODE_MARKERS: list[dict[str, str]] = [
     },
 ]
 
-SHIELDS_OVERLAY : dict[str, str] = {
+SHIELDS_OVERLAY: dict[str, str] = {
     "ctr_lte": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
     "ctr_lrw": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
     "ctr_z": '&ctr_z {\n\tstatus = "okay";\n};',
@@ -116,31 +115,50 @@ SHIELDS_OVERLAY : dict[str, str] = {
     "ctr_rtd_a": '&ctr_x3_a {\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
-    "tamper" :"/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
+    "tamper": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {
-    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_lrw","shield_4" : "tamper"},
-    "Clime Z": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_z"},
+    "Clime": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_s2",
+        "shield_3": "ctr_lrw",
+        "shield_4": "tamper",
+    },
+    "Clime Z": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_lrw",
+        "shield_3": "ctr_s2",
+        "shield_4": "ctr_z",
+        "shield_5": "tamper",
+    },
     "Clime IAQ": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_s1",
+        "shield_3": "ctr_lrw",
+        "shield_4": "tamper",
     },
     "Clime 1W": {
         "shield_1": "ctr_lte",
-        "shield_2": "ctr_ds18b20",
+        "shield_2": "ctr_lrw",
+        "shield_3": "ctr_ds18b20",
+        "shield_4": "tamper",
     },
     "Clime 1WH": {
         "shield_1": "ctr_lte",
-        "shield_2": "ctr_ds18b20",
-        "shield_3": "ctr_s2",
+        "shield_2": "ctr_lrw",
+        "shield_3": "ctr_ds18b20",
+        "shield_4": "ctr_s2",
+        "shield_5": "tamper",
     },
     "Clime RTD": {
         "shield_1": "ctr_lte",
-        "shield_2": "ctr_rtd_a",
+        "shield_2": "ctr_lrw",
+        "shield_3": "ctr_rtd_a",
+        "shield_4": "tamper",
     },
     "Signal": {
         "shield_1": "ctr_lte",
+        "shield_4": "tamper",
     },
-}   
-
+}
