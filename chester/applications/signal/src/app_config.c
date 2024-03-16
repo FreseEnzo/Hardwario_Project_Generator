@@ -39,6 +39,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
+
     .measurement_interval = 60,
     .report_interval = 300,
 
@@ -51,26 +52,6 @@ static struct app_config m_app_config_interim = {
 
 /* Private Functions -------------------------------------------------------------------*/
 
-static void print_app_config_mode(const struct shell *shell)
-{
-	const char *mode;
-	switch (m_app_config_interim.mode) {
-	case APP_CONFIG_MODE_NONE:
-		mode = "none";
-		break;
-	case APP_CONFIG_MODE_LTE:
-		mode = "lte";
-		break;
-	case APP_CONFIG_MODE_LRW:
-		mode = "lrw";
-		break;
-	default:
-		mode = "(unknown)";
-		break;
-	}
-
-	shell_print(shell, "app config mode %s", mode);
-}
 
 static void print_measurement_interval(const struct shell *shell)
 {

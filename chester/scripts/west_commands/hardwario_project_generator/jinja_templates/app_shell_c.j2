@@ -7,7 +7,9 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
-
+{%- if commands %}
+#include "app_work.h"
+{% endif %}
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -26,7 +28,20 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
+{% for command in commands %}
+static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc > 1) {
+		shell_error(shell, "unknown parameter: %s", argv[1]);
+		shell_help(shell);
+		return -EINVAL;
+	}
 
+	{{command['callback']}}();
+
+	return 0;
+}
+{% endfor %}
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
     if (argc > 1) {
@@ -76,7 +91,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 {% for command in commands %}
-SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}",{{ command.callback }}, 1, 1);
+SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}", cmd_{{ command.name }});
 {%- endfor %}
 
 /* USER CODE BEGIN Functions 3 */

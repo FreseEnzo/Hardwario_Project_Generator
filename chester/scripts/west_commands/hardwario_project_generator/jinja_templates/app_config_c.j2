@@ -39,7 +39,8 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 {% if data %}
 static struct app_config m_app_config_interim = {
-{%- for param in data['parameters'] %}
+{% for param in data['parameters'] %}
+    {%- if param['default'] != none %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
     {%- elif param['type'] == 'bool' -%}
@@ -47,6 +48,7 @@ static struct app_config m_app_config_interim = {
     {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
     {%- endif -%}
+    {% endif %}
 {%- endfor -%}
 
 {% for variant, variant_dsc in chester_variants.items() %}
