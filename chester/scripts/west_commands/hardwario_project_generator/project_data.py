@@ -1,8 +1,8 @@
 # Shell features dictionary
 DICT_FEATURES: dict[str, str] = {
     "shell": "CONFIG_ADC_SHELL=y\n",
-    "accel": "CONFIG_CTR_ACCEL=y\n",
     "adc": "CONFIG_CTR_ADC=y\n",
+    "accel": "CONFIG_CTR_ACCEL=y\n",
     "batt": "CONFIG_CTR_BATT=y\n",
     "bluetooth": "CONFIG_CTR_BLE=y\n",
     "buf": "CONFIG_CTR_BUF=y\n",
@@ -23,6 +23,7 @@ DICT_FEATURES: dict[str, str] = {
     "tinycrypt": "CONFIG_TINYCRYPT=y\n",
     "zcbor_stop_on_error": "CONFIG_ZCBOR_STOP_ON_ERROR=y\n",
     "zcbor": "CONFIG_ZCBOR=y\n",
+   
 }
 
 # User save markers
@@ -115,10 +116,11 @@ SHIELDS_OVERLAY : dict[str, str] = {
     "ctr_rtd_a": '&ctr_x3_a {\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
+    "tamper" :"/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {
-    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2"},
+    "Clime": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_lrw","shield_4" : "tamper"},
     "Clime Z": {"shield_1": "ctr_lte", "shield_2": "ctr_s2", "shield_3": "ctr_z"},
     "Clime IAQ": {
         "shield_1": "ctr_lte",

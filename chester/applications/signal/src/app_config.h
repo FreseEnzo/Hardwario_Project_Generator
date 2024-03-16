@@ -27,13 +27,9 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 
-enum app_config_mode {
-	APP_CONFIG_MODE_NONE = 0,
-	APP_CONFIG_MODE_LTE = 1,
-	APP_CONFIG_MODE_LRW = 2,
-};
 
 struct app_config {
+    
     int measurement_interval;
     int report_interval;
 

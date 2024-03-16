@@ -34,11 +34,17 @@ enum app_config_mode {
 };
 
 struct app_config {
-    int interval_report;
-    char apn [63 + 1];
-    float temperature;
-    int interval_aggreg;
+    enum app_config_mode mode;
+    
     int interval_sample;
+    int interval_aggreg;
+    int interval_report;
+    bool hygro_t_alarm_hi_report;
+    bool hygro_t_alarm_lo_report;
+    float hygro_t_alarm_hi_thr;
+    float hygro_t_alarm_hi_hst;
+    float hygro_t_alarm_lo_thr;
+    float hygro_t_alarm_lo_hst;
     int event_report_delay;
     int event_report_rate;
     bool backup_report_connected;
@@ -55,11 +61,17 @@ extern struct app_config g_app_config;
 
 /* Private Functions -------------------------------------------------------------------*/
 
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_temperature(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_hi_thr(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_hi_hst(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_lo_thr(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_lo_hst(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);

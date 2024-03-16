@@ -39,7 +39,8 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 {% if data %}
 static struct app_config m_app_config_interim = {
-{%- for param in data['parameters'] %}
+{% for param in data['parameters'] %}
+    {%- if param['default'] != none %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
     {%- elif param['type'] == 'bool' -%}
@@ -47,13 +48,20 @@ static struct app_config m_app_config_interim = {
     {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
     {%- endif -%}
+    {% endif %}
 {%- endfor -%}
 
-{%- for feature in data['features'] %}
-    {%- if feature == 'lte' and 'lorawan' not in data['features'] %}
+{% for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+           {%- if 'lte' in data['features'] and not 'lorawan' in data['features']  %}
     .mode = APP_CONFIG_MODE_LTE,
-    {%- elif feature == 'lorawan' and 'lte' not in data['features'] %}
+           {%- elif 'lorawan' in data['features'] and not 'lte' in data['features']  %}
     .mode = APP_CONFIG_MODE_LRW,
+           {%- else %}
+    .mode = APP_CONFIG_MODE_NONE,
+           {%- endif%}
+        {%- endif %}
     {%- endif %}
 {%- endfor %}
 
@@ -66,6 +74,65 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
+{% for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+static void print_app_config_mode(const struct shell *shell)
+{
+	const char *mode;
+	switch (m_app_config_interim.mode) {
+	case APP_CONFIG_MODE_NONE:
+		mode = "none";
+		break;
+	case APP_CONFIG_MODE_LTE:
+		mode = "lte";
+		break;
+	case APP_CONFIG_MODE_LRW:
+		mode = "lrw";
+		break;
+	default:
+		mode = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config mode %s", mode);
+}
+
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_app_config_mode(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		if (!strcmp("none", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
+			return 0;
+		}
+
+		if (!strcmp("lte", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
+			return 0;
+		}
+
+		if (!strcmp("lrw", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
+			return 0;
+		}
+
+		shell_error(shell, "invalid option");
+
+		return -EINVAL;
+	}
+
+	shell_help(shell);
+
+	return -EINVAL;
+}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 {% for parameter in parameters %}
 {%- if parameter['type'] == 'bool' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
@@ -188,6 +255,7 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {%- raw -%}
 {% endraw %}
 }
+
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
 {
 {%- raw -%}

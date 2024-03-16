@@ -26,15 +26,27 @@ extern "C" {
 #endif
 
 /* Private Variables -------------------------------------------------------------------*/
-
+{% for variant, variant_dsc in chester_variants.items() -%}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 {% if data %}
 struct app_config {
-    {%- for param in data['parameters'] %}
+    {%- for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+    enum app_config_mode mode;
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
+    {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
         {%- else %}
@@ -52,8 +64,15 @@ extern struct app_config g_app_config;
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-
+{% for variant, variant_dsc in chester_variants.items() -%}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
+
 {%- for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float'  %}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
