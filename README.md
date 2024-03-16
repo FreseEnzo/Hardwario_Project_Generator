@@ -1,5 +1,15 @@
 # CHESTER SDK Project Generation Tools
-
+## Catalog Progress
+- [x] Clime
+- [x] Signal
+- [ ] Counter
+- [ ] Current
+- [ ] Input
+- [ ] Meteo
+- [ ] Push
+- [ ] Range
+- [ ] Scale
+      
 ## Project Progress
 - [x] shell.c
 - [x] app_config.c 
