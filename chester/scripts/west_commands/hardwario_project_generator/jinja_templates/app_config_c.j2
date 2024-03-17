@@ -289,7 +289,14 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {%- endif %}
 {% endfor %}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
-{
+{   
+    {%- for variant, variant_dsc in chester_variants.items() %}
+        {%- if variant == variant_name %}
+            {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+    print_app_config_mode(shell);
+                    {%- endif %}
+            {%- endif %}
+        {%- endfor %}
     {%- for parameter in parameters %}
 	print_{{ parameter['var'] }}(shell);
     {%- endfor %}
@@ -312,6 +319,18 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
+
+    if (settings_name_steq(key, "mode", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.mode)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
 {% for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' %}
     if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
@@ -326,8 +345,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 {%- endif %}
-{%- endfor %}
-
+{% endfor %}
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 
@@ -338,7 +356,12 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
     int ret;
 
-{%- for parameter in data['parameters'] -%}
+    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+                      sizeof( m_app_config_interim.mode));
+    if (ret < 0) {
+        return ret;
+    }
+{% for parameter in data['parameters'] -%}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
     ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}},
                       sizeof( m_app_config_interim.{{parameter['var']}}));

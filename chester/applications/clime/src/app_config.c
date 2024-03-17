@@ -501,6 +501,7 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+    print_app_config_mode(shell);
 	print_interval_sample(shell);
 	print_interval_aggreg(shell);
 	print_interval_report(shell);
@@ -534,6 +535,18 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
     int ret;
     const char *next;
 
+    if (settings_name_steq(key, "mode", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.mode)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
+
     if (settings_name_steq(key, "interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
@@ -545,6 +558,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_aggreg)) {
             return -EINVAL;
@@ -556,6 +570,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "interval-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_report)) {
             return -EINVAL;
@@ -567,6 +582,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_report)) {
             return -EINVAL;
@@ -578,6 +594,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_report)) {
             return -EINVAL;
@@ -589,6 +606,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-thr", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_thr)) {
             return -EINVAL;
@@ -600,6 +618,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-hst", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_hst)) {
             return -EINVAL;
@@ -611,6 +630,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-thr", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_thr)) {
             return -EINVAL;
@@ -622,6 +642,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-hst", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_hst)) {
             return -EINVAL;
@@ -633,6 +654,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "event-report-delay", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_delay)) {
             return -EINVAL;
@@ -644,6 +666,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "event-report-rate", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_rate)) {
             return -EINVAL;
@@ -655,6 +678,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_connected)) {
             return -EINVAL;
@@ -666,6 +690,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
             return -EINVAL;
@@ -687,6 +712,13 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
+
+    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+                      sizeof( m_app_config_interim.mode));
+    if (ret < 0) {
+        return ret;
+    }
+
     ret = export_func("chester-clime/interval-sample", &m_app_config_interim.interval_sample,
                       sizeof( m_app_config_interim.interval_sample));
     if (ret < 0) {
