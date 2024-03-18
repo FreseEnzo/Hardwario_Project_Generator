@@ -63,7 +63,7 @@ USER_CODE_MARKERS: list[dict[str, str]] = [
     },
 ]
 
-SHIELDS_OVERLAY: dict[str, str] = {
+SHIELDS_OVERLAY: dict[str, str,str] = {
     "ctr_lte": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
     "ctr_lrw": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
     "ctr_z": '&ctr_z {\n\tstatus = "okay";\n};',
@@ -115,7 +115,7 @@ SHIELDS_OVERLAY: dict[str, str] = {
     "ctr_rtd_a": '&ctr_x3_a {\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
-    "tamper": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
+    "app_tamper": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {
@@ -123,42 +123,41 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_s2",
         "shield_3": "ctr_lrw",
-        "shield_4": "tamper",
+        "shield_4": "app_tamper",
     },
     "Clime Z": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_lrw",
         "shield_3": "ctr_s2",
         "shield_4": "ctr_z",
-        "shield_5": "tamper",
+        "shield_5": "app_tamper",
     },
     "Clime IAQ": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_s1",
         "shield_3": "ctr_lrw",
-        "shield_4": "tamper",
+        "shield_4": "app_tamper",
     },
     "Clime 1W": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_lrw",
         "shield_3": "ctr_ds18b20",
-        "shield_4": "tamper",
+        "shield_4": "app_tamper",
     },
     "Clime 1WH": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_lrw",
         "shield_3": "ctr_ds18b20",
         "shield_4": "ctr_s2",
-        "shield_5": "tamper",
+        "shield_5": "app_tamper",
     },
     "Clime RTD": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_lrw",
         "shield_3": "ctr_rtd_a",
-        "shield_4": "tamper",
+        "shield_4": "app_tamper",
     },
     "Signal": {
         "shield_1": "ctr_lte",
-        "shield_4": "tamper",
     },
 }

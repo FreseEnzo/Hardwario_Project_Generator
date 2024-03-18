@@ -285,6 +285,16 @@ def run():
         **data,
     )
 
+    # Generate prj.conf
+    generate_file(
+        current_directory,
+        project_name,
+        file_status,
+        src_dir="",
+        out_dir="Kconfig",
+        jinja_path="k_config.j2",
+        **data,
+    )
     # Successfull creation log information
     if len(file_status["created"]) > 0:
         log.inf("Created files:", colorize=True)
