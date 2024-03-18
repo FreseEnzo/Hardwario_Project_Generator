@@ -1,6 +1,6 @@
 # CHESTER SDK Project Generation Tools
 ## Catalog Progress
-- [ ] Clime (Problem with #DEFINE)
+- [x] Clime 
 - [x] Signal
 - [ ] Counter
 - [ ] Current
