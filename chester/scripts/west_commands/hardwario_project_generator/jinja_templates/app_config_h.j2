@@ -49,6 +49,8 @@ struct app_config {
     {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
+        {% elif param['type'].split('[')[0] == 'array'%}:
+    {{param['type'].split('[')[1][0:-1]}} {{ param['var'] }}[{{param['len']}}];
         {%- else %}
     {{ param['type'] }} {{ param['var'] }};
         {%- endif %}

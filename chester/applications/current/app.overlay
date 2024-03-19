@@ -43,6 +43,15 @@
 	};
 };
                 
+/* ctr_lrw ----------------------------------------------------------------------*/
+&ctr_lrw_if {
+	status = "okay";
+};
+
+&uart1 {
+	status = "okay";
+};
+                
     
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */

@@ -32,7 +32,7 @@ parameters:
   min: 1
   max: 86400
   default: 60
-  help: 'Get/Set sample interval in seconds (format: <1-86400>).'
+  help: 'Get/Set channel sample interval in seconds (format: <1-86400>).'
 
 - domain: app
   name: channel-interval-aggreg
@@ -41,7 +41,7 @@ parameters:
   min: 1
   max: 86400
   default: 300
-  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
+  help: 'Get/Set channel aggregate interval in seconds (format: <1-86400>).'
 
 - domain: app
   name: interval-report
@@ -101,6 +101,22 @@ parameters:
   type: bool
   default: true
   help: 'Set backup report disconnected'
+
+- domain: app
+  name: channel-active
+  var: channel_active
+  type: array[bool]
+  len: 4
+  default: null
+  help: 'Set channel active array'
+
+- domain: app
+  name: channel-calib-x0
+  var: channel_calib_x0
+  type: array[int]
+  len: 4
+  default: null
+  help: 'Set channel calib x0 array'
 
 commands:
 - domain: app

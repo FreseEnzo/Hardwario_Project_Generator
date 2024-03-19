@@ -179,16 +179,19 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
     "Current": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_k1",
+        "shield_3": "ctr_lrw",
     },
     "Current Z": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_k1",
         "shield_3": "ctr_z",
+        "shield_4": "ctr_lrw",
     },
     "Current 1W": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_k1",
         "shield_3": "ctr_ds18b20",
+        "shield_4": "ctr_lrw",
     },
     "Signal": {
         "shield_1": "ctr_lte",

@@ -17,6 +17,11 @@ config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y  
                 
+# CTR_LRW ---------------------------------------------------------------------- #
+config SHIELD_CTR_LRW
+	bool "Enable SHIELD_CTR_LRW"
+	default y  
+                
     
 endmenu
 

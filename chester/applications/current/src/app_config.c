@@ -49,6 +49,7 @@ static struct app_config m_app_config_interim = {
     .event_report_rate = 30,
     .backup_report_connected = true,
     .backup_report_disconnected = true,
+    .mode = APP_CONFIG_MODE_LTE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -59,6 +60,59 @@ static struct app_config m_app_config_interim = {
 
 /* Private Functions -------------------------------------------------------------------*/
 
+static void print_app_config_mode(const struct shell *shell)
+{
+	const char *mode;
+	switch (m_app_config_interim.mode) {
+	case APP_CONFIG_MODE_NONE:
+		mode = "none";
+		break;
+	case APP_CONFIG_MODE_LTE:
+		mode = "lte";
+		break;
+	case APP_CONFIG_MODE_LRW:
+		mode = "lrw";
+		break;
+	default:
+		mode = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config mode %s", mode);
+}
+
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_app_config_mode(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		if (!strcmp("none", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
+			return 0;
+		}
+
+		if (!strcmp("lte", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
+			return 0;
+		}
+
+		if (!strcmp("lrw", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
+			return 0;
+		}
+
+		shell_error(shell, "invalid option");
+
+		return -EINVAL;
+	}
+
+	shell_help(shell);
+
+	return -EINVAL;
+}
 
 static void print_channel_interval_sample(const struct shell *shell)
 {
@@ -333,8 +387,116 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
     return -EINVAL;
 }
 
+static void print_channel_active(const struct shell *shell)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-active %d %s", i + 1,
+			    m_app_config_interim.channel_active[i] ? "true" : "false");
+	}
+}
+
+int app_config_cmd_config_channel_active(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_active(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "true") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_active[i] = true;
+		}
+
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "false") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_active[i] = false;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_calib_x0(const struct shell *shell)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-calib-x0 %d %d", i + 1,
+			    m_app_config_interim.channel_calib_x0[i]);
+	}
+}
+
+int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_calib_x0(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_calib_x0[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+    print_app_config_mode(shell);
 	print_channel_interval_sample(shell);
 	print_channel_interval_aggreg(shell);
 	print_interval_report(shell);
@@ -344,6 +506,8 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 	print_event_report_rate(shell);
 	print_backup_report_connected(shell);
 	print_backup_report_disconnected(shell);
+	print_channel_active(shell);
+	print_channel_calib_x0(shell);
     
     return 0;
 }
@@ -483,6 +647,8 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
+
 
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
