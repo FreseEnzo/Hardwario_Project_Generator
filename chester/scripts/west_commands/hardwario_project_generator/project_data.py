@@ -63,7 +63,7 @@ USER_CODE_MARKERS: list[dict[str, str]] = [
     },
 ]
 
-SHIELDS_OVERLAY: dict[str, str,str] = {
+SHIELDS_OVERLAY: dict[str, str] = {
     "ctr_lte": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
     "ctr_lrw": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
     "ctr_z": '&ctr_z {\n\tstatus = "okay";\n};',
@@ -116,6 +116,25 @@ SHIELDS_OVERLAY: dict[str, str,str] = {
     + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
     "app_tamper": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
+    "ctr_k1": '/ {\n\tctr_k1: ctr_k1 {\n\t\t'
+    +'compatible = "hardwario,ctr-k1";\n\t\t'
+    +'status = "okay";\n\t\t'
+    +'on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;\n\t\t'
+    +'nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;\n\t};\n};'
+    +'\n\n&i2c0'
+    +'{\n\tctr_k1_tca9534a: ctr_k1_tca9534a@3d {\n\t\t'
+    +'compatible = "ti,tca9538";\n\t\t'
+    +'status = "okay";\n\t\t'
+    +'reg = <0x3d>;\n\t\t'
+    +'#gpio-cells = <2>;\n\t\t'
+    +'gpio-controller;\n\t\t'
+    +'ngpios = <8>;\n\t};\n};',
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {
@@ -156,6 +175,23 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_2": "ctr_lrw",
         "shield_3": "ctr_rtd_a",
         "shield_4": "app_tamper",
+    },
+    "Current": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_k1",
+        "shield_3": "ctr_lrw",
+    },
+    "Current Z": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_k1",
+        "shield_3": "ctr_z",
+        "shield_4": "ctr_lrw",
+    },
+    "Current 1W": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_k1",
+        "shield_3": "ctr_ds18b20",
+        "shield_4": "ctr_lrw",
     },
     "Signal": {
         "shield_1": "ctr_lte",

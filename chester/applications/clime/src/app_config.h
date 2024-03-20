@@ -77,6 +77,8 @@ int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t ar
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
 
+
+
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
 

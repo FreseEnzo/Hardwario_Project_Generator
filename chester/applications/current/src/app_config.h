@@ -46,7 +46,13 @@ struct app_config {
     int event_report_delay;
     int event_report_rate;
     bool backup_report_connected;
-    bool backup_report_disconnected;
+    bool backup_report_disconnected;;
+    bool channel_active[4];;
+    bool channel_differential[4];;
+    int channel_calib_x0[4];;
+    int channel_calib_y0[4];;
+    int channel_calib_x1[4];;
+    int channel_calib_y1[4];
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -70,6 +76,12 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_active(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_differential(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_calib_y0(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_calib_x1(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_calib_y1(const struct shell *shell, size_t argc, char **argv);
 
 
 

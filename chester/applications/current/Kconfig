@@ -1,0 +1,34 @@
+#
+# Copyright (c) 2023 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+menu "Application"
+
+# Current Z Project ------------------------------------------------- #
+# CTR_LTE ---------------------------------------------------------------------- #
+config SHIELD_CTR_LTE
+	bool "Enable SHIELD_CTR_LTE"
+	default y
+# CTR_K1 ---------------------------------------------------------------------- #
+config SHIELD_CTR_K1
+	bool "Enable SHIELD_CTR_K1"
+	default y
+# CTR_Z ---------------------------------------------------------------------- #
+config SHIELD_CTR_Z
+	bool "Enable SHIELD_CTR_Z"
+	default y
+# CTR_LRW ---------------------------------------------------------------------- #
+config SHIELD_CTR_LRW
+	bool "Enable SHIELD_CTR_LRW"
+	default y
+    
+endmenu
+
+menu "Zephyr Kernel"
+source "Kconfig.zephyr"
+endmenu
+
+
+

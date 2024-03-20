@@ -114,21 +114,6 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 	return -EINVAL;
 }
 
-int app_config_get_interval_report(void)
-{
-	return m_app_config_interim.interval_report;
-}
-
-int app_config_set_interval_report(int value)
-{
-	if (value < 30 || value > 86400) {
-		return -ERANGE;
-	}
-
-	m_app_config_interim.interval_report = value;
-
-	return 0;
-}
 
 static void print_channel_interval_sample(const struct shell *shell)
 {
@@ -403,6 +388,322 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
     return -EINVAL;
 }
 
+static void print_channel_active(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-active %d %s", i + 1,
+			    m_app_config_interim.channel_active[i] ? "true" : "false");
+	}
+}
+
+int app_config_cmd_config_channel_active(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_active(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "true") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_active[i] = true;
+		}
+
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "false") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_active[i] = false;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_differential(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-differential %d %s", i + 1,
+			    m_app_config_interim.channel_differential[i] ? "true" : "false");
+	}
+}
+
+int app_config_cmd_config_channel_differential(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_differential(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "true") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_differential[i] = true;
+		}
+
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "false") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_differential[i] = false;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_calib_x0(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-calib-x0 %d %d", i + 1,
+			    m_app_config_interim.channel_calib_x0[i]);
+	}
+}
+
+int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_calib_x0(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_calib_x0[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_calib_y0(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-calib-y0 %d %d", i + 1,
+			    m_app_config_interim.channel_calib_y0[i]);
+	}
+}
+
+int app_config_cmd_config_channel_calib_y0(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_calib_y0(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_calib_y0[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_calib_x1(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-calib-x1 %d %d", i + 1,
+			    m_app_config_interim.channel_calib_x1[i]);
+	}
+}
+
+int app_config_cmd_config_channel_calib_x1(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_calib_x1(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_calib_x1[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
+static void print_channel_calib_y1(const struct shell *shell, int channel)
+{
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
+		shell_print(shell, "app config channel-calib-y1 %d %d", i + 1,
+			    m_app_config_interim.channel_calib_y1[i]);
+	}
+}
+
+int app_config_cmd_config_channel_calib_y1(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > 4) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_channel_calib_y1(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
+		     i++) {
+			m_app_config_interim.channel_calib_y1[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
     print_app_config_mode(shell);
@@ -415,6 +716,12 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 	print_event_report_rate(shell);
 	print_backup_report_connected(shell);
 	print_backup_report_disconnected(shell);
+    print_channel_active(shell, 0);
+    print_channel_differential(shell, 0);
+    print_channel_calib_x0(shell, 0);
+    print_channel_calib_y0(shell, 0);
+    print_channel_calib_x1(shell, 0);
+    print_channel_calib_y1(shell, 0);
     
     return 0;
 }

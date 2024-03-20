@@ -93,11 +93,11 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
                   app_config_cmd_config_mode, 1, 1),
 
     SHELL_CMD_ARG(channel-interval-sample, NULL,
-                  "Get/Set sample interval in seconds (format: <1-86400>).",
+                  "Get/Set channel sample interval in seconds (format: <1-86400>).",
                   app_config_cmd_config_channel_interval_sample, 1, 1),
 
     SHELL_CMD_ARG(channel-interval-aggreg, NULL,
-                  "Get/Set aggregate interval in seconds (format: <1-86400>).",
+                  "Get/Set channel aggregate interval in seconds (format: <1-86400>).",
                   app_config_cmd_config_channel_interval_aggreg, 1, 1),
 
     SHELL_CMD_ARG(interval-report, NULL,
@@ -127,6 +127,30 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(backup-report-disconnected, NULL,
                   "Set backup report disconnected",
                   app_config_cmd_config_backup_report_disconnected, 1, 1),
+
+    SHELL_CMD_ARG(channel-active, NULL,
+                  "Get/Set channel activation (format: <channel> <true|false>).",
+                  app_config_cmd_config_channel_active, 1, 1),
+
+    SHELL_CMD_ARG(channel-differential, NULL,
+                  "Get/Set channel differential mode (format: <channel> <true|false>).",
+                  app_config_cmd_config_channel_differential, 1, 1),
+
+    SHELL_CMD_ARG(channel-calib-x0, NULL,
+                  "Get/Set channel X0 calibration point (format: <channel> <-2147483648..2147483647>).",
+                  app_config_cmd_config_channel_calib_x0, 1, 1),
+
+    SHELL_CMD_ARG(channel-calib-y0, NULL,
+                  "Get/Set channel Y0 calibration point (format: <channel> <-2147483648..2147483647>).",
+                  app_config_cmd_config_channel_calib_y0, 1, 1),
+
+    SHELL_CMD_ARG(channel-calib-x1, NULL,
+                  "Get/Set channel X1 calibration point (format: <channel> <-2147483648..2147483647>).",
+                  app_config_cmd_config_channel_calib_x1, 1, 1),
+
+    SHELL_CMD_ARG(channel-calib-y1, NULL,
+                  "Get/Set channel Y1 calibration point (format: <channel> <-2147483648..2147483647>).",
+                  app_config_cmd_config_channel_calib_y1, 1, 1),
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

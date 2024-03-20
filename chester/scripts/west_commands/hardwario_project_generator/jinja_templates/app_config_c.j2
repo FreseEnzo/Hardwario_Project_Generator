@@ -133,6 +133,23 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
         {%- endif %}
     {%- endif %}
 {%- endfor %}
+{% if variant_name  == 'Current' %}
+int app_config_get_interval_report(void)
+{
+	return m_app_config_interim.interval_report;
+}
+
+int app_config_set_interval_report(int value)
+{
+	if (value < 30 || value > 86400) {
+		return -ERANGE;
+	}
+
+	m_app_config_interim.interval_report = value;
+
+	return 0;
+}
+{%- endif %}
 {% for parameter in parameters %}
 {%- if parameter['type'] == 'bool' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
@@ -287,6 +304,125 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
     return -EINVAL;
 }
 {%- endif %}
+
+{%- if parameter['type'].split('[')[0] == 'array' and parameter['type'].split('[')[1][0:-1] == 'bool'%}
+static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
+{                                  
+{%- raw -%}
+{% endraw %}
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }}); i++) {
+		shell_print(shell, "app config {{ parameter['name'] }} %d %s", i + 1,
+			    m_app_config_interim.{{ parameter['var'] }}[i] ? "true" : "false");
+	}
+{%- raw -%}
+{% endraw %}
+}
+
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > {{ parameter['len'] }}) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_{{ parameter['var'] }}(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "true") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
+		     i++) {
+			m_app_config_interim.{{ parameter['var'] }}[i] = true;
+		}
+
+		return 0;
+	}
+
+	if (argc == 3 && strcmp(argv[2], "false") == 0) {
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
+		     i++) {
+			m_app_config_interim.{{ parameter['var'] }}[i] = false;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+{%- endif %}
+
+{%- if parameter['type'].split('[')[0] == 'array' and parameter['type'].split('[')[1][0:-1] == 'int'%}
+static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
+{                                  
+{%- raw -%}
+{% endraw %}
+	int ch = channel;
+
+	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }}); i++) {
+		shell_print(shell, "app config {{ parameter['name'] }} %d %d", i + 1,
+			    m_app_config_interim.{{ parameter['var'] }}[i]);
+	}
+{%- raw -%}
+{% endraw %}
+}
+
+int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
+{
+    int channel;
+
+	if (argc >= 2) {
+		unsigned long ch = strtoul(argv[1], NULL, 10);
+
+		if (ch < 0 || ch > {{ parameter['len'] }}) {
+			shell_error(shell, "invalid channel index");
+			return -EINVAL;
+		}
+
+		channel = ch;
+	}
+
+	if (argc == 2) {
+		print_{{ parameter['var'] }}(shell, channel);
+		return 0;
+	}
+
+	if (argc == 3) {
+		long long val = strtoll(argv[2], NULL, 10);
+		if (val < INT_MIN || val > INT_MAX) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+
+		int ch = channel;
+
+		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
+		     i++) {
+			m_app_config_interim.{{ parameter['var'] }}[i] = val;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
+{%- endif %}
 {% endfor %}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {   
@@ -298,7 +434,11 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
             {%- endif %}
         {%- endfor %}
     {%- for parameter in parameters %}
+    {%- if parameter['type'].split('[')[0] == 'array' %}
+    print_{{ parameter['var'] }}(shell, 0);
+    {%- else %}
 	print_{{ parameter['var'] }}(shell);
+    {%- endif %}
     {%- endfor %}
     
     return 0;
@@ -345,7 +485,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 {%- endif %}
-{% endfor %}
+{%- endfor %}
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 

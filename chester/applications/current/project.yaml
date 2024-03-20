@@ -3,8 +3,8 @@ version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Current
-  version: v1.0.3 
-  variant: Current 
+  version: v1.0.0
+  variant: Current Z
 features: 
 - shell
 - accel
@@ -20,6 +20,7 @@ features:
 - rtc
 - therm
 - wdog
+- entropy_generator
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
@@ -31,7 +32,7 @@ parameters:
   min: 1
   max: 86400
   default: 60
-  help: 'Get/Set sample interval in seconds (format: <1-86400>).'
+  help: 'Get/Set channel sample interval in seconds (format: <1-86400>).'
 
 - domain: app
   name: channel-interval-aggreg
@@ -40,7 +41,7 @@ parameters:
   min: 1
   max: 86400
   default: 300
-  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
+  help: 'Get/Set channel aggregate interval in seconds (format: <1-86400>).'
 
 - domain: app
   name: interval-report
@@ -101,6 +102,54 @@ parameters:
   default: true
   help: 'Set backup report disconnected'
 
+- domain: app
+  name: channel-active
+  var: channel_active
+  type: array[bool]
+  len: 4
+  default: null
+  help: 'Get/Set channel activation (format: <channel> <true|false>).'
+
+- domain: app
+  name: channel-differential
+  var: channel_differential
+  type: array[bool]
+  len: 4
+  default: null
+  help: 'Get/Set channel differential mode (format: <channel> <true|false>).'
+
+- domain: app
+  name: channel-calib-x0
+  var: channel_calib_x0
+  type: array[int]
+  len: 4
+  default: null
+  help: 'Get/Set channel X0 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-y0
+  var: channel_calib_y0
+  type: array[int]
+  len: 4
+  default: null
+  help: 'Get/Set channel Y0 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-x1
+  var: channel_calib_x1
+  type: array[int]
+  len: 4
+  default: null
+  help: 'Get/Set channel X1 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-y1
+  var: channel_calib_y1
+  type: array[int]
+  len: 4
+  default: null
+  help: 'Get/Set channel Y1 calibration point (format: <channel> <-2147483648..2147483647>).'
+
 commands:
 - domain: app
   name: sample
@@ -123,5 +172,4 @@ extras:
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
 - CONFIG_ADC_NRFX_SAADC=n
 - CONFIG_ADC_SHELL=n
-- CONFIG_APP_TAMPER=n
-- CONFIG_NEWLIB_LIBC_NANO=n
+- CONFIG_CTR_K1_LOG_LEVEL_DBG=y
