@@ -295,6 +295,7 @@ def run():
         jinja_path="k_config.j2",
         **data,
     )
+
     # Successfull creation log information
     if len(file_status["created"]) > 0:
         log.inf("Created files:", colorize=True)
