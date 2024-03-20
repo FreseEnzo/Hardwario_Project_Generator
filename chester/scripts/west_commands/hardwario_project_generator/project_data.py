@@ -63,7 +63,7 @@ USER_CODE_MARKERS: list[dict[str, str]] = [
     },
 ]
 
-SHIELDS_OVERLAY: dict[str, str,str] = {
+SHIELDS_OVERLAY: dict[str, str] = {
     "ctr_lte": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
     "ctr_lrw": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
     "ctr_z": '&ctr_z {\n\tstatus = "okay";\n};',
