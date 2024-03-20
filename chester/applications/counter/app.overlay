@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2023 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
+
+/* Counter -------------------------------------------------*/
+
+/* ctr_lte ----------------------------------------------------------------------*/
+&ctr_lte_if {
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+                
+/* ctr_x0_a ----------------------------------------------------------------------*/
+&ctr_x0_a {
+	status = "okay";
+};
+
+&ctr_x0_pcal6416a_a {
+	status = "okay";
+};
+                
+/* app_tamper ----------------------------------------------------------------------*/
+/ {
+	zephyr,user {
+		tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+	};
+};
+                
+    
+/* USER CODE BEGIN Overlay */
+/* USER CODE END Overlay */
