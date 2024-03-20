@@ -32,7 +32,7 @@
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
-#define SETTINGS_PFX "chester-current"
+#define SETTINGS_PFX "chester-clime"
 
 /* Private Variables -------------------------------------------------------------------*/
 
@@ -40,16 +40,12 @@ struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
 
-    .channel_interval_sample = 60,
-    .channel_interval_aggreg = 300,
-    .interval_report = 900,
-    .w1_therm_interval_sample = 60,
-    .w1_therm_interval_aggreg = 300,
+    .interval_sample = 60,
+    .interval_report = 1800,
     .event_report_delay = 1,
     .event_report_rate = 30,
     .backup_report_connected = true,
     .backup_report_disconnected = true,
-    .mode = APP_CONFIG_MODE_LTE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -60,85 +56,17 @@ static struct app_config m_app_config_interim = {
 
 /* Private Functions -------------------------------------------------------------------*/
 
-static void print_app_config_mode(const struct shell *shell)
-{
-	const char *mode;
-	switch (m_app_config_interim.mode) {
-	case APP_CONFIG_MODE_NONE:
-		mode = "none";
-		break;
-	case APP_CONFIG_MODE_LTE:
-		mode = "lte";
-		break;
-	case APP_CONFIG_MODE_LRW:
-		mode = "lrw";
-		break;
-	default:
-		mode = "(unknown)";
-		break;
-	}
 
-	shell_print(shell, "app config mode %s", mode);
+
+static void print_interval_sample(const struct shell *shell)
+{
+    shell_print(shell, "app config interval-sample  %d", m_app_config_interim.interval_sample);
 }
 
-int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
-{
-	if (argc == 1) {
-		print_app_config_mode(shell);
-		return 0;
-	}
-
-	if (argc == 2) {
-		if (!strcmp("none", argv[1])) {
-			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
-			return 0;
-		}
-
-		if (!strcmp("lte", argv[1])) {
-			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
-			return 0;
-		}
-
-		if (!strcmp("lrw", argv[1])) {
-			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
-			return 0;
-		}
-
-		shell_error(shell, "invalid option");
-
-		return -EINVAL;
-	}
-
-	shell_help(shell);
-
-	return -EINVAL;
-}
-
-int app_config_get_interval_report(void)
-{
-	return m_app_config_interim.interval_report;
-}
-
-int app_config_set_interval_report(int value)
-{
-	if (value < 30 || value > 86400) {
-		return -ERANGE;
-	}
-
-	m_app_config_interim.interval_report = value;
-
-	return 0;
-}
-
-static void print_channel_interval_sample(const struct shell *shell)
-{
-    shell_print(shell, "app config channel-interval-sample  %d", m_app_config_interim.channel_interval_sample);
-}
-
-int app_config_cmd_config_channel_interval_sample(const struct shell *shell, size_t argc, char **argv)
+int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv)
 {
     if (argc == 1) {
-        print_channel_interval_sample(shell);
+        print_interval_sample(shell);
         return 0;
     }
     if (argc == 2) {
@@ -154,38 +82,7 @@ int app_config_cmd_config_channel_interval_sample(const struct shell *shell, siz
             shell_error(shell, "invalid range");
             return -EINVAL;
         }
-        m_app_config_interim.channel_interval_sample = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
-}
-
-static void print_channel_interval_aggreg(const struct shell *shell)
-{
-    shell_print(shell, "app config channel-interval-aggreg  %d", m_app_config_interim.channel_interval_aggreg);
-}
-
-int app_config_cmd_config_channel_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_channel_interval_aggreg(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < 1 || value > 86400) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.channel_interval_aggreg = (int)value;
+        m_app_config_interim.interval_sample = (int)value;
         return 0;
     }
     shell_help(shell);
@@ -217,68 +114,6 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
             return -EINVAL;
         }
         m_app_config_interim.interval_report = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
-}
-
-static void print_w1_therm_interval_sample(const struct shell *shell)
-{
-    shell_print(shell, "app config w1-therm-interval-sample  %d", m_app_config_interim.w1_therm_interval_sample);
-}
-
-int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_w1_therm_interval_sample(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < 1 || value > 86400) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.w1_therm_interval_sample = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
-}
-
-static void print_w1_therm_interval_aggreg(const struct shell *shell)
-{
-    shell_print(shell, "app config w1-therm-interval-aggreg  %d", m_app_config_interim.w1_therm_interval_aggreg);
-}
-
-int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_w1_therm_interval_aggreg(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < 1 || value > 86400) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.w1_therm_interval_aggreg = (int)value;
         return 0;
     }
     shell_help(shell);
@@ -405,12 +240,8 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
-    print_app_config_mode(shell);
-	print_channel_interval_sample(shell);
-	print_channel_interval_aggreg(shell);
+	print_interval_sample(shell);
 	print_interval_report(shell);
-	print_w1_therm_interval_sample(shell);
-	print_w1_therm_interval_aggreg(shell);
 	print_event_report_delay(shell);
 	print_event_report_rate(shell);
 	print_backup_report_connected(shell);
@@ -447,22 +278,11 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 
-    if (settings_name_steq(key, "channel-interval-sample", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.channel_interval_sample)) {
+    if (settings_name_steq(key, "interval-sample", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
         }
-        ret = read_cb(cb_arg, &m_app_config_interim.channel_interval_sample, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
-    if (settings_name_steq(key, "channel-interval-aggreg", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.channel_interval_aggreg)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.channel_interval_aggreg, len);
+        ret = read_cb(cb_arg, &m_app_config_interim.interval_sample, len);
         if (ret < 0) {
             LOG_ERR("Call `read_cb` failed: %d", ret);
             return ret;
@@ -474,28 +294,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
             return -EINVAL;
         }
         ret = read_cb(cb_arg, &m_app_config_interim.interval_report, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
-    if (settings_name_steq(key, "w1-therm-interval-sample", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.w1_therm_interval_sample)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.w1_therm_interval_sample, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
-    if (settings_name_steq(key, "w1-therm-interval-aggreg", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.w1_therm_interval_aggreg)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.w1_therm_interval_aggreg, len);
         if (ret < 0) {
             LOG_ERR("Call `read_cb` failed: %d", ret);
             return ret;
@@ -562,55 +360,37 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
         return ret;
     }
 
-    ret = export_func("chester-current/channel-interval-sample", &m_app_config_interim.channel_interval_sample,
-                      sizeof( m_app_config_interim.channel_interval_sample));
+    ret = export_func("chester-clime/interval-sample", &m_app_config_interim.interval_sample,
+                      sizeof( m_app_config_interim.interval_sample));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-current/channel-interval-aggreg", &m_app_config_interim.channel_interval_aggreg,
-                      sizeof( m_app_config_interim.channel_interval_aggreg));
-    if (ret < 0) {
-        return ret;
-    }
-
-    ret = export_func("chester-current/interval-report", &m_app_config_interim.interval_report,
+    ret = export_func("chester-clime/interval-report", &m_app_config_interim.interval_report,
                       sizeof( m_app_config_interim.interval_report));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-current/w1-therm-interval-sample", &m_app_config_interim.w1_therm_interval_sample,
-                      sizeof( m_app_config_interim.w1_therm_interval_sample));
-    if (ret < 0) {
-        return ret;
-    }
-
-    ret = export_func("chester-current/w1-therm-interval-aggreg", &m_app_config_interim.w1_therm_interval_aggreg,
-                      sizeof( m_app_config_interim.w1_therm_interval_aggreg));
-    if (ret < 0) {
-        return ret;
-    }
-
-    ret = export_func("chester-current/event-report-delay", &m_app_config_interim.event_report_delay,
+    ret = export_func("chester-clime/event-report-delay", &m_app_config_interim.event_report_delay,
                       sizeof( m_app_config_interim.event_report_delay));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-current/event-report-rate", &m_app_config_interim.event_report_rate,
+    ret = export_func("chester-clime/event-report-rate", &m_app_config_interim.event_report_rate,
                       sizeof( m_app_config_interim.event_report_rate));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-current/backup-report-connected", &m_app_config_interim.backup_report_connected,
+    ret = export_func("chester-clime/backup-report-connected", &m_app_config_interim.backup_report_connected,
                       sizeof( m_app_config_interim.backup_report_connected));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-current/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
+    ret = export_func("chester-clime/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
                       sizeof( m_app_config_interim.backup_report_disconnected));
     if (ret < 0) {
         return ret;

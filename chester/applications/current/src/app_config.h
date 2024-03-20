@@ -82,8 +82,8 @@ int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t arg
 int app_config_cmd_config_channel_calib_y0(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_calib_x1(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_calib_y1(const struct shell *shell, size_t argc, char **argv);
-
-
+int app_config_get_interval_report(void);
+int app_config_set_interval_report(int value);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

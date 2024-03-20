@@ -92,25 +92,13 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
                   "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
                   app_config_cmd_config_mode, 1, 1),
 
-    SHELL_CMD_ARG(channel-interval-sample, NULL,
+    SHELL_CMD_ARG(interval-sample, NULL,
                   "Get/Set sample interval in seconds (format: <1-86400>).",
-                  app_config_cmd_config_channel_interval_sample, 1, 1),
-
-    SHELL_CMD_ARG(channel-interval-aggreg, NULL,
-                  "Get/Set aggregate interval in seconds (format: <1-86400>).",
-                  app_config_cmd_config_channel_interval_aggreg, 1, 1),
+                  app_config_cmd_config_interval_sample, 1, 1),
 
     SHELL_CMD_ARG(interval-report, NULL,
                   "Get/Set report interval in seconds (format: <30-86400>).",
                   app_config_cmd_config_interval_report, 1, 1),
-
-    SHELL_CMD_ARG(w1-therm-interval-sample, NULL,
-                  "Get/Set report when hygro high temperature alarm is crossed (format: true, false).",
-                  app_config_cmd_config_w1_therm_interval_sample, 1, 1),
-
-    SHELL_CMD_ARG(w1-therm-interval-aggreg, NULL,
-                  "Get/Set report when hygro low temperature alarm is crossed (format: true, false).",
-                  app_config_cmd_config_w1_therm_interval_aggreg, 1, 1),
 
     SHELL_CMD_ARG(event-report-delay, NULL,
                   "Get/Set event report delay in seconds (format: <1-86400>).",

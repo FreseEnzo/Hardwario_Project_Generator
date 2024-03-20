@@ -23,6 +23,7 @@ DICT_FEATURES: dict[str, str] = {
     "tinycrypt": "CONFIG_TINYCRYPT=y\n",
     "zcbor_stop_on_error": "CONFIG_ZCBOR_STOP_ON_ERROR=y\n",
     "zcbor": "CONFIG_ZCBOR=y\n",
+    "config": "CONFIG_CTR_CONFIG=y\n"
 }
 
 # User save markers
@@ -192,6 +193,17 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_2": "ctr_k1",
         "shield_3": "ctr_ds18b20",
         "shield_4": "ctr_lrw",
+    },
+    "Counter": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_x0_a",
+        "shield_3": "app_tamper",
+    },
+    "Counter Z": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_x0_a",
+        "shield_3": "ctr_z",
+        "shield_4": "app_tamper",
     },
     "Signal": {
         "shield_1": "ctr_lte",

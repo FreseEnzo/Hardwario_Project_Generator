@@ -133,7 +133,8 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
         {%- endif %}
     {%- endif %}
 {%- endfor %}
-{% if variant_name  == 'Current' %}
+{%- set variant_name_lower = variant_name|lower %}
+{% if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void)
 {
 	return m_app_config_interim.interval_report;

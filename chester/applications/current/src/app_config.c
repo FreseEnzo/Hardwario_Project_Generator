@@ -49,7 +49,7 @@ static struct app_config m_app_config_interim = {
     .event_report_rate = 30,
     .backup_report_connected = true,
     .backup_report_disconnected = true,
-    .mode = APP_CONFIG_MODE_LTE,
+    .mode = APP_CONFIG_MODE_NONE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -114,6 +114,21 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 	return -EINVAL;
 }
 
+int app_config_get_interval_report(void)
+{
+	return m_app_config_interim.interval_report;
+}
+
+int app_config_set_interval_report(int value)
+{
+	if (value < 30 || value > 86400) {
+		return -ERANGE;
+	}
+
+	m_app_config_interim.interval_report = value;
+
+	return 0;
+}
 
 static void print_channel_interval_sample(const struct shell *shell)
 {

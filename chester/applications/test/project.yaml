@@ -1,10 +1,11 @@
 # Hardwario YAML file for code generation
+# (Chester Clime) example
 version: 1
 project:
   bundle: com.hardwario.chester.clime
-  name: CHESTER Current
-  version: v1.0.3 
-  variant: Current 
+  name: CHESTER Clime
+  version: v1.0.0 
+  variant: Counter
 features: 
 - shell
 - accel
@@ -12,7 +13,9 @@ features:
 - button
 - bluetooth
 - buf
+- config
 - defaults
+- edge
 - info
 - led
 - log
@@ -20,13 +23,14 @@ features:
 - rtc
 - therm
 - wdog
+- entropy_generator
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
 parameters:
 - domain: app
-  name: channel-interval-sample
-  var: channel_interval_sample
+  name: interval-sample
+  var: interval_sample
   type: int
   min: 1
   max: 86400
@@ -34,40 +38,13 @@ parameters:
   help: 'Get/Set sample interval in seconds (format: <1-86400>).'
 
 - domain: app
-  name: channel-interval-aggreg
-  var: channel_interval_aggreg
-  type: int
-  min: 1
-  max: 86400
-  default: 300
-  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
-
-- domain: app
   name: interval-report
   var: interval_report
   type: int
   min: 30
   max: 86400
-  default: 900
+  default: 1800
   help: 'Get/Set report interval in seconds (format: <30-86400>).'
-
-- domain: app
-  name: w1-therm-interval-sample
-  var: w1_therm_interval_sample
-  type: int
-  min: 1
-  max: 86400
-  default: 60
-  help: 'Get/Set report when hygro high temperature alarm is crossed (format: true, false).'
-
-- domain: app
-  name: w1-therm-interval-aggreg
-  var: w1_therm_interval_aggreg
-  type: int
-  min: 1
-  max: 86400
-  default: 300
-  help: 'Get/Set report when hygro low temperature alarm is crossed (format: true, false).'
 
 - domain: app
   name: event-report-delay
@@ -124,4 +101,3 @@ extras:
 - CONFIG_ADC_NRFX_SAADC=n
 - CONFIG_ADC_SHELL=n
 - CONFIG_APP_TAMPER=n
-- CONFIG_NEWLIB_LIBC_NANO=n

@@ -84,7 +84,7 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {%- endif %}
 {%- endfor %}
 
-{% if variant_name  == 'current' %}
+{%- if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void);
 int app_config_set_interval_report(int value);
 {%- endif %}
