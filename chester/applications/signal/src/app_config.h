@@ -48,6 +48,8 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv);
 
+
+
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
 

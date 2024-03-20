@@ -25,10 +25,18 @@
 extern "C" {
 #endif
 
+#define APP_CONFIG_CHANNEL_COUNT 4
+
 /* Private Variables -------------------------------------------------------------------*/
 
+enum app_config_mode {
+	APP_CONFIG_MODE_NONE = 0,
+	APP_CONFIG_MODE_LTE = 1,
+	APP_CONFIG_MODE_LRW = 2,
+};
 
 struct app_config {
+    enum app_config_mode mode;
     
     int channel_interval_sample;
     int channel_interval_aggreg;
@@ -51,6 +59,7 @@ extern struct app_config g_app_config;
 
 /* Private Functions -------------------------------------------------------------------*/
 
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_interval_sample(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
@@ -61,6 +70,8 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+
+
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

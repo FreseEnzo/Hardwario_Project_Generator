@@ -24,7 +24,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+{%- set variant_name_lower = variant_name|lower %}
+{% if variant_name_lower.split(' ')[0] == 'current' %}
+#define APP_CONFIG_CHANNEL_COUNT 4
+{% endif %}
 /* Private Variables -------------------------------------------------------------------*/
 {% for variant, variant_dsc in chester_variants.items() -%}
     {%- if variant == variant_name %}
@@ -49,7 +52,7 @@ struct app_config {
     {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
-        {% elif param['type'].split('[')[0] == 'array'%}:
+        {% elif param['type'].split('[')[0] == 'array'%};
     {{param['type'].split('[')[1][0:-1]}} {{ param['var'] }}[{{param['len']}}];
         {%- else %}
     {{ param['type'] }} {{ param['var'] }};
@@ -76,10 +79,15 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 
 {%- for parameter in data['parameters'] %}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float'  %}
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float' or parameter['type'].split('[')[0] == 'array'  %}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
 {%- endfor %}
+
+{% if variant_name  == 'current' %}
+int app_config_get_interval_report(void);
+int app_config_set_interval_report(int value);
+{%- endif %}
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

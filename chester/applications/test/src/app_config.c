@@ -49,6 +49,7 @@ static struct app_config m_app_config_interim = {
     .event_report_rate = 30,
     .backup_report_connected = true,
     .backup_report_disconnected = true,
+    .mode = APP_CONFIG_MODE_LTE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -59,6 +60,75 @@ static struct app_config m_app_config_interim = {
 
 /* Private Functions -------------------------------------------------------------------*/
 
+static void print_app_config_mode(const struct shell *shell)
+{
+	const char *mode;
+	switch (m_app_config_interim.mode) {
+	case APP_CONFIG_MODE_NONE:
+		mode = "none";
+		break;
+	case APP_CONFIG_MODE_LTE:
+		mode = "lte";
+		break;
+	case APP_CONFIG_MODE_LRW:
+		mode = "lrw";
+		break;
+	default:
+		mode = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config mode %s", mode);
+}
+
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_app_config_mode(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		if (!strcmp("none", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
+			return 0;
+		}
+
+		if (!strcmp("lte", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
+			return 0;
+		}
+
+		if (!strcmp("lrw", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
+			return 0;
+		}
+
+		shell_error(shell, "invalid option");
+
+		return -EINVAL;
+	}
+
+	shell_help(shell);
+
+	return -EINVAL;
+}
+
+int app_config_get_interval_report(void)
+{
+	return m_app_config_interim.interval_report;
+}
+
+int app_config_set_interval_report(int value)
+{
+	if (value < 30 || value > 86400) {
+		return -ERANGE;
+	}
+
+	m_app_config_interim.interval_report = value;
+
+	return 0;
+}
 
 static void print_channel_interval_sample(const struct shell *shell)
 {
@@ -335,6 +405,7 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+    print_app_config_mode(shell);
 	print_channel_interval_sample(shell);
 	print_channel_interval_aggreg(shell);
 	print_interval_report(shell);
@@ -387,7 +458,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "channel-interval-aggreg", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_interval_aggreg)) {
             return -EINVAL;
@@ -399,7 +469,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "interval-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_report)) {
             return -EINVAL;
@@ -411,7 +480,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "w1-therm-interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.w1_therm_interval_sample)) {
             return -EINVAL;
@@ -423,7 +491,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "w1-therm-interval-aggreg", &next) && !next) {
         if (len != sizeof(m_app_config_interim.w1_therm_interval_aggreg)) {
             return -EINVAL;
@@ -435,7 +502,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "event-report-delay", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_delay)) {
             return -EINVAL;
@@ -447,7 +513,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "event-report-rate", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_rate)) {
             return -EINVAL;
@@ -459,7 +524,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_connected)) {
             return -EINVAL;
@@ -471,7 +535,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
             return -EINVAL;
@@ -483,7 +546,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 

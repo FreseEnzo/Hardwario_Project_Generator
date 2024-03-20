@@ -53,6 +53,7 @@ static struct app_config m_app_config_interim = {
 /* Private Functions -------------------------------------------------------------------*/
 
 
+
 static void print_measurement_interval(const struct shell *shell)
 {
     shell_print(shell, "app config measurement-interval  %d", m_app_config_interim.measurement_interval);
@@ -139,6 +140,18 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
     int ret;
     const char *next;
 
+    if (settings_name_steq(key, "mode", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.mode)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
+
     if (settings_name_steq(key, "measurement-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.measurement_interval)) {
             return -EINVAL;
@@ -161,7 +174,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 
@@ -171,6 +183,13 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
+
+    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+                      sizeof( m_app_config_interim.mode));
+    if (ret < 0) {
+        return ret;
+    }
+
     ret = export_func("chester-signal/measurement-interval", &m_app_config_interim.measurement_interval,
                       sizeof( m_app_config_interim.measurement_interval));
     if (ret < 0) {
