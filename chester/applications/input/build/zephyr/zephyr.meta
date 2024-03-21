@@ -1,0 +1,227 @@
+modules:
+- name: vendor
+  path: /home/frese/Documents/chester-app/vendor
+  revision: e9f5c17ed00a5623266b6d00ce9433e392c33b12
+- name: chester
+  path: /home/frese/Documents/chester-app/chester
+  revision: 7ecaf6ca023abc5e4495260098f123bdd6b3908f-dirty
+- name: nrf
+  path: /home/frese/Documents/chester-app/nrf
+  revision: 52c40e51c79f31bc46b71a2f27b44c3d950d77c1
+- name: wfa-qt-control-app
+  path: /home/frese/Documents/chester-app/modules/lib/wfa-qt-control-app
+  revision: 0e213ab6a421298484a81a9d18f5c31c4b8084a8
+- name: mcuboot
+  path: /home/frese/Documents/chester-app/bootloader/mcuboot
+  revision: 289166425805f937abfe9058f57323085ec96523
+- name: mbedtls
+  path: /home/frese/Documents/chester-app/modules/crypto/mbedtls
+  revision: acea48fc8a5eb227033b55e6ec012731218e257f
+- name: trusted-firmware-m
+  path: /home/frese/Documents/chester-app/modules/tee/tf-m/trusted-firmware-m
+  revision: afd54b6bad00c56098cb84a7b79ac72cc44f082b
+- name: cjson
+  path: /home/frese/Documents/chester-app/modules/lib/cjson
+  revision: c6af068b7f05207b28d68880740e4b9ec1e4b50a
+- name: azure-sdk-for-c
+  path: /home/frese/Documents/chester-app/modules/lib/azure-sdk-for-c
+  revision: 308c171cb4b5eed266649012a68406487ec81fb2
+- name: cirrus-logic
+  path: /home/frese/Documents/chester-app/modules/hal/cirrus-logic
+  revision: 9f6b3812237fbb0d4157ba3584c13f1644fcbe3a
+- name: openthread
+  path: /home/frese/Documents/chester-app/modules/lib/openthread
+  revision: 57ef721eeed2550835c528ab7b8e77671f7039d6
+- name: memfault-firmware-sdk
+  path: /home/frese/Documents/chester-app/modules/lib/memfault-firmware-sdk
+  revision: c374e92a4b9615a00d8ec6d2caf77fc60eff8c3c
+- name: canopennode
+  path: /home/frese/Documents/chester-app/modules/lib/canopennode
+  revision: dec12fa3f0d790cafa8414a4c2930ea71ab72ffd
+- name: chre
+  path: /home/frese/Documents/chester-app/modules/lib/chre
+  revision: b7955c27e50485b7dafdc3888d7d6afdc2ac6d96
+- name: cmsis
+  path: /home/frese/Documents/chester-app/modules/hal/cmsis
+  revision: 1abf29132e608826752e2edd1f4799a065db4031
+- name: fatfs
+  path: /home/frese/Documents/chester-app/modules/fs/fatfs
+  revision: 427159bf95ea49b7680facffaa29ad506b42709b
+- name: hal_nordic
+  path: /home/frese/Documents/chester-app/modules/hal/nordic
+  revision: e107d28144541ba612f7b47f2df87248d328277e
+- name: st
+  path: /home/frese/Documents/chester-app/modules/hal/st
+  revision: 9b128caf3e7b2e750169b880e83f210ea2213473
+- name: hal_wurthelektronik
+  path: /home/frese/Documents/chester-app/modules/hal/wurthelektronik
+  revision: 24ca9873c3d608fad1fea0431836bc8f144c132e
+- name: libmetal
+  path: /home/frese/Documents/chester-app/modules/hal/libmetal
+  revision: b91611a6f47dd29fb24c46e5621e797557f80ec6
+- name: liblc3
+  path: /home/frese/Documents/chester-app/modules/lib/liblc3
+  revision: 448f3de31f49a838988a162ef1e23a89ddf2d2ed
+- name: littlefs
+  path: /home/frese/Documents/chester-app/modules/fs/littlefs
+  revision: ca583fd297ceb48bced3c2548600dc615d67af24
+- name: loramac-node
+  path: /home/frese/Documents/chester-app/modules/lib/loramac-node
+  revision: 3029c9f304bf46a6e5205f3c8455dbc23108efec
+- name: lvgl
+  path: /home/frese/Documents/chester-app/modules/lib/gui/lvgl
+  revision: 8a6a2d1d29d17d1e4bdc94c243c146a39d635fdd
+- name: lz4
+  path: /home/frese/Documents/chester-app/modules/lib/lz4
+  revision: 8e303c264fc21c2116dc612658003a22e933124d
+- name: mipi-sys-t
+  path: /home/frese/Documents/chester-app/modules/debug/mipi-sys-t
+  revision: a819419603a2dfcb47f7f39092e1bc112e45d1ef
+- name: nanopb
+  path: /home/frese/Documents/chester-app/modules/lib/nanopb
+  revision: 42fa8b211e946b90b9d968523fce7b1cfe27617e
+- name: nrf_hw_models
+  path: /home/frese/Documents/chester-app/modules/bsim_hw_models/nrf_hw_models
+  revision: 57b61a9a2da75c860f15ca79522b24d57992df2c
+- name: open-amp
+  path: /home/frese/Documents/chester-app/modules/lib/open-amp
+  revision: 42b7c577714b8f22ce82a901e19c1814af4609a8
+- name: picolibc
+  path: /home/frese/Documents/chester-app/modules/lib/picolibc
+  revision: d07c38ff051386f8e09a143ea0a6c1d6d66dd1d8
+- name: segger
+  path: /home/frese/Documents/chester-app/modules/debug/segger
+  revision: 9d0191285956cef43daf411edc2f1a7788346def
+- name: tinycrypt
+  path: /home/frese/Documents/chester-app/modules/crypto/tinycrypt
+  revision: 3e9a49d2672ec01435ffbf0d788db6d95ef28de0
+- name: TraceRecorder
+  path: /home/frese/Documents/chester-app/modules/debug/TraceRecorder
+  revision: 1ede7ce8e7ab226e9a84d95266241ba3f38d91d2
+- name: tf-m-tests
+  path: /home/frese/Documents/chester-app/modules/tee/tf-m/tf-m-tests
+  revision: a878426da78fbd1486dfc29d6c6b82be4ee79e72
+- name: psa-arch-tests
+  path: /home/frese/Documents/chester-app/modules/tee/tf-m/psa-arch-tests
+  revision: 6a17330e0dfb5f319730f974d5b05f7b7f04757b
+- name: uoscore-uedhoc
+  path: /home/frese/Documents/chester-app/modules/lib/uoscore-uedhoc
+  revision: 5fe2cb613bd7e4590bd1b00c2adf181ac0229379
+- name: zcbor
+  path: /home/frese/Documents/chester-app/modules/lib/zcbor
+  revision: 67fd8bb88d3136738661fa8bb5f9989103f4599e
+- name: zscilib
+  path: /home/frese/Documents/chester-app/modules/lib/zscilib
+  revision: 34c3432e81085bb717e4871d21ca419ae0058ec5
+- name: nrfxlib
+  path: /home/frese/Documents/chester-app/nrfxlib
+  revision: 78cc07ed7c9f168c3d6316db5af969ac5f7c977a
+- name: connectedhomeip
+  path: /home/frese/Documents/chester-app/modules/lib/matter
+  revision: fd9be717210fa386277f1fdd19115c1ed48ccad0
+west:
+  manifest: /home/frese/Documents/chester-app/vendor/west.yml
+  projects:
+  - path: /home/frese/Documents/chester-app/vendor
+    revision: e9f5c17ed00a5623266b6d00ce9433e392c33b12
+  - path: /home/frese/Documents/chester-app/chester
+    revision: 7ecaf6ca023abc5e4495260098f123bdd6b3908f-dirty-off
+  - path: /home/frese/Documents/chester-app/nrf
+    revision: 52c40e51c79f31bc46b71a2f27b44c3d950d77c1
+  - path: /home/frese/Documents/chester-app/doxygen-awesome-css
+    revision: c01e51e461a5f0d45422aa21cdf4e50181d04a19
+  - path: /home/frese/Documents/chester-app/zephyr
+    revision: c4886b3ef48794620eb479710c9ccbafe83034c0
+  - path: /home/frese/Documents/chester-app/modules/lib/hostap
+    revision: d82c309c2e7eea5f08bbc1ac9e2f4c4622fbe998
+  - path: /home/frese/Documents/chester-app/modules/lib/wfa-qt-control-app
+    revision: 0e213ab6a421298484a81a9d18f5c31c4b8084a8
+  - path: /home/frese/Documents/chester-app/bootloader/mcuboot
+    revision: 289166425805f937abfe9058f57323085ec96523
+  - path: /home/frese/Documents/chester-app/modules/tee/tf-m/qcbor
+    revision: 751d36583a9ce1a640900c57e13c9b6b8f3a2ba2
+  - path: /home/frese/Documents/chester-app/modules/crypto/mbedtls
+    revision: acea48fc8a5eb227033b55e6ec012731218e257f
+  - path: /home/frese/Documents/chester-app/nrfxlib
+    revision: 78cc07ed7c9f168c3d6316db5af969ac5f7c977a
+  - path: /home/frese/Documents/chester-app/modules/tee/tf-m/trusted-firmware-m
+    revision: afd54b6bad00c56098cb84a7b79ac72cc44f082b
+  - path: /home/frese/Documents/chester-app/modules/lib/matter
+    revision: fd9be717210fa386277f1fdd19115c1ed48ccad0
+  - path: /home/frese/Documents/chester-app/modules/lib/cjson
+    revision: c6af068b7f05207b28d68880740e4b9ec1e4b50a
+  - path: /home/frese/Documents/chester-app/modules/lib/azure-sdk-for-c
+    revision: 308c171cb4b5eed266649012a68406487ec81fb2
+  - path: /home/frese/Documents/chester-app/modules/hal/cirrus-logic
+    revision: 9f6b3812237fbb0d4157ba3584c13f1644fcbe3a
+  - path: /home/frese/Documents/chester-app/modules/lib/openthread
+    revision: 57ef721eeed2550835c528ab7b8e77671f7039d6
+  - path: /home/frese/Documents/chester-app/test/cmock
+    revision: f65066f15d8248e6dcb778efb8739904a4512087
+  - path: /home/frese/Documents/chester-app/modules/lib/memfault-firmware-sdk
+    revision: c374e92a4b9615a00d8ec6d2caf77fc60eff8c3c
+  - path: /home/frese/Documents/chester-app/tools/bsim
+    revision: 384a091445c57b44ac8cbd18ebd245b47c71db94
+  - path: /home/frese/Documents/chester-app/modules/lib/canopennode
+    revision: dec12fa3f0d790cafa8414a4c2930ea71ab72ffd
+  - path: /home/frese/Documents/chester-app/modules/lib/chre
+    revision: b7955c27e50485b7dafdc3888d7d6afdc2ac6d96
+  - path: /home/frese/Documents/chester-app/modules/hal/cmsis
+    revision: 1abf29132e608826752e2edd1f4799a065db4031
+  - path: /home/frese/Documents/chester-app/tools/edtt
+    revision: 64e5105ad82390164fb73fc654be3f73a608209a
+  - path: /home/frese/Documents/chester-app/modules/fs/fatfs
+    revision: 427159bf95ea49b7680facffaa29ad506b42709b
+  - path: /home/frese/Documents/chester-app/modules/hal/nordic
+    revision: e107d28144541ba612f7b47f2df87248d328277e
+  - path: /home/frese/Documents/chester-app/modules/hal/st
+    revision: 9b128caf3e7b2e750169b880e83f210ea2213473
+  - path: /home/frese/Documents/chester-app/modules/hal/wurthelektronik
+    revision: 24ca9873c3d608fad1fea0431836bc8f144c132e
+  - path: /home/frese/Documents/chester-app/modules/hal/libmetal
+    revision: b91611a6f47dd29fb24c46e5621e797557f80ec6
+  - path: /home/frese/Documents/chester-app/modules/lib/liblc3
+    revision: 448f3de31f49a838988a162ef1e23a89ddf2d2ed
+  - path: /home/frese/Documents/chester-app/modules/fs/littlefs
+    revision: ca583fd297ceb48bced3c2548600dc615d67af24
+  - path: /home/frese/Documents/chester-app/modules/lib/loramac-node
+    revision: 3029c9f304bf46a6e5205f3c8455dbc23108efec
+  - path: /home/frese/Documents/chester-app/modules/lib/gui/lvgl
+    revision: 8a6a2d1d29d17d1e4bdc94c243c146a39d635fdd
+  - path: /home/frese/Documents/chester-app/modules/lib/lz4
+    revision: 8e303c264fc21c2116dc612658003a22e933124d
+  - path: /home/frese/Documents/chester-app/modules/debug/mipi-sys-t
+    revision: a819419603a2dfcb47f7f39092e1bc112e45d1ef
+  - path: /home/frese/Documents/chester-app/modules/lib/nanopb
+    revision: 42fa8b211e946b90b9d968523fce7b1cfe27617e
+  - path: /home/frese/Documents/chester-app/tools/net-tools
+    revision: e0828aa9629b533644dc96ff6d1295c939bd713c
+  - path: /home/frese/Documents/chester-app/modules/bsim_hw_models/nrf_hw_models
+    revision: 57b61a9a2da75c860f15ca79522b24d57992df2c
+  - path: /home/frese/Documents/chester-app/modules/lib/open-amp
+    revision: 42b7c577714b8f22ce82a901e19c1814af4609a8
+  - path: /home/frese/Documents/chester-app/modules/lib/picolibc
+    revision: d07c38ff051386f8e09a143ea0a6c1d6d66dd1d8
+  - path: /home/frese/Documents/chester-app/modules/debug/segger
+    revision: 9d0191285956cef43daf411edc2f1a7788346def
+  - path: /home/frese/Documents/chester-app/modules/crypto/tinycrypt
+    revision: 3e9a49d2672ec01435ffbf0d788db6d95ef28de0
+  - path: /home/frese/Documents/chester-app/modules/debug/TraceRecorder
+    revision: 1ede7ce8e7ab226e9a84d95266241ba3f38d91d2
+  - path: /home/frese/Documents/chester-app/modules/tee/tf-m/tf-m-tests
+    revision: a878426da78fbd1486dfc29d6c6b82be4ee79e72
+  - path: /home/frese/Documents/chester-app/modules/tee/tf-m/psa-arch-tests
+    revision: 6a17330e0dfb5f319730f974d5b05f7b7f04757b
+  - path: /home/frese/Documents/chester-app/modules/lib/uoscore-uedhoc
+    revision: 5fe2cb613bd7e4590bd1b00c2adf181ac0229379
+  - path: /home/frese/Documents/chester-app/modules/lib/zcbor
+    revision: 67fd8bb88d3136738661fa8bb5f9989103f4599e
+  - path: /home/frese/Documents/chester-app/modules/lib/zscilib
+    revision: 34c3432e81085bb717e4871d21ca419ae0058ec5
+workspace:
+  dirty: true
+  extra: false
+  'off': true
+zephyr:
+  path: null
+  revision: 7ecaf6ca023abc5e4495260098f123bdd6b3908f-dirty

@@ -205,6 +205,24 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_3": "ctr_z",
         "shield_4": "app_tamper",
     },
+    "Input": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_ds18b20",
+        "shield_3": "ctr_x0_a",
+        },
+    "Input Z": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_ds18b20",
+        "shield_3": "ctr_x0_a",
+        "shield_4": "ctr_z",
+        },
+    "Input ZH": {
+        "shield_1": "ctr_lte",
+        "shield_2": "ctr_ds18b20",
+        "shield_3": "ctr_x0_a",
+        "shield_4": "ctr_z",
+        "shield_5": "ctr_s2",
+        },
     "Signal": {
         "shield_1": "ctr_lte",
     },

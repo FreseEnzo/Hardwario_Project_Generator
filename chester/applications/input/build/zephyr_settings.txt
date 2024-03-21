@@ -1,0 +1,15 @@
+# WARNING. THIS FILE IS AUTO-GENERATED. DO NOT MODIFY!
+#
+# This file contains build system settings derived from your modules.
+#
+# Modules may be set via ZEPHYR_MODULES, ZEPHYR_EXTRA_MODULES,
+# and/or the west manifest file.
+#
+# See the Modules guide for more information.
+"DTS_ROOT":"/home/frese/Documents/chester-app/vendor"
+"BOARD_ROOT":"/home/frese/Documents/chester-app/chester"
+"DTS_ROOT":"/home/frese/Documents/chester-app/chester"
+"SNIPPET_ROOT":"/home/frese/Documents/chester-app/chester"
+"BOARD_ROOT":"/home/frese/Documents/chester-app/nrf"
+"DTS_ROOT":"/home/frese/Documents/chester-app/nrf"
+"MODULE_EXT_ROOT":"/home/frese/Documents/chester-app/nrf"

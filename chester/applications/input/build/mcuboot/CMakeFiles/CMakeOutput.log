@@ -1,0 +1,64 @@
+The target system is: Generic - 3.4.99 - arm
+The host system is: Linux - 6.5.0-9-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /home/frese/.local/opt/zephyr-sdk-0.16.1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc 
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/home/frese/Documents/chester-app/chester/applications/input/build/mcuboot/CMakeFiles/3.25.0/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /home/frese/.local/opt/zephyr-sdk-0.16.1/arm-zephyr-eabi/bin/arm-zephyr-eabi-g++ 
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/home/frese/Documents/chester-app/chester/applications/input/build/mcuboot/CMakeFiles/3.25.0/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+arm-zephyr-eabi-gcc (Zephyr SDK 0.16.1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Performing C SOURCE FILE Test check_C__nostartfiles__nostdlib__isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__mcpu_cortex_m4__mthumb__mabi_aapcs__mfpu_fpv4_sp_d16__mfloat_abi_hard__mfp16_format_ieee succeeded with the following output:
+Change Dir: /home/frese/Documents/chester-app/chester/applications/input/build/mcuboot/CMakeFiles/CMakeScratch/TryCompile-RQz7vV
+
+Run Build Command(s):/usr/bin/ninja cmTC_f0696 && [1/2] Building C object CMakeFiles/cmTC_f0696.dir/src.c.obj
+[2/2] Linking C executable cmTC_f0696
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test check_fmacro_prefix_map__home_frese_Documents_chester_app_bootloader_mcuboot_boot_zephyr_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0 succeeded with the following output:
+Change Dir: /home/frese/Documents/chester-app/chester/applications/input/build/mcuboot/CMakeFiles/CMakeScratch/TryCompile-Rfghjm
+
+Run Build Command(s):/usr/bin/ninja cmTC_00ee0 && [1/2] Building C object CMakeFiles/cmTC_00ee0.dir/src.c.obj
+[2/2] Linking C executable cmTC_00ee0
+
+
+Source file was:
+int main(void) { return 0; }
+
+Performing C SOURCE FILE Test check_fno_builtin_C__nostartfiles__nostdlib__isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include___isystem___home_frese__local_opt_zephyr_sdk_0_16_1_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_12_2_0_include_fixed___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0 succeeded with the following output:
+Change Dir: /home/frese/Documents/chester-app/chester/applications/input/build/mcuboot/CMakeFiles/CMakeScratch/TryCompile-5ET0T6
+
+Run Build Command(s):/usr/bin/ninja cmTC_fd427 && [1/2] Building C object CMakeFiles/cmTC_fd427.dir/src.c.obj
+[2/2] Linking C executable cmTC_fd427
+
+
+Source file was:
+int main(void) { return 0; }
+

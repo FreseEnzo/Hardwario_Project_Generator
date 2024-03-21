@@ -1,0 +1,2 @@
+osource "/home/frese/Documents/chester-app/chester/boards/shields/*/Kconfig.shield"
+osource "/home/frese/Documents/chester-app/nrf/boards/shields/*/Kconfig.shield"

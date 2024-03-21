@@ -1,0 +1,25 @@
+{
+    "format-version": 0,
+    "time": 1710255967,
+    "files": [
+        {
+            "load_address": 49664,
+            "version_MCUBOOT": "0.0.0+0",
+            "type": "application",
+            "board": "chester_nrf52840",
+            "soc": "nRF52840_QIAA",
+            "size": 396568,
+            "file": "app_update.bin",
+            "modtime": 1710255967
+        }
+    ],
+    "name": "input",
+    "firmware": {
+        "zephyr": {
+            "revision": "7ecaf6ca023abc5e4495260098f123bdd6b3908f-dirty"
+        },
+        "nrf": {
+            "revision": "52c40e51c79f31bc46b71a2f27b44c3d950d77c1"
+        }
+    }
+}

@@ -1,0 +1,1 @@
+"nrf":"/home/frese/Documents/chester-app/nrf":"/home/frese/Documents/chester-app/nrf/sysbuild"
