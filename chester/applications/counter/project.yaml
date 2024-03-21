@@ -3,7 +3,7 @@
 version: 1
 project:
   bundle: com.hardwario.chester.clime
-  name: CHESTER Clime
+  name: CHESTER Counter
   version: v1.0.0 
   variant: Counter
 features: 

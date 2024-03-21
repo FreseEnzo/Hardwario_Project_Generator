@@ -32,7 +32,8 @@ def yaml_source():
             data = yaml.safe_load(stream)
     except:
         log.wrn(
-            "project.yaml file was not found in the current folder. Creating...\nCall 'west scaffold' with your configurated project.yaml to generate the Skeleton Project"
+            "project.yaml file was not found in the current folder. Creating...\n"
+            "Call 'west scaffold' with your configurated project.yaml to generate the Skeleton Project"
         )
         try:
             # Setup Jinja environment
@@ -141,7 +142,7 @@ def generate_file(
             current_dir,
             *jinja_templates_dir.split("/"),
         )
-        env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+        env = Environment(loader=FileSystemLoader(jinja_templates_folder),extensions=['jinja2.ext.do'])
         template = env.get_template(jinja_path)
 
         # Dir source
@@ -285,7 +286,7 @@ def run():
         **data,
     )
 
-    # Generate prj.conf
+    # Generate Kconfig
     generate_file(
         current_directory,
         project_name,

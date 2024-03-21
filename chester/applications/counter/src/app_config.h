@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -27,8 +26,8 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 
-
 struct app_config {
+
     
     int interval_sample;
     int interval_report;

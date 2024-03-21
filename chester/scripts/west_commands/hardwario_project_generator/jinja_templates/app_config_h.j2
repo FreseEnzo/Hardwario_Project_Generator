@@ -4,6 +4,15 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
+{%- set variant_name_lower = variant_name|lower %}
+{%- set config_mode = []%}
+{%- for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+            {%- do config_mode.append(1) %}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -24,31 +33,22 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-{%- set variant_name_lower = variant_name|lower %}
 {% if variant_name_lower.split(' ')[0] == 'current' %}
 #define APP_CONFIG_CHANNEL_COUNT 4
 {% endif %}
 /* Private Variables -------------------------------------------------------------------*/
-{% for variant, variant_dsc in chester_variants.items() -%}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{%- if config_mode %}
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
-{% if data %}
+{%- endif %}
+{%- if data %}
 struct app_config {
-    {%- for variant, variant_dsc in chester_variants.items() %}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{% if config_mode %}
     enum app_config_mode mode;
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
+{%- endif %}
     {% for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
@@ -69,13 +69,10 @@ extern struct app_config g_app_config;
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-{% for variant, variant_dsc in chester_variants.items() -%}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{%- if config_mode %}
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
+{%- endif %}
+
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 
 {%- for parameter in data['parameters'] %}
