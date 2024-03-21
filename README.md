@@ -2,8 +2,8 @@
 ## Catalog Progress
 - [x] Clime 
 - [x] Signal
-- [ ] Counter
-- [ ] Current
+- [x] Counter
+- [x] Current
 - [ ] Input
 - [ ] Meteo
 - [ ] Push
