@@ -49,7 +49,7 @@ struct app_config {
 {% if config_mode %}
     enum app_config_mode mode;
 {%- endif %}
-    {% for param in data['parameters'] %}
+    {%- for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
     char {{ param['var'] }} [{{param['len']}}];
         {% elif param['type'].split('[')[0] == 'array'%};
