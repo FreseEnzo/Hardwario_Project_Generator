@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
- 
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
@@ -54,19 +53,6 @@ static int cmd_send(const struct shell *shell, size_t argc, char **argv)
 	return 0;
 }
 
-static int cmd_aggreg(const struct shell *shell, size_t argc, char **argv)
-{
-	if (argc > 1) {
-		shell_error(shell, "unknown parameter: %s", argv[1]);
-		shell_help(shell);
-		return -EINVAL;
-	}
-
-	app_work_aggreg();
-
-	return 0;
-}
-
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
     if (argc > 1) {
@@ -87,31 +73,21 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",
                   app_config_cmd_config_show, 1, 0),
-
-    SHELL_CMD_ARG(mode, NULL,
-                  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
-                  app_config_cmd_config_mode, 1, 1),
-
     SHELL_CMD_ARG(interval-sample, NULL,
                   "Get/Set sample interval in seconds (format: <1-86400>).",
                   app_config_cmd_config_interval_sample, 1, 1),
-
     SHELL_CMD_ARG(interval-report, NULL,
                   "Get/Set report interval in seconds (format: <30-86400>).",
                   app_config_cmd_config_interval_report, 1, 1),
-
     SHELL_CMD_ARG(event-report-delay, NULL,
                   "Get/Set event report delay in seconds (format: <1-86400>).",
                   app_config_cmd_config_event_report_delay, 1, 1),
-
     SHELL_CMD_ARG(event-report-rate, NULL,
                   "Get/Set event report rate in reports per hour (format: <1-3600>).",
                   app_config_cmd_config_event_report_rate, 1, 1),
-
     SHELL_CMD_ARG(backup-report-connected, NULL,
                   "Set backup report connected (default: true)",
                   app_config_cmd_config_backup_report_connected, 1, 1),
-
     SHELL_CMD_ARG(backup-report-disconnected, NULL,
                   "Set backup report disconnected",
                   app_config_cmd_config_backup_report_disconnected, 1, 1),
@@ -139,7 +115,6 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 
 SHELL_CMD_REGISTER(sample, NULL,"Sample immediately.", cmd_sample);
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
-SHELL_CMD_REGISTER(aggreg, NULL,"Aggregate data immediately", cmd_aggreg);
 
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */

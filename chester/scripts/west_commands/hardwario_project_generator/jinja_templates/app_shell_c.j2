@@ -3,7 +3,16 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
- 
+
+{%- set variant_name_lower = variant_name|lower %}
+{%- set config_mode = []%}
+{%- for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+            {%- do config_mode.append(1) %}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
@@ -62,12 +71,12 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",
                   app_config_cmd_config_show, 1, 0),
-
+    {%- if config_mode %}
     SHELL_CMD_ARG(mode, NULL,
                   "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
                   app_config_cmd_config_mode, 1, 1),
+    {%- endif %}
     {%- for parameter in parameters %}
-
     SHELL_CMD_ARG({{ parameter.name }}, NULL,
                   "{{ parameter.help }}",
                   app_config_cmd_config_{{ parameter.var }}, 1, 1),

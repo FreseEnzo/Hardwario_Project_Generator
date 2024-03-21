@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -26,10 +25,8 @@ extern "C" {
 #endif
 
 /* Private Variables -------------------------------------------------------------------*/
-
-
 struct app_config {
-    
+
     int interval_sample;
     int interval_report;
     int event_report_delay;
@@ -47,7 +44,6 @@ extern struct app_config g_app_config;
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);

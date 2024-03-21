@@ -22,7 +22,6 @@ config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
                 
-    
 endmenu
 
 menu "Zephyr Kernel"

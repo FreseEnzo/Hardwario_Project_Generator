@@ -3,13 +3,11 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
-
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 
@@ -32,10 +30,9 @@
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
-#define SETTINGS_PFX "chester-clime"
+#define SETTINGS_PFX "chester-counter"
 
 /* Private Variables -------------------------------------------------------------------*/
-
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
@@ -55,8 +52,6 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-
-
 
 static void print_interval_sample(const struct shell *shell)
 {
@@ -265,19 +260,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
-
-    if (settings_name_steq(key, "mode", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.mode)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
-
     if (settings_name_steq(key, "interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
@@ -354,43 +336,37 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
     int ret;
 
-    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
-                      sizeof( m_app_config_interim.mode));
-    if (ret < 0) {
-        return ret;
-    }
-
-    ret = export_func("chester-clime/interval-sample", &m_app_config_interim.interval_sample,
+    ret = export_func("chester-counter/interval-sample", &m_app_config_interim.interval_sample,
                       sizeof( m_app_config_interim.interval_sample));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-clime/interval-report", &m_app_config_interim.interval_report,
+    ret = export_func("chester-counter/interval-report", &m_app_config_interim.interval_report,
                       sizeof( m_app_config_interim.interval_report));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-clime/event-report-delay", &m_app_config_interim.event_report_delay,
+    ret = export_func("chester-counter/event-report-delay", &m_app_config_interim.event_report_delay,
                       sizeof( m_app_config_interim.event_report_delay));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-clime/event-report-rate", &m_app_config_interim.event_report_rate,
+    ret = export_func("chester-counter/event-report-rate", &m_app_config_interim.event_report_rate,
                       sizeof( m_app_config_interim.event_report_rate));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-clime/backup-report-connected", &m_app_config_interim.backup_report_connected,
+    ret = export_func("chester-counter/backup-report-connected", &m_app_config_interim.backup_report_connected,
                       sizeof( m_app_config_interim.backup_report_connected));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-clime/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
+    ret = export_func("chester-counter/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
                       sizeof( m_app_config_interim.backup_report_disconnected));
     if (ret < 0) {
         return ret;

@@ -5,7 +5,7 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
   version: v1.0.0 
-  variant: Counter
+  variant: Current
 features: 
 - shell
 - accel

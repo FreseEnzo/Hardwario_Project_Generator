@@ -17,7 +17,6 @@ config SHIELD_CTR_X0_A
 	bool "Enable SHIELD_CTR_X0_A"
 	default y 
                 
-    
 # Clime Standard ------------------------------------------------------- #
 # APP_REPORT_JITTER ---------------------------------------------------------------------- #
 config APP_REPORT_JITTER

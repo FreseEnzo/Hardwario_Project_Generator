@@ -4,12 +4,20 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
+{%- set variant_name_lower = variant_name|lower %}
+{%- set config_mode = []%}
+{%- for variant, variant_dsc in chester_variants.items() %}
+    {%- if variant == variant_name %}
+        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+            {%- do config_mode.append(1) %}
+        {%- endif %}
+    {%- endif %}
+{%- endfor %}
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
-
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 
@@ -35,7 +43,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 #define SETTINGS_PFX "{{ setting_pfx }}"
 
 /* Private Variables -------------------------------------------------------------------*/
-
 struct app_config g_app_config;
 {% if data %}
 static struct app_config m_app_config_interim = {
@@ -50,10 +57,7 @@ static struct app_config m_app_config_interim = {
     {%- endif -%}
     {% endif %}
 {%- endfor -%}
-
-{% for variant, variant_dsc in chester_variants.items() %}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{%- if config_mode %}
            {%- if 'lte' in data['features'] and not 'lorawan' in data['features']  %}
     .mode = APP_CONFIG_MODE_LTE,
            {%- elif 'lorawan' in data['features'] and not 'lte' in data['features']  %}
@@ -61,9 +65,7 @@ static struct app_config m_app_config_interim = {
            {%- else %}
     .mode = APP_CONFIG_MODE_NONE,
            {%- endif%}
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
+{%- endif %}
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -74,9 +76,7 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-{% for variant, variant_dsc in chester_variants.items() %}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{%- if config_mode %}
 static void print_app_config_mode(const struct shell *shell)
 {
 	const char *mode;
@@ -130,11 +130,9 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 	return -EINVAL;
 }
-        {%- endif %}
-    {%- endif %}
-{%- endfor %}
-{%- set variant_name_lower = variant_name|lower %}
-{% if variant_name_lower.split(' ')[0] == 'current' %}
+{%- endif %}
+
+{%- if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void)
 {
 	return m_app_config_interim.interval_report;
@@ -427,13 +425,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {% endfor %}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {   
-    {%- for variant, variant_dsc in chester_variants.items() %}
-        {%- if variant == variant_name %}
-            {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+    {%-if config_mode%}
     print_app_config_mode(shell);
-                    {%- endif %}
-            {%- endif %}
-        {%- endfor %}
+    {%- endif %}
     {%- for parameter in parameters %}
     {%- if parameter['type'].split('[')[0] == 'array' %}
     print_{{ parameter['var'] }}(shell, 0);
@@ -460,7 +454,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
-
+    {%- if config_mode %}
     if (settings_name_steq(key, "mode", &next) && !next) {
         if (len != sizeof(m_app_config_interim.mode)) {
             return -EINVAL;
@@ -472,7 +466,8 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-{% for parameter in data['parameters'] %}
+    {%-endif%}
+{%- for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' %}
     if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
         if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
@@ -496,12 +491,13 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-
+    {%- if config_mode %}
     ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
                       sizeof( m_app_config_interim.mode));
     if (ret < 0) {
         return ret;
     }
+    {%-endif%}
 {% for parameter in data['parameters'] -%}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
     ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}},
