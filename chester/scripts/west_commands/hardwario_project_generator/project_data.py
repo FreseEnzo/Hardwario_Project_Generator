@@ -23,7 +23,7 @@ DICT_FEATURES: dict[str, str] = {
     "tinycrypt": "CONFIG_TINYCRYPT=y\n",
     "zcbor_stop_on_error": "CONFIG_ZCBOR_STOP_ON_ERROR=y\n",
     "zcbor": "CONFIG_ZCBOR=y\n",
-    "config": "CONFIG_CTR_CONFIG=y\n"
+    "config": "CONFIG_CTR_CONFIG=y\n",
 }
 
 # User save markers
@@ -117,25 +117,25 @@ SHIELDS_OVERLAY: dict[str, str] = {
     + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
     + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
     "app_tamper": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
-    "ctr_k1": '/ {\n\tctr_k1: ctr_k1 {\n\t\t'
-    +'compatible = "hardwario,ctr-k1";\n\t\t'
-    +'status = "okay";\n\t\t'
-    +'on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;\n\t\t'
-    +'nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;\n\t};\n};'
-    +'\n\n&i2c0'
-    +'{\n\tctr_k1_tca9534a: ctr_k1_tca9534a@3d {\n\t\t'
-    +'compatible = "ti,tca9538";\n\t\t'
-    +'status = "okay";\n\t\t'
-    +'reg = <0x3d>;\n\t\t'
-    +'#gpio-cells = <2>;\n\t\t'
-    +'gpio-controller;\n\t\t'
-    +'ngpios = <8>;\n\t};\n};',
+    "ctr_k1": "/ {\n\tctr_k1: ctr_k1 {\n\t\t"
+    + 'compatible = "hardwario,ctr-k1";\n\t\t'
+    + 'status = "okay";\n\t\t'
+    + "on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;\n\t\t"
+    + "nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;\n\t};\n};"
+    + "\n\n&i2c0"
+    + "{\n\tctr_k1_tca9534a: ctr_k1_tca9534a@3d {\n\t\t"
+    + 'compatible = "ti,tca9538";\n\t\t'
+    + 'status = "okay";\n\t\t'
+    + "reg = <0x3d>;\n\t\t"
+    + "#gpio-cells = <2>;\n\t\t"
+    + "gpio-controller;\n\t\t"
+    + "ngpios = <8>;\n\t};\n};",
 }
 
 CHESTER_VARIANTS: dict[str, dict[str, str]] = {

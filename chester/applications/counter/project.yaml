@@ -76,7 +76,7 @@ parameters:
   var: backup_report_disconnected
   type: bool
   default: true
-  help: 'Set backup report disconnected'
+  help: 'Set backup report disconnected (default: true)'
 
 commands:
 - domain: app
@@ -88,11 +88,6 @@ commands:
   name: send
   callback: app_work_send # This function should be manually created
   help: 'Send data immediately.'
-
-- domain: app
-  name: aggreg
-  callback: app_work_aggreg # This function should be manually created
-  help: 'Aggregate data immediately'
 
 extras:
 # Extras for prj.conf

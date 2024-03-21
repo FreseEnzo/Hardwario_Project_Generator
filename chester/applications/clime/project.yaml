@@ -132,7 +132,7 @@ parameters:
   var: backup_report_disconnected
   type: bool
   default: true
-  help: 'Set backup report disconnected'
+  help: 'Set backup report disconnected (default: true)'
 
 commands:
 - domain: app

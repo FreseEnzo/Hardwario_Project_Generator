@@ -8,7 +8,6 @@
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
-
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 

@@ -3,7 +3,6 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
- 
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
@@ -46,15 +45,9 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",
                   app_config_cmd_config_show, 1, 0),
-
-    SHELL_CMD_ARG(mode, NULL,
-                  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
-                  app_config_cmd_config_mode, 1, 1),
-
     SHELL_CMD_ARG(measurement-interval, NULL,
                   "Set measurement interval (default: 60)",
                   app_config_cmd_config_measurement_interval, 1, 1),
-
     SHELL_CMD_ARG(report-interval, NULL,
                   "Set measurement interval (default: 300)",
                   app_config_cmd_config_report_interval, 1, 1),

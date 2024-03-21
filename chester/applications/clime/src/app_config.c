@@ -3,13 +3,11 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
-
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 
@@ -35,7 +33,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 #define SETTINGS_PFX "chester-clime"
 
 /* Private Variables -------------------------------------------------------------------*/
-
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
@@ -57,7 +54,6 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
-
 static void print_app_config_mode(const struct shell *shell)
 {
 	const char *mode;
@@ -111,7 +107,6 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 	return -EINVAL;
 }
-
 
 static void print_interval_sample(const struct shell *shell)
 {
@@ -535,7 +530,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
-
     if (settings_name_steq(key, "mode", &next) && !next) {
         if (len != sizeof(m_app_config_interim.mode)) {
             return -EINVAL;
@@ -547,7 +541,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-
     if (settings_name_steq(key, "interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
@@ -700,7 +693,6 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-
     ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
                       sizeof( m_app_config_interim.mode));
     if (ret < 0) {
