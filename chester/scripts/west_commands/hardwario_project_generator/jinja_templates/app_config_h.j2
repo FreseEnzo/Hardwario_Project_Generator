@@ -72,7 +72,6 @@ extern struct app_config g_app_config;
 {%- if config_mode %}
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
-
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 
 {%- for parameter in data['parameters'] %}
