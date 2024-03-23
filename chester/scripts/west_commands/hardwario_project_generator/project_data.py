@@ -78,7 +78,7 @@ SHIELDS_OVERLAY: dict[str, str] = {
     + "family-code = <0x28>;\n\t};\n\t"
     + "ds18b20_1: ds18b20_1 {\n\t\t"
     + 'compatible = "maxim,ds18b20";\n\t\t'
-    + "resolution = <12>;\n\t\t"
+    + "resolutds18b20ion = <12>;\n\t\t"
     + "family-code = <0x28>;\n\t};\n\t"
     + "ds18b20_2: ds18b20_2 {\n\t\t"
     + 'compatible = "maxim,ds18b20";\n\t\t'
@@ -209,21 +209,309 @@ CHESTER_VARIANTS: dict[str, dict[str, str]] = {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_ds18b20",
         "shield_3": "ctr_x0_a",
-        },
+    },
     "Input Z": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_ds18b20",
         "shield_3": "ctr_x0_a",
         "shield_4": "ctr_z",
-        },
+    },
     "Input ZH": {
         "shield_1": "ctr_lte",
         "shield_2": "ctr_ds18b20",
         "shield_3": "ctr_x0_a",
         "shield_4": "ctr_z",
         "shield_5": "ctr_s2",
-        },
+    },
     "Signal": {
         "shield_1": "ctr_lte",
+    },
+}
+
+CHESTER_FEATURES: dict[str, dict[str, str]] = {
+    "lte": {
+        "prj_conf": "CONFIG_CTR_LTE_CLKSYNC=y\n",
+        "app_overlay": '&ctr_lte_if {\n\tstatus = "okay";\n};\n\n&uart0 {\n\tstatus = "okay";\n};',
+        "defines": "",
+        "k_config": "SHIELD_CTR_LTE",
+        "extras": "",
+    },
+    "lrw": {
+        "prj_conf": "CONFIG_CTR_LRW=y\n",
+        "app_overlay": '&ctr_lrw_if {\n\tstatus = "okay";\n};\n\n&uart1 {\n\tstatus = "okay";\n};',
+        "defines": "",
+        "k_config": "SHIELD_CTR_LRW",
+        "extras": "",
+    },
+    "z": {
+        "prj_conf": "",
+        "app_overlay": '&ctr_z {\n\tstatus = "okay";\n};',
+        "defines": "",
+        "k_config": "SHIELD_CTR_Z",
+        "extras": "",
+    },
+    "x0_a": {
+        "prj_conf": "",
+        "app_overlay": '&ctr_x0_a {\n\tstatus = "okay";\n};\n\n&ctr_x0_pcal6416a_a {\n\tstatus = "okay";\n};',
+        "k_config": "SHIELD_CTR_X0_A)",
+        "defines": "",
+        "extras": "",
+    },
+    "s2": {
+        "prj_conf": "",
+        "app_overlay": '&sht30_ext {\n\tstatus = "okay";\n};',
+        "k_config": "SHIELD_CTR_S2",
+        "defines": "",
+        "extras": "",
+    },
+    "s1": {
+        "prj_conf": "",
+        "app_overlay": '&ctr_s1 {\n\tstatus = "okay";\n};',
+        "k_config": "SHIELD_CTR_S1",
+        "defines": "",
+        "extras": "",
+    },
+    "ds18b20": {
+        "prj_conf": "",
+        "app_overlay": "&ds2484 {\n\t"
+        + "ds18b20_0: ds18b20_0 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_1: ds18b20_1 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolutds18b20ion = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_2: ds18b20_2 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_3: ds18b20_3 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_4: ds18b20_4 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_5: ds18b20_5 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_6: ds18b20_6 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_7: ds18b20_7 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_8: ds18b20_8 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n\t"
+        + "ds18b20_9: ds18b20_9 {\n\t\t"
+        + 'compatible = "maxim,ds18b20";\n\t\t'
+        + "resolution = <12>;\n\t\t"
+        + "family-code = <0x28>;\n\t};\n"
+        + "};",
+        "k_config": "SHIELD_CTR_DS18B20_9",
+        "defines": "",
+        "extras": "",
+    },
+    "rtd_a": {
+        "prj_conf": "",
+        "app_overlay": '&ctr_x3_a {\n\tstatus = "okay";\n};\n\n'
+        + '&ctr_x3_ads122c04_a1 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};\n\n'
+        + '&ctr_x3_ads122c04_a2 {\n\tvref = <1>;\n\tidac = <6>;\n\ti1mux = <4>;\n\tstatus = "okay";\n};',
+        "k_config": "SHIELD_CTR_RTD_A",
+        "defines": "",
+        "extras": "",
+    },
+    "tamper": {
+        "prj_conf": "",
+        "app_overlay": "/ {\n\tzephyr,user {\n\t\ttamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;\n\t};\n};",
+        "k_config_diff": "\tselect CTR_EDGE",
+        "defines": "",
+        "extras": "",
+    },
+    "report_jitter": {
+        "prj_conf": "",
+        "app_overlay": None,
+        "k_config_diff": "\tselect ENTROPY_GENERATOR",
+        "defines": "",
+        "extras": "",
+    },
+    "k1": {
+        "prj_conf": "",
+        "app_overlay": "/ {\n\tctr_k1: ctr_k1 {\n\t\t"
+        + 'compatible = "hardwario,ctr-k1";\n\t\t'
+        + 'status = "okay";\n\t\t'
+        + "on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;\n\t\t"
+        + "nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;\n\t};\n};"
+        + "\n\n&i2c0"
+        + "{\n\tctr_k1_tca9534a: ctr_k1_tca9534a@3d {\n\t\t"
+        + 'compatible = "ti,tca9538";\n\t\t'
+        + 'status = "okay";\n\t\t'
+        + "reg = <0x3d>;\n\t\t"
+        + "#gpio-cells = <2>;\n\t\t"
+        + "gpio-controller;\n\t\t"
+        + "ngpios = <8>;\n\t};\n};",
+        "k_config": "SHIELD_CTR_K1",
+        "defines": "",
+        "extras": "",
+    },
+    "shell": {
+        "prj_conf": "CONFIG_CTR_SHELL=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "adc": {
+        "prj_conf": "CONFIG_CTR_ADC=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "accel": {
+        "prj_conf": "CONFIG_CTR_ACCEL=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "batt": {
+        "prj_conf": "CONFIG_CTR_BATT=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "bluetooth": {
+        "prj_conf": "CONFIG_CTR_BLE=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "buf": {
+        "prj_conf": "CONFIG_CTR_BUF=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "button": {
+        "prj_conf": "CONFIG_CTR_BUTTON=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "defaults": {
+        "prj_conf": "CONFIG_CTR_DEFAULTS=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "edge": {
+        "prj_conf": "CONFIG_CTR_EDGE=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "info": {
+        "prj_conf": "CONFIG_CTR_INFO=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "led": {
+        "prj_conf": "CONFIG_CTR_LED=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "log": {
+        "prj_conf": "CONFIG_CTR_LOG=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "rtc": {
+        "prj_conf": "CONFIG_CTR_RTC=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "therm": {
+        "prj_conf": "CONFIG_CTR_THERM=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "wdog": {
+        "prj_conf": "CONFIG_CTR_WDOG=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "entropy_generator": {
+        "prj_conf": "CONFIG_ENTROPY_GENERATOR=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "tinycrypt_sha256": {
+        "prj_conf": "CONFIG_TINYCRYPT_SHA256=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "tinycrypt": {
+        "prj_conf": "CONFIG_TINYCRYPT=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "zcbor_stop_on_error": {
+        "prj_conf": "CONFIG_ZCBOR_STOP_ON_ERROR=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "zcbor": {
+        "prj_conf": "CONFIG_ZCBOR=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
+    },
+    "config": {
+        "prj_conf": "CONFIG_CTR_CONFIG=y\n",
+        "app_overlay": None,
+        "kconfig": None,
+        "defines": "",
+        "extras": "",
     },
 }

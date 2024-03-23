@@ -5,16 +5,10 @@
 #
 
 # Configurations ------------------------------------------------------------------ #
-{% for feature in data['features'] -%}
-    {%- set found = false %}
-    {%- for key, value in dict_features.items() %}
-        {%- if key == feature -%}
-{{ value }}
-            {%- set found = true %}
-        {%- endif %}
-    {%- endfor -%}
-    {%- if not found -%}
-    {%- endif %}
+{% for feature in data['features'] %}
+    {%- if feature in chester_features -%}
+{{ chester_features[feature]['prj_conf'] }}
+    {%- endif -%}
 {%- endfor %}
 # Extra configurations ------------------------------------------------------------------ #
 

@@ -8,35 +8,20 @@
 menu "Application"
 
 # {{ variant_name }} Project ------------------------------------------------- #
-{%- for variant, variant_dsc in chester_variants.items() -%}
-    {%- if variant == variant_name -%}
-        {% for _, shield in variant_dsc.items() -%}
-            {%- for shield_name, shield_dsc in shields_overlay.items() %}
-                {%- if shield_name == shield and shield_name != 'app_tamper'%}
-# {{shield_name | upper}} ---------------------------------------------------------------------- #
-config SHIELD_{{shield_name | upper}}
-	bool "Enable SHIELD_{{shield_name | upper}}"
+{% for feature in data['features'] %}
+    {%- if feature in chester_features and chester_features[feature]['k_config'] is not undefined %}
+# {{feature | upper}} ---------------------------------------------------------------------- #
+config {{chester_features[feature]['k_config']}}
+	bool "Enable {{chester_features[feature]['k_config']}}"
 	default y 
-                {% endif%}
-            {%- endfor %}
-        {%- endfor %}
-    {%-endif-%}
-{%- endfor -%}
-{%- set variant_name_lower = variant_name|lower %}
-{%- if variant_name_lower.split(' ')[0] == 'clime' or variant_name_lower.split(' ')[0] == 'counter'  %}
-# Clime Standard ------------------------------------------------------- #
-# APP_REPORT_JITTER ---------------------------------------------------------------------- #
-config APP_REPORT_JITTER
-	bool "Add random time jitter to report transfers"
-	default y
-	select ENTROPY_GENERATOR
-
-# APP_TAMPER ---------------------------------------------------------------------- #
-config APP_TAMPER
-	bool "Enable tamper functionality"
-	default y
-	select CTR_EDGE
-{%- endif%}
+    {%endif-%}
+    {%- if feature in chester_features and chester_features[feature]['k_config_diff'] is defined %}
+# {{feature | upper}} ---------------------------------------------------------------------- #
+	bool "Enable {{chester_features[feature]['k_config']}}"
+	default y 
+{{chester_features[feature]['k_config_diff']}}
+    {%endif-%}
+{%- endfor %}
 endmenu
 
 menu "Zephyr Kernel"
