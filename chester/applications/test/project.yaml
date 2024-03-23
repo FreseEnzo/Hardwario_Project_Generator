@@ -29,7 +29,7 @@ features:
 - zcbor
 - tamper
 - report_jitter
-- k1
+- ds18b20
 parameters:
   - domain: app
     name: interval-report
@@ -61,8 +61,8 @@ parameters:
   - domain: app
     name: backup-report-connected
     var: backup_report_connected
-    type: bool
-    default: true
+    type: array[bool]
+    len: 4
     help: 'Set backup report connected (default: true)'
 
   - domain: app

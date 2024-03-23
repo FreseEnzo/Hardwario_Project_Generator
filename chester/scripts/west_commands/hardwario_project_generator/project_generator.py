@@ -159,9 +159,6 @@ def generate_file(
                 parameters=kwargs.get("parameters", ""),
                 commands=kwargs.get("commands", ""),
                 data=kwargs,
-                dict_features=DICT_FEATURES,
-                chester_variants=CHESTER_VARIANTS,
-                shields_overlay=SHIELDS_OVERLAY,
                 variant_name=kwargs.get("project", {}).get("variant", ""),
             )
 
@@ -179,10 +176,6 @@ def generate_file(
                 parameters=kwargs.get("parameters", ""),
                 commands=kwargs.get("commands", ""),
                 data=kwargs,
-                dict_features=DICT_FEATURES,
-                chester_variants=CHESTER_VARIANTS,
-                shields_overlay=SHIELDS_OVERLAY,
-                chester_features = CHESTER_FEATURES,
                 variant_name=kwargs.get("project", {}).get("variant", ""),
             )
 

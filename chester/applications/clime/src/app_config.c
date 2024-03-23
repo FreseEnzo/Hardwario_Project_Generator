@@ -5,7 +5,6 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
-
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
@@ -685,6 +684,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 

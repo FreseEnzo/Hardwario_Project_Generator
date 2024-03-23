@@ -3,14 +3,184 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
+{% for feature in data['features'] -%}
+{%- if feature == 'lte' %}
+/* {{ feature | upper}} {# LTE #} ----------------------------------------------------------------------*/
+&ctr_lte_if {
+    status = "okay";
+};
 
+&uart0 {
+	status = "okay";
+};
+{% endif -%}
 
-/* {{ variant_name }} -------------------------------------------------*/
-{% for feature in data['features'] %}
-    {%- if feature in chester_features and chester_features[feature]['app_overlay'] is not none %}
-/* {{feature | upper}} ----------------------------------------------------------------------*/
-{{ chester_features[feature]['app_overlay'] }}
-    {%endif-%}
+{%- if feature == 'lrw' %}
+/* {{ feature | upper}} {# LRW #} ----------------------------------------------------------------------*/
+&ctr_lrw_if {
+    status = "okay";
+};
+
+&uart1 {
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 'z' %}
+/* {{ feature | upper}} {# Z #} ----------------------------------------------------------------------*/
+&ctr_z {
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 'x0_a' %}
+/* {{ feature | upper}} {# X0_A #} ----------------------------------------------------------------------*/
+&ctr_x0_a {
+    status = "okay";
+};
+
+&ctr_x0_pcal6416a_a {
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 's2' %}
+/* {{ feature | upper}} {# S2 #} ----------------------------------------------------------------------*/
+&sht30_ext {
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 's1' %}
+/* {{ feature | upper}} {# S1 #} ----------------------------------------------------------------------*/
+&ctr_s1 {
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 'ds18b20' %}
+/* {{ feature | upper}} {# DS18B20 #} ----------------------------------------------------------------------*/
+&ds2484 {
+    ds18b20_0: ds18b20_0 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_1: ds18b20_1 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_2: ds18b20_2 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_3: ds18b20_3 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_4: ds18b20_4 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_5: ds18b20_5 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_6: ds18b20_6 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_7: ds18b20_7 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_8: ds18b20_8 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+
+    ds18b20_9: ds18b20_9 {
+        compatible = "maxim,ds18b20";
+        resolution = <12>;
+        family-code = <0x28>;
+    };
+};
+{% endif -%}
+
+{%- if feature == 'rtd_a' %}
+/* {{ feature | upper}} {# RTD_A #} ----------------------------------------------------------------------*/
+&ctr_x3_a {
+    status = "okay";
+};
+
+&ctr_x3_ads122c04_a1 {
+    vref = <1>;
+    idac = <6>;
+    i1mux = <4>;
+    status = "okay";
+};
+
+&ctr_x3_ads122c04_a2 {
+    vref = <1>;
+    idac = <6>;
+    i1mux = <4>;
+    status = "okay";
+};
+{% endif -%}
+
+{%- if feature == 'tamper' %}
+/* {{ feature | upper}} {# TAMPER #} ----------------------------------------------------------------------*/
+/ {
+    zephyr,user {
+        tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+    };
+};
+{% endif -%}
+
+{%- if feature == 'k1' %}
+/* {{ feature | upper}} {# K1 #} ----------------------------------------------------------------------*/
+/ {
+    ctr_k1: ctr_k1 {
+        compatible = "hardwario,ctr-k1";
+        status = "okay";
+        on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;
+        on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;
+        on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;
+        on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;
+        en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;
+        nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;
+        nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;
+        nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;
+    };
+};
+
+&i2c0 {
+    ctr_k1_tca9534a: ctr_k1_tca9534a@3d {
+        compatible = "ti,tca9538";
+        status = "okay";
+        reg = <0x3d>;
+        #gpio-cells = <2>;
+        gpio-controller;
+        ngpios = <8>;
+    };
+};
+{% endif -%}
 {%- endfor %}
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */

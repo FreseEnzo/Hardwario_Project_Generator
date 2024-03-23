@@ -29,12 +29,17 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-{% for feature in data['features'] %}
-    {%- if feature in chester_features and chester_features[feature]['defines'] is not none %}
-#define {{chester_features[feature]['defines']}}           
+
+{#- K1 #}
+{%- for feature in data['features'] %}
+    {%- if feature == 'k1' %}
+
+#define APP_CONFIG_CHANNEL_COUNT 4          
     {%- endif %}
 {%- endfor %}
+
 /* Private Variables -------------------------------------------------------------------*/
+{#- MODE LTE-LRW #}
 {%- if config_mode %}
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
@@ -42,7 +47,8 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LRW = 2,
 };
 {%- endif %}
-{% if data %}
+{# STRUCT #}
+{%- if data %}
 struct app_config {
 {% if config_mode %}
     enum app_config_mode mode;

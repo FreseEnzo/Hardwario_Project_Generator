@@ -25,8 +25,6 @@
 extern "C" {
 #endif
 
-#define APP_CONFIG_CHANNEL_COUNT 4
-
 /* Private Variables -------------------------------------------------------------------*/
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
@@ -39,8 +37,8 @@ struct app_config {
     enum app_config_mode mode;
     int interval_report;
     int event_report_delay;
-    int event_report_rate;
-    bool backup_report_connected;
+    int event_report_rate;;
+    bool backup_report_connected[4];
     bool backup_report_disconnected;
     int trigger_duration_active;
     int trigger_duration_inactive;
