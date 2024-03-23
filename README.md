@@ -5,10 +5,10 @@
 - [x] Counter
 - [x] Current
 - [x] Input
-- [ ] Meteo
+- [x] Meteo
 - [x] Push
 - [x] Range
-- [ ] Scale
+- [x] Scale
       
 ## Project Progress
 - [x] shell.c
@@ -44,7 +44,7 @@
 - Moved project.yaml /applications
 
 ## Next Steps
-- Improvements
+- Review
 
 ## CHESTER SDK Project Generator
 **Author**: [Enzo Frese](https://github.com/FreseEnzo)
