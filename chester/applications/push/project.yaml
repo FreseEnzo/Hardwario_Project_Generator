@@ -19,6 +19,7 @@ features:
 - info
 - led
 - lrw
+- lte
 - log
 - rtc
 - therm
@@ -69,8 +70,8 @@ parameters:
   - domain: app
     name: backup-report-connected
     var: backup_report_connected
-    type: array[bool]
-    len: 4
+    type: bool
+    default: true
     help: 'Set backup report connected (default: true)'
 
   - domain: app

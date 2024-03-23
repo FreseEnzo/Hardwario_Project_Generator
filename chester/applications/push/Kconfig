@@ -18,6 +18,11 @@ config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
     
+# LTE  ---------------------------------------------------------------------- #
+config SHIELD_CTR_LTE
+	bool "Enable SHIELD_CTR_LTE"
+	default y 
+    
 # Z  ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"

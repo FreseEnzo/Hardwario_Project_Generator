@@ -76,6 +76,12 @@ config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
     {% endif -%}
+	{%- if feature == 'flip_mode' %}
+# {{ feature | upper }} {# K1 #} ---------------------------------------------------------------------- #
+config APP_FLIP_MODE
+	bool "Activate push-button flip mode"
+	default y
+{% endif -%}
 {%endfor%}
 endmenu
 

@@ -31,13 +31,14 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
+
 struct app_config {
     enum app_config_mode mode;
     int interval_report;
     int interval_sample;
     int event_report_delay;
-    int event_report_rate;;
-    bool backup_report_connected[4];
+    int event_report_rate;
+    bool backup_report_connected;
     bool backup_report_disconnected;
 
     /* USER CODE BEGIN Struct Variables */

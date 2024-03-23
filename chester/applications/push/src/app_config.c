@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
+
 /* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
 
@@ -40,8 +41,9 @@ static struct app_config m_app_config_interim = {
     .interval_sample = 60,
     .event_report_delay = 5,
     .event_report_rate = 30,
-    .backup_report_connected = ,
+    .backup_report_connected = true,
     .backup_report_disconnected = true,
+    .mode = APP_CONFIG_MODE_LTE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -51,6 +53,59 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
+static void print_app_config_mode(const struct shell *shell)
+{
+	const char *mode;
+	switch (m_app_config_interim.mode) {
+	case APP_CONFIG_MODE_NONE:
+		mode = "none";
+		break;
+	case APP_CONFIG_MODE_LTE:
+		mode = "lte";
+		break;
+	case APP_CONFIG_MODE_LRW:
+		mode = "lrw";
+		break;
+	default:
+		mode = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config mode %s", mode);
+}
+
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_app_config_mode(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		if (!strcmp("none", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
+			return 0;
+		}
+
+		if (!strcmp("lte", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
+			return 0;
+		}
+
+		if (!strcmp("lrw", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
+			return 0;
+		}
+
+		shell_error(shell, "invalid option");
+
+		return -EINVAL;
+	}
+
+	shell_help(shell);
+
+	return -EINVAL;
+}
 
 static void print_interval_report(const struct shell *shell)
 {
@@ -176,60 +231,32 @@ int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t ar
     return -EINVAL;
 }
 
-static void print_backup_report_connected(const struct shell *shell, int channel)
+static void print_backup_report_connected(const struct shell *shell)
 {
-	int ch = channel;
-
-	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4); i++) {
-		shell_print(shell, "app config backup-report-connected %d %s", i + 1,
-			    m_app_config_interim.backup_report_connected[i] ? "true" : "false");
-	}
+    shell_print(shell, "app config backup-report-connected  %s", m_app_config_interim.backup_report_connected ? "true" : "false");
 }
 
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv)
 {
-    int channel;
-
-	if (argc >= 2) {
-		unsigned long ch = strtoul(argv[1], NULL, 10);
-
-		if (ch < 0 || ch > 4) {
-			shell_error(shell, "invalid channel index");
-			return -EINVAL;
-		}
-
-		channel = ch;
-	}
-
-	if (argc == 2) {
-		print_backup_report_connected(shell, channel);
-		return 0;
-	}
-
-	if (argc == 3 && strcmp(argv[2], "true") == 0) {
-		int ch = channel;
-
-		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
-		     i++) {
-			m_app_config_interim.backup_report_connected[i] = true;
-		}
-
-		return 0;
-	}
-
-	if (argc == 3 && strcmp(argv[2], "false") == 0) {
-		int ch = channel;
-
-		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : 4);
-		     i++) {
-			m_app_config_interim.backup_report_connected[i] = false;
-		}
-
-		return 0;
-	}
-
-	shell_help(shell);
-	return -EINVAL;
+    if (argc == 1) {
+        print_backup_report_connected(shell);                                                    
+        return 0;
+    }
+    if (argc == 2) {
+        bool is_false = !strcmp(argv[1], "false");
+        bool is_true = !strcmp(argv[1], "true");
+        if (is_false) {
+            m_app_config_interim.backup_report_connected = false;
+        } else if (is_true) {
+            m_app_config_interim.backup_report_connected = true;
+        } else {
+            shell_error(shell, "invalid format");
+            return -EINVAL;
+        }
+        return 0;
+    }
+    shell_help(shell);
+    return -EINVAL;
 }
 
 static void print_backup_report_disconnected(const struct shell *shell)
@@ -262,11 +289,12 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+    print_app_config_mode(shell);
 	print_interval_report(shell);
 	print_interval_sample(shell);
 	print_event_report_delay(shell);
 	print_event_report_rate(shell);
-    print_backup_report_connected(shell, 0);
+	print_backup_report_connected(shell);
 	print_backup_report_disconnected(shell);
     
     return 0;
@@ -287,6 +315,17 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
+    if (settings_name_steq(key, "mode", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.mode)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
     if (settings_name_steq(key, "interval-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_report)) {
             return -EINVAL;
@@ -331,6 +370,17 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+    if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.backup_report_connected)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.backup_report_connected, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
     if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
             return -EINVAL;
@@ -352,6 +402,11 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
+    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+                      sizeof( m_app_config_interim.mode));
+    if (ret < 0) {
+        return ret;
+    }
 
     ret = export_func("chester-push/interval-report", &m_app_config_interim.interval_report,
                       sizeof( m_app_config_interim.interval_report));
@@ -373,6 +428,12 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 
     ret = export_func("chester-push/event-report-rate", &m_app_config_interim.event_report_rate,
                       sizeof( m_app_config_interim.event_report_rate));
+    if (ret < 0) {
+        return ret;
+    }
+
+    ret = export_func("chester-push/backup-report-connected", &m_app_config_interim.backup_report_connected,
+                      sizeof( m_app_config_interim.backup_report_connected));
     if (ret < 0) {
         return ret;
     }

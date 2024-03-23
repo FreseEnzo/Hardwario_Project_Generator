@@ -46,17 +46,17 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
-{%- endif -%}
+{% endif -%}
 
 {#- VARIANT INPUT#}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
-
 enum app_config_input_type {
 	APP_CONFIG_INPUT_TYPE_NPN = 0,
 	APP_CONFIG_INPUT_TYPE_PNP = 1,
 };
-{%- endif %}
-{# STRUCT #}
+{% endif %}
+
+{#- STRUCT #}
 {%- if data %}
 struct app_config {
 {#- MODE LTE-LRW #}

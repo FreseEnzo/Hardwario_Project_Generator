@@ -6,7 +6,7 @@
 
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
-{%- if 'lte' and 'lrw' in data['features']-%}
+{%- if 'lte' in data['features'] and 'lrw' in data['features'] -%}
     {%- do config_mode.append(1) %}
 {% endif %}
 /* Includes ------------------------------------------------------------------*/
@@ -53,17 +53,16 @@ static struct app_config m_app_config_interim = {
     {%- endif -%}
     {% endif %}
 {%- endfor -%}
-
 {# MODE LTE-LRW #}
 {%- if config_mode %}
     .mode = APP_CONFIG_MODE_LTE,
 {%- endif -%}
-
 {# VARIANT INPUT #}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
     .trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
     .counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
 {%- endif %}
+
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
 };
