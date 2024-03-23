@@ -6,11 +6,9 @@
 
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
-{%- for variant, variant_dsc in chester_variants.items() %}
-    {%- if variant == variant_name %}
-        {%- if 'ctr_lte' in variant_dsc.values() and 'ctr_lrw' in variant_dsc.values() %}
+{% for feature in data['features'] %}
+    {%- if feature in chester_features and feature == 'lte' and feature == 'lrw'-%}
             {%- do config_mode.append(1) %}
-        {%- endif %}
     {%- endif %}
 {%- endfor %}
 /* Includes ------------------------------------------------------------------*/

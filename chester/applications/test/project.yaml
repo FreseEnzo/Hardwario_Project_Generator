@@ -19,6 +19,7 @@ features:
 - led
 - log
 - lte
+- lrw
 - rtc
 - therm
 - wdog
@@ -26,6 +27,8 @@ features:
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
+- tamper
+- report_jitter
 parameters:
   - domain: app
     name: interval-report

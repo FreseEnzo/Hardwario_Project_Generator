@@ -182,6 +182,7 @@ def generate_file(
                 dict_features=DICT_FEATURES,
                 chester_variants=CHESTER_VARIANTS,
                 shields_overlay=SHIELDS_OVERLAY,
+                chester_features = CHESTER_FEATURES,
                 variant_name=kwargs.get("project", {}).get("variant", ""),
             )
 
