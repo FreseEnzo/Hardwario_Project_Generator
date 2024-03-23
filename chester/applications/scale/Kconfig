@@ -13,11 +13,24 @@ config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
     
+# X3_A  ---------------------------------------------------------------------- #
+config SHIELD_CTR_CTR_X3_A
+	bool "Enable SHIELD_CTR_X3_A"
+	default y 
+    
 # Z  ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
     
+# PEOPLE_COUNTER  ---------------------------------------------------------------------- #
+config PEOPLE_COUNTER
+	bool "Enable SHIELD_PEOPLE_COUNTER"
+	default y
+
+config I2C
+	default y  
+
 endmenu
 
 menu "Zephyr Kernel"

@@ -10,11 +10,15 @@
     {%- do config_mode.append(1) %}
 {% endif %}
 /* Includes ------------------------------------------------------------------*/
-
 #include "app_config.h"
-{%- if commands %}
+{%- if commands and not variant_name_lower == 'scale' %}
 #include "app_work.h"
-{% endif %}
+{%- endif %}
+{%- if variant_name_lower == 'scale' %}
+#include "app_measure.h"
+#include "app_send.h"
+{%- endif %}
+
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -33,6 +37,24 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
+{% if variant_name_lower.split(' ')[0] == 'scale' %}
+static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc > 1) {
+		shell_error(shell, "unknown parameter: %s", argv[1]);
+		shell_help(shell);
+		return -EINVAL;
+	}
+
+	k_timer_start(&g_app_measure_weight_timer, K_NO_WAIT, K_FOREVER);
+
+{%- if 'people_counter' in data['features']%}
+	k_timer_start(&g_app_measure_people_timer, K_NO_WAIT, K_FOREVER);
+{%- endif %}
+
+	return 0;
+}
+{%- endif %}
 {% for command in commands %}
 static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
 {

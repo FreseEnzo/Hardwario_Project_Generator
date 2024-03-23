@@ -204,7 +204,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                   
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %s", m_app_config_interim.{{ parameter['var'] }} ? "true" : "false");                      
+    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %s",
+            m_app_config_interim.{{ parameter['var'] }} ? "true" : "false");                      
 {%- raw -%}
 {% endraw %}
 }
@@ -241,7 +242,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                               
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %d", m_app_config_interim.{{ parameter['var'] }});
+    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %d",
+            m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }
@@ -281,7 +283,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f", m_app_config_interim.{{ parameter['var'] }});
+    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
+            m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }
@@ -320,7 +323,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f", m_app_config_interim.{{ parameter['var'] }});
+    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
+            m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }

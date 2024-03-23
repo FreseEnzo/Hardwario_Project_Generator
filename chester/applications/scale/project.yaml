@@ -115,7 +115,7 @@ parameters:
 commands: 
 - domain: app
   name: send
-  callback: app_work_send # This function should be manually created
+  callback: app_send # This function should be manually created
   help: 'Send data immediately.'
 
 extras:

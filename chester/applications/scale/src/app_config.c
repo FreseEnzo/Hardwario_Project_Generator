@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* USER CODE BEGIN Includes */
+
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
@@ -47,11 +47,11 @@ static struct app_config m_app_config_interim = {
     .people_counter_stay_timeout = 5,
     .people_counter_adult_border = 4,
 
-    /* USER CODE BEGIN Struct Variables */
+    
     /* USER CODE END Struct Variables */
 };
 
-/* USER CODE BEGIN Variables */
+
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
@@ -380,7 +380,7 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
     return 0;
 }
 
-/* USER CODE BEGIN Functions 1 */
+
 /* USER CODE END Functions 1 */
 
 static int h_commit(void)
@@ -506,7 +506,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 
-    /* USER CODE BEGIN Functions 2 */
+    
     /* USER CODE END Functions 2 */
 
     return 0;
@@ -576,7 +576,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
         return ret;
     }
 
-    /* USER CODE BEGIN Functions 3 */
+    
     /* USER CODE END Functions 3 */
 
     return 0;
@@ -611,7 +611,7 @@ static int init(void)
 
     ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
 
-    /* USER CODE BEGIN Functions 4 */
+    
     /* USER CODE END Functions 4 */
 
     return 0;

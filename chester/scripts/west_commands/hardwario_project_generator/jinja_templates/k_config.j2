@@ -84,10 +84,31 @@ config SHIELD_CTR_A
     {% endif -%}
     {%- if feature == 'mb7066_b' %}
 # {{ feature | upper }} {# MB7066_B #} ---------------------------------------------------------------------- #
-config SHIELD_CTR_B
+config SHIELD_CTR_MB7066_B
 	bool "Enable SHIELD_CTR_MB7066_B"
 	default y 
     {% endif -%}
+    {%- if feature == 'x3_a' %}
+# {{ feature | upper }} {# X3_A #} ---------------------------------------------------------------------- #
+config SHIELD_CTR_CTR_X3_A
+	bool "Enable SHIELD_CTR_X3_A"
+	default y 
+    {% endif -%}
+    {%- if feature == 'x3_B' %}
+# {{ feature | upper }} {# X3_B #} ---------------------------------------------------------------------- #
+config SHIELD_CTR_X3_B
+	bool "Enable SHIELD_CTR_X3_B"
+	default y 
+    {% endif -%}
+    {%- if feature == 'people_counter' %}
+# {{ feature | upper }} {# PEOPLE_COUNTER #} ---------------------------------------------------------------------- #
+config PEOPLE_COUNTER
+	bool "Enable SHIELD_PEOPLE_COUNTER"
+	default y
+
+config I2C
+	default y  
+{% endif -%}
 	{%- if feature == 'flip_mode' %}
 # {{ feature | upper }} {# FLIP_MODE #} ---------------------------------------------------------------------- #
 config APP_FLIP_MODE

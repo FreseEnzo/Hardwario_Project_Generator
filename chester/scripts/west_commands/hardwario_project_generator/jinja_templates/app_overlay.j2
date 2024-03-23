@@ -215,6 +215,55 @@
 	status = "okay";
 };
 {% endif -%}
+
+{%- if feature == 'x3_a' %}
+/* {{ feature | upper}} {# X3_A #} ----------------------------------------------------------------------*/
+&ctr_x3_a {
+	status = "okay";
+};
+
+&ctr_x3_ads122c04_a1 {
+	status = "okay";
+    gain = <7>;
+	vref = <1>;
+};
+
+&ctr_x3_ads122c04_a2 {
+	status = "okay";
+    gain = <7>;
+	vref = <1>;
+};
+{% endif -%}
+
+{%- if feature == 'x3_b' %}
+/* {{ feature | upper}} {# X3_b #} ----------------------------------------------------------------------*/
+&ctr_x3_b {
+	status = "okay";
+};
+
+&ctr_x3_ads122c04_b1 {
+	status = "okay";
+    gain = <7>;
+	vref = <1>;
+};
+
+&ctr_x3_ads122c04_b2 {
+	status = "okay";
+    gain = <7>;
+	vref = <1>;
+};
+{% endif -%}
+
+{%- if feature == 'people_counter' %}
+/* {{ feature | upper}} {# PEOPLE_COUNTER #} ----------------------------------------------------------------------*/
+&i2c0 {
+	people_counter: people_counter@7f {
+		compatible = "adastra,people-counter";
+		status = "okay";
+		reg = <0x7f>;
+	};
+};
+{% endif -%}
 {%- endfor %}
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */
