@@ -52,6 +52,10 @@ CONFIG_ZCBOR_STOP_ON_ERROR=y
 CONFIG_ZCBOR=y
     {%- elif feature == 'config' %}
 CONFIG_CTR_CONFIG=y
+    {%- elif feature == 'flash' %}
+CONFIG_CTR_FLASH=y
+    {%- elif feature == 'cbprintf_fp_support' %}
+CONFIG_CBPRINTF_FP_SUPPORT=y
     {%- elif feature == 'mb7066_a' %}
 CONFIG_MB7066_TIMER4=y
 CONFIG_MB7066_SAMPLE_COUNT=1

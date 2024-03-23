@@ -32,6 +32,8 @@ features:
 - z
 - x2_modbus_a
 - barometer_tag
+- cbprintf_fp_support
+- flash
 parameters:
 - domain: app
   name: interval-sample
@@ -101,5 +103,5 @@ commands:
 extras:
 # Extras for prj.conf
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
-- CONFIG_ADC_NRFX_SAADC=n
-- CONFIG_ADC_SHELL=n
+
+

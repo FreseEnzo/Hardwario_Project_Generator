@@ -55,6 +55,50 @@ static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 	return 0;
 }
 {%- endif %}
+{% if variant_name_lower.split(' ')[0] == 'meteo' %}
+static int cmd_read(const struct shell *shell, size_t argc, char **argv)
+{
+	int ret;
+
+	if (argc > 1) {
+		shell_error(shell, "unknown parameter: %s", argv[1]);
+		shell_help(shell);
+		return -EINVAL;
+	}
+{% if 'barometer_tag' in data['features']%}
+	shell_print(shell, "Barometer");
+	ret = shell_execute_cmd(shell, "mpl3115a2 read");
+	if (ret) {
+		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
+	}
+{%- endif %}
+{% if 'meteo_a' in data['features']%}
+	shell_print(shell, "Meteo");
+	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_a");
+	if (ret) {
+		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
+	}
+{%- endif %}
+{% if 'meteo_b' in data['features']%}
+#if defined(CONFIG_SHIELD_CTR_METEO_B)
+	shell_print(shell, "Meteo");
+	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_b");
+	if (ret) {
+		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
+	}
+{%- endif %}
+
+{%- if 's2' in data['features']%}
+	shell_print(shell, "Humidity");
+	ret = shell_execute_cmd(shell, "hygro read");
+	if (ret) {
+		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
+	}
+{%- endif %}
+
+	return 0;
+}
+{%- endif %}
 {% for command in commands %}
 static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
 {

@@ -264,6 +264,36 @@
 	};
 };
 {% endif -%}
+
+{%- if feature == 'x2_modbus_a' %}
+/* {{ feature | upper}} {# X2_MODBUS_A #} ----------------------------------------------------------------------*/
+&ctr_x2_sc16is740_a {
+	status = "okay";
+	rts-control;
+
+	modbus0 {
+		compatible = "zephyr,modbus-serial";
+		status = "okay";
+		de-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+		re-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
+	};
+};
+{%endif -%}
+
+{%- if feature == 'x2_modbus_b' %}
+/* {{ feature | upper}} {# X2_MODBUS_B #} ----------------------------------------------------------------------*/
+&ctr_x2_sc16is740_b {
+	status = "okay";
+	rts-control;
+
+	modbus0 {
+		compatible = "zephyr,modbus-serial";
+		status = "okay";
+		de-gpios = <&gpio0 28 GPIO_ACTIVE_HIGH>;
+		re-gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
+	};
+};
+{%endif -%}
 {%- endfor %}
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */
