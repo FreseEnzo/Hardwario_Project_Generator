@@ -4,9 +4,9 @@
 - [x] Signal
 - [x] Counter
 - [x] Current
-- [ ] Input
+- [x] Input
 - [ ] Meteo
-- [ ] Push
+- [x] Push
 - [ ] Range
 - [ ] Scale
       
