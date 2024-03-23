@@ -19,12 +19,14 @@ config SHIELD_CTR_LRW
 	default y 
     
 # TAMPER ---------------------------------------------------------------------- #
-	bool "Enable "
+config APP_TAMPER
+	bool "Enable tamper functionality"
 	default y 
 	select CTR_EDGE
     
 # REPORT_JITTER ---------------------------------------------------------------------- #
-	bool "Enable "
+config APP_REPORT_JITTER
+	bool "Add random time jitter to report transfers"
 	default y 
 	select ENTROPY_GENERATOR
     

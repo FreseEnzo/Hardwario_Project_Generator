@@ -7,8 +7,6 @@
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
-#define APP_CONFIG_CHANNEL_COUNT 4
-
 /* Includes ------------------------------------------------------------------*/
 
 /* Private includes --------------------------------------------------------------------*/
@@ -27,12 +25,15 @@
 extern "C" {
 #endif
 
+#define APP_CONFIG_CHANNEL_COUNT 4
+
 /* Private Variables -------------------------------------------------------------------*/
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
+
 struct app_config {
 
     enum app_config_mode mode;
