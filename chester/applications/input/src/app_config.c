@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 /* Includes ------------------------------------------------------------------*/
-
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
@@ -57,7 +56,8 @@ static struct app_config m_app_config_interim = {
     .hygro_interval_aggreg = 300,
     .w1_therm_interval_sample = 60,
     .w1_therm_interval_aggreg = 300,
-
+    .trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
+    .counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
 };
@@ -66,6 +66,51 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
+static void print_counter_input_type(const struct shell *shell)
+{
+	const char *type;
+
+	switch (m_app_config_interim.counter_input_type) {
+	case APP_CONFIG_INPUT_TYPE_NPN:
+		type = "npn";
+		break;
+	case APP_CONFIG_INPUT_TYPE_PNP:
+		type = "pnp";
+		break;
+	default:
+		type = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config counter-input-type %s", type);
+}
+
+int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_trigger_input_type(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		bool is_npn = !strcmp(argv[1], "npn");
+		bool is_pnp = !strcmp(argv[1], "pnp");
+
+		if (is_npn) {
+			m_app_config_interim.trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN;
+		} else if (is_pnp) {
+			m_app_config_interim.trigger_input_type = APP_CONFIG_INPUT_TYPE_PNP;
+		} else {
+			shell_error(shell, "invalid format");
+			return -EINVAL;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
+}
 
 static void print_interval_report(const struct shell *shell)
 {
@@ -936,6 +981,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 

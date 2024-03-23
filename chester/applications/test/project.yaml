@@ -29,6 +29,7 @@ features:
 - zcbor
 - tamper
 - report_jitter
+-
 - ds18b20
 parameters:
   - domain: app

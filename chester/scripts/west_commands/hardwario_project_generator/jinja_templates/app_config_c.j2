@@ -53,10 +53,17 @@ static struct app_config m_app_config_interim = {
     {%- endif -%}
     {% endif %}
 {%- endfor -%}
+
+{# MODE LTE-LRW #}
 {%- if config_mode %}
     .mode = APP_CONFIG_MODE_LTE,
-{%- endif %}
+{%- endif -%}
 
+{# VARIANT INPUT #}
+{%- if variant_name_lower.split(' ')[0] == 'input' %}
+    .trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
+    .counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
+{%- endif %}
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
 };
@@ -139,6 +146,55 @@ int app_config_set_interval_report(int value)
 	m_app_config_interim.interval_report = value;
 
 	return 0;
+}
+{%- endif %}
+
+{#- VARIANT INPUT #}
+{%- if variant_name_lower.split(' ')[0] == 'input' %}
+static void print_counter_input_type(const struct shell *shell)
+{
+	const char *type;
+
+	switch (m_app_config_interim.counter_input_type) {
+	case APP_CONFIG_INPUT_TYPE_NPN:
+		type = "npn";
+		break;
+	case APP_CONFIG_INPUT_TYPE_PNP:
+		type = "pnp";
+		break;
+	default:
+		type = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config counter-input-type %s", type);
+}
+
+int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_trigger_input_type(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		bool is_npn = !strcmp(argv[1], "npn");
+		bool is_pnp = !strcmp(argv[1], "pnp");
+
+		if (is_npn) {
+			m_app_config_interim.trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN;
+		} else if (is_pnp) {
+			m_app_config_interim.trigger_input_type = APP_CONFIG_INPUT_TYPE_PNP;
+		} else {
+			shell_error(shell, "invalid format");
+			return -EINVAL;
+		}
+
+		return 0;
+	}
+
+	shell_help(shell);
+	return -EINVAL;
 }
 {%- endif %}
 {% for parameter in parameters -%}

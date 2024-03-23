@@ -4,33 +4,30 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
-
-/* Counter -------------------------------------------------*/
-
-/* LTE ----------------------------------------------------------------------*/
+/* LTE  ----------------------------------------------------------------------*/
 &ctr_lte_if {
-	status = "okay";
+    status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-    
-/* X0_A ----------------------------------------------------------------------*/
+
+/* X0_A  ----------------------------------------------------------------------*/
 &ctr_x0_a {
-	status = "okay";
+    status = "okay";
 };
 
 &ctr_x0_pcal6416a_a {
-	status = "okay";
+    status = "okay";
 };
-    
-/* TAMPER ----------------------------------------------------------------------*/
+
+/* TAMPER  ----------------------------------------------------------------------*/
 / {
-	zephyr,user {
-		tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
-	};
+    zephyr,user {
+        tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+    };
 };
-    
+
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */

@@ -26,8 +26,14 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 
-struct app_config {
+enum app_config_input_type {
+	APP_CONFIG_INPUT_TYPE_NPN = 0,
+	APP_CONFIG_INPUT_TYPE_PNP = 1,
+};
 
+struct app_config {
+    enum app_config_input_type trigger_input_type;
+    enum app_config_input_type counter_input_type;
     int interval_report;
     int event_report_delay;
     int event_report_rate;
@@ -80,6 +86,8 @@ int app_config_cmd_config_hygro_interval_sample(const struct shell *shell, size_
 int app_config_cmd_config_hygro_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_input_type(const struct shell *shell, size_t argc, char **argv);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

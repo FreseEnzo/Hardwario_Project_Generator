@@ -46,12 +46,28 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
+{%- endif -%}
+
+{#- VARIANT INPUT#}
+{%- if variant_name_lower.split(' ')[0] == 'input' %}
+
+enum app_config_input_type {
+	APP_CONFIG_INPUT_TYPE_NPN = 0,
+	APP_CONFIG_INPUT_TYPE_PNP = 1,
+};
 {%- endif %}
 {# STRUCT #}
 {%- if data %}
 struct app_config {
-{% if config_mode %}
+{#- MODE LTE-LRW #}
+{%- if config_mode %}
     enum app_config_mode mode;
+{%- endif -%}
+
+{#- VARIANT INPUT#}
+{%- if variant_name_lower.split(' ')[0] == 'input' %}
+    enum app_config_input_type trigger_input_type;
+    enum app_config_input_type counter_input_type;
 {%- endif %}
     {%- for param in data['parameters'] %}
         {%- if param['type'] == 'string'  %}
@@ -83,10 +99,15 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
 {%- endfor %}
-
+{#- VARIANT CURRENT#}
 {%- if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void);
 int app_config_set_interval_report(int value);
+{%- endif %}
+{#- VARIANT INPUT#}
+{%- if variant_name_lower.split(' ')[0] == 'input' %}
+int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_input_type(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
 
 /* USER CODE BEGIN Functions 1 */
