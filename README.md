@@ -7,7 +7,7 @@
 - [x] Input
 - [ ] Meteo
 - [x] Push
-- [ ] Range
+- [x] Range
 - [ ] Scale
       
 ## Project Progress
