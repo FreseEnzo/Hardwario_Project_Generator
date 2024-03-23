@@ -6,11 +6,9 @@
 
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
-{% for feature in data['features'] %}
-    {%- if feature in chester_features and feature == 'lte' and feature == 'lrw'-%}
-            {%- do config_mode.append(1) %}
-    {%- endif %}
-{%- endfor %}
+{%- if 'lte' and 'lrw' in data['features']-%}
+    {%- do config_mode.append(1) %}
+{% endif %}
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"
@@ -56,13 +54,7 @@ static struct app_config m_app_config_interim = {
     {% endif %}
 {%- endfor -%}
 {%- if config_mode %}
-           {%- if 'lte' in data['features'] and not 'lorawan' in data['features']  %}
     .mode = APP_CONFIG_MODE_LTE,
-           {%- elif 'lorawan' in data['features'] and not 'lte' in data['features']  %}
-    .mode = APP_CONFIG_MODE_LRW,
-           {%- else %}
-    .mode = APP_CONFIG_MODE_NONE,
-           {%- endif%}
 {%- endif %}
 
     /* USER CODE BEGIN Struct Variables */

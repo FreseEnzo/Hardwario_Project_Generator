@@ -28,6 +28,11 @@ config SHIELD_CTR_LRW
 	default y 
 	select ENTROPY_GENERATOR
     
+# K1 ---------------------------------------------------------------------- #
+config SHIELD_CTR_K1
+	bool "Enable SHIELD_CTR_K1"
+	default y 
+    
 endmenu
 
 menu "Zephyr Kernel"

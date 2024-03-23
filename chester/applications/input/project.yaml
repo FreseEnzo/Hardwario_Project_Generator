@@ -11,7 +11,7 @@ features:
 - adc
 - batt
 - button
-- bluetooth
+- bluetooth 
 - buf
 - defaults
 - edge
@@ -26,6 +26,10 @@ features:
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
+- zcbor_stop_on_error
+- x0_a
+- z
+- s2
 parameters:
   - domain: app
     name: interval-report
@@ -202,22 +206,20 @@ parameters:
 commands:
 - domain: app
   name: sample
-  callback: app_work_sample # This function should be manually created
+  callback: app_work_sample 
   help: 'Sample immediately.'
 
 - domain: app
   name: send
-  callback: app_work_send # This function should be manually created
+  callback: app_work_send 
   help: 'Send data immediately.'
 
 - domain: app
   name: aggreg
-  callback: app_work_aggreg # This function should be manually created
+  callback: app_work_aggreg 
   help: 'Aggregate data immediately'
 
 extras:
-# Extras for prj.conf
-- CONFIG_ZCBOR_STOP_ON_ERROR=y
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
 - CONFIG_ADC_SHELL=n
 

@@ -13,6 +13,7 @@ features:
 - led
 - log
 - rtc
+- lte
 - shell
 - therm
 - wdog

@@ -6,11 +6,9 @@
 
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
-{% for feature in data['features'] %}
-    {%- if feature in chester_features and feature == 'lte' and feature == 'lrw'-%}
-            {%- do config_mode.append(1) %}
-    {%- endif %}
-{%- endfor %}
+{%- if 'lte' and 'lrw' in data['features']-%}
+    {%- do config_mode.append(1) %}
+{% endif %}
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -31,9 +29,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-{% if variant_name_lower.split(' ')[0] == 'current' %}
-#define APP_CONFIG_CHANNEL_COUNT 4
-{% endif %}
+{% for feature in data['features'] %}
+    {%- if feature in chester_features and chester_features[feature]['defines'] is not none %}
+#define {{chester_features[feature]['defines']}}           
+    {%- endif %}
+{%- endfor %}
 /* Private Variables -------------------------------------------------------------------*/
 {%- if config_mode %}
 enum app_config_mode {
@@ -42,7 +42,7 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LRW = 2,
 };
 {%- endif %}
-{%- if data %}
+{% if data %}
 struct app_config {
 {% if config_mode %}
     enum app_config_mode mode;

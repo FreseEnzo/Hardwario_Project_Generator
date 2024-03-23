@@ -1,12 +1,15 @@
 # Hardwario YAML file for code generation
-# (Chester Clime) example
 version: 1
 project:
-  bundle: com.hardwario.chester.clime
+  bundle: com.hardwario.chester.counter
   name: CHESTER Counter
   version: v1.0.0 
   variant: Counter
 features: 
+- lte
+- x0_a
+- report_jitter
+- tamper
 - shell
 - accel
 - batt
@@ -19,7 +22,6 @@ features:
 - info
 - led
 - log
-- lte
 - rtc
 - therm
 - wdog
@@ -27,6 +29,7 @@ features:
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
+- zcbor_stop_on_error
 parameters:
 - domain: app
   name: interval-sample
@@ -88,11 +91,8 @@ commands:
   name: send
   callback: app_work_send # This function should be manually created
   help: 'Send data immediately.'
-
 extras:
 # Extras for prj.conf
-- CONFIG_ZCBOR_STOP_ON_ERROR=y
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
 - CONFIG_ADC_NRFX_SAADC=n
 - CONFIG_ADC_SHELL=n
-- CONFIG_APP_TAMPER=n

@@ -17,9 +17,10 @@ config {{chester_features[feature]['k_config']}}
     {%endif-%}
     {%- if feature in chester_features and chester_features[feature]['k_config_diff'] is defined %}
 # {{feature | upper}} ---------------------------------------------------------------------- #
-	bool "Enable {{chester_features[feature]['k_config']}}"
+config APP_{{feature | upper}}
+	bool "{{ chester_features[feature].get('k_config_diff', {}).get('bool', 'n')}}"
 	default y 
-{{chester_features[feature]['k_config_diff']}}
+{{ chester_features[feature].get('k_config_diff', {}).get('select', 'n')}}
     {%endif-%}
 {%- endfor %}
 endmenu

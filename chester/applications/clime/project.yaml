@@ -1,12 +1,12 @@
 # Hardwario YAML file for code generation
-# (Chester Clime) example
 version: 1
 project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Clime
-  version: v1.0.3 
+  version: v1.0.0
   variant: Clime
 features: 
+- tamper
 - shell
 - accel
 - batt
@@ -18,12 +18,15 @@ features:
 - led
 - log
 - lte
+- lrw
+- s2
 - rtc
 - therm
 - wdog
 - tinycrypt
 - tinycrypt_sha256
 - zcbor
+- zcbor_stop_on_error
 parameters:
 - domain: app
   name: interval-sample
@@ -152,9 +155,7 @@ commands:
 
 extras:
 # Extras for prj.conf
-- CONFIG_ZCBOR_STOP_ON_ERROR=y
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
 - CONFIG_ADC_NRFX_SAADC=n
 - CONFIG_ADC_SHELL=n
-- CONFIG_APP_TAMPER=n
 - CONFIG_NEWLIB_LIBC_NANO=n

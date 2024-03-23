@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
+
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -30,6 +31,7 @@ enum app_config_mode {
 	APP_CONFIG_MODE_LTE = 1,
 	APP_CONFIG_MODE_LRW = 2,
 };
+
 struct app_config {
 
     enum app_config_mode mode;

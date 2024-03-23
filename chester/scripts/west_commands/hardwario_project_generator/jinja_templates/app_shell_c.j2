@@ -6,11 +6,9 @@
 
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
-{% for feature in data['features'] %}
-    {%- if feature in chester_features and feature == 'lte' and feature == 'lrw'-%}
-            {%- do config_mode.append(1) %}
-    {%- endif %}
-{%- endfor %}
+{%- if 'lte' and 'lrw' in data['features']-%}
+    {%- do config_mode.append(1) %}
+{% endif %}
 /* Includes ------------------------------------------------------------------*/
 
 #include "app_config.h"

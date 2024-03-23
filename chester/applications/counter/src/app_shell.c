@@ -89,7 +89,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
                   "Set backup report connected (default: true)",
                   app_config_cmd_config_backup_report_connected, 1, 1),
     SHELL_CMD_ARG(backup-report-disconnected, NULL,
-                  "Set backup report disconnected",
+                  "Set backup report disconnected (default: true)",
                   app_config_cmd_config_backup_report_disconnected, 1, 1),
 
 /* USER CODE BEGIN Functions 1 */

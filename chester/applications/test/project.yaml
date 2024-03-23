@@ -29,6 +29,7 @@ features:
 - zcbor
 - tamper
 - report_jitter
+- k1
 parameters:
   - domain: app
     name: interval-report

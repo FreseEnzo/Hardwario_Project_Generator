@@ -58,6 +58,7 @@ static struct app_config m_app_config_interim = {
     .hygro_interval_aggreg = 300,
     .w1_therm_interval_sample = 60,
     .w1_therm_interval_aggreg = 300,
+    .mode = APP_CONFIG_MODE_LTE,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -67,6 +68,59 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
+static void print_app_config_mode(const struct shell *shell)
+{
+	const char *mode;
+	switch (m_app_config_interim.mode) {
+	case APP_CONFIG_MODE_NONE:
+		mode = "none";
+		break;
+	case APP_CONFIG_MODE_LTE:
+		mode = "lte";
+		break;
+	case APP_CONFIG_MODE_LRW:
+		mode = "lrw";
+		break;
+	default:
+		mode = "(unknown)";
+		break;
+	}
+
+	shell_print(shell, "app config mode %s", mode);
+}
+
+int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv)
+{
+	if (argc == 1) {
+		print_app_config_mode(shell);
+		return 0;
+	}
+
+	if (argc == 2) {
+		if (!strcmp("none", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_NONE;
+			return 0;
+		}
+
+		if (!strcmp("lte", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LTE;
+			return 0;
+		}
+
+		if (!strcmp("lrw", argv[1])) {
+			m_app_config_interim.mode = APP_CONFIG_MODE_LRW;
+			return 0;
+		}
+
+		shell_error(shell, "invalid option");
+
+		return -EINVAL;
+	}
+
+	shell_help(shell);
+
+	return -EINVAL;
+}
 
 static void print_interval_report(const struct shell *shell)
 {
@@ -678,6 +732,7 @@ int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, si
 
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+    print_app_config_mode(shell);
 	print_interval_report(shell);
 	print_event_report_delay(shell);
 	print_event_report_rate(shell);
@@ -717,6 +772,17 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
+    if (settings_name_steq(key, "mode", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.mode)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
     if (settings_name_steq(key, "interval-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_report)) {
             return -EINVAL;
@@ -946,6 +1012,11 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
+    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+                      sizeof( m_app_config_interim.mode));
+    if (ret < 0) {
+        return ret;
+    }
 
     ret = export_func("chester-input/interval-report", &m_app_config_interim.interval_report,
                       sizeof( m_app_config_interim.interval_report));

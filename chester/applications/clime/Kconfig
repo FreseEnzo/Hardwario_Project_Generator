@@ -7,33 +7,28 @@
 menu "Application"
 
 # Clime Project ------------------------------------------------- #
-# CTR_LTE ---------------------------------------------------------------------- #
+
+# TAMPER ---------------------------------------------------------------------- #
+config APP_TAMPER
+	bool "Enable tamper functionality"
+	default y 
+	select CTR_EDGE
+    
+# LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
-                
-# CTR_S2 ---------------------------------------------------------------------- #
-config SHIELD_CTR_S2
-	bool "Enable SHIELD_CTR_S2"
-	default y 
-                
-# CTR_LRW ---------------------------------------------------------------------- #
+    
+# LRW ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
-                
-# Clime Standard ------------------------------------------------------- #
-# APP_REPORT_JITTER ---------------------------------------------------------------------- #
-config APP_REPORT_JITTER
-	bool "Add random time jitter to report transfers"
-	default y
-	select ENTROPY_GENERATOR
-
-# APP_TAMPER ---------------------------------------------------------------------- #
-config APP_TAMPER
-	bool "Enable tamper functionality"
-	default y
-	select CTR_EDGE
+    
+# S2 ---------------------------------------------------------------------- #
+config SHIELD_CTR_S2
+	bool "Enable SHIELD_CTR_S2"
+	default y 
+    
 endmenu
 
 menu "Zephyr Kernel"

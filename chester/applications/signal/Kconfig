@@ -7,11 +7,12 @@
 menu "Application"
 
 # Signal Project ------------------------------------------------- #
-# CTR_LTE ---------------------------------------------------------------------- #
+
+# LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
-                
+    
 endmenu
 
 menu "Zephyr Kernel"
