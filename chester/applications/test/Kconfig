@@ -4,42 +4,32 @@
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
 
-menu "Application"
-
 # Input Project ------------------------------------------------- #
 
-# LTE ---------------------------------------------------------------------- #
+# LTE  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
     
-# LRW ---------------------------------------------------------------------- #
+# LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
     
-# TAMPER ---------------------------------------------------------------------- #
+# TAMPER  ---------------------------------------------------------------------- #
 config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 
 	select CTR_EDGE
     
-# REPORT_JITTER ---------------------------------------------------------------------- #
+# REPORT_JITTER  ---------------------------------------------------------------------- #
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 
 	select ENTROPY_GENERATOR
     
-# K1 ---------------------------------------------------------------------- #
-config SHIELD_CTR_K1
-	bool "Enable SHIELD_CTR_K1"
+# DS18B20  ---------------------------------------------------------------------- #
+config SHIELD_CTR_DS18B20
+	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
     
-endmenu
-
-menu "Zephyr Kernel"
-source "Kconfig.zephyr"
-endmenu
-
-
-

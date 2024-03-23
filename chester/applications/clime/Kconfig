@@ -8,23 +8,23 @@ menu "Application"
 
 # Clime Project ------------------------------------------------- #
 
-# TAMPER ---------------------------------------------------------------------- #
+# TAMPER  ---------------------------------------------------------------------- #
 config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 
 	select CTR_EDGE
     
-# LTE ---------------------------------------------------------------------- #
+# LTE  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
     
-# LRW ---------------------------------------------------------------------- #
+# LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
     
-# S2 ---------------------------------------------------------------------- #
+# S2  ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
@@ -34,6 +34,3 @@ endmenu
 menu "Zephyr Kernel"
 source "Kconfig.zephyr"
 endmenu
-
-
-

@@ -10,7 +10,6 @@
     {%- do config_mode.append(1) %}
 {% endif %}
 /* Includes ------------------------------------------------------------------*/
-
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
@@ -40,6 +39,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 /* Private Variables -------------------------------------------------------------------*/
 struct app_config g_app_config;
+{#- STRUCT #}
 {% if data %}
 static struct app_config m_app_config_interim = {
 {% for param in data['parameters'] %}
@@ -66,6 +66,7 @@ static struct app_config m_app_config_interim = {
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
+{#- MODE LTE-LRW #}
 {%- if config_mode %}
 static void print_app_config_mode(const struct shell *shell)
 {
@@ -120,8 +121,9 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 	return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
+{#- VARIANT CURRENT #}
 {%- if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void)
 {
@@ -139,7 +141,9 @@ int app_config_set_interval_report(int value)
 	return 0;
 }
 {%- endif %}
-{% for parameter in parameters %}
+{% for parameter in parameters -%}
+
+{#- BOOL TYPE #}
 {%- if parameter['type'] == 'bool' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                   
@@ -174,8 +178,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
     shell_help(shell);
     return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
+{#- INT TYPE #}
 {%- if parameter['type'] == 'int' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                               
@@ -213,8 +218,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
     shell_help(shell);
     return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
+{#- FLOAT TYPE #}
 {%- if parameter['type'] == 'float' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
@@ -251,7 +257,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
     shell_help(shell);
     return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
+
+{#- STRING TYPE #}
 {%- if parameter['type'] == 'string' %}
 static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
@@ -292,8 +300,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
     shell_help(shell);
     return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
+{#- ARRAY[BOOL] TYPE #}
 {%- if parameter['type'].split('[')[0] == 'array' and parameter['type'].split('[')[1][0:-1] == 'bool'%}
 static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 {                                  
@@ -354,8 +363,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 	shell_help(shell);
 	return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
+{#- ARRAY[INT] TYPE #}
 {%- if parameter['type'].split('[')[0] == 'array' and parameter['type'].split('[')[1][0:-1] == 'int'%}
 static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 {                                  
@@ -412,7 +422,9 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 	return -EINVAL;
 }
 {%- endif %}
-{% endfor %}
+{% endfor -%}
+
+{#- CONFIG SHOW #}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {   
     {%-if config_mode%}
@@ -431,7 +443,7 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
-
+{# H_COMMIT #}
 static int h_commit(void)
 {
 	LOG_DBG("Loaded settings in full");
@@ -439,7 +451,7 @@ static int h_commit(void)
 
 	return 0;
 }
-
+{# H_SET #}
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
 {
     int ret;
@@ -472,12 +484,13 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
     }
 {%- endif %}
 {%- endfor %}
+
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 
     return 0;
 }
-
+{# H_EXPORT #}
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
@@ -502,7 +515,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 
     return 0;
 }
-
+{# INIT #}
 static int init(void) 
 {
     int ret;
