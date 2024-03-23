@@ -76,8 +76,20 @@ config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
     {% endif -%}
+    {%- if feature == 'mb7066_a' %}
+# {{ feature | upper }} {# MB7066_A#} ---------------------------------------------------------------------- #
+config SHIELD_CTR_A
+	bool "Enable SHIELD_CTR_MB7066_A"
+	default y 
+    {% endif -%}
+    {%- if feature == 'mb7066_b' %}
+# {{ feature | upper }} {# MB7066_B #} ---------------------------------------------------------------------- #
+config SHIELD_CTR_B
+	bool "Enable SHIELD_CTR_MB7066_B"
+	default y 
+    {% endif -%}
 	{%- if feature == 'flip_mode' %}
-# {{ feature | upper }} {# K1 #} ---------------------------------------------------------------------- #
+# {{ feature | upper }} {# FLIP_MODE #} ---------------------------------------------------------------------- #
 config APP_FLIP_MODE
 	bool "Activate push-button flip mode"
 	default y

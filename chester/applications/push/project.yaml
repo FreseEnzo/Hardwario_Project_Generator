@@ -70,8 +70,8 @@ parameters:
   - domain: app
     name: backup-report-connected
     var: backup_report_connected
-    type: bool
-    default: true
+    type: array[bool]
+    len: 4
     help: 'Set backup report connected (default: true)'
 
   - domain: app
