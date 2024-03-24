@@ -6,27 +6,42 @@
 
 menu "Application"
 
-# Current Z Project ------------------------------------------------- #
+# CURRENT Z Project ------------------------------------------------- #
 
 # LTE  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
+
+config CTR_LTE
+	default y
     
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
+
+config CTR_LRW
+	default y
     
 # K1  ---------------------------------------------------------------------- #
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
+
+config CTR_K1
+	default y
     
 # Z  ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
+
+config CTR_Z
+	default y
+
+config I2C
+	default y
     
 endmenu
 

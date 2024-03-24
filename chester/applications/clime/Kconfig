@@ -6,7 +6,7 @@
 
 menu "Application"
 
-# Clime Project ------------------------------------------------- #
+# CLIME Project ------------------------------------------------- #
 
 # TAMPER  ---------------------------------------------------------------------- #
 config APP_TAMPER
@@ -18,16 +18,25 @@ config APP_TAMPER
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
+
+config CTR_LTE
+	default y
     
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
+
+config CTR_LRW
+	default y
     
 # S2  ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
+
+config CTR_HYGRO
+	default y
     
 endmenu
 

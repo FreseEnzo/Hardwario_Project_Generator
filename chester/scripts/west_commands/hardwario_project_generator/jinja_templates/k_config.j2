@@ -13,48 +13,80 @@ menu "Application"
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
+
+config CTR_LTE
+	default y
     {% endif -%}
     {%- if feature == 'lrw' %}
 # {{ feature | upper }} {# LRW #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
+
+config CTR_LRW
+	default y
     {% endif -%}
     {%- if feature == 'z' %}
 # {{ feature | upper }} {# Z #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
+
+config CTR_Z
+	default y
+
+config I2C
+	default y
     {% endif -%}
     {%- if feature == 'x0_a' %}
 # {{ feature | upper }} {# X0_A #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_X0_A
 	bool "Enable SHIELD_CTR_X0_A"
 	default y 
+
+config CTR_X0
+	default y
     {% endif -%}
     {%- if feature == 's2' %}
 # {{ feature | upper }} {# S2 #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
+
+config CTR_HYGRO
+	default y
     {% endif -%}
     {%- if feature == 's1' %}
 # {{ feature | upper }} {# S1 #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_S1
 	bool "Enable SHIELD_CTR_S1"
 	default y 
+
+config CTR_S1
+	default y
+
+config I2C
+	default y
     {% endif -%}
     {%- if feature == 'ds18b20' %}
 # {{ feature | upper }} {# DS18B20 #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_DS18B20
-	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
+
+config CTR_DS18B20
+	default y
     {% endif -%}
     {%- if feature == 'rtd_a' %}
 # {{ feature | upper }} {# RTD_A #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_RTD_A
-	bool "Enable SHIELD_CTR_RTD_A"
+	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
+
+config CTR_X3
+	default y
+
+config CTR_RTD
+	default y
     {% endif -%}
     {%- if feature == 'tamper' %}
 # {{ feature | upper }} {# TAMPER #} ---------------------------------------------------------------------- #
@@ -75,18 +107,33 @@ config APP_REPORT_JITTER
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
+
+config CTR_K1
+	default y
     {% endif -%}
     {%- if feature == 'mb7066_a' %}
 # {{ feature | upper }} {# MB7066_A#} ---------------------------------------------------------------------- #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_MB7066_A"
 	default y 
+
+config CTR_X0
+	default y
+
+config MB7066
+	default y
     {% endif -%}
     {%- if feature == 'mb7066_b' %}
 # {{ feature | upper }} {# MB7066_B #} ---------------------------------------------------------------------- #
 config SHIELD_CTR_MB7066_B
 	bool "Enable SHIELD_CTR_MB7066_B"
 	default y 
+
+config CTR_X0
+	default y
+
+config MB7066
+	default y
     {% endif -%}
     {%- if feature == 'x3_a' %}
 # {{ feature | upper }} {# X3_A #} ---------------------------------------------------------------------- #
@@ -99,11 +146,17 @@ config SHIELD_CTR_CTR_X3_A
 config SHIELD_CTR_X3_B
 	bool "Enable SHIELD_CTR_X3_B"
 	default y 
+
+config CTR_X3
+	default y
     {% endif -%}
     {%- if feature == 'people_counter' %}
 # {{ feature | upper }} {# PEOPLE_COUNTER #} ---------------------------------------------------------------------- #
-config PEOPLE_COUNTER
+config SHIELD_PEOPLE_COUNTER
 	bool "Enable SHIELD_PEOPLE_COUNTER"
+	default y
+
+config PEOPLE_COUNTER
 	default y
 
 config I2C
@@ -114,11 +167,15 @@ config I2C
 config APP_LAMBRECHT
 	bool "Enable SHIELD_APP_LAMBRECHT"
 	default y
+
 {% endif -%}
     {%- if feature == 'x2_modbus_a' %}
 # {{ feature | upper }} {# X2_MODBUS_A #} ---------------------------------------------------------------------- #
-config X2_MODBUS_A
+config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
+	default y
+
+config X2_MODBUS_A
 	default y
 
 config GPIO
@@ -153,22 +210,21 @@ config UART_LINE_CTRL
 
 config UART_SC16IS7XX
 	default y
+
 config I2C
 	default y  
 {% endif -%}
     {%- if feature == 'x2_modbus_B' %}
 # {{ feature | upper }} {# X2_MODBUS_B #} ---------------------------------------------------------------------- #
+config SHIELD_CTR_X2_MODBUS_B
+	bool "Enable SHIELD_X2_MODBUS_B"
+	default y
+
 config GPIO
 	default y
 
 config I2C
 	default y
-
-config MODBUS
-	default y
-
-config MODBUS_BUFFER_SIZE
-	default 64
 
 config PM_DEVICE
 	default y
@@ -176,25 +232,13 @@ config PM_DEVICE
 config SERIAL
 	default y
 
-config UART_0_INTERRUPT_DRIVEN
-	default n
-
-config UART_ASYNC_API
-	default y
-
-config UART_INTERRUPT_DRIVEN
-	default y
-
-config UART_LINE_CTRL
-	default n
-
 config UART_SC16IS7XX
-	default y  
+	default y
 {% endif -%}
 	{%- if feature == 'flip_mode' %}
 # {{ feature | upper }} {# FLIP_MODE #} ---------------------------------------------------------------------- #
 config APP_FLIP_MODE
-	bool "Activate push-button flip mode"
+	bool "Enable SHIELD_APP_FLIP_MODE"
 	default y
 {% endif -%}
 {%endfor%}
