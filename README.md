@@ -2,7 +2,7 @@
 ## Catalog Progress
 - [x] Clime (Ok!)
 - [x] Signal (Ok!)
-- [x] Counter
+- [x] Counter (Ok!)
 - [x] Current (Fix array name)
 - [x] Input
 - [x] Meteo
