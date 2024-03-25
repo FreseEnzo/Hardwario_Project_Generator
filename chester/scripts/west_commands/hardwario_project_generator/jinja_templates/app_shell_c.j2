@@ -133,19 +133,24 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
     SHELL_CMD_ARG(show, NULL,
                   "List current configuration.",
                   app_config_cmd_config_show, 1, 0),
-    {%- if config_mode %}
+    {% if config_mode %}
     SHELL_CMD_ARG(mode, NULL,
                   "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
                   app_config_cmd_config_mode, 1, 1),
     {%- endif %}
     {%- for parameter in parameters %}
+	{%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
+	SHELL_CMD_ARG({{ parameter.name }}, NULL,
+				"{{ parameter.help }}",
+				app_config_cmd_config_{{ parameter.var }}, 2, 1),
+	{%- else%}
     SHELL_CMD_ARG({{ parameter.name }}, NULL,
                   "{{ parameter.help }}",
                   app_config_cmd_config_{{ parameter.var }}, 1, 1),
-    {%- endfor %}
-
-/* USER CODE BEGIN Functions 1 */
-/* USER CODE END Functions 1 */
+	{%- endif %}
+    {% endfor %}
+	/* USER CODE BEGIN Functions 1 */
+	/* USER CODE END Functions 1 */
 
     SHELL_SUBCMD_SET_END
 );

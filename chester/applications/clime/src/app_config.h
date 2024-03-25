@@ -33,7 +33,6 @@ enum app_config_mode {
 };
 
 struct app_config {
-
     enum app_config_mode mode;
     int interval_sample;
     int interval_aggreg;

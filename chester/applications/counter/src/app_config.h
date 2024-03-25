@@ -25,9 +25,7 @@ extern "C" {
 #endif
 
 /* Private Variables -------------------------------------------------------------------*/
-
 struct app_config {
-
     int interval_sample;
     int interval_report;
     int event_report_delay;

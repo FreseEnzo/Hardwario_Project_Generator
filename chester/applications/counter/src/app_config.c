@@ -54,7 +54,8 @@ static struct app_config m_app_config_interim = {
 
 static void print_interval_sample(const struct shell *shell)
 {
-    shell_print(shell, "app config interval-sample  %d", m_app_config_interim.interval_sample);
+    shell_print(shell, "app config interval-sample  %d",
+            m_app_config_interim.interval_sample);
 }
 
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv)
@@ -85,7 +86,8 @@ int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc
 
 static void print_interval_report(const struct shell *shell)
 {
-    shell_print(shell, "app config interval-report  %d", m_app_config_interim.interval_report);
+    shell_print(shell, "app config interval-report  %d",
+            m_app_config_interim.interval_report);
 }
 
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv)
@@ -116,7 +118,8 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
 
 static void print_event_report_delay(const struct shell *shell)
 {
-    shell_print(shell, "app config event-report-delay  %d", m_app_config_interim.event_report_delay);
+    shell_print(shell, "app config event-report-delay  %d",
+            m_app_config_interim.event_report_delay);
 }
 
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv)
@@ -147,7 +150,8 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 
 static void print_event_report_rate(const struct shell *shell)
 {
-    shell_print(shell, "app config event-report-rate  %d", m_app_config_interim.event_report_rate);
+    shell_print(shell, "app config event-report-rate  %d",
+            m_app_config_interim.event_report_rate);
 }
 
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv)
@@ -178,7 +182,8 @@ int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t ar
 
 static void print_backup_report_connected(const struct shell *shell)
 {
-    shell_print(shell, "app config backup-report-connected  %s", m_app_config_interim.backup_report_connected ? "true" : "false");
+    shell_print(shell, "app config backup-report-connected  %s",
+            m_app_config_interim.backup_report_connected ? "true" : "false");
 }
 
 int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv)
@@ -206,7 +211,8 @@ int app_config_cmd_config_backup_report_connected(const struct shell *shell, siz
 
 static void print_backup_report_disconnected(const struct shell *shell)
 {
-    shell_print(shell, "app config backup-report-disconnected  %s", m_app_config_interim.backup_report_disconnected ? "true" : "false");
+    shell_print(shell, "app config backup-report-disconnected  %s",
+            m_app_config_interim.backup_report_disconnected ? "true" : "false");
 }
 
 int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv)

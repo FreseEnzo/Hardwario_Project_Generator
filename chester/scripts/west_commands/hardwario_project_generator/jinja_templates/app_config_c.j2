@@ -462,7 +462,7 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 
 	if (argc == 3) {
 		long long val = strtoll(argv[2], NULL, 10);
-		if (val < INT_MIN || val > INT_MAX) {
+		if (val < {{parameter['min']}} || val > {{parameter['max']}}) {
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -527,9 +527,9 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-    {%-endif%}
+    {% endif %}
 {%- for parameter in data['parameters'] %}
-{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string' %}
+{%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string'%}
     if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
         if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
             return -EINVAL;
@@ -541,9 +541,23 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+{% endif %}
+{%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
+{%- for i in range(parameter['len'])%}
+    if (settings_name_steq(key, "{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.{{ parameter['var'] }}[{{i}}])) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var']}}[{{i}}], len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }    
+{% endfor %}
 {%- endif %}
 {%- endfor %}
-
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 
@@ -554,7 +568,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
     int ret;
     {%- if config_mode %}
-    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+    ret = export_func("{{setting_pfx}}/mode", &m_app_config_interim.mode,
                       sizeof( m_app_config_interim.mode));
     if (ret < 0) {
         return ret;
@@ -568,6 +582,15 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
         return ret;
     }
 {% endif %}
+{%- if parameter['type'] == 'array[bool]' or parameter['type'] == 'array[int]' %}
+    {%- for i in range(parameter['len']) %}
+    ret = export_func("{{setting_pfx}}/{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &m_app_config_interim.{{parameter['var']}}[{{i}}],
+                      sizeof( m_app_config_interim.{{parameter['var']}}[{{i}}]));
+    if (ret < 0) {
+        return ret;
+    }
+    {% endfor %}
+{%- endif %}
 {%- endfor %}
     /* USER CODE BEGIN Functions 3 */
     /* USER CODE END Functions 3 */
