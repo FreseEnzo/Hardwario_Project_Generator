@@ -551,7 +551,7 @@ int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t arg
 
 	if (argc == 3) {
 		long long val = strtoll(argv[2], NULL, 10);
-		if (val < 0 || val > 86400) {
+		if (val < 30 || val > 86400) {
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -602,7 +602,7 @@ int app_config_cmd_config_channel_calib_y0(const struct shell *shell, size_t arg
 
 	if (argc == 3) {
 		long long val = strtoll(argv[2], NULL, 10);
-		if (val < 0 || val > 86400) {
+		if (val < 30 || val > 86400) {
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -653,7 +653,7 @@ int app_config_cmd_config_channel_calib_x1(const struct shell *shell, size_t arg
 
 	if (argc == 3) {
 		long long val = strtoll(argv[2], NULL, 10);
-		if (val < 0 || val > 86400) {
+		if (val < 30 || val > 86400) {
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -704,7 +704,7 @@ int app_config_cmd_config_channel_calib_y1(const struct shell *shell, size_t arg
 
 	if (argc == 3) {
 		long long val = strtoll(argv[2], NULL, 10);
-		if (val < 0 || val > 86400) {
+		if (val < 30 || val > 86400) {
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -880,7 +880,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 
-    if (settings_name_steq(key, "channel-active", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_active[0])) {
             return -EINVAL;
         }
@@ -892,7 +892,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-active", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_active[1])) {
             return -EINVAL;
         }
@@ -904,7 +904,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-active", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_active[2])) {
             return -EINVAL;
         }
@@ -916,7 +916,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-active", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_active[3])) {
             return -EINVAL;
         }
@@ -928,7 +928,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-differential", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-differential", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_differential[0])) {
             return -EINVAL;
         }
@@ -940,7 +940,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-differential", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-differential", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_differential[1])) {
             return -EINVAL;
         }
@@ -952,7 +952,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-differential", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-differential", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_differential[2])) {
             return -EINVAL;
         }
@@ -964,7 +964,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-differential", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-differential", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_differential[3])) {
             return -EINVAL;
         }
@@ -976,7 +976,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x0", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-calib-x0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x0[0])) {
             return -EINVAL;
         }
@@ -988,7 +988,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x0", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-calib-x0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x0[1])) {
             return -EINVAL;
         }
@@ -1000,7 +1000,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x0", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-calib-x0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x0[2])) {
             return -EINVAL;
         }
@@ -1012,7 +1012,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x0", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-calib-x0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x0[3])) {
             return -EINVAL;
         }
@@ -1024,7 +1024,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y0", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-calib-y0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y0[0])) {
             return -EINVAL;
         }
@@ -1036,7 +1036,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y0", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-calib-y0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y0[1])) {
             return -EINVAL;
         }
@@ -1048,7 +1048,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y0", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-calib-y0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y0[2])) {
             return -EINVAL;
         }
@@ -1060,7 +1060,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y0", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-calib-y0", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y0[3])) {
             return -EINVAL;
         }
@@ -1072,7 +1072,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x1", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-calib-x1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x1[0])) {
             return -EINVAL;
         }
@@ -1084,7 +1084,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x1", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-calib-x1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x1[1])) {
             return -EINVAL;
         }
@@ -1096,7 +1096,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x1", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-calib-x1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x1[2])) {
             return -EINVAL;
         }
@@ -1108,7 +1108,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-x1", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-calib-x1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_x1[3])) {
             return -EINVAL;
         }
@@ -1120,7 +1120,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y1", &next) && !next) {
+    if (settings_name_steq(key, "channel-0-calib-y1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y1[0])) {
             return -EINVAL;
         }
@@ -1132,7 +1132,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y1", &next) && !next) {
+    if (settings_name_steq(key, "channel-1-calib-y1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y1[1])) {
             return -EINVAL;
         }
@@ -1144,7 +1144,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y1", &next) && !next) {
+    if (settings_name_steq(key, "channel-2-calib-y1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y1[2])) {
             return -EINVAL;
         }
@@ -1156,7 +1156,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }    
 
-    if (settings_name_steq(key, "channel-calib-y1", &next) && !next) {
+    if (settings_name_steq(key, "channel-3-calib-y1", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_calib_y1[3])) {
             return -EINVAL;
         }
@@ -1177,7 +1177,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
     int ret;
-    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+    ret = export_func("chester-current/mode", &m_app_config_interim.mode,
                       sizeof( m_app_config_interim.mode));
     if (ret < 0) {
         return ret;
@@ -1237,145 +1237,145 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
         return ret;
     }
 
-    ret = export_func("chester-current/channel-active", &m_app_config_interim.channel_active[0],
+    ret = export_func("chester-current/channel-0-active", &m_app_config_interim.channel_active[0],
                       sizeof( m_app_config_interim.channel_active[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-active", &m_app_config_interim.channel_active[1],
+    ret = export_func("chester-current/channel-1-active", &m_app_config_interim.channel_active[1],
                       sizeof( m_app_config_interim.channel_active[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-active", &m_app_config_interim.channel_active[2],
+    ret = export_func("chester-current/channel-2-active", &m_app_config_interim.channel_active[2],
                       sizeof( m_app_config_interim.channel_active[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-active", &m_app_config_interim.channel_active[3],
+    ret = export_func("chester-current/channel-3-active", &m_app_config_interim.channel_active[3],
                       sizeof( m_app_config_interim.channel_active[3]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-differential", &m_app_config_interim.channel_differential[0],
+    ret = export_func("chester-current/channel-0-differential", &m_app_config_interim.channel_differential[0],
                       sizeof( m_app_config_interim.channel_differential[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-differential", &m_app_config_interim.channel_differential[1],
+    ret = export_func("chester-current/channel-1-differential", &m_app_config_interim.channel_differential[1],
                       sizeof( m_app_config_interim.channel_differential[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-differential", &m_app_config_interim.channel_differential[2],
+    ret = export_func("chester-current/channel-2-differential", &m_app_config_interim.channel_differential[2],
                       sizeof( m_app_config_interim.channel_differential[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-differential", &m_app_config_interim.channel_differential[3],
+    ret = export_func("chester-current/channel-3-differential", &m_app_config_interim.channel_differential[3],
                       sizeof( m_app_config_interim.channel_differential[3]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x0", &m_app_config_interim.channel_calib_x0[0],
+    ret = export_func("chester-current/channel-0-calib-x0", &m_app_config_interim.channel_calib_x0[0],
                       sizeof( m_app_config_interim.channel_calib_x0[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x0", &m_app_config_interim.channel_calib_x0[1],
+    ret = export_func("chester-current/channel-1-calib-x0", &m_app_config_interim.channel_calib_x0[1],
                       sizeof( m_app_config_interim.channel_calib_x0[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x0", &m_app_config_interim.channel_calib_x0[2],
+    ret = export_func("chester-current/channel-2-calib-x0", &m_app_config_interim.channel_calib_x0[2],
                       sizeof( m_app_config_interim.channel_calib_x0[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x0", &m_app_config_interim.channel_calib_x0[3],
+    ret = export_func("chester-current/channel-3-calib-x0", &m_app_config_interim.channel_calib_x0[3],
                       sizeof( m_app_config_interim.channel_calib_x0[3]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y0", &m_app_config_interim.channel_calib_y0[0],
+    ret = export_func("chester-current/channel-0-calib-y0", &m_app_config_interim.channel_calib_y0[0],
                       sizeof( m_app_config_interim.channel_calib_y0[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y0", &m_app_config_interim.channel_calib_y0[1],
+    ret = export_func("chester-current/channel-1-calib-y0", &m_app_config_interim.channel_calib_y0[1],
                       sizeof( m_app_config_interim.channel_calib_y0[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y0", &m_app_config_interim.channel_calib_y0[2],
+    ret = export_func("chester-current/channel-2-calib-y0", &m_app_config_interim.channel_calib_y0[2],
                       sizeof( m_app_config_interim.channel_calib_y0[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y0", &m_app_config_interim.channel_calib_y0[3],
+    ret = export_func("chester-current/channel-3-calib-y0", &m_app_config_interim.channel_calib_y0[3],
                       sizeof( m_app_config_interim.channel_calib_y0[3]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x1", &m_app_config_interim.channel_calib_x1[0],
+    ret = export_func("chester-current/channel-0-calib-x1", &m_app_config_interim.channel_calib_x1[0],
                       sizeof( m_app_config_interim.channel_calib_x1[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x1", &m_app_config_interim.channel_calib_x1[1],
+    ret = export_func("chester-current/channel-1-calib-x1", &m_app_config_interim.channel_calib_x1[1],
                       sizeof( m_app_config_interim.channel_calib_x1[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x1", &m_app_config_interim.channel_calib_x1[2],
+    ret = export_func("chester-current/channel-2-calib-x1", &m_app_config_interim.channel_calib_x1[2],
                       sizeof( m_app_config_interim.channel_calib_x1[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-x1", &m_app_config_interim.channel_calib_x1[3],
+    ret = export_func("chester-current/channel-3-calib-x1", &m_app_config_interim.channel_calib_x1[3],
                       sizeof( m_app_config_interim.channel_calib_x1[3]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y1", &m_app_config_interim.channel_calib_y1[0],
+    ret = export_func("chester-current/channel-0-calib-y1", &m_app_config_interim.channel_calib_y1[0],
                       sizeof( m_app_config_interim.channel_calib_y1[0]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y1", &m_app_config_interim.channel_calib_y1[1],
+    ret = export_func("chester-current/channel-1-calib-y1", &m_app_config_interim.channel_calib_y1[1],
                       sizeof( m_app_config_interim.channel_calib_y1[1]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y1", &m_app_config_interim.channel_calib_y1[2],
+    ret = export_func("chester-current/channel-2-calib-y1", &m_app_config_interim.channel_calib_y1[2],
                       sizeof( m_app_config_interim.channel_calib_y1[2]));
     if (ret < 0) {
         return ret;
     }
     
-    ret = export_func("chester-current/channel-calib-y1", &m_app_config_interim.channel_calib_y1[3],
+    ret = export_func("chester-current/channel-3-calib-y1", &m_app_config_interim.channel_calib_y1[3],
                       sizeof( m_app_config_interim.channel_calib_y1[3]));
     if (ret < 0) {
         return ret;

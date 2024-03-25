@@ -127,7 +127,7 @@ parameters:
   var: channel_calib_x0
   type: array[int]
   len: 4
-  min: 0
+  min: 30
   max: 86400
   default: null
   help: 'Get/Set channel X0 calibration point (format: <channel> <-2147483648..2147483647>).'
@@ -137,7 +137,7 @@ parameters:
   var: channel_calib_y0
   type: array[int]
   len: 4
-  min: 0
+  min: 30
   max: 86400
   default: null
   help: 'Get/Set channel Y0 calibration point (format: <channel> <-2147483648..2147483647>).'
@@ -147,7 +147,7 @@ parameters:
   var: channel_calib_x1
   type: array[int]
   len: 4
-  min: 0
+  min: 30
   max: 86400
   default: null
   help: 'Get/Set channel X1 calibration point (format: <channel> <-2147483648..2147483647>).'
@@ -157,7 +157,7 @@ parameters:
   var: channel_calib_y1
   type: array[int]
   len: 4
-  min: 0
+  min: 30
   max: 86400
   default: null
   help: 'Get/Set channel Y1 calibration point (format: <channel> <-2147483648..2147483647>).'

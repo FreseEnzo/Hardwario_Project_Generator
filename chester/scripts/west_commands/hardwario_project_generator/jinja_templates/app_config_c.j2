@@ -542,9 +542,9 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         return 0;
     }
 {% endif %}
-{%- if parameter['type'] == 'array[bool]' or parameter['type'] == 'array[int]' %}
+{%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
 {%- for i in range(parameter['len'])%}
-    if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
+    if (settings_name_steq(key, "{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &next) && !next) {
         if (len != sizeof(m_app_config_interim.{{ parameter['var'] }}[{{i}}])) {
             return -EINVAL;
         }
@@ -568,7 +568,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
     int ret;
     {%- if config_mode %}
-    ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
+    ret = export_func("{{setting_pfx}}/mode", &m_app_config_interim.mode,
                       sizeof( m_app_config_interim.mode));
     if (ret < 0) {
         return ret;
@@ -584,7 +584,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {% endif %}
 {%- if parameter['type'] == 'array[bool]' or parameter['type'] == 'array[int]' %}
     {%- for i in range(parameter['len']) %}
-    ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}}[{{i}}],
+    ret = export_func("{{setting_pfx}}/{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &m_app_config_interim.{{parameter['var']}}[{{i}}],
                       sizeof( m_app_config_interim.{{parameter['var']}}[{{i}}]));
     if (ret < 0) {
         return ret;
