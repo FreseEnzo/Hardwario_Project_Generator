@@ -25,7 +25,6 @@ extern "C" {
 #endif
 
 /* Private Variables -------------------------------------------------------------------*/
-
 enum app_config_input_type {
 	APP_CONFIG_INPUT_TYPE_NPN = 0,
 	APP_CONFIG_INPUT_TYPE_PNP = 1,

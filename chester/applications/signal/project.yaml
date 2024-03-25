@@ -1,21 +1,19 @@
 # Hardwario YAML file for code generation
 version: 1
 project:
-  bundle: com.hardwario.chester.meteo
-  name: CHESTER Meteo
+  bundle: com.hardwario.chester.signal
+  name: CHESTER signal
   version: v1.0.0 
-  variant: meteo
+  variant: signal
 features: 
 - shell
-- accel
-- batt
 - ble
-- button
 - buf
 - defaults
 - info
 - led
 - lte
+- s2
 - log
 - rtc
 - therm
@@ -23,83 +21,21 @@ features:
 - entropy_generator
 - tinycrypt
 - tinycrypt_sha256
-- zcbor
-- zcbor_stop_on_error
-- barometer_tag
-- ds18b20
-- s2
-- meteo_a
-- z
-- x2_modbus_a
-- barometer_tag
 parameters:
 - domain: app
-  name: interval-sample
-  var: interval_sample
-  type: int
-  min: 1
-  max: 86400
-  default: 60
-  help: 'Get/Set sample interval in seconds (format: <1-86400>).'
-
-- domain: app
-  name: interval-aggreg
-  var: interval_aggreg
-  type: int
-  min: 1
-  max: 86400
-  default: 300
-  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
-
-- domain: app
-  name: interval-report
-  var: interval_report
+  name: report-interval
+  var: report_inteval
   type: int
   min: 30
   max: 86400
-  default: 1800
+  default: 300
   help: 'Get/Set report interval in seconds (format: <30-86400>).'
 
 - domain: app
-  name: event-report-delay
-  var: event_report_delay
+  name: measurement-interval
+  var: measurement_interval
   type: int
-  min: 1
-  max: 86400
-  default: 1
-  help: 'Get/Set event report delay in seconds (format: <1-86400>).'
-
-- domain: app
-  name: event-report-rate
-  var: event_report_rate
-  type: int
-  min: 1
+  min: 5
   max: 3600
-  default: 30
-  help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
-
-- domain: app
-  name: backup-report-connected
-  var: backup_report_connected
-  type: bool
-  default: true
-  help: 'Set backup report connected (default: true)'
-
-- domain: app
-  name: backup-report-disconnected
-  var: backup_report_disconnected
-  type: bool
-  default: true
-  help: 'Set backup report disconnected (default: true)'
-
-commands: 
-- domain: app
-  name: send
-  callback: app_work_send # This function should be manually created
-  help: 'Send data immediately.'
-
-extras:
-# Extras for prj.conf
-- CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
-- CONFIG_ADC_NRFX_SAADC=n
-- CONFIG_ADC_SHELL=n
+  default: 300
+  help: 'Get/Set measurement interval in seconds (format: <5-3600>).'

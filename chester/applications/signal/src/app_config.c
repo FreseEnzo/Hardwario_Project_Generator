@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 /* Includes ------------------------------------------------------------------*/
-
 #include "app_config.h"
 
 /* Private includes --------------------------------------------------------------------*/
@@ -37,8 +36,8 @@ struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
 
-    .measurement_interval = 60,
-    .report_interval = 300,
+    .report_inteval = 300,
+    .measurement_interval = 300,
 
     /* USER CODE BEGIN Struct Variables */
     /* USER CODE END Struct Variables */
@@ -49,9 +48,42 @@ static struct app_config m_app_config_interim = {
 
 /* Private Functions -------------------------------------------------------------------*/
 
+static void print_report_inteval(const struct shell *shell)
+{
+    shell_print(shell, "app config report-interval  %d",
+            m_app_config_interim.report_inteval);
+}
+
+int app_config_cmd_config_report_inteval(const struct shell *shell, size_t argc, char **argv)
+{
+    if (argc == 1) {
+        print_report_inteval(shell);
+        return 0;
+    }
+    if (argc == 2) {
+        size_t len = strlen(argv[1]);
+        for (size_t i = 0; i < len; i++) {
+            if (!isdigit((int)argv[1][i])) {
+                shell_error(shell, "invalid format");
+                return -EINVAL;
+            }
+        }
+        long value = strtol(argv[1], NULL, 10);
+        if (value < 30 || value > 86400) {
+            shell_error(shell, "invalid range");
+            return -EINVAL;
+        }
+        m_app_config_interim.report_inteval = (int)value;
+        return 0;
+    }
+    shell_help(shell);
+    return -EINVAL;
+}
+
 static void print_measurement_interval(const struct shell *shell)
 {
-    shell_print(shell, "app config measurement-interval  %d", m_app_config_interim.measurement_interval);
+    shell_print(shell, "app config measurement-interval  %d",
+            m_app_config_interim.measurement_interval);
 }
 
 int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv)
@@ -80,41 +112,10 @@ int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t
     return -EINVAL;
 }
 
-static void print_report_interval(const struct shell *shell)
-{
-    shell_print(shell, "app config report-interval  %d", m_app_config_interim.report_interval);
-}
-
-int app_config_cmd_config_report_interval(const struct shell *shell, size_t argc, char **argv)
-{
-    if (argc == 1) {
-        print_report_interval(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < 30 || value > 86400) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.report_interval = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
-}
-
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {
+	print_report_inteval(shell);
 	print_measurement_interval(shell);
-	print_report_interval(shell);
     
     return 0;
 }
@@ -134,6 +135,18 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 {
     int ret;
     const char *next;
+    if (settings_name_steq(key, "report-interval", &next) && !next) {
+        if (len != sizeof(m_app_config_interim.report_inteval)) {
+            return -EINVAL;
+        }
+        ret = read_cb(cb_arg, &m_app_config_interim.report_inteval, len);
+        if (ret < 0) {
+            LOG_ERR("Call `read_cb` failed: %d", ret);
+            return ret;
+        }
+        return 0;
+    }
+
     if (settings_name_steq(key, "measurement-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.measurement_interval)) {
             return -EINVAL;
@@ -145,17 +158,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
-    if (settings_name_steq(key, "report-interval", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.report_interval)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.report_interval, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
+
     /* USER CODE BEGIN Functions 2 */
     /* USER CODE END Functions 2 */
 
@@ -166,14 +169,14 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
     int ret;
 
-    ret = export_func("chester-signal/measurement-interval", &m_app_config_interim.measurement_interval,
-                      sizeof( m_app_config_interim.measurement_interval));
+    ret = export_func("chester-signal/report-interval", &m_app_config_interim.report_inteval,
+                      sizeof( m_app_config_interim.report_inteval));
     if (ret < 0) {
         return ret;
     }
 
-    ret = export_func("chester-signal/report-interval", &m_app_config_interim.report_interval,
-                      sizeof( m_app_config_interim.report_interval));
+    ret = export_func("chester-signal/measurement-interval", &m_app_config_interim.measurement_interval,
+                      sizeof( m_app_config_interim.measurement_interval));
     if (ret < 0) {
         return ret;
     }

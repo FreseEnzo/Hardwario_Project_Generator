@@ -4,17 +4,19 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
-
-/* Signal -------------------------------------------------*/
-
-/* LTE ----------------------------------------------------------------------*/
+/* LTE  ----------------------------------------------------------------------*/
 &ctr_lte_if {
-	status = "okay";
+    status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-    
+
+/* S2  ----------------------------------------------------------------------*/
+&sht30_ext {
+    status = "okay";
+};
+
 /* USER CODE BEGIN Overlay */
 /* USER CODE END Overlay */

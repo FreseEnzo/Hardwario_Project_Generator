@@ -6,27 +6,39 @@
 
 menu "Application"
 
-# push Project ------------------------------------------------- #
+# PUSH Project ------------------------------------------------- #
 
 # FLIP_MODE  ---------------------------------------------------------------------- #
 config APP_FLIP_MODE
-	bool "Activate push-button flip mode"
+	bool "Enable SHIELD_APP_FLIP_MODE"
 	default y
 
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
+
+config CTR_LRW
+	default y
     
 # LTE  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
+
+config CTR_LTE
+	default y
     
 # Z  ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
+
+config CTR_Z
+	default y
+
+config I2C
+	default y
     
 endmenu
 

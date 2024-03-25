@@ -554,6 +554,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+    
     if (settings_name_steq(key, "interval-sample", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_sample)) {
             return -EINVAL;
@@ -565,6 +566,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "interval-aggreg", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_aggreg)) {
             return -EINVAL;
@@ -576,6 +578,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "interval-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.interval_report)) {
             return -EINVAL;
@@ -587,6 +590,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_report)) {
             return -EINVAL;
@@ -598,6 +602,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-report", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_report)) {
             return -EINVAL;
@@ -609,6 +614,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-thr", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_thr)) {
             return -EINVAL;
@@ -620,6 +626,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-hi-hst", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_hi_hst)) {
             return -EINVAL;
@@ -631,6 +638,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-thr", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_thr)) {
             return -EINVAL;
@@ -642,6 +650,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "hygro-t-alarm-lo-hst", &next) && !next) {
         if (len != sizeof(m_app_config_interim.hygro_t_alarm_lo_hst)) {
             return -EINVAL;
@@ -653,6 +662,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "event-report-delay", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_delay)) {
             return -EINVAL;
@@ -664,6 +674,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "event-report-rate", &next) && !next) {
         if (len != sizeof(m_app_config_interim.event_report_rate)) {
             return -EINVAL;
@@ -675,6 +686,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "backup-report-connected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_connected)) {
             return -EINVAL;
@@ -686,6 +698,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "backup-report-disconnected", &next) && !next) {
         if (len != sizeof(m_app_config_interim.backup_report_disconnected)) {
             return -EINVAL;

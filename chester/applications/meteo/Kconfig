@@ -12,25 +12,42 @@ menu "Application"
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
+
+config CTR_LTE
+	default y
     
 # DS18B20  ---------------------------------------------------------------------- #
 config SHIELD_CTR_DS18B20
-	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
+
+config CTR_DS18B20
+	default y
     
 # S2  ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
+
+config CTR_HYGRO
+	default y
     
 # Z  ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
+
+config CTR_Z
+	default y
+
+config I2C
+	default y
     
 # X2_MODBUS_A  ---------------------------------------------------------------------- #
-config X2_MODBUS_A
+config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
+	default y
+
+config X2_MODBUS_A
 	default y
 
 config GPIO
@@ -65,6 +82,7 @@ config UART_LINE_CTRL
 
 config UART_SC16IS7XX
 	default y
+
 config I2C
 	default y  
 

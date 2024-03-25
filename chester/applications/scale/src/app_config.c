@@ -406,6 +406,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "channel-a2-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_a2_active)) {
             return -EINVAL;
@@ -417,6 +418,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "channel-b1-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_b1_active)) {
             return -EINVAL;
@@ -428,6 +430,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "channel-b2-active", &next) && !next) {
         if (len != sizeof(m_app_config_interim.channel_b2_active)) {
             return -EINVAL;
@@ -439,6 +442,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "weight-measurement-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.weight_measurement_interval)) {
             return -EINVAL;
@@ -450,6 +454,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "report-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.report_interval)) {
             return -EINVAL;
@@ -461,6 +466,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "people-measurement-interval", &next) && !next) {
         if (len != sizeof(m_app_config_interim.people_measurement_interval)) {
             return -EINVAL;
@@ -472,6 +478,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "people-counter-power-off-delay", &next) && !next) {
         if (len != sizeof(m_app_config_interim.people_counter_power_off_delay)) {
             return -EINVAL;
@@ -483,6 +490,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "people-counter-stay-timeout", &next) && !next) {
         if (len != sizeof(m_app_config_interim.people_counter_stay_timeout)) {
             return -EINVAL;
@@ -494,6 +502,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
         }
         return 0;
     }
+
     if (settings_name_steq(key, "people-counter-adult-border", &next) && !next) {
         if (len != sizeof(m_app_config_interim.people_counter_adult_border)) {
             return -EINVAL;
