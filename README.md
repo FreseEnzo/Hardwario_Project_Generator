@@ -1,9 +1,9 @@
 # CHESTER SDK Project Generation Tools
 ## Catalog Progress
-- [x] Clime 
-- [x] Signal
-- [x] Counter
-- [x] Current
+- [x] Clime (Ok!)
+- [x] Signal (Ok!)
+- [x] Counter (Ok!)
+- [x] Current (Fix array name)
 - [x] Input
 - [x] Meteo
 - [x] Push
