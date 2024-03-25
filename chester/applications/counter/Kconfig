@@ -8,7 +8,7 @@ menu "Application"
 
 # COUNTER Project ------------------------------------------------- #
 
-# LTE  ---------------------------------------------------------------------- #
+# LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
@@ -16,7 +16,7 @@ config SHIELD_CTR_LTE
 config CTR_LTE
 	default y
     
-# X0_A  ---------------------------------------------------------------------- #
+# X0_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_X0_A
 	bool "Enable SHIELD_CTR_X0_A"
 	default y 
@@ -24,13 +24,13 @@ config SHIELD_CTR_X0_A
 config CTR_X0
 	default y
     
-# REPORT_JITTER  ---------------------------------------------------------------------- #
+# REPORT_JITTER ---------------------------------------------------------------------- #
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 
 	select ENTROPY_GENERATOR
     
-# TAMPER  ---------------------------------------------------------------------- #
+# TAMPER ---------------------------------------------------------------------- #
 config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 

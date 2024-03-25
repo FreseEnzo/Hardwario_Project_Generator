@@ -17,11 +17,11 @@ target_sources(app PRIVATE src/{{ file }})
     {%- endfor %}
 {%- if 'app_tamper.c' in files %}    
 target_sources_ifdef(CONFIG_APP_TAMPER app PRIVATE src/app_tamper.c)
-{% endif%}
+{%- endif%}
 {%- if 'app_ble_svc.c' in files %}    
 target_sources_ifdef(CONFIG_CTR_BLE app PRIVATE src/app_ble_svc.c)
-{% endif%}
+{%- endif%}
 {%- if 'app_cbor.c' in files %}    
 target_sources_ifdef(CONFIG_SHIELD_CTR_LTE app PRIVATE src/app_cbor.c)
-{% endif%}
+{%- endif%}
 {%- endfor %}

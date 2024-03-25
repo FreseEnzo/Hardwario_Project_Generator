@@ -8,7 +8,7 @@ menu "Application"
 
 # CURRENT Z Project ------------------------------------------------- #
 
-# LTE  ---------------------------------------------------------------------- #
+# LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
@@ -24,7 +24,7 @@ config SHIELD_CTR_LRW
 config CTR_LRW
 	default y
     
-# K1  ---------------------------------------------------------------------- #
+# K1 ---------------------------------------------------------------------- #
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
@@ -32,7 +32,7 @@ config SHIELD_CTR_K1
 config CTR_K1
 	default y
     
-# Z  ---------------------------------------------------------------------- #
+# Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
