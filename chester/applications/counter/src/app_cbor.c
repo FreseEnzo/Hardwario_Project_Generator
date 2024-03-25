@@ -538,11 +538,11 @@ int app_cbor_encode(zcbor_state_t *zs)
 #endif /* defined(CONFIG_SHIELD_CTR_Z) */
 
 	zcbor_map_end_encode(zs, ZCBOR_VALUE_IS_INDEFINITE_LENGTH);
-	
+
 	if (!zcbor_check_error(zs)) {
 		LOG_ERR("Encoding failed: %d", zcbor_pop_error(zs));
 		return -EFAULT;
 	}
-	
+
 	return 0;
 }

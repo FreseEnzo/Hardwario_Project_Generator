@@ -7,7 +7,7 @@
 menu "Application"
 
 # {{ variant_name | upper }} Project ------------------------------------------------- #
-{% for feature in data['features'] %}
+{%- for feature in data['features'] %}
 {#- A1 ------------------------------------------- #} 
 	{%- if feature == 'a1' %}
 # {{ feature | upper }}  ---------------------------------------------------------------------- #
@@ -26,7 +26,7 @@ config GPIO_PCA953X
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- B1 ------------------------------------------- #} 
 	{%- if feature == 'b1' %}
@@ -46,7 +46,7 @@ config GPIO_PCA953X
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- BAROMETER_TAG ------------------------------------------- #} 
 	{%- if feature == 'barometer_tag' %}
@@ -63,7 +63,7 @@ config SENSOR
 
 config MPL3115A2
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- C1 ------------------------------------------- #} 
 	{%- if feature == 'c1' %}
@@ -80,7 +80,7 @@ config GPIO_PCA953X
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- C2 ------------------------------------------- #} 
 	{%- if feature == 'c2' %}
@@ -97,7 +97,7 @@ config GPIO_PCA953X
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- DS18B20 ---------------------------------------- #} 
 	{%- if feature == 'ds18b20' %}
@@ -108,7 +108,7 @@ config SHIELD_CTR_DS18B20
 
 config CTR_DS18B20
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- GNSS ---------------------------------------- #} 
 	{%- if feature == 'gnss' %}
@@ -119,7 +119,7 @@ config SHIELD_CTR_GNSS
 
 config CTR_GNSS
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- K1 --------------------------------------------- #} 
 	{%- if feature == 'k1' %}
@@ -130,7 +130,7 @@ config SHIELD_CTR_K1
 
 config CTR_K1
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- LRW ------------------------------------------- #} 
 	{%- if feature == 'lrw' %}
@@ -141,7 +141,7 @@ config SHIELD_CTR_LRW
 
 config CTR_LRW
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- LTE ------------------------------------------- #} 
 	{%- if feature == 'lte' %}
@@ -152,7 +152,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- MACHINE_PROBE ------------------------------------------- #} 
 	{%- if feature == 'machine_probe' %}
@@ -163,7 +163,7 @@ config SHIELD_CTR_MACHINE_PROBE
 
 config CTR_MACHINE_PROBE
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- MB7066_A --------------------------------------- #} 
 	{%- if feature == 'mb7066_a' %}
@@ -177,7 +177,7 @@ config CTR_X0
 
 config MB7066
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- MB7066_B ---------------------------------------- #} 
 	{%- if feature == 'mb7066_b' %}
@@ -191,7 +191,7 @@ config CTR_X0
 
 config MB7066
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- METEO_A --------------------------------------- #} 
 	{%- if feature == 'meteo_a' %}
@@ -205,7 +205,7 @@ config CTR_METEO
 
 config CTR_X0
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- METEO_B ---------------------------------------- #} 
 	{%- if feature == 'METEO_B' %}
@@ -219,7 +219,7 @@ config CTR_METEO
 
 config CTR_X0
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- RTD_A --------------------------------------- #} 
 	{%- if feature == 'rtd_a' %}
@@ -233,7 +233,7 @@ config CTR_X3
 
 config CTR_RTD
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- RTD_B ---------------------------------------- #} 
 	{%- if feature == 'rtd_b' %}
@@ -247,7 +247,7 @@ config CTR_X3
 
 config CTR_RTD
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- S1 --------------------------------------------- #} 
 	{%- if feature == 's1' %}
@@ -261,7 +261,7 @@ config CTR_S1
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- S2 --------------------------------------------- #} 
 	{%- if feature == 's2' %}
@@ -272,7 +272,7 @@ config SHIELD_CTR_S2
 
 config CTR_HYGRO
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- SOIL_SENSOR --------------------------------------------- #} 
 	{%- if feature == 'soil_sensor' %}
@@ -283,7 +283,7 @@ config SHIELD_CTR_SOIL_SENSOR
 
 config CTR_SOIL_SENSOR
 	default y
-	{% endif -%}	
+	{%- endif -%}	
 
 {#- WEIGHT_PROBE --------------------------------------------- #} 
 	{%- if feature == 'weight_probe' %}
@@ -294,7 +294,7 @@ config SHIELD_CTR_WEIGHT_PROBE
 
 config CTR_WEIGHT_PROBE
 	default y
-	{% endif -%}	
+	{%- endif -%}	
 	
 {#- X0A -------------------------------------------- #} 
 	{%- if feature == 'x0_a' %}
@@ -305,7 +305,7 @@ config SHIELD_CTR_X0_A
 
 config CTR_X0
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X0B -------------------------------------------- #} 
 	{%- if feature == 'x0_b' %}
@@ -316,7 +316,7 @@ config SHIELD_CTR_X0_B
 
 config CTR_X0
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X2A -------------------------------------------- #} 
 	{%- if feature == 'x2_a' %}
@@ -339,7 +339,7 @@ config SERIAL
 
 config UART_SC16IS7XX
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X2B -------------------------------------------- #} 
 	{%- if feature == 'x2_b' %}
@@ -362,7 +362,7 @@ config SERIAL
 
 config UART_SC16IS7XX
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X2_MODBUS_A -------------------------------------- #} 
 	{%- if feature == 'x2_modbus_a' %}
@@ -409,7 +409,7 @@ config UART_SC16IS7XX
 
 config I2C
 	default y  
-{% endif -%}
+{%- endif -%}
 
 {#- X2_MODBUS_B ---------------------------------------- #} 
 	{%- if feature == 'x2_modbus_b' %}
@@ -450,7 +450,7 @@ config UART_LINE_CTRL
 
 config UART_SC16IS7XX
 	default y
-{% endif -%}
+{%- endif -%}
 
 {#- X3_A --------------------------------------------- #} 
 	{%- if feature == 'x3_a' %}
@@ -461,7 +461,7 @@ config SHIELD_CTR_CTR_X3_A
 
 config CTR_X3
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X3_B --------------------------------------------- #} 
 	{%- if feature == 'x3_b' %}
@@ -472,7 +472,7 @@ config SHIELD_CTR_X3_B
 
 config CTR_X3
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X4_A --------------------------------------------- #} 
 	{%- if feature == 'x4_a' %}
@@ -483,7 +483,7 @@ config SHIELD_CTR_CTR_X4_A
 
 config CTR_X4
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X4_B --------------------------------------------- #} 
 	{%- if feature == 'x4_b' %}
@@ -494,7 +494,7 @@ config SHIELD_CTR_X4_B
 
 config CTR_X4
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X7_A --------------------------------------------- #} 
 	{%- if feature == 'x7_a' %}
@@ -505,7 +505,7 @@ config SHIELD_CTR_CTR_X7_A
 
 config CTR_X7
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X7_B --------------------------------------------- #} 
 	{%- if feature == 'x7_b' %}
@@ -516,7 +516,7 @@ config SHIELD_CTR_X7_B
 
 config CTR_X7
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X9_A --------------------------------------------- #} 
 	{%- if feature == 'x9_a' %}
@@ -527,7 +527,7 @@ config SHIELD_CTR_CTR_X9_A
 
 config CTR_X9
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X9_B --------------------------------------------- #} 
 	{%- if feature == 'x9_b' %}
@@ -538,7 +538,7 @@ config SHIELD_CTR_X9_B
 
 config CTR_X9
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- X10 --------------------------------------------- #} 
 	{%- if feature == 'x10' %}
@@ -549,7 +549,7 @@ config SHIELD_CTR_X10
 
 config CTR_X10
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- Z --------------------------------------------- #} 
 	{%- if feature == 'z' %}
@@ -563,7 +563,7 @@ config CTR_Z
 
 config I2C
 	default y
-	{% endif -%}
+	{%- endif -%}
 
 {#- PEOPLE_COUTER ------------------------------------ #} 
 	{%- if feature == 'people_counter' %}
@@ -577,7 +577,7 @@ config PEOPLE_COUNTER
 
 config I2C
 	default y  
-{% endif -%}
+{%- endif -%}
 
 {#- TAMPER ----------------------------------------- #} 
 	{%- if feature == 'tamper' %}
@@ -586,7 +586,7 @@ config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 
 	select CTR_EDGE
-	{% endif -%}
+	{%- endif -%}
 
 {#- REPORT_JITTER ---------------------------------- #} 
 	{%- if feature == 'report_jitter' %}
@@ -595,7 +595,7 @@ config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 
 	select ENTROPY_GENERATOR
-	{% endif -%}   
+	{%- endif -%}   
 
 {#- LAMBRECHT ---------------------------------------- #} 
 	{%- if feature == 'lambrecht' %}
@@ -604,7 +604,7 @@ config APP_LAMBRECHT
 	bool "Enable SHIELD_APP_LAMBRECHT"
 	default y
 
-{% endif -%}
+{%- endif -%}
 
 {#- FLIP_MODE ---------------------------------------- #} 
 	{%- if feature == 'flip_mode' %}
@@ -612,8 +612,9 @@ config APP_LAMBRECHT
 config APP_FLIP_MODE
 	bool "Enable SHIELD_APP_FLIP_MODE"
 	default y
-{% endif -%}
+{%- endif -%}
 {%endfor%}
+
 endmenu
 
 menu "Zephyr Kernel"

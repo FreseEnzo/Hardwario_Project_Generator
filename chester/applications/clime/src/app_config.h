@@ -62,16 +62,20 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, size_t argc,
+						  char **argv);
+int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, size_t argc,
+						  char **argv);
 int app_config_cmd_config_hygro_t_alarm_hi_thr(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_hygro_t_alarm_hi_hst(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_hygro_t_alarm_lo_thr(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_hygro_t_alarm_lo_hst(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
+						  char **argv);
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
+						     char **argv);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

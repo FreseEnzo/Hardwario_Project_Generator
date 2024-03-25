@@ -16,13 +16,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define APP_DATA_ANALOG_MAX_SAMPLES	 32
+#define APP_DATA_ANALOG_MAX_SAMPLES      32
 #define APP_DATA_ANALOG_MAX_MEASUREMENTS 32
 
 #define APP_DATA_MAX_BACKUP_EVENTS 32
 
-#define APP_DATA_W1_THERM_COUNT		   10
-#define APP_DATA_W1_THERM_MAX_SAMPLES	   32
+#define APP_DATA_W1_THERM_COUNT            10
+#define APP_DATA_W1_THERM_MAX_SAMPLES      32
 #define APP_DATA_W1_THERM_MAX_MEASUREMENTS 32
 
 #ifdef __cplusplus

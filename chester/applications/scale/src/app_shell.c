@@ -19,12 +19,12 @@
 #include <errno.h>
 #include <stdlib.h>
 
-
+/* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
-
+/* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
@@ -114,7 +114,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 				  "Get/Set People Counter adult border (format: <0-8>).",
 				  app_config_cmd_config_people_counter_adult_border, 1, 1),
 	
-	
+	/* USER CODE BEGIN Functions 1 */
 	/* USER CODE END Functions 1 */
 
 	SHELL_SUBCMD_SET_END
@@ -128,7 +128,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 		
 	SHELL_SUBCMD_SET_END
 
-
+/* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
 
 );
@@ -137,7 +137,7 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
 
-
+/* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
 /* clang-format on */

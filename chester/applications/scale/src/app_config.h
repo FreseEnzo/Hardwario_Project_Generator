@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-
+/* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
 
 #ifdef __cplusplus
@@ -36,13 +36,13 @@ struct app_config {
 	int people_counter_stay_timeout;
 	int people_counter_adult_border;
 
-	
+	/* USER CODE BEGIN Struct Variables */
 	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;
 
-
+/* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
 /* Private Functions -------------------------------------------------------------------*/
@@ -58,7 +58,7 @@ int app_config_cmd_config_people_counter_power_off_delay(const struct shell *she
 int app_config_cmd_config_people_counter_stay_timeout(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_people_counter_adult_border(const struct shell *shell, size_t argc, char **argv);
 
-
+/* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
 
 #ifdef __cplusplus

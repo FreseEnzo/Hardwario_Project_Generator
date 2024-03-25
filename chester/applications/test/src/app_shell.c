@@ -26,7 +26,6 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-
 static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 {
 	int ret;
@@ -73,14 +72,14 @@ static int cmd_send(const struct shell *shell, size_t argc, char **argv)
 
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
-    if (argc > 1) {
-        shell_error(shell, "command not found: %s", argv[1]);
-        shell_help(shell);
-        return -EINVAL;
-    }
+	if (argc > 1) {
+		shell_error(shell, "command not found: %s", argv[1]);
+		shell_help(shell);
+		return -EINVAL;
+	}
 
-    shell_help(shell);
-    return 0;
+	shell_help(shell);
+	return 0;
 }
 
 /* clang-format off */
