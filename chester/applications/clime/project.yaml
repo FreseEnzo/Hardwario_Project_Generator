@@ -27,6 +27,10 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- soil_sensor
+- x4_a
+- z
+- ds19b20
 parameters:
 - domain: app
   name: interval-sample

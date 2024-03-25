@@ -1,38 +1,96 @@
-/*
- * Copyright (c) 2023 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
+//
+// Copyright (c) 2023 HARDWARIO a.s.
+//
+// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+//
 
-/* TAMPER  ----------------------------------------------------------------------*/
+/* CLIME Project ------------------------------------------------- */
+
+/* TAMPER ---------------------------------------------------------------------- */
 / {
-    zephyr,user {
-        tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
-    };
+	zephyr,user {
+		tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+	};
 };
-
-/* LTE  ----------------------------------------------------------------------*/
+    
+/* LTE ---------------------------------------------------------------------- */
 &ctr_lte_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-
-/* LRW  ----------------------------------------------------------------------*/
+    
+/* LRW  ---------------------------------------------------------------------- */
 &ctr_lrw_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart1 {
-    status = "okay";
+	status = "okay";
 };
-
-/* S2  ----------------------------------------------------------------------*/
+    
+/* S2 ---------------------------------------------------------------------- */
 &sht30_ext {
-    status = "okay";
+	status = "okay";
+};
+    
+/* SOIL_SENSOR ---------------------------------------------------------------------- */
+&ds2484 {
+	ctr_soil_sensor_0: ctr_soil_sensor_0 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_1: ctr_soil_sensor_1 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_2: ctr_soil_sensor_2 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_3: ctr_soil_sensor_3 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_4: ctr_soil_sensor_4 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_5: ctr_soil_sensor_5 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_6: ctr_soil_sensor_6 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_7: ctr_soil_sensor_7 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_8: ctr_soil_sensor_8 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+	ctr_soil_sensor_9: ctr_soil_sensor_9 {
+		compatible = "maxim,ds28e17";
+		family-code = <0x19>;
+	};
+};
+	
+/* X4_A ---------------------------------------------------------------------- */
+&ctr_x4_a {
+	status = "okay";
 };
 
-/* USER CODE BEGIN Overlay */
-/* USER CODE END Overlay */
+&ctr_x4_tla2021 {
+	status = "okay";
+};
+    
+/* Z ---------------------------------------------------------------------- */
+&ctr_z {
+	status = "okay";
+};
+    
