@@ -3,7 +3,7 @@
 - [x] Clime (Ok!)
 - [x] Signal (Ok!)
 - [x] Counter (Ok!)
-- [x] Current (Fix array name)
+- [x] Current (Ok!)
 - [x] Input
 - [x] Meteo
 - [x] Push
