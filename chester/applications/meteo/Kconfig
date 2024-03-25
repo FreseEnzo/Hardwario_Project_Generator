@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -15,7 +15,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
+	
 # BAROMETER_TAG  ---------------------------------------------------------------------- #
 config SHIELD_CTR_BAROMETER_TAG
 	bool "Enable SHIELD_CTR_BAROMETER_TAG"
@@ -29,7 +29,7 @@ config SENSOR
 
 config MPL3115A2
 	default y
-    
+	
 # DS18B20 ---------------------------------------------------------------------- #
 config SHIELD_CTR_DS18B20
 	bool "Enable SHIELD_CTR_DS18B20"
@@ -37,7 +37,7 @@ config SHIELD_CTR_DS18B20
 
 config CTR_DS18B20
 	default y
-    
+	
 # S2 ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
@@ -45,7 +45,7 @@ config SHIELD_CTR_S2
 
 config CTR_HYGRO
 	default y
-    
+	
 # METEO_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_METEO_A"
@@ -56,7 +56,7 @@ config CTR_METEO
 
 config CTR_X0
 	default y
-    
+	
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -67,7 +67,7 @@ config CTR_Z
 
 config I2C
 	default y
-    
+	
 # X2_MODBUS_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
@@ -125,7 +125,7 @@ config SENSOR
 
 config MPL3115A2
 	default y
-    
+	
 endmenu
 
 menu "Zephyr Kernel"

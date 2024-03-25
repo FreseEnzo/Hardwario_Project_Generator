@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 HARDWARIO a.s.
+// Copyright (c) 2024 HARDWARIO a.s.
 //
 // SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 //
@@ -14,7 +14,7 @@
 &uart0 {
 	status = "okay";
 };
-    
+	
 /* LRW  ---------------------------------------------------------------------- */
 &ctr_lrw_if {
 	status = "okay";
@@ -23,7 +23,7 @@
 &uart1 {
 	status = "okay";
 };
-    
+	
 /* K1 ---------------------------------------------------------------------- */
 / {
 	ctr_k1: ctr_k1 {
@@ -50,9 +50,9 @@
 		ngpios = <8>;
 	};
 };
-    
+	
 /* Z ---------------------------------------------------------------------- */
 &ctr_z {
 	status = "okay";
 };
-    
+	

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -15,7 +15,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
+	
 # S2 ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
@@ -23,7 +23,7 @@ config SHIELD_CTR_S2
 
 config CTR_HYGRO
 	default y
-    
+	
 endmenu
 
 menu "Zephyr Kernel"

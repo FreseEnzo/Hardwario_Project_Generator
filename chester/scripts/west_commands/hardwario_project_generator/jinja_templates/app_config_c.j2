@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -7,7 +7,7 @@
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
 {%- if 'lte' in data['features'] and 'lrw' in data['features'] -%}
-    {%- do config_mode.append(1) %}
+	{%- do config_mode.append(1) %}
 {% endif %}
 /* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
@@ -43,28 +43,28 @@ struct app_config g_app_config;
 {% if data %}
 static struct app_config m_app_config_interim = {
 {%- for param in data['parameters'] %}
-    {%- if param['default'] != none %}
-    {% if param['type'] == 'string'  -%}
-    .{{ param['var'] }} = "{{ param['default'] }}",
-    {%- elif param['type'] == 'bool' -%}
-    .{{ param['var'] }} = {{ param['default'] | lower }},
-    {%- else -%}
-    .{{ param['var'] }} = {{ param['default'] }},
-    {%- endif -%}
-    {%- endif %}
+	{%- if param['default'] != none %}
+	{% if param['type'] == 'string'  -%}
+	.{{ param['var'] }} = "{{ param['default'] }}",
+	{%- elif param['type'] == 'bool' -%}
+	.{{ param['var'] }} = {{ param['default'] | lower }},
+	{%- else -%}
+	.{{ param['var'] }} = {{ param['default'] }},
+	{%- endif -%}
+	{%- endif %}
 {%- endfor -%}
 {# MODE LTE-LRW #}
 {%- if config_mode %}
-    .mode = APP_CONFIG_MODE_LTE,
+	.mode = APP_CONFIG_MODE_LTE,
 {%- endif -%}
 {# VARIANT INPUT #}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
-    .trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
-    .counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
+	.trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
+	.counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
 {%- endif %}
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 {%- endif %}
 
@@ -204,8 +204,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                   
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %s",
-            m_app_config_interim.{{ parameter['var'] }} ? "true" : "false");                      
+	shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %s",
+			m_app_config_interim.{{ parameter['var'] }} ? "true" : "false");                      
 {%- raw -%}
 {% endraw %}
 }
@@ -214,25 +214,25 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {
 {%- raw -%}
 {% endraw %}
-    if (argc == 1) {
-        print_{{ parameter['var'] }}(shell);                                                    
-        return 0;
-    }
-    if (argc == 2) {
-        bool is_false = !strcmp(argv[1], "false");
-        bool is_true = !strcmp(argv[1], "true");
-        if (is_false) {
-            m_app_config_interim.{{ parameter['var'] }} = false;
-        } else if (is_true) {
-            m_app_config_interim.{{ parameter['var'] }} = true;
-        } else {
-            shell_error(shell, "invalid format");
-            return -EINVAL;
-        }
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
+	if (argc == 1) {
+		print_{{ parameter['var'] }}(shell);                                                    
+		return 0;
+	}
+	if (argc == 2) {
+		bool is_false = !strcmp(argv[1], "false");
+		bool is_true = !strcmp(argv[1], "true");
+		if (is_false) {
+			m_app_config_interim.{{ parameter['var'] }} = false;
+		} else if (is_true) {
+			m_app_config_interim.{{ parameter['var'] }} = true;
+		} else {
+			shell_error(shell, "invalid format");
+			return -EINVAL;
+		}
+		return 0;
+	}
+	shell_help(shell);
+	return -EINVAL;
 }
 {%- endif -%}
 
@@ -242,8 +242,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                               
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %d",
-            m_app_config_interim.{{ parameter['var'] }});
+	shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }}  %d",
+			m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }
@@ -252,28 +252,28 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 { 
 {%- raw -%}
 {% endraw %}
-    if (argc == 1) {
-        print_{{ parameter['var'] }}(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        size_t len = strlen(argv[1]);
-        for (size_t i = 0; i < len; i++) {
-            if (!isdigit((int)argv[1][i])) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
-        }
-        long value = strtol(argv[1], NULL, 10);
-        if (value < {{ parameter['min'] }} || value > {{ parameter['max'] }}) {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.{{ parameter['var'] }} = (int)value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
+	if (argc == 1) {
+		print_{{ parameter['var'] }}(shell);
+		return 0;
+	}
+	if (argc == 2) {
+		size_t len = strlen(argv[1]);
+		for (size_t i = 0; i < len; i++) {
+			if (!isdigit((int)argv[1][i])) {
+				shell_error(shell, "invalid format");
+				return -EINVAL;
+			}
+		}
+		long value = strtol(argv[1], NULL, 10);
+		if (value < {{ parameter['min'] }} || value > {{ parameter['max'] }}) {
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+		m_app_config_interim.{{ parameter['var'] }} = (int)value;
+		return 0;
+	}
+	shell_help(shell);
+	return -EINVAL;
 }
 {%- endif -%}
 
@@ -283,8 +283,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
-            m_app_config_interim.{{ parameter['var'] }});
+	shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
+			m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }
@@ -293,27 +293,27 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {
 {%- raw -%}
 {% endraw %}
-    if (argc == 1) {
-        print_{{ parameter['var'] }}(shell);
-        return 0;
-    }
-    if (argc == 2) {
-        float value;
-        int ret = sscanf(argv[1], "%f", &value);
-        if (ret != 1) {
-            shell_error(shell, "invalid value");
-            return -EINVAL;
-        }
-        if (value < {{ parameter['min'] }} || value > {{ parameter['max'] }}) 
-        {
-            shell_error(shell, "invalid range");
-            return -EINVAL;
-        }
-        m_app_config_interim.{{ parameter['var'] }} = value;
-        return 0;
-    }
-    shell_help(shell);
-    return -EINVAL;
+	if (argc == 1) {
+		print_{{ parameter['var'] }}(shell);
+		return 0;
+	}
+	if (argc == 2) {
+		float value;
+		int ret = sscanf(argv[1], "%f", &value);
+		if (ret != 1) {
+			shell_error(shell, "invalid value");
+			return -EINVAL;
+		}
+		if (value < {{ parameter['min'] }} || value > {{ parameter['max'] }}) 
+		{
+			shell_error(shell, "invalid range");
+			return -EINVAL;
+		}
+		m_app_config_interim.{{ parameter['var'] }} = value;
+		return 0;
+	}
+	shell_help(shell);
+	return -EINVAL;
 }
 {%- endif -%}
 
@@ -323,8 +323,8 @@ static void print_{{ parameter['var'] }}(const struct shell *shell)
 {                                  
 {%- raw -%}
 {% endraw %}
-    shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
-            m_app_config_interim.{{ parameter['var'] }});
+	shell_print(shell, "{{parameter['domain']}} config {{ parameter['name'] }} %.1f",
+			m_app_config_interim.{{ parameter['var'] }});
 {%- raw -%}
 {% endraw %}
 }
@@ -333,31 +333,31 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {
 {%- raw -%}
 {% endraw %}
-    if (argc == 1) {
-        print_{{ parameter['var'] }}(shell);
-        return 0;
-    }
-    if (argc == 2) {
-            size_t len = strlen(argv[1]);
+	if (argc == 1) {
+		print_{{ parameter['var'] }}(shell);
+		return 0;
+	}
+	if (argc == 2) {
+			size_t len = strlen(argv[1]);
 
-            if (len >= sizeof(m_config_interim.{{ parameter['var'] }})) {
-                shell_error(shell, "invalid format");
-                return -EINVAL;
-            }
+			if (len >= sizeof(m_config_interim.{{ parameter['var'] }})) {
+				shell_error(shell, "invalid format");
+				return -EINVAL;
+			}
 
-            for (size_t i = 0; i < len; i++) {
-                char c = argv[1][i];
-                if (!isalnum((int)c) && c != '-' && c != '.') {
-                    shell_error(shell, "invalid format");
-                    return -EINVAL;
-                }
-            }
+			for (size_t i = 0; i < len; i++) {
+				char c = argv[1][i];
+				if (!isalnum((int)c) && c != '-' && c != '.') {
+					shell_error(shell, "invalid format");
+					return -EINVAL;
+				}
+			}
 
-            strcpy(m_config_interim.{{ parameter['var'] }}, argv[1]);
-            return 0;
-        }
-    shell_help(shell);
-    return -EINVAL;
+			strcpy(m_config_interim.{{ parameter['var'] }}, argv[1]);
+			return 0;
+		}
+	shell_help(shell);
+	return -EINVAL;
 }
 {%- endif -%}
 
@@ -371,7 +371,7 @@ static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 
 	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }}); i++) {
 		shell_print(shell, "app config {{ parameter['name'] }} %d %s", i + 1,
-			    m_app_config_interim.{{ parameter['var'] }}[i] ? "true" : "false");
+				m_app_config_interim.{{ parameter['var'] }}[i] ? "true" : "false");
 	}
 {%- raw -%}
 {% endraw %}
@@ -379,7 +379,7 @@ static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
 {
-    int channel;
+	int channel;
 
 	if (argc >= 2) {
 		unsigned long ch = strtoul(argv[1], NULL, 10);
@@ -401,7 +401,7 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 		int ch = channel;
 
 		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
-		     i++) {
+			 i++) {
 			m_app_config_interim.{{ parameter['var'] }}[i] = true;
 		}
 
@@ -412,7 +412,7 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 		int ch = channel;
 
 		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
-		     i++) {
+			 i++) {
 			m_app_config_interim.{{ parameter['var'] }}[i] = false;
 		}
 
@@ -434,7 +434,7 @@ static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 
 	for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }}); i++) {
 		shell_print(shell, "app config {{ parameter['name'] }} %d %d", i + 1,
-			    m_app_config_interim.{{ parameter['var'] }}[i]);
+				m_app_config_interim.{{ parameter['var'] }}[i]);
 	}
 {%- raw -%}
 {% endraw %}
@@ -442,7 +442,7 @@ static void print_{{ parameter['var'] }}(const struct shell *shell, int channel)
 
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv)
 {
-    int channel;
+	int channel;
 
 	if (argc >= 2) {
 		unsigned long ch = strtoul(argv[1], NULL, 10);
@@ -470,7 +470,7 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 		int ch = channel;
 
 		for (int i = ch != 0 ? ch - 1 : 0; i < (ch != 0 ? ch : {{ parameter['len'] }});
-		     i++) {
+			 i++) {
 			m_app_config_interim.{{ parameter['var'] }}[i] = val;
 		}
 
@@ -486,18 +486,18 @@ int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size
 {#- CONFIG SHOW #}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv)
 {   
-    {%-if config_mode%}
-    print_app_config_mode(shell);
-    {%- endif %}
-    {%- for parameter in parameters %}
-    {%- if parameter['type'].split('[')[0] == 'array' %}
-    print_{{ parameter['var'] }}(shell, 0);
-    {%- else %}
+	{%-if config_mode%}
+	print_app_config_mode(shell);
+	{%- endif %}
+	{%- for parameter in parameters %}
+	{%- if parameter['type'].split('[')[0] == 'array' %}
+	print_{{ parameter['var'] }}(shell, 0);
+	{%- else %}
 	print_{{ parameter['var'] }}(shell);
-    {%- endif %}
-    {%- endfor %}
-    
-    return 0;
+	{%- endif %}
+	{%- endfor %}
+	
+	return 0;
 }
 
 /* USER CODE BEGIN Functions 1 */
@@ -513,124 +513,124 @@ static int h_commit(void)
 {# H_SET #}
 static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
 {
-    int ret;
-    const char *next;
-    {%- if config_mode %}
-    if (settings_name_steq(key, "mode", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.mode)) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
-    {% endif %}
+	int ret;
+	const char *next;
+	{%- if config_mode %}
+	if (settings_name_steq(key, "mode", &next) && !next) {
+		if (len != sizeof(m_app_config_interim.mode)) {
+			return -EINVAL;
+		}
+		ret = read_cb(cb_arg, &m_app_config_interim.mode, len);
+		if (ret < 0) {
+			LOG_ERR("Call `read_cb` failed: %d", ret);
+			return ret;
+		}
+		return 0;
+	}
+	{% endif %}
 {%- for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int' or parameter['type'] == 'string'%}
-    if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var'] }}, len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }
+	if (settings_name_steq(key, "{{ parameter['name'] }}", &next) && !next) {
+		if (len != sizeof(m_app_config_interim.{{ parameter['var'] }})) {
+			return -EINVAL;
+		}
+		ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var'] }}, len);
+		if (ret < 0) {
+			LOG_ERR("Call `read_cb` failed: %d", ret);
+			return ret;
+		}
+		return 0;
+	}
 {% endif %}
 {%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
 {%- for i in range(parameter['len'])%}
-    if (settings_name_steq(key, "{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &next) && !next) {
-        if (len != sizeof(m_app_config_interim.{{ parameter['var'] }}[{{i}}])) {
-            return -EINVAL;
-        }
-        ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var']}}[{{i}}], len);
-        if (ret < 0) {
-            LOG_ERR("Call `read_cb` failed: %d", ret);
-            return ret;
-        }
-        return 0;
-    }    
+	if (settings_name_steq(key, "{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &next) && !next) {
+		if (len != sizeof(m_app_config_interim.{{ parameter['var'] }}[{{i}}])) {
+			return -EINVAL;
+		}
+		ret = read_cb(cb_arg, &m_app_config_interim.{{ parameter['var']}}[{{i}}], len);
+		if (ret < 0) {
+			LOG_ERR("Call `read_cb` failed: %d", ret);
+			return ret;
+		}
+		return 0;
+	}    
 {% endfor %}
 {%- endif %}
 {%- endfor %}
-    /* USER CODE BEGIN Functions 2 */
-    /* USER CODE END Functions 2 */
+	/* USER CODE BEGIN Functions 2 */
+	/* USER CODE END Functions 2 */
 
-    return 0;
+	return 0;
 }
 {# H_EXPORT #}
 static int h_export(int (*export_func)(const char *name, const void *val, size_t val_len))
 {
-    int ret;
-    {%- if config_mode %}
-    ret = export_func("{{setting_pfx}}/mode", &m_app_config_interim.mode,
-                      sizeof( m_app_config_interim.mode));
-    if (ret < 0) {
-        return ret;
-    }
-    {%-endif%}
+	int ret;
+	{%- if config_mode %}
+	ret = export_func("{{setting_pfx}}/mode", &m_app_config_interim.mode,
+					  sizeof( m_app_config_interim.mode));
+	if (ret < 0) {
+		return ret;
+	}
+	{%-endif%}
 {% for parameter in data['parameters'] -%}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'float' or parameter['type'] == 'int'or parameter['type'] == 'string' %}
-    ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}},
-                      sizeof( m_app_config_interim.{{parameter['var']}}));
-    if (ret < 0) {
-        return ret;
-    }
+	ret = export_func("{{setting_pfx}}/{{parameter['name']}}", &m_app_config_interim.{{parameter['var']}},
+					  sizeof( m_app_config_interim.{{parameter['var']}}));
+	if (ret < 0) {
+		return ret;
+	}
 {% endif %}
 {%- if parameter['type'] == 'array[bool]' or parameter['type'] == 'array[int]' %}
-    {%- for i in range(parameter['len']) %}
-    ret = export_func("{{setting_pfx}}/{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &m_app_config_interim.{{parameter['var']}}[{{i}}],
-                      sizeof( m_app_config_interim.{{parameter['var']}}[{{i}}]));
-    if (ret < 0) {
-        return ret;
-    }
-    {% endfor %}
+	{%- for i in range(parameter['len']) %}
+	ret = export_func("{{setting_pfx}}/{{parameter['name'].split('-')[0]}}-{{i}}-{{parameter['name'].split('-')[1:] | join('-')}}", &m_app_config_interim.{{parameter['var']}}[{{i}}],
+					  sizeof( m_app_config_interim.{{parameter['var']}}[{{i}}]));
+	if (ret < 0) {
+		return ret;
+	}
+	{% endfor %}
 {%- endif %}
 {%- endfor %}
-    /* USER CODE BEGIN Functions 3 */
-    /* USER CODE END Functions 3 */
+	/* USER CODE BEGIN Functions 3 */
+	/* USER CODE END Functions 3 */
 
-    return 0;
+	return 0;
 }
 {# INIT #}
 static int init(void) 
 {
-    int ret;
+	int ret;
 
-    LOG_INF("System initialization");
+	LOG_INF("System initialization");
 
-    static struct settings_handler sh = {
-        .name = SETTINGS_PFX,
-        .h_set = h_set,
-        .h_commit = h_commit,
-        .h_export = h_export,
-    };
+	static struct settings_handler sh = {
+		.name = SETTINGS_PFX,
+		.h_set = h_set,
+		.h_commit = h_commit,
+		.h_export = h_export,
+	};
 
-    ret = settings_register(&sh);
+	ret = settings_register(&sh);
 
-    if (ret < 0) {
-        LOG_ERR("Call `settings_register` failed: %d", ret);
-        return ret;
-    }
+	if (ret < 0) {
+		LOG_ERR("Call `settings_register` failed: %d", ret);
+		return ret;
+	}
 
-    ret = settings_load_subtree(SETTINGS_PFX);
+	ret = settings_load_subtree(SETTINGS_PFX);
 
-    if (ret < 0) {
-        LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
-        return ret;
-    }
+	if (ret < 0) {
+		LOG_ERR("Call `settings_load_subtree` failed: %d", ret);
+		return ret;
+	}
 
-    ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
+	ctr_config_append_show(SETTINGS_PFX, app_config_cmd_config_show);
 
-    /* USER CODE BEGIN Functions 4 */
-    /* USER CODE END Functions 4 */
+	/* USER CODE BEGIN Functions 4 */
+	/* USER CODE END Functions 4 */
 
-    return 0;
+	return 0;
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);

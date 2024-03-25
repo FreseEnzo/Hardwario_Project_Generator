@@ -22,6 +22,5 @@ target_sources(app PRIVATE src/app_work.c)
 target_sources(app PRIVATE src/app_handler.c)
 target_sources(app PRIVATE src/app_backup.c)
 target_sources(app PRIVATE src/app_cbor.c)    
-target_sources_ifdef(CONFIG_CTR_BLE app PRIVATE src/app_ble_svc.c)
-    
+target_sources_ifdef(CONFIG_CTR_BLE app PRIVATE src/app_ble_svc.c)    
 target_sources_ifdef(CONFIG_SHIELD_CTR_LTE app PRIVATE src/app_cbor.c)

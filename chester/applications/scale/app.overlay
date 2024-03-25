@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 HARDWARIO a.s.
+// Copyright (c) 2024 HARDWARIO a.s.
 //
 // SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 //
@@ -14,7 +14,7 @@
 &uart0 {
 	status = "okay";
 };
-    
+	
 /* X3_A ---------------------------------------------------------------------- */
 &ctr_x3_a {
 	status = "okay";
@@ -27,7 +27,7 @@
 &ctr_x3_ads122c04_a2 {
 	status = "okay";
 };
-    
+	
 /* X3_B ---------------------------------------------------------------------- */
 &ctr_x3_b {
 	status = "okay";
@@ -40,12 +40,12 @@
 &ctr_x3_ads122c04_b2 {
 	status = "okay";
 };
-    
+	
 /* Z ---------------------------------------------------------------------- */
 &ctr_z {
 	status = "okay";
 };
-    
+	
 /* PEOPLE_COUNTER ---------------------------------------------------------------------- */
 &i2c0 {
 	people_counter: people_counter@7f {
@@ -54,4 +54,4 @@
 		reg = <0x7f>;
 	};
 }; 
-    
+	

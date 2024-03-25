@@ -1,68 +1,68 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
 
 # Configurations ------------------------------------------------------------------ #
 {%- for feature in data['features'] %}
-    {%- if feature == 'shell' %}
+	{%- if feature == 'shell' %}
 CONFIG_ADC_SHELL=y
-    {%- elif feature == 'adc' %}
+	{%- elif feature == 'adc' %}
 CONFIG_CTR_ADC=y
-    {%- elif feature == 'accel' %}
+	{%- elif feature == 'accel' %}
 CONFIG_CTR_ACCEL=y
-    {%- elif feature == 'batt' %}
+	{%- elif feature == 'batt' %}
 CONFIG_CTR_BATT=y
-    {%- elif feature == 'bluetooth' %}
+	{%- elif feature == 'bluetooth' %}
 CONFIG_CTR_BLE=y
-    {%- elif feature == 'buf' %}
+	{%- elif feature == 'buf' %}
 CONFIG_CTR_BUF=y
-    {%- elif feature == 'button' %}
+	{%- elif feature == 'button' %}
 CONFIG_CTR_BUTTON=y
-    {%- elif feature == 'defaults' %}
+	{%- elif feature == 'defaults' %}
 CONFIG_CTR_DEFAULTS=y
-    {%- elif feature == 'edge' %}
+	{%- elif feature == 'edge' %}
 CONFIG_CTR_EDGE=y
-    {%- elif feature == 'info' %}
+	{%- elif feature == 'info' %}
 CONFIG_CTR_INFO=y
-    {%- elif feature == 'led' %}
+	{%- elif feature == 'led' %}
 CONFIG_CTR_LED=y
-    {%- elif feature == 'log' %}
+	{%- elif feature == 'log' %}
 CONFIG_CTR_LOG=y
-    {%- elif feature == 'lte' %}
+	{%- elif feature == 'lte' %}
 CONFIG_CTR_LTE_CLKSYNC=y
-    {%- elif feature == 'lorawan' %}
+	{%- elif feature == 'lorawan' %}
 CONFIG_CTR_LRW=y
-    {%- elif feature == 'rtc' %}
+	{%- elif feature == 'rtc' %}
 CONFIG_CTR_RTC=y
-    {%- elif feature == 'therm' %}
+	{%- elif feature == 'therm' %}
 CONFIG_CTR_THERM=y
-    {%- elif feature == 'wdog' %}
+	{%- elif feature == 'wdog' %}
 CONFIG_CTR_WDOG=y
-    {%- elif feature == 'entropy_generator' %}
+	{%- elif feature == 'entropy_generator' %}
 CONFIG_ENTROPY_GENERATOR=y
-    {%- elif feature == 'tinycrypt_sha256' %}
+	{%- elif feature == 'tinycrypt_sha256' %}
 CONFIG_TINYCRYPT_SHA256=y
-    {%- elif feature == 'tinycrypt' %}
+	{%- elif feature == 'tinycrypt' %}
 CONFIG_TINYCRYPT=y
-    {%- elif feature == 'zcbor_stop_on_error' %}
+	{%- elif feature == 'zcbor_stop_on_error' %}
 CONFIG_ZCBOR_STOP_ON_ERROR=y
-    {%- elif feature == 'zcbor' %}
+	{%- elif feature == 'zcbor' %}
 CONFIG_ZCBOR=y
-    {%- elif feature == 'config' %}
+	{%- elif feature == 'config' %}
 CONFIG_CTR_CONFIG=y
-    {%- elif feature == 'flash' %}
+	{%- elif feature == 'flash' %}
 CONFIG_CTR_FLASH=y
-    {%- elif feature == 'cbprintf_fp_support' %}
+	{%- elif feature == 'cbprintf_fp_support' %}
 CONFIG_CBPRINTF_FP_SUPPORT=y
-    {%- elif feature == 'mb7066_a' %}
+	{%- elif feature == 'mb7066_a' %}
 CONFIG_MB7066_TIMER4=y
 CONFIG_MB7066_SAMPLE_COUNT=1
-    {%- elif feature == 'mb7066_b' %}
+	{%- elif feature == 'mb7066_b' %}
 CONFIG_MB7066_TIMER4=y
 CONFIG_MB7066_SAMPLE_COUNT=1
-    {%- endif %}
+	{%- endif %}
 {%- endfor %}
 
 # Extra configurations ------------------------------------------------------------------ #

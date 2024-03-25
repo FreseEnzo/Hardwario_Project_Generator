@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -32,23 +32,23 @@ enum app_config_mode {
 };
 
 struct app_config {
-    enum app_config_mode mode;
-    int interval_sample;
-    int interval_aggreg;
-    int interval_report;
-    bool hygro_t_alarm_hi_report;
-    bool hygro_t_alarm_lo_report;
-    float hygro_t_alarm_hi_thr;
-    float hygro_t_alarm_hi_hst;
-    float hygro_t_alarm_lo_thr;
-    float hygro_t_alarm_lo_hst;
-    int event_report_delay;
-    int event_report_rate;
-    bool backup_report_connected;
-    bool backup_report_disconnected;
+	enum app_config_mode mode;
+	int interval_sample;
+	int interval_aggreg;
+	int interval_report;
+	bool hygro_t_alarm_hi_report;
+	bool hygro_t_alarm_lo_report;
+	float hygro_t_alarm_hi_thr;
+	float hygro_t_alarm_hi_hst;
+	float hygro_t_alarm_lo_thr;
+	float hygro_t_alarm_lo_hst;
+	int event_report_delay;
+	int event_report_rate;
+	bool backup_report_connected;
+	bool backup_report_disconnected;
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;

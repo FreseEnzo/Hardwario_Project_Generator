@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -13,7 +13,7 @@ config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 
 	select CTR_EDGE
-    
+	
 # LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
@@ -21,7 +21,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
+	
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
@@ -29,7 +29,7 @@ config SHIELD_CTR_LRW
 
 config CTR_LRW
 	default y
-    
+	
 # S2 ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
@@ -37,7 +37,7 @@ config SHIELD_CTR_S2
 
 config CTR_HYGRO
 	default y
-    
+	
 # SOIL_SENSOR ---------------------------------------------------------------------- #
 config SHIELD_CTR_SOIL_SENSOR
 	bool "Enable SHIELD_CTR_SOIL_SENSOR"
@@ -53,7 +53,7 @@ config SHIELD_CTR_CTR_X4_A
 
 config CTR_X4
 	default y
-    
+	
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -64,7 +64,7 @@ config CTR_Z
 
 config I2C
 	default y
-    
+	
 endmenu
 
 menu "Zephyr Kernel"

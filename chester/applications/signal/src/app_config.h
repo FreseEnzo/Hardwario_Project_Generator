@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -25,11 +25,11 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 struct app_config {
-    int report_inteval;
-    int measurement_interval;
+	int report_inteval;
+	int measurement_interval;
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;

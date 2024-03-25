@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 HARDWARIO a.s.
+// Copyright (c) 2024 HARDWARIO a.s.
 //
 // SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 //
@@ -12,7 +12,7 @@
 		tamper-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
 	};
 };
-    
+	
 /* LTE ---------------------------------------------------------------------- */
 &ctr_lte_if {
 	status = "okay";
@@ -21,7 +21,7 @@
 &uart0 {
 	status = "okay";
 };
-    
+	
 /* LRW  ---------------------------------------------------------------------- */
 &ctr_lrw_if {
 	status = "okay";
@@ -30,12 +30,12 @@
 &uart1 {
 	status = "okay";
 };
-    
+	
 /* S2 ---------------------------------------------------------------------- */
 &sht30_ext {
 	status = "okay";
 };
-    
+	
 /* SOIL_SENSOR ---------------------------------------------------------------------- */
 &ds2484 {
 	ctr_soil_sensor_0: ctr_soil_sensor_0 {
@@ -88,9 +88,9 @@
 &ctr_x4_tla2021 {
 	status = "okay";
 };
-    
+	
 /* Z ---------------------------------------------------------------------- */
 &ctr_z {
 	status = "okay";
 };
-    
+	

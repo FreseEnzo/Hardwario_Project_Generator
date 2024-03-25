@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -25,22 +25,22 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 struct app_config {
-    int interval_report;
-    int interval_aggreg;
-    int interval_sample;
-    int event_report_delay;
-    int event_report_rate;
-    bool backup_report_connected;
-    bool backup_report_disconnected;
-    bool hygro_t_alarm_hi_report;
-    bool hygro_t_alarm_lo_report;
-    float hygro_t_alarm_hi_thr;
-    float hygro_t_alarm_hi_hst;
-    float hygro_t_alarm_lo_thr;
-    float hygro_t_alarm_lo_hst;
+	int interval_report;
+	int interval_aggreg;
+	int interval_sample;
+	int event_report_delay;
+	int event_report_rate;
+	bool backup_report_connected;
+	bool backup_report_disconnected;
+	bool hygro_t_alarm_hi_report;
+	bool hygro_t_alarm_lo_report;
+	float hygro_t_alarm_hi_thr;
+	float hygro_t_alarm_hi_hst;
+	float hygro_t_alarm_lo_thr;
+	float hygro_t_alarm_lo_hst;
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;

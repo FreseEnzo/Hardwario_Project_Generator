@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -7,7 +7,7 @@
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
-    {%- do config_mode.append(1) %}
+	{%- do config_mode.append(1) %}
 {% endif %}
 /* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
@@ -116,53 +116,53 @@ static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char 
 {% endfor %}
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
-    if (argc > 1) {
-        shell_error(shell, "command not found: %s", argv[1]);
-        shell_help(shell);
-        return -EINVAL;
-    }
+	if (argc > 1) {
+		shell_error(shell, "command not found: %s", argv[1]);
+		shell_help(shell);
+		return -EINVAL;
+	}
 
-    shell_help(shell);
-    return 0;
+	shell_help(shell);
+	return 0;
 }
 
 /* clang-format off */
 
 SHELL_STATIC_SUBCMD_SET_CREATE(
-    sub_app_config,
+	sub_app_config,
    
-    SHELL_CMD_ARG(show, NULL,
-                  "List current configuration.",
-                  app_config_cmd_config_show, 1, 0),
-    {% if config_mode %}
-    SHELL_CMD_ARG(mode, NULL,
-                  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
-                  app_config_cmd_config_mode, 1, 1),
-    {%- endif %}
-    {%- for parameter in parameters %}
+	SHELL_CMD_ARG(show, NULL,
+				  "List current configuration.",
+				  app_config_cmd_config_show, 1, 0),
+	{% if config_mode %}
+	SHELL_CMD_ARG(mode, NULL,
+				  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
+				  app_config_cmd_config_mode, 1, 1),
+	{%- endif %}
+	{%- for parameter in parameters %}
 	{%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
 	SHELL_CMD_ARG({{ parameter.name }}, NULL,
 				"{{ parameter.help }}",
 				app_config_cmd_config_{{ parameter.var }}, 2, 1),
 	{%- else%}
-    SHELL_CMD_ARG({{ parameter.name }}, NULL,
-                  "{{ parameter.help }}",
-                  app_config_cmd_config_{{ parameter.var }}, 1, 1),
+	SHELL_CMD_ARG({{ parameter.name }}, NULL,
+				  "{{ parameter.help }}",
+				  app_config_cmd_config_{{ parameter.var }}, 1, 1),
 	{%- endif %}
-    {% endfor %}
+	{% endfor %}
 	/* USER CODE BEGIN Functions 1 */
 	/* USER CODE END Functions 1 */
 
-    SHELL_SUBCMD_SET_END
+	SHELL_SUBCMD_SET_END
 );
 
 SHELL_STATIC_SUBCMD_SET_CREATE(
-    sub_app,
+	sub_app,
 
-    SHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.",
-                  print_help, 1, 0),
-        
-    SHELL_SUBCMD_SET_END
+	SHELL_CMD_ARG(config, &sub_app_config, "Configuration commands.",
+				  print_help, 1, 0),
+		
+	SHELL_SUBCMD_SET_END
 
 /* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
