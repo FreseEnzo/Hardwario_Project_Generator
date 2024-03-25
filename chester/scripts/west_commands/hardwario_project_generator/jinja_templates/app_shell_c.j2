@@ -37,7 +37,8 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
-{% if variant_name_lower.split(' ')[0] == 'scale' %}
+
+{%- if variant_name_lower.split(' ')[0] == 'scale' %}
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -99,7 +100,7 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 	return 0;
 }
 {%- endif %}
-{% for command in commands %}
+{%- for command in commands %}
 static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {

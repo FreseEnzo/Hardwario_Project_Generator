@@ -35,7 +35,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .channel_a1_active = true,
     .channel_a2_active = true,
     .channel_b1_active = true,

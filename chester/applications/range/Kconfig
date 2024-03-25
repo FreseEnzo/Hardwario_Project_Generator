@@ -8,7 +8,7 @@ menu "Application"
 
 # RANGE Project ------------------------------------------------- #
 
-# LTE  ---------------------------------------------------------------------- #
+# LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
@@ -16,7 +16,7 @@ config SHIELD_CTR_LTE
 config CTR_LTE
 	default y
     
-# Z  ---------------------------------------------------------------------- #
+# Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
@@ -27,7 +27,7 @@ config CTR_Z
 config I2C
 	default y
     
-# MB7066_A  ---------------------------------------------------------------------- #
+# MB7066_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_MB7066_A"
 	default y 
@@ -38,14 +38,15 @@ config CTR_X0
 config MB7066
 	default y
     
-# DS18B20  ---------------------------------------------------------------------- #
+# DS18B20 ---------------------------------------------------------------------- #
 config SHIELD_CTR_DS18B20
+	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
 
 config CTR_DS18B20
 	default y
     
-# S2  ---------------------------------------------------------------------- #
+# S2 ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
@@ -53,7 +54,7 @@ config SHIELD_CTR_S2
 config CTR_HYGRO
 	default y
     
-# REPORT_JITTER  ---------------------------------------------------------------------- #
+# REPORT_JITTER ---------------------------------------------------------------------- #
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 

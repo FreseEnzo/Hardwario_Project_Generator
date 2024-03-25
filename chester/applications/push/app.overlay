@@ -1,31 +1,31 @@
-/*
- * Copyright (c) 2023 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
+//
+// Copyright (c) 2023 HARDWARIO a.s.
+//
+// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+//
 
-/* LRW  ----------------------------------------------------------------------*/
+/* PUSH Project ------------------------------------------------- */
+
+/* LRW  ---------------------------------------------------------------------- */
 &ctr_lrw_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart1 {
-    status = "okay";
+	status = "okay";
 };
-
-/* LTE  ----------------------------------------------------------------------*/
+    
+/* LTE ---------------------------------------------------------------------- */
 &ctr_lte_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-
-/* Z  ----------------------------------------------------------------------*/
+    
+/* Z ---------------------------------------------------------------------- */
 &ctr_z {
-    status = "okay";
+	status = "okay";
 };
-
-/* USER CODE BEGIN Overlay */
-/* USER CODE END Overlay */
+    

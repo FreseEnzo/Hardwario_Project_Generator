@@ -36,7 +36,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .interval_sample = 60,
     .interval_aggreg = 300,
     .interval_report = 1800,

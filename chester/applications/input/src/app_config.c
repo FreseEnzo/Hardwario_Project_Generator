@@ -35,7 +35,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-
     .interval_report = 1800,
     .event_report_delay = 5,
     .event_report_rate = 30,

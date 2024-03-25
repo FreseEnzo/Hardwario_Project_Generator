@@ -42,7 +42,7 @@ struct app_config g_app_config;
 {#- STRUCT #}
 {% if data %}
 static struct app_config m_app_config_interim = {
-{% for param in data['parameters'] %}
+{%- for param in data['parameters'] %}
     {%- if param['default'] != none %}
     {% if param['type'] == 'string'  -%}
     .{{ param['var'] }} = "{{ param['default'] }}",
@@ -51,7 +51,7 @@ static struct app_config m_app_config_interim = {
     {%- else -%}
     .{{ param['var'] }} = {{ param['default'] }},
     {%- endif -%}
-    {% endif %}
+    {%- endif %}
 {%- endfor -%}
 {# MODE LTE-LRW #}
 {%- if config_mode %}

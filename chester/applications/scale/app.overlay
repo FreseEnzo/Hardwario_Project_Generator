@@ -1,65 +1,57 @@
-/*
- * Copyright (c) 2023 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
+//
+// Copyright (c) 2023 HARDWARIO a.s.
+//
+// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+//
 
-/* LTE  ----------------------------------------------------------------------*/
+/* SCALE Project ------------------------------------------------- */
+
+/* LTE ---------------------------------------------------------------------- */
 &ctr_lte_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-
-/* X3_A  ----------------------------------------------------------------------*/
+    
+/* X3_A ---------------------------------------------------------------------- */
 &ctr_x3_a {
 	status = "okay";
 };
 
 &ctr_x3_ads122c04_a1 {
 	status = "okay";
-    gain = <7>;
-	vref = <1>;
 };
 
 &ctr_x3_ads122c04_a2 {
 	status = "okay";
-    gain = <7>;
-	vref = <1>;
 };
-
-/* X3_B  ----------------------------------------------------------------------*/
+    
+/* X3_B ---------------------------------------------------------------------- */
 &ctr_x3_b {
 	status = "okay";
 };
 
 &ctr_x3_ads122c04_b1 {
 	status = "okay";
-    gain = <7>;
-	vref = <1>;
 };
 
 &ctr_x3_ads122c04_b2 {
 	status = "okay";
-    gain = <7>;
-	vref = <1>;
 };
-
-/* Z  ----------------------------------------------------------------------*/
+    
+/* Z ---------------------------------------------------------------------- */
 &ctr_z {
-    status = "okay";
+	status = "okay";
 };
-
-/* PEOPLE_COUNTER  ----------------------------------------------------------------------*/
+    
+/* PEOPLE_COUNTER ---------------------------------------------------------------------- */
 &i2c0 {
 	people_counter: people_counter@7f {
 		compatible = "adastra,people-counter";
 		status = "okay";
 		reg = <0x7f>;
 	};
-};
-
-/* USER CODE BEGIN Overlay */
-/* USER CODE END Overlay */
+}; 
+    

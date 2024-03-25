@@ -27,8 +27,6 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-
-
 static int cmd_sample(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
