@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -7,7 +7,6 @@
 #define APP_CONFIG_H_
 
 /* Includes ------------------------------------------------------------------*/
-
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -50,10 +49,8 @@ int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
-						     char **argv);
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

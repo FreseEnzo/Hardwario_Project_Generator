@@ -6,7 +6,7 @@ project:
   version: v1.0.0
   variant: Clime
 features: 
-- tamper
+#- tamper
 - shell
 - accel
 - batt
@@ -17,9 +17,6 @@ features:
 - info
 - led
 - log
-- lte
-- lrw
-- s2
 - rtc
 - therm
 - wdog
@@ -27,10 +24,13 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
-- soil_sensor
-- x4_a
-- z
-- ds19b20
+- lte
+- lrw
+- s2
+#- soil_sensor
+#- x4_a
+#- z
+#- ds19b20
 parameters:
 - domain: app
   name: interval-sample

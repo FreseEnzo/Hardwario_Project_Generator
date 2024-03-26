@@ -109,7 +109,8 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 static void print_interval_sample(const struct shell *shell)
 {
-	shell_print(shell, "app config interval-sample  %d", m_app_config_interim.interval_sample);
+	shell_print(shell, "app config interval-sample  %d",
+			m_app_config_interim.interval_sample);
 }
 
 int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc, char **argv)
@@ -140,7 +141,8 @@ int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc
 
 static void print_interval_aggreg(const struct shell *shell)
 {
-	shell_print(shell, "app config interval-aggreg  %d", m_app_config_interim.interval_aggreg);
+	shell_print(shell, "app config interval-aggreg  %d",
+			m_app_config_interim.interval_aggreg);
 }
 
 int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
@@ -171,7 +173,8 @@ int app_config_cmd_config_interval_aggreg(const struct shell *shell, size_t argc
 
 static void print_interval_report(const struct shell *shell)
 {
-	shell_print(shell, "app config interval-report  %d", m_app_config_interim.interval_report);
+	shell_print(shell, "app config interval-report  %d",
+			m_app_config_interim.interval_report);
 }
 
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv)
@@ -203,14 +206,13 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
 static void print_hygro_t_alarm_hi_report(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-hi-report  %s",
-		    m_app_config_interim.hygro_t_alarm_hi_report ? "true" : "false");
+			m_app_config_interim.hygro_t_alarm_hi_report ? "true" : "false");
 }
 
-int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_hygro_t_alarm_hi_report(shell);
+		print_hygro_t_alarm_hi_report(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -233,14 +235,13 @@ int app_config_cmd_config_hygro_t_alarm_hi_report(const struct shell *shell, siz
 static void print_hygro_t_alarm_lo_report(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-lo-report  %s",
-		    m_app_config_interim.hygro_t_alarm_lo_report ? "true" : "false");
+			m_app_config_interim.hygro_t_alarm_lo_report ? "true" : "false");
 }
 
-int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_hygro_t_alarm_lo_report(shell);
+		print_hygro_t_alarm_lo_report(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -263,7 +264,7 @@ int app_config_cmd_config_hygro_t_alarm_lo_report(const struct shell *shell, siz
 static void print_hygro_t_alarm_hi_thr(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-hi-thr %.1f",
-		    m_app_config_interim.hygro_t_alarm_hi_thr);
+			m_app_config_interim.hygro_t_alarm_hi_thr);
 }
 
 int app_config_cmd_config_hygro_t_alarm_hi_thr(const struct shell *shell, size_t argc, char **argv)
@@ -279,7 +280,8 @@ int app_config_cmd_config_hygro_t_alarm_hi_thr(const struct shell *shell, size_t
 			shell_error(shell, "invalid value");
 			return -EINVAL;
 		}
-		if (value < -40.0 || value > 125.0) {
+		if (value < -40.0 || value > 125.0) 
+		{
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -293,7 +295,7 @@ int app_config_cmd_config_hygro_t_alarm_hi_thr(const struct shell *shell, size_t
 static void print_hygro_t_alarm_hi_hst(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-hi-hst %.1f",
-		    m_app_config_interim.hygro_t_alarm_hi_hst);
+			m_app_config_interim.hygro_t_alarm_hi_hst);
 }
 
 int app_config_cmd_config_hygro_t_alarm_hi_hst(const struct shell *shell, size_t argc, char **argv)
@@ -309,7 +311,8 @@ int app_config_cmd_config_hygro_t_alarm_hi_hst(const struct shell *shell, size_t
 			shell_error(shell, "invalid value");
 			return -EINVAL;
 		}
-		if (value < 0.0 || value > 100.0) {
+		if (value < 0.0 || value > 100.0) 
+		{
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -323,7 +326,7 @@ int app_config_cmd_config_hygro_t_alarm_hi_hst(const struct shell *shell, size_t
 static void print_hygro_t_alarm_lo_thr(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-lo-thr %.1f",
-		    m_app_config_interim.hygro_t_alarm_lo_thr);
+			m_app_config_interim.hygro_t_alarm_lo_thr);
 }
 
 int app_config_cmd_config_hygro_t_alarm_lo_thr(const struct shell *shell, size_t argc, char **argv)
@@ -339,7 +342,8 @@ int app_config_cmd_config_hygro_t_alarm_lo_thr(const struct shell *shell, size_t
 			shell_error(shell, "invalid value");
 			return -EINVAL;
 		}
-		if (value < -40.0 || value > 125.0) {
+		if (value < -40.0 || value > 125.0) 
+		{
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -353,7 +357,7 @@ int app_config_cmd_config_hygro_t_alarm_lo_thr(const struct shell *shell, size_t
 static void print_hygro_t_alarm_lo_hst(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-t-alarm-lo-hst %.1f",
-		    m_app_config_interim.hygro_t_alarm_lo_hst);
+			m_app_config_interim.hygro_t_alarm_lo_hst);
 }
 
 int app_config_cmd_config_hygro_t_alarm_lo_hst(const struct shell *shell, size_t argc, char **argv)
@@ -369,7 +373,8 @@ int app_config_cmd_config_hygro_t_alarm_lo_hst(const struct shell *shell, size_t
 			shell_error(shell, "invalid value");
 			return -EINVAL;
 		}
-		if (value < 0.0 || value > 100.0) {
+		if (value < 0.0 || value > 100.0) 
+		{
 			shell_error(shell, "invalid range");
 			return -EINVAL;
 		}
@@ -383,7 +388,7 @@ int app_config_cmd_config_hygro_t_alarm_lo_hst(const struct shell *shell, size_t
 static void print_event_report_delay(const struct shell *shell)
 {
 	shell_print(shell, "app config event-report-delay  %d",
-		    m_app_config_interim.event_report_delay);
+			m_app_config_interim.event_report_delay);
 }
 
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv)
@@ -415,7 +420,7 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 static void print_event_report_rate(const struct shell *shell)
 {
 	shell_print(shell, "app config event-report-rate  %d",
-		    m_app_config_interim.event_report_rate);
+			m_app_config_interim.event_report_rate);
 }
 
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv)
@@ -447,14 +452,13 @@ int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t ar
 static void print_backup_report_connected(const struct shell *shell)
 {
 	shell_print(shell, "app config backup-report-connected  %s",
-		    m_app_config_interim.backup_report_connected ? "true" : "false");
+			m_app_config_interim.backup_report_connected ? "true" : "false");
 }
 
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_backup_report_connected(shell);
+		print_backup_report_connected(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -477,14 +481,13 @@ int app_config_cmd_config_backup_report_connected(const struct shell *shell, siz
 static void print_backup_report_disconnected(const struct shell *shell)
 {
 	shell_print(shell, "app config backup-report-disconnected  %s",
-		    m_app_config_interim.backup_report_disconnected ? "true" : "false");
+			m_app_config_interim.backup_report_disconnected ? "true" : "false");
 }
 
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
-						     char **argv)
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_backup_report_disconnected(shell);
+		print_backup_report_disconnected(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -520,7 +523,7 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 	print_event_report_rate(shell);
 	print_backup_report_connected(shell);
 	print_backup_report_disconnected(shell);
-
+	
 	return 0;
 }
 
@@ -535,7 +538,7 @@ static int h_commit(void)
 	return 0;
 }
 
-static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg)
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
 {
 	int ret;
 	const char *next;
@@ -550,7 +553,7 @@ static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb
 		}
 		return 0;
 	}
-
+	
 	if (settings_name_steq(key, "interval-sample", &next) && !next) {
 		if (len != sizeof(m_app_config_interim.interval_sample)) {
 			return -EINVAL;
@@ -717,95 +720,85 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 {
 	int ret;
 	ret = export_func("chester-clime/mode", &m_app_config_interim.mode,
-			  sizeof(m_app_config_interim.mode));
+					  sizeof( m_app_config_interim.mode));
 	if (ret < 0) {
 		return ret;
 	}
 
 	ret = export_func("chester-clime/interval-sample", &m_app_config_interim.interval_sample,
-			  sizeof(m_app_config_interim.interval_sample));
+					  sizeof( m_app_config_interim.interval_sample));
 	if (ret < 0) {
 		return ret;
 	}
 
 	ret = export_func("chester-clime/interval-aggreg", &m_app_config_interim.interval_aggreg,
-			  sizeof(m_app_config_interim.interval_aggreg));
+					  sizeof( m_app_config_interim.interval_aggreg));
 	if (ret < 0) {
 		return ret;
 	}
 
 	ret = export_func("chester-clime/interval-report", &m_app_config_interim.interval_report,
-			  sizeof(m_app_config_interim.interval_report));
+					  sizeof( m_app_config_interim.interval_report));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-hi-report",
-			  &m_app_config_interim.hygro_t_alarm_hi_report,
-			  sizeof(m_app_config_interim.hygro_t_alarm_hi_report));
+	ret = export_func("chester-clime/hygro-t-alarm-hi-report", &m_app_config_interim.hygro_t_alarm_hi_report,
+					  sizeof( m_app_config_interim.hygro_t_alarm_hi_report));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-lo-report",
-			  &m_app_config_interim.hygro_t_alarm_lo_report,
-			  sizeof(m_app_config_interim.hygro_t_alarm_lo_report));
+	ret = export_func("chester-clime/hygro-t-alarm-lo-report", &m_app_config_interim.hygro_t_alarm_lo_report,
+					  sizeof( m_app_config_interim.hygro_t_alarm_lo_report));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-hi-thr",
-			  &m_app_config_interim.hygro_t_alarm_hi_thr,
-			  sizeof(m_app_config_interim.hygro_t_alarm_hi_thr));
+	ret = export_func("chester-clime/hygro-t-alarm-hi-thr", &m_app_config_interim.hygro_t_alarm_hi_thr,
+					  sizeof( m_app_config_interim.hygro_t_alarm_hi_thr));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-hi-hst",
-			  &m_app_config_interim.hygro_t_alarm_hi_hst,
-			  sizeof(m_app_config_interim.hygro_t_alarm_hi_hst));
+	ret = export_func("chester-clime/hygro-t-alarm-hi-hst", &m_app_config_interim.hygro_t_alarm_hi_hst,
+					  sizeof( m_app_config_interim.hygro_t_alarm_hi_hst));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-lo-thr",
-			  &m_app_config_interim.hygro_t_alarm_lo_thr,
-			  sizeof(m_app_config_interim.hygro_t_alarm_lo_thr));
+	ret = export_func("chester-clime/hygro-t-alarm-lo-thr", &m_app_config_interim.hygro_t_alarm_lo_thr,
+					  sizeof( m_app_config_interim.hygro_t_alarm_lo_thr));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/hygro-t-alarm-lo-hst",
-			  &m_app_config_interim.hygro_t_alarm_lo_hst,
-			  sizeof(m_app_config_interim.hygro_t_alarm_lo_hst));
+	ret = export_func("chester-clime/hygro-t-alarm-lo-hst", &m_app_config_interim.hygro_t_alarm_lo_hst,
+					  sizeof( m_app_config_interim.hygro_t_alarm_lo_hst));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/event-report-delay",
-			  &m_app_config_interim.event_report_delay,
-			  sizeof(m_app_config_interim.event_report_delay));
+	ret = export_func("chester-clime/event-report-delay", &m_app_config_interim.event_report_delay,
+					  sizeof( m_app_config_interim.event_report_delay));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/event-report-rate",
-			  &m_app_config_interim.event_report_rate,
-			  sizeof(m_app_config_interim.event_report_rate));
+	ret = export_func("chester-clime/event-report-rate", &m_app_config_interim.event_report_rate,
+					  sizeof( m_app_config_interim.event_report_rate));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/backup-report-connected",
-			  &m_app_config_interim.backup_report_connected,
-			  sizeof(m_app_config_interim.backup_report_connected));
+	ret = export_func("chester-clime/backup-report-connected", &m_app_config_interim.backup_report_connected,
+					  sizeof( m_app_config_interim.backup_report_connected));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-clime/backup-report-disconnected",
-			  &m_app_config_interim.backup_report_disconnected,
-			  sizeof(m_app_config_interim.backup_report_disconnected));
+	ret = export_func("chester-clime/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
+					  sizeof( m_app_config_interim.backup_report_disconnected));
 	if (ret < 0) {
 		return ret;
 	}
@@ -816,7 +809,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 	return 0;
 }
 
-static int init(void)
+static int init(void) 
 {
 	int ret;
 

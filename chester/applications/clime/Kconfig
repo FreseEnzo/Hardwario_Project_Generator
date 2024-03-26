@@ -7,11 +7,6 @@
 menu "Application"
 
 # CLIME Project ------------------------------------------------- #
-# TAMPER ---------------------------------------------------------------------- #
-config APP_TAMPER
-	bool "Enable tamper functionality"
-	default y 
-	select CTR_EDGE
 # LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
@@ -32,30 +27,6 @@ config SHIELD_CTR_S2
 	default y 
 
 config CTR_HYGRO
-	default y
-# SOIL_SENSOR ---------------------------------------------------------------------- #
-config SHIELD_CTR_SOIL_SENSOR
-	bool "Enable SHIELD_CTR_SOIL_SENSOR"
-	default y 
-
-config CTR_SOIL_SENSOR
-	default y
-# X4_A ---------------------------------------------------------------------- #
-config SHIELD_CTR_CTR_X4_A
-	bool "Enable SHIELD_CTR_X4_A"
-	default y 
-
-config CTR_X4
-	default y
-# Z ---------------------------------------------------------------------- #
-config SHIELD_CTR_Z
-	bool "Enable SHIELD_CTR_Z"
-	default y 
-
-config CTR_Z
-	default y
-
-config I2C
 	default y
 
 endmenu
