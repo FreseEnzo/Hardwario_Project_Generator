@@ -4,7 +4,7 @@ project:
   bundle: com.hardwario.chester.meteo
   name: CHESTER Meteo
   version: v1.0.0 
-  variant: meteo
+  variant: Meteo
 features: 
 - shell
 - accel

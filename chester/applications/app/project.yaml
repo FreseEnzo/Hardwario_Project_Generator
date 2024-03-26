@@ -57,7 +57,7 @@ parameters:
   name: apn
   var: apn
   type: string
-  default: 'onomondo'
+  default: onomondo
   help: 'Set APN network name'
 
 # (variable bool)

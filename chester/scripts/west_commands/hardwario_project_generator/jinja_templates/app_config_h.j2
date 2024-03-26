@@ -70,7 +70,7 @@ struct app_config {
 {%- endif %}
 	{%- for param in data['parameters'] %}
 		{%- if param['type'] == 'string'  %}
-	char {{ param['var'] }} [{{param['len']}}];
+	char {{ param['var'] }} [{{(param['default']|length)+1}}];
 		{% elif param['type'].split('[')[0] == 'array'%}
 	{{param['type'].split('[')[1][0:-1]}} {{ param['var'] }}[{{param['len']}}];
 		{%- else %}
