@@ -33,7 +33,7 @@
 LOG_MODULE_REGISTER(app_measure, LOG_LEVEL_DBG);
 
 #define MAX_REPETITIONS 5
-#define MAX_DIFFERENCE	100
+#define MAX_DIFFERENCE  100
 
 K_MUTEX_DEFINE(g_app_measure_weight_lock);
 

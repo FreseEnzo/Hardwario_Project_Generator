@@ -20,7 +20,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 #define APP_DATA_MAX_BACKUP_EVENTS 32
 #define APP_DATA_MAX_TAMPER_EVENTS 32
 

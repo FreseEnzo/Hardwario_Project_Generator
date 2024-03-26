@@ -1,92 +1,107 @@
-/*
- * Copyright (c) 2023 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
+//
+// Copyright (c) 2024 HARDWARIO a.s.
+//
+// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+//
 
-/* LTE  ----------------------------------------------------------------------*/
+/* METEO Project ------------------------------------------------- */
+/* LTE ---------------------------------------------------------------------- */
 &ctr_lte_if {
-    status = "okay";
+	status = "okay";
 };
 
 &uart0 {
 	status = "okay";
 };
-
-/* DS18B20  ----------------------------------------------------------------------*/
+/* BAROMETER_TAG  ---------------------------------------------------------------------- */
+&ctr_barometer_tag {
+	status = "okay";
+};
+/* DS18B20 ---------------------------------------------------------------------- */
 &ds2484 {
-    ds18b20_0: ds18b20_0 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_0: ds18b20_0 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_1: ds18b20_1 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_1: ds18b20_1 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_2: ds18b20_2 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_2: ds18b20_2 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_3: ds18b20_3 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_3: ds18b20_3 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_4: ds18b20_4 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_4: ds18b20_4 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_5: ds18b20_5 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_5: ds18b20_5 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_6: ds18b20_6 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_6: ds18b20_6 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_7: ds18b20_7 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_7: ds18b20_7 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_8: ds18b20_8 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_8: ds18b20_8 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 
-    ds18b20_9: ds18b20_9 {
-        compatible = "maxim,ds18b20";
-        resolution = <12>;
-        family-code = <0x28>;
-    };
+	ds18b20_9: ds18b20_9 {
+		compatible = "maxim,ds18b20";
+		resolution = <12>;
+		family-code = <0x28>;
+	};
 };
-
-/* S2  ----------------------------------------------------------------------*/
+/* S2 ---------------------------------------------------------------------- */
 &sht30_ext {
-    status = "okay";
+	status = "okay";
+};
+/* METEO_A ---------------------------------------------------------------------- */
+&ctr_x0_a {
+	status = "okay";
+
+	ctr_meteo_a: ctr_meteo_a {
+		compatible = "hardwario,ctr-meteo";
+		slot = "A";
+		status = "okay";
+	};
 };
 
-/* Z  ----------------------------------------------------------------------*/
+&ctr_x0_pcal6416a_a {
+	status = "okay";
+};
+/* Z ---------------------------------------------------------------------- */
 &ctr_z {
-    status = "okay";
+	status = "okay";
 };
-
-/* X2_MODBUS_A  ----------------------------------------------------------------------*/
+/* X2_MODBUS_A ---------------------------------------------------------------------- */
 &ctr_x2_sc16is740_a {
 	status = "okay";
 	rts-control;
@@ -98,6 +113,7 @@
 		re-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
 	};
 };
-
-/* USER CODE BEGIN Overlay */
-/* USER CODE END Overlay */
+/* BAROMETER_TAG  ---------------------------------------------------------------------- */
+&ctr_barometer_tag {
+	status = "okay";
+};

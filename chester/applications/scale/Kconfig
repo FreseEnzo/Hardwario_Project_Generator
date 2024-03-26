@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -7,7 +7,6 @@
 menu "Application"
 
 # SCALE Project ------------------------------------------------- #
-
 # LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
@@ -15,7 +14,6 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
 # X3_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_CTR_X3_A
 	bool "Enable SHIELD_CTR_X3_A"
@@ -23,7 +21,6 @@ config SHIELD_CTR_CTR_X3_A
 
 config CTR_X3
 	default y
-    
 # X3_B ---------------------------------------------------------------------- #
 config SHIELD_CTR_X3_B
 	bool "Enable SHIELD_CTR_X3_B"
@@ -31,7 +28,6 @@ config SHIELD_CTR_X3_B
 
 config CTR_X3
 	default y
-    
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -42,7 +38,6 @@ config CTR_Z
 
 config I2C
 	default y
-    
 # PEOPLE_COUNTER ---------------------------------------------------------------------- #
 config SHIELD_PEOPLE_COUNTER
 	bool "Enable SHIELD_PEOPLE_COUNTER"
@@ -52,7 +47,7 @@ config PEOPLE_COUNTER
 	default y
 
 config I2C
-	default y  
+	default y
 
 endmenu
 

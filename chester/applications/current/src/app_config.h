@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -8,7 +8,6 @@
 #define APP_CONFIG_H_
 
 /* Includes ------------------------------------------------------------------*/
-
 /* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
@@ -35,25 +34,25 @@ enum app_config_mode {
 };
 
 struct app_config {
-    enum app_config_mode mode;
-    int channel_interval_sample;
-    int channel_interval_aggreg;
-    int interval_report;
-    int w1_therm_interval_sample;
-    int w1_therm_interval_aggreg;
-    int event_report_delay;
-    int event_report_rate;
-    bool backup_report_connected;
-    bool backup_report_disconnected;
-    bool channel_active[4];
-    bool channel_differential[4];
-    int channel_calib_x0[4];
-    int channel_calib_y0[4];
-    int channel_calib_x1[4];
-    int channel_calib_y1[4];
+	enum app_config_mode mode;
+	int channel_interval_sample;
+	int channel_interval_aggreg;
+	int interval_report;
+	int w1_therm_interval_sample;
+	int w1_therm_interval_aggreg;
+	int event_report_delay;
+	int event_report_rate;
+	bool backup_report_connected;
+	bool backup_report_disconnected;
+	bool channel_active[4];
+	bool channel_differential[4];
+	int channel_calib_x0[4];
+	int channel_calib_y0[4];
+	int channel_calib_x1[4];
+	int channel_calib_y1[4];
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;
@@ -64,15 +63,21 @@ extern struct app_config g_app_config;
 /* Private Functions -------------------------------------------------------------------*/
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_channel_interval_sample(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_channel_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_channel_interval_sample(const struct shell *shell, size_t argc,
+						  char **argv);
+int app_config_cmd_config_channel_interval_aggreg(const struct shell *shell, size_t argc,
+						  char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc,
+						   char **argv);
+int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc,
+						   char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
+						  char **argv);
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
+						     char **argv);
 int app_config_cmd_config_channel_active(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_differential(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_channel_calib_x0(const struct shell *shell, size_t argc, char **argv);

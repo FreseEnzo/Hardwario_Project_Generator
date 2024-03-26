@@ -42,7 +42,7 @@ int main(void)
 		ctr_led_set(CTR_LED_CHANNEL_G, true);
 		k_sleep(K_MSEC(30));
 		ctr_led_set(CTR_LED_CHANNEL_G, false);
-		
+
 		k_sleep(K_SECONDS(5));
 	}
 }

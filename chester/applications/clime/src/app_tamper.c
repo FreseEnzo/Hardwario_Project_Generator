@@ -25,7 +25,7 @@
 
 LOG_MODULE_REGISTER(app_tamper, LOG_LEVEL_DBG);
 
-#define ON_TIME	 K_MSEC(30)
+#define ON_TIME  K_MSEC(30)
 #define OFF_TIME K_MSEC(1000)
 
 static const struct gpio_dt_spec m_tamper_spec =

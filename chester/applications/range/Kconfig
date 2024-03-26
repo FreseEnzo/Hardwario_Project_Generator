@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -15,7 +15,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
+	
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -26,7 +26,7 @@ config CTR_Z
 
 config I2C
 	default y
-    
+	
 # MB7066_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_MB7066_A"
@@ -37,7 +37,7 @@ config CTR_X0
 
 config MB7066
 	default y
-    
+	
 # DS18B20 ---------------------------------------------------------------------- #
 config SHIELD_CTR_DS18B20
 	bool "Enable SHIELD_CTR_DS18B20"
@@ -45,7 +45,7 @@ config SHIELD_CTR_DS18B20
 
 config CTR_DS18B20
 	default y
-    
+	
 # S2 ---------------------------------------------------------------------- #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
@@ -53,13 +53,13 @@ config SHIELD_CTR_S2
 
 config CTR_HYGRO
 	default y
-    
+	
 # REPORT_JITTER ---------------------------------------------------------------------- #
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 
 	select ENTROPY_GENERATOR
-    
+	
 endmenu
 
 menu "Zephyr Kernel"

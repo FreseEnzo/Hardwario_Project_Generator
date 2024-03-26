@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 HARDWARIO a.s.
+# Copyright (c) 2024 HARDWARIO a.s.
 #
 # SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
@@ -15,7 +15,7 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-    
+	
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
@@ -23,7 +23,7 @@ config SHIELD_CTR_LRW
 
 config CTR_LRW
 	default y
-    
+	
 # K1 ---------------------------------------------------------------------- #
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
@@ -31,7 +31,7 @@ config SHIELD_CTR_K1
 
 config CTR_K1
 	default y
-    
+	
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -42,7 +42,7 @@ config CTR_Z
 
 config I2C
 	default y
-    
+	
 endmenu
 
 menu "Zephyr Kernel"

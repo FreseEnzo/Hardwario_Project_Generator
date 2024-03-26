@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -7,7 +7,7 @@
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
-    {%- do config_mode.append(1) %}
+	{%- do config_mode.append(1) %}
 {% endif %}
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
@@ -31,10 +31,10 @@ extern "C" {
 
 {#- K1 #}
 {%- for feature in data['features'] %}
-    {%- if feature == 'k1' %}
+	{%- if feature == 'k1' %}
 
 #define APP_CONFIG_CHANNEL_COUNT 4          
-    {%- endif %}
+	{%- endif %}
 {%- endfor %}
 
 /* Private Variables -------------------------------------------------------------------*/
@@ -60,26 +60,26 @@ enum app_config_input_type {
 struct app_config {
 {#- MODE LTE-LRW #}
 {%- if config_mode %}
-    enum app_config_mode mode;
+	enum app_config_mode mode;
 {%- endif -%}
 
 {#- VARIANT INPUT#}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
-    enum app_config_input_type trigger_input_type;
-    enum app_config_input_type counter_input_type;
+	enum app_config_input_type trigger_input_type;
+	enum app_config_input_type counter_input_type;
 {%- endif %}
-    {%- for param in data['parameters'] %}
-        {%- if param['type'] == 'string'  %}
-    char {{ param['var'] }} [{{param['len']}}];
-        {% elif param['type'].split('[')[0] == 'array'%}
-    {{param['type'].split('[')[1][0:-1]}} {{ param['var'] }}[{{param['len']}}];
-        {%- else %}
-    {{ param['type'] }} {{ param['var'] }};
-        {%- endif %}
-    {%- endfor %}
+	{%- for param in data['parameters'] %}
+		{%- if param['type'] == 'string'  %}
+	char {{ param['var'] }} [{{param['len']}}];
+		{% elif param['type'].split('[')[0] == 'array'%}
+	{{param['type'].split('[')[1][0:-1]}} {{ param['var'] }}[{{param['len']}}];
+		{%- else %}
+	{{ param['type'] }} {{ param['var'] }};
+		{%- endif %}
+	{%- endfor %}
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 {% endif %}
 extern struct app_config g_app_config;

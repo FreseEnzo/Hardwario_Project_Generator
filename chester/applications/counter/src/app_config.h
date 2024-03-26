@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 HARDWARIO a.s.
+ * Copyright (c) 2024 HARDWARIO a.s.
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
@@ -25,15 +25,15 @@ extern "C" {
 
 /* Private Variables -------------------------------------------------------------------*/
 struct app_config {
-    int interval_sample;
-    int interval_report;
-    int event_report_delay;
-    int event_report_rate;
-    bool backup_report_connected;
-    bool backup_report_disconnected;
+	int interval_sample;
+	int interval_report;
+	int event_report_delay;
+	int event_report_rate;
+	bool backup_report_connected;
+	bool backup_report_disconnected;
 
-    /* USER CODE BEGIN Struct Variables */
-    /* USER CODE END Struct Variables */
+	/* USER CODE BEGIN Struct Variables */
+	/* USER CODE END Struct Variables */
 };
 
 extern struct app_config g_app_config;
@@ -47,8 +47,10 @@ int app_config_cmd_config_interval_sample(const struct shell *shell, size_t argc
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
+						  char **argv);
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
+						     char **argv);
 
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */

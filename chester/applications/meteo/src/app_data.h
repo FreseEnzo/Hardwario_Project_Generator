@@ -20,10 +20,10 @@
 #include <zephyr/kernel.h>
 
 #define APP_DATA_MAX_MEASUREMENTS  32
-#define APP_DATA_MAX_SAMPLES	   32
+#define APP_DATA_MAX_SAMPLES       32
 #define APP_DATA_MAX_BACKUP_EVENTS 32
 
-#define APP_DATA_W1_THERM_COUNT	   10
+#define APP_DATA_W1_THERM_COUNT    10
 #define APP_DATA_SOIL_SENSOR_COUNT 10
 
 #ifdef __cplusplus
