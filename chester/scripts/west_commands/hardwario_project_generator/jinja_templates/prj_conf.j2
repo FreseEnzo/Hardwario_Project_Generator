@@ -14,7 +14,7 @@ CONFIG_CTR_ADC=y
 CONFIG_CTR_ACCEL=y
 	{%- elif feature == 'batt' %}
 CONFIG_CTR_BATT=y
-	{%- elif feature == 'bluetooth' %}
+	{%- elif feature == 'ble' or feature == 'bluetooth'%}
 CONFIG_CTR_BLE=y
 	{%- elif feature == 'buf' %}
 CONFIG_CTR_BUF=y
@@ -32,7 +32,7 @@ CONFIG_CTR_LED=y
 CONFIG_CTR_LOG=y
 	{%- elif feature == 'lte' %}
 CONFIG_CTR_LTE_CLKSYNC=y
-	{%- elif feature == 'lorawan' %}
+	{%- elif feature == 'lorawan' or feature == 'lorawan'%}
 CONFIG_CTR_LRW=y
 	{%- elif feature == 'rtc' %}
 CONFIG_CTR_RTC=y

@@ -35,7 +35,8 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
-	.report_inteval = 300, .measurement_interval = 300,
+	.report_inteval = 300,
+	.measurement_interval = 300,
 
 	/* USER CODE BEGIN Struct Variables */
 	/* USER CODE END Struct Variables */
@@ -48,7 +49,8 @@ static struct app_config m_app_config_interim = {
 
 static void print_report_inteval(const struct shell *shell)
 {
-	shell_print(shell, "app config report-interval  %d", m_app_config_interim.report_inteval);
+	shell_print(shell, "app config report-interval  %d",
+			m_app_config_interim.report_inteval);
 }
 
 int app_config_cmd_config_report_inteval(const struct shell *shell, size_t argc, char **argv)
@@ -80,7 +82,7 @@ int app_config_cmd_config_report_inteval(const struct shell *shell, size_t argc,
 static void print_measurement_interval(const struct shell *shell)
 {
 	shell_print(shell, "app config measurement-interval  %d",
-		    m_app_config_interim.measurement_interval);
+			m_app_config_interim.measurement_interval);
 }
 
 int app_config_cmd_config_measurement_interval(const struct shell *shell, size_t argc, char **argv)
@@ -113,7 +115,7 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 {
 	print_report_inteval(shell);
 	print_measurement_interval(shell);
-
+	
 	return 0;
 }
 
@@ -128,7 +130,7 @@ static int h_commit(void)
 	return 0;
 }
 
-static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg)
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
 {
 	int ret;
 	const char *next;
@@ -167,14 +169,13 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 	int ret;
 
 	ret = export_func("chester-signal/report-interval", &m_app_config_interim.report_inteval,
-			  sizeof(m_app_config_interim.report_inteval));
+					  sizeof( m_app_config_interim.report_inteval));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-signal/measurement-interval",
-			  &m_app_config_interim.measurement_interval,
-			  sizeof(m_app_config_interim.measurement_interval));
+	ret = export_func("chester-signal/measurement-interval", &m_app_config_interim.measurement_interval,
+					  sizeof( m_app_config_interim.measurement_interval));
 	if (ret < 0) {
 		return ret;
 	}
@@ -185,7 +186,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 	return 0;
 }
 
-static int init(void)
+static int init(void) 
 {
 	int ret;
 

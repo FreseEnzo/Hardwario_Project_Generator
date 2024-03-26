@@ -67,40 +67,23 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv);
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
-						     char **argv);
-int app_config_cmd_config_trigger_duration_active(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_trigger_duration_inactive(const struct shell *shell, size_t argc,
-						    char **argv);
-int app_config_cmd_config_trigger_cooldown_time(const struct shell *shell, size_t argc,
-						char **argv);
-int app_config_cmd_config_trigger_report_active(const struct shell *shell, size_t argc,
-						char **argv);
-int app_config_cmd_config_trigger_report_inactive(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_counter_duration_active(const struct shell *shell, size_t argc,
-						  char **argv);
-int app_config_cmd_config_counter_duration_inactive(const struct shell *shell, size_t argc,
-						    char **argv);
-int app_config_cmd_config_counter_cooldown_time(const struct shell *shell, size_t argc,
-						char **argv);
-int app_config_cmd_config_analog_interval_sample(const struct shell *shell, size_t argc,
-						 char **argv);
-int app_config_cmd_config_analog_interval_aggreg(const struct shell *shell, size_t argc,
-						 char **argv);
-int app_config_cmd_config_hygro_interval_sample(const struct shell *shell, size_t argc,
-						char **argv);
-int app_config_cmd_config_hygro_interval_aggreg(const struct shell *shell, size_t argc,
-						char **argv);
-int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc,
-						   char **argv);
-int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc,
-						   char **argv);
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_duration_active(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_duration_inactive(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_cooldown_time(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_report_active(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_trigger_report_inactive(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_duration_active(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_duration_inactive(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_counter_cooldown_time(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_analog_interval_sample(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_analog_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_interval_sample(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_hygro_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc, char **argv);
+int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_counter_input_type(const struct shell *shell, size_t argc, char **argv);
 

@@ -7,7 +7,6 @@
 menu "Application"
 
 # METEO Project ------------------------------------------------- #
-
 # LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
@@ -15,59 +14,6 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-	
-# BAROMETER_TAG  ---------------------------------------------------------------------- #
-config SHIELD_CTR_BAROMETER_TAG
-	bool "Enable SHIELD_CTR_BAROMETER_TAG"
-	default y 
-
-config I2C
-	default y
-
-config SENSOR
-	default y
-
-config MPL3115A2
-	default y
-	
-# DS18B20 ---------------------------------------------------------------------- #
-config SHIELD_CTR_DS18B20
-	bool "Enable SHIELD_CTR_DS18B20"
-	default y 
-
-config CTR_DS18B20
-	default y
-	
-# S2 ---------------------------------------------------------------------- #
-config SHIELD_CTR_S2
-	bool "Enable SHIELD_CTR_S2"
-	default y 
-
-config CTR_HYGRO
-	default y
-	
-# METEO_A ---------------------------------------------------------------------- #
-config SHIELD_CTR_A
-	bool "Enable SHIELD_CTR_METEO_A"
-	default y 
-
-config CTR_METEO
-	default y
-
-config CTR_X0
-	default y
-	
-# Z ---------------------------------------------------------------------- #
-config SHIELD_CTR_Z
-	bool "Enable SHIELD_CTR_Z"
-	default y 
-
-config CTR_Z
-	default y
-
-config I2C
-	default y
-	
 # X2_MODBUS_A ---------------------------------------------------------------------- #
 config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
@@ -110,22 +56,8 @@ config UART_SC16IS7XX
 	default y
 
 config I2C
-	default y  
-
-# BAROMETER_TAG  ---------------------------------------------------------------------- #
-config SHIELD_CTR_BAROMETER_TAG
-	bool "Enable SHIELD_CTR_BAROMETER_TAG"
-	default y 
-
-config I2C
 	default y
 
-config SENSOR
-	default y
-
-config MPL3115A2
-	default y
-	
 endmenu
 
 menu "Zephyr Kernel"

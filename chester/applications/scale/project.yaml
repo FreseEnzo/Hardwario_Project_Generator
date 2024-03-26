@@ -9,13 +9,12 @@ features:
 - shell
 - accel
 - batt
-- ble
+- bluetooth
 - button
 - buf
 - defaults
 - info
 - led
-- lte
 - log
 - rtc
 - therm
@@ -25,10 +24,11 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lte
 - x3_a
-- x3_b
-- z
-- people_counter
+#- x3_b
+#- z
+#- people_counter
 parameters:
 - domain: app
   name: channel-a1-active

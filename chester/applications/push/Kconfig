@@ -7,12 +7,6 @@
 menu "Application"
 
 # PUSH Project ------------------------------------------------- #
-
-# FLIP_MODE ---------------------------------------------------------------------- #
-config APP_FLIP_MODE
-	bool "Enable SHIELD_APP_FLIP_MODE"
-	default y
-
 # LRW  ---------------------------------------------------------------------- #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
@@ -20,7 +14,6 @@ config SHIELD_CTR_LRW
 
 config CTR_LRW
 	default y
-	
 # LTE ---------------------------------------------------------------------- #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
@@ -28,7 +21,6 @@ config SHIELD_CTR_LTE
 
 config CTR_LTE
 	default y
-	
 # Z ---------------------------------------------------------------------- #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
@@ -39,7 +31,7 @@ config CTR_Z
 
 config I2C
 	default y
-	
+
 endmenu
 
 menu "Zephyr Kernel"

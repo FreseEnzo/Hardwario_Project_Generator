@@ -114,7 +114,8 @@ int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t a
 
 static void print_interval_report(const struct shell *shell)
 {
-	shell_print(shell, "app config interval-report  %d", m_app_config_interim.interval_report);
+	shell_print(shell, "app config interval-report  %d",
+			m_app_config_interim.interval_report);
 }
 
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv)
@@ -146,7 +147,7 @@ int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc
 static void print_event_report_delay(const struct shell *shell)
 {
 	shell_print(shell, "app config event-report-delay  %d",
-		    m_app_config_interim.event_report_delay);
+			m_app_config_interim.event_report_delay);
 }
 
 int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t argc, char **argv)
@@ -178,7 +179,7 @@ int app_config_cmd_config_event_report_delay(const struct shell *shell, size_t a
 static void print_event_report_rate(const struct shell *shell)
 {
 	shell_print(shell, "app config event-report-rate  %d",
-		    m_app_config_interim.event_report_rate);
+			m_app_config_interim.event_report_rate);
 }
 
 int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t argc, char **argv)
@@ -210,14 +211,13 @@ int app_config_cmd_config_event_report_rate(const struct shell *shell, size_t ar
 static void print_backup_report_connected(const struct shell *shell)
 {
 	shell_print(shell, "app config backup-report-connected  %s",
-		    m_app_config_interim.backup_report_connected ? "true" : "false");
+			m_app_config_interim.backup_report_connected ? "true" : "false");
 }
 
-int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_backup_report_connected(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_backup_report_connected(shell);
+		print_backup_report_connected(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -240,14 +240,13 @@ int app_config_cmd_config_backup_report_connected(const struct shell *shell, siz
 static void print_backup_report_disconnected(const struct shell *shell)
 {
 	shell_print(shell, "app config backup-report-disconnected  %s",
-		    m_app_config_interim.backup_report_disconnected ? "true" : "false");
+			m_app_config_interim.backup_report_disconnected ? "true" : "false");
 }
 
-int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc,
-						     char **argv)
+int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_backup_report_disconnected(shell);
+		print_backup_report_disconnected(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -270,11 +269,10 @@ int app_config_cmd_config_backup_report_disconnected(const struct shell *shell, 
 static void print_trigger_duration_active(const struct shell *shell)
 {
 	shell_print(shell, "app config trigger-active-duration  %d",
-		    m_app_config_interim.trigger_duration_active);
+			m_app_config_interim.trigger_duration_active);
 }
 
-int app_config_cmd_config_trigger_duration_active(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_trigger_duration_active(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_trigger_duration_active(shell);
@@ -303,11 +301,10 @@ int app_config_cmd_config_trigger_duration_active(const struct shell *shell, siz
 static void print_trigger_duration_inactive(const struct shell *shell)
 {
 	shell_print(shell, "app config trigger-inactive-duration  %d",
-		    m_app_config_interim.trigger_duration_inactive);
+			m_app_config_interim.trigger_duration_inactive);
 }
 
-int app_config_cmd_config_trigger_duration_inactive(const struct shell *shell, size_t argc,
-						    char **argv)
+int app_config_cmd_config_trigger_duration_inactive(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_trigger_duration_inactive(shell);
@@ -336,7 +333,7 @@ int app_config_cmd_config_trigger_duration_inactive(const struct shell *shell, s
 static void print_trigger_cooldown_time(const struct shell *shell)
 {
 	shell_print(shell, "app config trigger-cooldown-time  %d",
-		    m_app_config_interim.trigger_cooldown_time);
+			m_app_config_interim.trigger_cooldown_time);
 }
 
 int app_config_cmd_config_trigger_cooldown_time(const struct shell *shell, size_t argc, char **argv)
@@ -368,13 +365,13 @@ int app_config_cmd_config_trigger_cooldown_time(const struct shell *shell, size_
 static void print_trigger_report_active(const struct shell *shell)
 {
 	shell_print(shell, "app config trigger-report-active  %s",
-		    m_app_config_interim.trigger_report_active ? "true" : "false");
+			m_app_config_interim.trigger_report_active ? "true" : "false");
 }
 
 int app_config_cmd_config_trigger_report_active(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_trigger_report_active(shell);
+		print_trigger_report_active(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -397,14 +394,13 @@ int app_config_cmd_config_trigger_report_active(const struct shell *shell, size_
 static void print_trigger_report_inactive(const struct shell *shell)
 {
 	shell_print(shell, "app config trigger-report-inactive  %s",
-		    m_app_config_interim.trigger_report_inactive ? "true" : "false");
+			m_app_config_interim.trigger_report_inactive ? "true" : "false");
 }
 
-int app_config_cmd_config_trigger_report_inactive(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_trigger_report_inactive(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
-		print_trigger_report_inactive(shell);
+		print_trigger_report_inactive(shell);                                                    
 		return 0;
 	}
 	if (argc == 2) {
@@ -427,11 +423,10 @@ int app_config_cmd_config_trigger_report_inactive(const struct shell *shell, siz
 static void print_counter_interval_aggreg(const struct shell *shell)
 {
 	shell_print(shell, "app config counter-interval-aggreg  %d",
-		    m_app_config_interim.counter_interval_aggreg);
+			m_app_config_interim.counter_interval_aggreg);
 }
 
-int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_counter_interval_aggreg(shell);
@@ -460,11 +455,10 @@ int app_config_cmd_config_counter_interval_aggreg(const struct shell *shell, siz
 static void print_counter_duration_active(const struct shell *shell)
 {
 	shell_print(shell, "app config counter-duration-active  %d",
-		    m_app_config_interim.counter_duration_active);
+			m_app_config_interim.counter_duration_active);
 }
 
-int app_config_cmd_config_counter_duration_active(const struct shell *shell, size_t argc,
-						  char **argv)
+int app_config_cmd_config_counter_duration_active(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_counter_duration_active(shell);
@@ -493,11 +487,10 @@ int app_config_cmd_config_counter_duration_active(const struct shell *shell, siz
 static void print_counter_duration_inactive(const struct shell *shell)
 {
 	shell_print(shell, "app config counter-duration-inactive  %d",
-		    m_app_config_interim.counter_duration_inactive);
+			m_app_config_interim.counter_duration_inactive);
 }
 
-int app_config_cmd_config_counter_duration_inactive(const struct shell *shell, size_t argc,
-						    char **argv)
+int app_config_cmd_config_counter_duration_inactive(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_counter_duration_inactive(shell);
@@ -526,7 +519,7 @@ int app_config_cmd_config_counter_duration_inactive(const struct shell *shell, s
 static void print_counter_cooldown_time(const struct shell *shell)
 {
 	shell_print(shell, "app config counter-cooldown-time  %d",
-		    m_app_config_interim.counter_cooldown_time);
+			m_app_config_interim.counter_cooldown_time);
 }
 
 int app_config_cmd_config_counter_cooldown_time(const struct shell *shell, size_t argc, char **argv)
@@ -558,11 +551,10 @@ int app_config_cmd_config_counter_cooldown_time(const struct shell *shell, size_
 static void print_analog_interval_sample(const struct shell *shell)
 {
 	shell_print(shell, "app config analog-interval-sample  %d",
-		    m_app_config_interim.analog_interval_sample);
+			m_app_config_interim.analog_interval_sample);
 }
 
-int app_config_cmd_config_analog_interval_sample(const struct shell *shell, size_t argc,
-						 char **argv)
+int app_config_cmd_config_analog_interval_sample(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_analog_interval_sample(shell);
@@ -591,11 +583,10 @@ int app_config_cmd_config_analog_interval_sample(const struct shell *shell, size
 static void print_analog_interval_aggreg(const struct shell *shell)
 {
 	shell_print(shell, "app config analog-interval-aggreg  %d",
-		    m_app_config_interim.analog_interval_aggreg);
+			m_app_config_interim.analog_interval_aggreg);
 }
 
-int app_config_cmd_config_analog_interval_aggreg(const struct shell *shell, size_t argc,
-						 char **argv)
+int app_config_cmd_config_analog_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_analog_interval_aggreg(shell);
@@ -624,7 +615,7 @@ int app_config_cmd_config_analog_interval_aggreg(const struct shell *shell, size
 static void print_hygro_interval_sample(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-interval-sample  %d",
-		    m_app_config_interim.hygro_interval_sample);
+			m_app_config_interim.hygro_interval_sample);
 }
 
 int app_config_cmd_config_hygro_interval_sample(const struct shell *shell, size_t argc, char **argv)
@@ -656,7 +647,7 @@ int app_config_cmd_config_hygro_interval_sample(const struct shell *shell, size_
 static void print_hygro_interval_aggreg(const struct shell *shell)
 {
 	shell_print(shell, "app config hygro-interval-aggreg  %d",
-		    m_app_config_interim.hygro_interval_aggreg);
+			m_app_config_interim.hygro_interval_aggreg);
 }
 
 int app_config_cmd_config_hygro_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
@@ -688,11 +679,10 @@ int app_config_cmd_config_hygro_interval_aggreg(const struct shell *shell, size_
 static void print_w1_therm_interval_sample(const struct shell *shell)
 {
 	shell_print(shell, "app config w1-therm-interval-sample  %d",
-		    m_app_config_interim.w1_therm_interval_sample);
+			m_app_config_interim.w1_therm_interval_sample);
 }
 
-int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc,
-						   char **argv)
+int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_w1_therm_interval_sample(shell);
@@ -721,11 +711,10 @@ int app_config_cmd_config_w1_therm_interval_sample(const struct shell *shell, si
 static void print_w1_therm_interval_aggreg(const struct shell *shell)
 {
 	shell_print(shell, "app config w1-therm-interval-aggreg  %d",
-		    m_app_config_interim.w1_therm_interval_aggreg);
+			m_app_config_interim.w1_therm_interval_aggreg);
 }
 
-int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc,
-						   char **argv)
+int app_config_cmd_config_w1_therm_interval_aggreg(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc == 1) {
 		print_w1_therm_interval_aggreg(shell);
@@ -773,7 +762,7 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 	print_hygro_interval_aggreg(shell);
 	print_w1_therm_interval_sample(shell);
 	print_w1_therm_interval_aggreg(shell);
-
+	
 	return 0;
 }
 
@@ -788,7 +777,7 @@ static int h_commit(void)
 	return 0;
 }
 
-static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg)
+static int h_set(const char *key, size_t len, settings_read_cb read_cb, void *cb_arg) 
 {
 	int ret;
 	const char *next;
@@ -1043,140 +1032,121 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 	int ret;
 
 	ret = export_func("chester-input/interval-report", &m_app_config_interim.interval_report,
-			  sizeof(m_app_config_interim.interval_report));
+					  sizeof( m_app_config_interim.interval_report));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/event-report-delay",
-			  &m_app_config_interim.event_report_delay,
-			  sizeof(m_app_config_interim.event_report_delay));
+	ret = export_func("chester-input/event-report-delay", &m_app_config_interim.event_report_delay,
+					  sizeof( m_app_config_interim.event_report_delay));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/event-report-rate",
-			  &m_app_config_interim.event_report_rate,
-			  sizeof(m_app_config_interim.event_report_rate));
+	ret = export_func("chester-input/event-report-rate", &m_app_config_interim.event_report_rate,
+					  sizeof( m_app_config_interim.event_report_rate));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/backup-report-connected",
-			  &m_app_config_interim.backup_report_connected,
-			  sizeof(m_app_config_interim.backup_report_connected));
+	ret = export_func("chester-input/backup-report-connected", &m_app_config_interim.backup_report_connected,
+					  sizeof( m_app_config_interim.backup_report_connected));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/backup-report-disconnected",
-			  &m_app_config_interim.backup_report_disconnected,
-			  sizeof(m_app_config_interim.backup_report_disconnected));
+	ret = export_func("chester-input/backup-report-disconnected", &m_app_config_interim.backup_report_disconnected,
+					  sizeof( m_app_config_interim.backup_report_disconnected));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/trigger-active-duration",
-			  &m_app_config_interim.trigger_duration_active,
-			  sizeof(m_app_config_interim.trigger_duration_active));
+	ret = export_func("chester-input/trigger-active-duration", &m_app_config_interim.trigger_duration_active,
+					  sizeof( m_app_config_interim.trigger_duration_active));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/trigger-inactive-duration",
-			  &m_app_config_interim.trigger_duration_inactive,
-			  sizeof(m_app_config_interim.trigger_duration_inactive));
+	ret = export_func("chester-input/trigger-inactive-duration", &m_app_config_interim.trigger_duration_inactive,
+					  sizeof( m_app_config_interim.trigger_duration_inactive));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/trigger-cooldown-time",
-			  &m_app_config_interim.trigger_cooldown_time,
-			  sizeof(m_app_config_interim.trigger_cooldown_time));
+	ret = export_func("chester-input/trigger-cooldown-time", &m_app_config_interim.trigger_cooldown_time,
+					  sizeof( m_app_config_interim.trigger_cooldown_time));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/trigger-report-active",
-			  &m_app_config_interim.trigger_report_active,
-			  sizeof(m_app_config_interim.trigger_report_active));
+	ret = export_func("chester-input/trigger-report-active", &m_app_config_interim.trigger_report_active,
+					  sizeof( m_app_config_interim.trigger_report_active));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/trigger-report-inactive",
-			  &m_app_config_interim.trigger_report_inactive,
-			  sizeof(m_app_config_interim.trigger_report_inactive));
+	ret = export_func("chester-input/trigger-report-inactive", &m_app_config_interim.trigger_report_inactive,
+					  sizeof( m_app_config_interim.trigger_report_inactive));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/counter-interval-aggreg",
-			  &m_app_config_interim.counter_interval_aggreg,
-			  sizeof(m_app_config_interim.counter_interval_aggreg));
+	ret = export_func("chester-input/counter-interval-aggreg", &m_app_config_interim.counter_interval_aggreg,
+					  sizeof( m_app_config_interim.counter_interval_aggreg));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/counter-duration-active",
-			  &m_app_config_interim.counter_duration_active,
-			  sizeof(m_app_config_interim.counter_duration_active));
+	ret = export_func("chester-input/counter-duration-active", &m_app_config_interim.counter_duration_active,
+					  sizeof( m_app_config_interim.counter_duration_active));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/counter-duration-inactive",
-			  &m_app_config_interim.counter_duration_inactive,
-			  sizeof(m_app_config_interim.counter_duration_inactive));
+	ret = export_func("chester-input/counter-duration-inactive", &m_app_config_interim.counter_duration_inactive,
+					  sizeof( m_app_config_interim.counter_duration_inactive));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/counter-cooldown-time",
-			  &m_app_config_interim.counter_cooldown_time,
-			  sizeof(m_app_config_interim.counter_cooldown_time));
+	ret = export_func("chester-input/counter-cooldown-time", &m_app_config_interim.counter_cooldown_time,
+					  sizeof( m_app_config_interim.counter_cooldown_time));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/analog-interval-sample",
-			  &m_app_config_interim.analog_interval_sample,
-			  sizeof(m_app_config_interim.analog_interval_sample));
+	ret = export_func("chester-input/analog-interval-sample", &m_app_config_interim.analog_interval_sample,
+					  sizeof( m_app_config_interim.analog_interval_sample));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/analog-interval-aggreg",
-			  &m_app_config_interim.analog_interval_aggreg,
-			  sizeof(m_app_config_interim.analog_interval_aggreg));
+	ret = export_func("chester-input/analog-interval-aggreg", &m_app_config_interim.analog_interval_aggreg,
+					  sizeof( m_app_config_interim.analog_interval_aggreg));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/hygro-interval-sample",
-			  &m_app_config_interim.hygro_interval_sample,
-			  sizeof(m_app_config_interim.hygro_interval_sample));
+	ret = export_func("chester-input/hygro-interval-sample", &m_app_config_interim.hygro_interval_sample,
+					  sizeof( m_app_config_interim.hygro_interval_sample));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/hygro-interval-aggreg",
-			  &m_app_config_interim.hygro_interval_aggreg,
-			  sizeof(m_app_config_interim.hygro_interval_aggreg));
+	ret = export_func("chester-input/hygro-interval-aggreg", &m_app_config_interim.hygro_interval_aggreg,
+					  sizeof( m_app_config_interim.hygro_interval_aggreg));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/w1-therm-interval-sample",
-			  &m_app_config_interim.w1_therm_interval_sample,
-			  sizeof(m_app_config_interim.w1_therm_interval_sample));
+	ret = export_func("chester-input/w1-therm-interval-sample", &m_app_config_interim.w1_therm_interval_sample,
+					  sizeof( m_app_config_interim.w1_therm_interval_sample));
 	if (ret < 0) {
 		return ret;
 	}
 
-	ret = export_func("chester-input/w1-therm-interval-aggreg",
-			  &m_app_config_interim.w1_therm_interval_aggreg,
-			  sizeof(m_app_config_interim.w1_therm_interval_aggreg));
+	ret = export_func("chester-input/w1-therm-interval-aggreg", &m_app_config_interim.w1_therm_interval_aggreg,
+					  sizeof( m_app_config_interim.w1_therm_interval_aggreg));
 	if (ret < 0) {
 		return ret;
 	}
@@ -1187,7 +1157,7 @@ static int h_export(int (*export_func)(const char *name, const void *val, size_t
 	return 0;
 }
 
-static int init(void)
+static int init(void) 
 {
 	int ret;
 

@@ -36,23 +36,8 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 		return -EINVAL;
 	}
 
-	shell_print(shell, "Barometer");
-	ret = shell_execute_cmd(shell, "mpl3115a2 read");
-	if (ret) {
-		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
-	}
 
-	shell_print(shell, "Meteo");
-	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_a");
-	if (ret) {
-		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
-	}
 
-	shell_print(shell, "Humidity");
-	ret = shell_execute_cmd(shell, "hygro read");
-	if (ret) {
-		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
-	}
 
 	return 0;
 }

@@ -4,7 +4,7 @@ project:
   bundle: com.hardwario.chester.clime
   name: CHESTER Current
   version: v1.0.0
-  variant: Current Z
+  variant: Current
 features: 
 - shell
 - accel
@@ -16,10 +16,6 @@ features:
 - info
 - led
 - log
-- lte
-- lrw
-- k1
-- z
 - rtc
 - therm
 - wdog
@@ -28,6 +24,11 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lte
+- lrw
+- k1
+#- z
+#- ds18b20
 parameters:
 - domain: app
   name: channel-interval-sample

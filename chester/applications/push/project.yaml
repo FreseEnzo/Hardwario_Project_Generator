@@ -4,9 +4,8 @@ project:
   bundle: com.hardwario.chester.push
   name: CHESTER Push
   version: v1.0.0 
-  variant: push
+  variant: Push
 features: 
-- flip_mode
 - shell
 - accel
 - adc
@@ -18,8 +17,6 @@ features:
 - edge
 - info
 - led
-- lrw
-- lte
 - log
 - rtc
 - therm
@@ -29,7 +26,10 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lrw
+- lte
 - z
+#- flip_mode
 parameters:
   - domain: app
     name: interval-report

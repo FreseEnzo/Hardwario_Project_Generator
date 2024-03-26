@@ -35,7 +35,6 @@ static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 	}
 
 	k_timer_start(&g_app_measure_weight_timer, K_NO_WAIT, K_FOREVER);
-	k_timer_start(&g_app_measure_people_timer, K_NO_WAIT, K_FOREVER);
 
 	return 0;
 }

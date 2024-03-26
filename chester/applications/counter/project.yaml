@@ -6,10 +6,6 @@ project:
   version: v1.0.0 
   variant: Counter
 features: 
-- lte
-- x0_a
-- report_jitter
-- tamper
 - shell
 - accel
 - batt
@@ -30,6 +26,11 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lte
+- x0_a
+#- x0_b
+#- z
+#- tamper
 parameters:
 - domain: app
   name: interval-sample

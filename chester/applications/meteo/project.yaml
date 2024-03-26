@@ -15,7 +15,6 @@ features:
 - defaults
 - info
 - led
-- lte
 - log
 - rtc
 - therm
@@ -25,15 +24,16 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
-- barometer_tag
-- ds18b20
-- s2
-- meteo_a
-- z
-- x2_modbus_a
-- barometer_tag
 - cbprintf_fp_support
 - flash
+- lte
+- x2_modbus_a
+#- barometer_tag
+#- ds18b20
+#- s2
+#- meteo_a
+#- z
+#- barometer_tag
 parameters:
 - domain: app
   name: interval-sample
