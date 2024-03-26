@@ -15,18 +15,17 @@
 #include <zephyr/init.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/settings/settings.h>sd
+#include <zephyr/settings/settings.h>
 #include <zephyr/shell/shell.h>
 
 /* Standard includes */
 #include <ctype.h>
-#include <stdbool.h>fsd
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 /* USER CODE BEGIN Includes */
-fdsfas
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);

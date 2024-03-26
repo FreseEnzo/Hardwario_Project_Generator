@@ -1,0 +1,36 @@
+#
+# Copyright (c) 2024 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+menu "Application"
+
+# CLIME Project ------------------------------------------------- #
+# LTE ---------------------------------------------------------------------- #
+config SHIELD_CTR_LTE
+	bool "Enable SHIELD_CTR_LTE"
+	default y 
+
+config CTR_LTE
+	default y
+# LRW  ---------------------------------------------------------------------- #
+config SHIELD_CTR_LRW
+	bool "Enable SHIELD_CTR_LRW"
+	default y 
+
+config CTR_LRW
+	default y
+# S2 ---------------------------------------------------------------------- #
+config SHIELD_CTR_S2
+	bool "Enable SHIELD_CTR_S2"
+	default y 
+
+config CTR_HYGRO
+	default y
+
+endmenu
+
+menu "Zephyr Kernel"
+source "Kconfig.zephyr"
+endmenu

@@ -188,6 +188,7 @@ def generate_file(
                 start_index = 0
                 while True:
                     begin_index = existing_content.find(begin_marker, start_index)
+                    print(begin_index)
                     if begin_index == -1:
                         break
                     end_index = existing_content.find(end_marker, begin_index)
@@ -199,10 +200,16 @@ def generate_file(
                     start_index = end_index
 
             # Combine saved sections with new content
-            for begin_marker, sections in saved_sections.items():
+            for marker in USER_CODE_MARKERS:
+                begin_marker = marker["begin"]
+                sections = saved_sections.get(begin_marker, [])  
+                if not sections:  
+                    continue  
                 saved_content = "\n".join(section.strip() for section in sections)
+                
                 # Concatenate all saved sections
-                new_content = new_content.replace(begin_marker, f"{saved_content}")
+                if saved_content.strip():  
+                    new_content = new_content.replace(begin_marker, f"{saved_content}")
 
             # Write in destination file
             write_to_file(new_content, destination, "w")
