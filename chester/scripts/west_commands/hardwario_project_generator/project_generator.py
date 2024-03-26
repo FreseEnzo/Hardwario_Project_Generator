@@ -188,7 +188,6 @@ def generate_file(
                 start_index = 0
                 while True:
                     begin_index = existing_content.find(begin_marker, start_index)
-                    print(begin_index)
                     if begin_index == -1:
                         break
                     end_index = existing_content.find(end_marker, begin_index)
