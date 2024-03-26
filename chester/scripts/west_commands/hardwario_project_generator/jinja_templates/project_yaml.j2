@@ -1,13 +1,12 @@
-# Hardwario YAML file for code generation
-# Chester Clime example 
+# Hardwario YAML file example for code generation
 version: 1
 project:
-	bundle: com.hardwario.chester.clime
-	name: CHESTER Clime
-	version: v1.0.0
-	variant: Clime
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Clime
+  version: v1.0.0
+  variant: Clime
 features: 
-- tamper
+#- tamper
 - shell
 - accel
 - batt
@@ -18,9 +17,6 @@ features:
 - info
 - led
 - log
-- lte
-- lrw
-- s2
 - rtc
 - therm
 - wdog
@@ -28,131 +24,138 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lte
+- lrw
+- s2
+#- soil_sensor
+#- x4_a
+#- z
+#- ds19b20
 parameters:
 - domain: app
-	name: interval-sample
-	var: interval_sample
-	type: int
-	min: 1
-	max: 86400
-	default: 60
-	help: 'Get/Set sample interval in seconds (format: <1-86400>).'
+  name: interval-sample
+  var: interval_sample
+  type: int
+  min: 1
+  max: 86400
+  default: 60
+  help: 'Get/Set sample interval in seconds (format: <1-86400>).'
 
 - domain: app
-	name: interval-aggreg
-	var: interval_aggreg
-	type: int
-	min: 1
-	max: 86400
-	default: 300
-	help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
+  name: interval-aggreg
+  var: interval_aggreg
+  type: int
+  min: 1
+  max: 86400
+  default: 300
+  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
 
 - domain: app
-	name: interval-report
-	var: interval_report
-	type: int
-	min: 30
-	max: 86400
-	default: 1800
-	help: 'Get/Set report interval in seconds (format: <30-86400>).'
+  name: interval-report
+  var: interval_report
+  type: int
+  min: 30
+  max: 86400
+  default: 1800
+  help: 'Get/Set report interval in seconds (format: <30-86400>).'
 
 - domain: app
-	name: hygro-t-alarm-hi-report
-	var: hygro_t_alarm_hi_report
-	type: bool
-	default: null
-	help: 'Get/Set report when hygro high temperature alarm is crossed (format: true, false).'
+  name: hygro-t-alarm-hi-report
+  var: hygro_t_alarm_hi_report
+  type: bool
+  default: null
+  help: 'Get/Set report when hygro high temperature alarm is crossed (format: true, false).'
 
 - domain: app
-	name: hygro-t-alarm-lo-report
-	var: hygro_t_alarm_lo_report
-	type: bool
-	default: null
-	help: 'Get/Set report when hygro low temperature alarm is crossed (format: true, false).'
+  name: hygro-t-alarm-lo-report
+  var: hygro_t_alarm_lo_report
+  type: bool
+  default: null
+  help: 'Get/Set report when hygro low temperature alarm is crossed (format: true, false).'
 
 - domain: app
-	name: hygro-t-alarm-hi-thr
-	var: hygro_t_alarm_hi_thr
-	type: float
-	min: -40.0
-	max: 125.0
-	default: null
-	help: 'Get/Set hygro high temperature alarm threshold (format: <-40.0..125.0>).'
+  name: hygro-t-alarm-hi-thr
+  var: hygro_t_alarm_hi_thr
+  type: float
+  min: -40.0
+  max: 125.0
+  default: null
+  help: 'Get/Set hygro high temperature alarm threshold (format: <-40.0..125.0>).'
 
 - domain: app
-	name: hygro-t-alarm-hi-hst
-	var: hygro_t_alarm_hi_hst
-	type: float
-	min: 0.0
-	max: 100.0
-	default: null
-	help: 'Get/Set hygro high temperature alarm hysteresis (format: <0.0..100.0>).'
+  name: hygro-t-alarm-hi-hst
+  var: hygro_t_alarm_hi_hst
+  type: float
+  min: 0.0
+  max: 100.0
+  default: null
+  help: 'Get/Set hygro high temperature alarm hysteresis (format: <0.0..100.0>).'
 
 - domain: app
-	name: hygro-t-alarm-lo-thr
-	var: hygro_t_alarm_lo_thr
-	type: float
-	min: -40.0
-	max: 125.0
-	default: null
-	help: 'Get/Set hygro low temperature alarm threshold (format: <-40.0..125.0>).'
+  name: hygro-t-alarm-lo-thr
+  var: hygro_t_alarm_lo_thr
+  type: float
+  min: -40.0
+  max: 125.0
+  default: null
+  help: 'Get/Set hygro low temperature alarm threshold (format: <-40.0..125.0>).'
 
 - domain: app
-	name: hygro-t-alarm-lo-hst
-	var: hygro_t_alarm_lo_hst
-	type: float
-	min: 0.0
-	max: 100.0
-	default: null
-	help: 'Get/Set hygro low temperature alarm hysteresis (format: <0.0..100.0>).'
+  name: hygro-t-alarm-lo-hst
+  var: hygro_t_alarm_lo_hst
+  type: float
+  min: 0.0
+  max: 100.0
+  default: null
+  help: 'Get/Set hygro low temperature alarm hysteresis (format: <0.0..100.0>).'
 
 - domain: app
-	name: event-report-delay
-	var: event_report_delay
-	type: int
-	min: 1
-	max: 86400
-	default: 1
-	help: 'Get/Set event report delay in seconds (format: <1-86400>).'
+  name: event-report-delay
+  var: event_report_delay
+  type: int
+  min: 1
+  max: 86400
+  default: 1
+  help: 'Get/Set event report delay in seconds (format: <1-86400>).'
 
 - domain: app
-	name: event-report-rate
-	var: event_report_rate
-	type: int
-	min: 1
-	max: 3600
-	default: 30
-	help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
+  name: event-report-rate
+  var: event_report_rate
+  type: int
+  min: 1
+  max: 3600
+  default: 30
+  help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
 
 - domain: app
-	name: backup-report-connected
-	var: backup_report_connected
-	type: bool
-	default: true
-	help: 'Set backup report connected (default: true)'
+  name: backup-report-connected
+  var: backup_report_connected
+  type: bool
+  default: true
+  help: 'Set backup report connected (default: true)'
 
 - domain: app
-	name: backup-report-disconnected
-	var: backup_report_disconnected
-	type: bool
-	default: true
-	help: 'Set backup report disconnected (default: true)'
+  name: backup-report-disconnected
+  var: backup_report_disconnected
+  type: bool
+  default: true
+  help: 'Set backup report disconnected (default: true)'
 
 commands:
 - domain: app
-	name: sample
-	callback: app_work_sample # This function should be manually created
-	help: 'Sample immediately.'
+  name: sample
+  callback: app_work_sample # This function should be manually created
+  help: 'Sample immediately.'
 
 - domain: app
-	name: send
-	callback: app_work_send # This function should be manually created
-	help: 'Send data immediately.'
+  name: send
+  callback: app_work_send # This function should be manually created
+  help: 'Send data immediately.'
 
 - domain: app
-	name: aggreg
-	callback: app_work_aggreg # This function should be manually created
-	help: 'Aggregate data immediately'
+  name: aggreg
+  callback: app_work_aggreg # This function should be manually created
+  help: 'Aggregate data immediately'
 
 extras:
 # Extras for prj.conf
