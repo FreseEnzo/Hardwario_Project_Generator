@@ -1,17 +1,14 @@
 # CHESTER SDK Project Generation Tools
-## Catalog Progress Review
-- [ ] Clime 
-- [ ] Signal 
-- [ ] Counter 
-- [ ] Current 
-- [ ] Input
-- [ ] Meteo
-- [ ] Push
-- [ ] Range
-- [ ] Scale
-      
-## Next Steps
-- Review
+| Catalog  | Code Review | Build Review  
+| :---: | :---: | :---: |
+| Clime | ✅ Reviewed | ⏳ Pending |
+| Signal | ✅ Reviewed |  ⏳ Pending |
+| Counter | ✅ Reviewed | ⏳ Pending |
+| Current | ✅ Reviewed | ⏳ Pending |
+| Input | ✅ Reviewed | ⏳ Pending |
+| Meteo | ✅ Reviewed | ⏳ Pending |
+| Push | ✅ Reviewed | ⏳ Pending |
+| Scale | ✅ Reviewed | ⏳ Pending |
 
 ## CHESTER SDK Project Generator
 **Author**: [Enzo Frese](https://github.com/FreseEnzo)
@@ -46,15 +43,15 @@ pip install PyYAML Jinja2
 ### YAML Configuration Example
 project.yaml
 ```yaml
-# Hardwario YAML file for code generation
+# Hardwario YAML file example for code generation
 version: 1
 project:
-  bundle: com.hardwario.chester.clime
-  name: CHESTER Clime
+  bundle: com.hardwario.chester
+  name: CHESTER Example
   version: v1.0.0
-  variant: Clime
+  variant: Example 
 features: 
-- tamper
+#- tamper
 - shell
 - accel
 - batt
@@ -65,9 +62,6 @@ features:
 - info
 - led
 - log
-- lte
-- lrw
-- s2
 - rtc
 - therm
 - wdog
@@ -75,9 +69,17 @@ features:
 - tinycrypt_sha256
 - zcbor
 - zcbor_stop_on_error
+- lte
+- lrw
+- s2
+#- soil_sensor
+#- x4_a
+#- z
+#- ds19b20
 parameters:
+# (variable int)
 - domain: app
-  name: interval-sample
+  name: interval_sample
   var: interval_sample
   type: int
   min: 1
@@ -85,31 +87,25 @@ parameters:
   default: 60
   help: 'Get/Set sample interval in seconds (format: <1-86400>).'
 
+# (variable float)
 - domain: app
-  name: interval-aggreg
-  var: interval_aggreg
-  type: int
-  min: 1
-  max: 86400
-  default: 300
-  help: 'Get/Set aggregate interval in seconds (format: <1-86400>).'
+  name: hygro-t-alarm-hi-thr
+  var: hygro_t_alarm_hi_thr
+  type: float
+  min: -40.0
+  max: 125.0
+  default: 12.45
+  help: 'Get/Set hygro high temperature alarm threshold (format: <-40.0..125.0>).'
 
-- domain: app
-  name: interval-report
-  var: interval_report
-  type: int
-  min: 30
-  max: 86400
-  default: 1800
-  help: 'Get/Set report interval in seconds (format: <30-86400>).'
+# (variable string)
+- domain: lte
+  name: apn
+  var: apn
+  type: string
+  default: onomondo
+  help: 'Set APN network name'
 
-- domain: app
-  name: hygro-t-alarm-hi-report
-  var: hygro_t_alarm_hi_report
-  type: bool
-  default: null
-  help: 'Get/Set report when hygro high temperature alarm is crossed (format: true, false).'
-
+# (variable bool)
 - domain: app
   name: hygro-t-alarm-lo-report
   var: hygro_t_alarm_lo_report
@@ -117,73 +113,25 @@ parameters:
   default: null
   help: 'Get/Set report when hygro low temperature alarm is crossed (format: true, false).'
 
+# (bool array)
 - domain: app
-  name: hygro-t-alarm-hi-thr
-  var: hygro_t_alarm_hi_thr
-  type: float
-  min: -40.0
-  max: 125.0
+  name: channel-differential
+  var: channel_differential
+  type: array[bool]
+  len: 4
   default: null
-  help: 'Get/Set hygro high temperature alarm threshold (format: <-40.0..125.0>).'
+  help: 'Get/Set channel differential mode (format: <channel> <true|false>).'
 
+# (int array)
 - domain: app
-  name: hygro-t-alarm-hi-hst
-  var: hygro_t_alarm_hi_hst
-  type: float
-  min: 0.0
-  max: 100.0
-  default: null
-  help: 'Get/Set hygro high temperature alarm hysteresis (format: <0.0..100.0>).'
-
-- domain: app
-  name: hygro-t-alarm-lo-thr
-  var: hygro_t_alarm_lo_thr
-  type: float
-  min: -40.0
-  max: 125.0
-  default: null
-  help: 'Get/Set hygro low temperature alarm threshold (format: <-40.0..125.0>).'
-
-- domain: app
-  name: hygro-t-alarm-lo-hst
-  var: hygro_t_alarm_lo_hst
-  type: float
-  min: 0.0
-  max: 100.0
-  default: null
-  help: 'Get/Set hygro low temperature alarm hysteresis (format: <0.0..100.0>).'
-
-- domain: app
-  name: event-report-delay
-  var: event_report_delay
-  type: int
-  min: 1
+  name: channel-calib-x0
+  var: channel_calib_x0
+  type: array[int]
+  len: 4
+  min: 30
   max: 86400
-  default: 1
-  help: 'Get/Set event report delay in seconds (format: <1-86400>).'
-
-- domain: app
-  name: event-report-rate
-  var: event_report_rate
-  type: int
-  min: 1
-  max: 3600
-  default: 30
-  help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
-
-- domain: app
-  name: backup-report-connected
-  var: backup_report_connected
-  type: bool
-  default: true
-  help: 'Set backup report connected (default: true)'
-
-- domain: app
-  name: backup-report-disconnected
-  var: backup_report_disconnected
-  type: bool
-  default: true
-  help: 'Set backup report disconnected (default: true)'
+  default: null
+  help: 'Get/Set channel X0 calibration point (format: <channel> <-2147483648..2147483647>).'
 
 commands:
 - domain: app
@@ -200,7 +148,6 @@ commands:
   name: aggreg
   callback: app_work_aggreg # This function should be manually created
   help: 'Aggregate data immediately'
-
 extras:
 # Extras for prj.conf
 - CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
