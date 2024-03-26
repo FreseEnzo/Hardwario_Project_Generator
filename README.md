@@ -1,9 +1,9 @@
 # CHESTER SDK Project Generation Tools
 | Catalog  | Code Review | Build Review  
 | :---: | :---: | :---: |
-| Clime | ✅ Reviewed | ⏳ Pending |
+| Clime | ✅ Reviewed | ✅ Reviewed |
 | Signal | ✅ Reviewed |  ⏳ Pending |
-| Counter | ✅ Reviewed | ⏳ Pending |
+| Counter | ✅ Reviewed | ✅ Reviewed |
 | Current | ✅ Reviewed | ⏳ Pending |
 | Input | ✅ Reviewed | ⏳ Pending |
 | Meteo | ✅ Reviewed | ⏳ Pending |
