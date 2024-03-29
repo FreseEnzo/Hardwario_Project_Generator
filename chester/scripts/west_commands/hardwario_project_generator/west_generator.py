@@ -35,6 +35,8 @@ class ProjectGenerator(WestCommand):
     def do_run(self, args, unknown_args):
         try:
             run()
-            log.inf("★ Project successfully created", colorize=True)
+            log.inf("★ Project successfully created.", colorize=True)
+        except NameError:
+            log.inf("★ YAML example successfully created.", colorize=True)
         except:
-            log.err("Skeleton unsuccessfully generated")
+             log.err("Skeleton unsuccessfully generated.")

@@ -6,7 +6,6 @@ project:
   version: v1.0.0
   variant: Clime
 features: 
-#- tamper
 - shell
 - accel
 - batt
@@ -27,6 +26,7 @@ features:
 - lte
 - lrw
 - s2
+#- tamper
 #- soil_sensor
 #- x4_a
 #- z

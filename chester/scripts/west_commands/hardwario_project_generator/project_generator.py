@@ -32,9 +32,9 @@ def yaml_source():
             data = yaml.safe_load(stream)
     except:
         log.wrn(
-            "project.yaml file was not found in the current folder. Creating...\n"
-            "Call 'west scaffold' with your configurated project.yaml to generate the Skeleton Project"
+            "project.yaml file was not found in the current folder."
         )
+        log.inf("Generating project.yaml example", colorize= True)
         try:
             # Setup Jinja environment
             jinja_templates_dir = (
@@ -54,12 +54,10 @@ def yaml_source():
                 f.write(rendered_template)
         except:
             log.err("Problem during project.yaml generation")
-
+            
     if not data["project"]["variant"]:
-        log.wrn(
-            "No project variant found in project.yml. The file app.overlay won't be correctly generated"
-        )
-
+        log.wrn("No project variant found in project.yml.")
+        sys.exit(1)
     return data
 
 
@@ -142,7 +140,10 @@ def generate_file(
             current_dir,
             *jinja_templates_dir.split("/"),
         )
-        env = Environment(loader=FileSystemLoader(jinja_templates_folder),extensions=['jinja2.ext.do'])
+        env = Environment(
+            loader=FileSystemLoader(jinja_templates_folder),
+            extensions=["jinja2.ext.do"],
+        )
         template = env.get_template(jinja_path)
 
         # Dir source
@@ -201,13 +202,13 @@ def generate_file(
             # Combine saved sections with new content
             for marker in USER_CODE_MARKERS:
                 begin_marker = marker["begin"]
-                sections = saved_sections.get(begin_marker, [])  
-                if not sections:  
-                    continue  
+                sections = saved_sections.get(begin_marker, [])
+                if not sections:
+                    continue
                 saved_content = "\n".join(section.strip() for section in sections)
-                
+
                 # Concatenate all saved sections
-                if saved_content.strip():  
+                if saved_content.strip():
                     new_content = new_content.replace(begin_marker, f"{saved_content}")
 
             # Write in destination file
@@ -296,7 +297,7 @@ def run():
         jinja_path="k_config.j2",
         **data,
     )
-    
+
     # Successfull creation log information
     if len(file_status["created"]) > 0:
         log.inf("Created files:", colorize=True)
