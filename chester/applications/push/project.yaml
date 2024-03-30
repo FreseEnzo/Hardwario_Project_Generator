@@ -62,7 +62,7 @@ parameters:
     name: event-report-rate
     var: event_report_rate
     type: int
-    min: 1
+    min: 1Set backup report disconnected
     max: 3600
     default: 30
     help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
@@ -70,16 +70,16 @@ parameters:
   - domain: app
     name: backup-report-connected
     var: backup_report_connected
-    type: array[bool]
-    len: 4
-    help: 'Set backup report connected (default: true)'
+    type: bool
+    default: true
+    help: 'Get/Set report when backup is active (format: true, false).'
 
   - domain: app
     name: backup-report-disconnected
     var: backup_report_disconnected
     type: bool
     default: true
-    help: 'Set backup report disconnected'
+    help: 'Get/Set report when backup is inactive (format: true, false).'
 
 commands:
 - domain: app

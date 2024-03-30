@@ -64,14 +64,14 @@ parameters:
     var: backup_report_connected
     type: bool
     default: true
-    help: 'Set backup report connected (default: true)'
+    help: 'Get/Set report when backup is active (format: true, false).'
 
   - domain: app
     name: backup-report-disconnected
     var: backup_report_disconnected
     type: bool
     default: true
-    help: 'Set backup report disconnected'
+    help: 'Get/Set report when backup is inactive (format: true, false).'
 
   - domain: app
     name: trigger-active-duration
@@ -105,14 +105,14 @@ parameters:
     var: trigger_report_active
     type: bool
     default: true
-    help: 'Set report when trigger is active'
+    help: 'Get/Set report when trigger is active (format: true, false).'
 
   - domain: app
     name: trigger-report-inactive
     var: trigger_report_inactive
     type: bool
     default: true
-    help: 'Set report when trigger is inactive'
+    help: 'Get/Set report when trigger is inactive (format: true, false).'
 
   - domain: app
     name: counter-interval-aggreg

@@ -4,7 +4,7 @@ project:
   bundle: com.hardwario.chester.scale
   name: CHESTER Scale
   version: v1.0.0 
-  variant: scale
+  variant: Scale H!
 features: 
 - shell
 - accel

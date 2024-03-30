@@ -26,6 +26,7 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
+
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -135,6 +136,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
+SHELL_CMD_REGISTER(measure, NULL, "Start measurement immediately.", cmd_measure);
 
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */

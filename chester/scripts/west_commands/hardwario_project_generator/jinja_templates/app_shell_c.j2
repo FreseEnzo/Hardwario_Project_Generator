@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
-{%- set variant_name_lower = variant_name|lower %}
+{%- set variant_name_lower = (variant_name|lower).split()[0] %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
 	{%- do config_mode.append(1) %}
@@ -37,8 +37,7 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
-
-{%- if variant_name_lower.split(' ')[0] == 'scale' %}
+{% if variant_name_lower == 'scale' %}
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -56,7 +55,7 @@ static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 	return 0;
 }
 {%- endif %}
-{% if variant_name_lower.split(' ')[0] == 'meteo' %}
+{% if variant_name_lower == 'meteo' %}
 static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 {
 	int ret;
@@ -173,7 +172,9 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 {% for command in commands %}
 SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}", cmd_{{ command.name }});
 {%- endfor %}
-
+{%- if variant_name_lower == 'scale' %}
+SHELL_CMD_REGISTER(measure, NULL, "Start measurement immediately.", cmd_measure);
+{% endif %}
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
