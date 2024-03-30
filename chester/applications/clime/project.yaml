@@ -132,14 +132,14 @@ parameters:
   var: backup_report_connected
   type: bool
   default: true
-  help: 'Set backup report connected (default: true)'
+  help: 'Get/Set report when backup is active (format: true, false).'
 
 - domain: app
   name: backup-report-disconnected
   var: backup_report_disconnected
   type: bool
   default: true
-  help: 'Set backup report disconnected (default: true)'
+  help: 'Get/Set report when backup is inactive (format: true, false).'
 
 commands:
 - domain: app
