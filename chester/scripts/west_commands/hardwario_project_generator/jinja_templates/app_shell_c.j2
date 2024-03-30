@@ -172,7 +172,9 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 {% for command in commands %}
 SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}", cmd_{{ command.name }});
 {%- endfor %}
-
+{%- if variant_name_lower == 'scale' %}
+SHELL_CMD_REGISTER(measure, NULL, "Start measurement immediately.", cmd_measure);
+{% endif %}
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
