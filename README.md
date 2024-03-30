@@ -2,13 +2,13 @@
 | Catalog  | Code Review | Build Review  
 | :---: | :---: | :---: |
 | Clime | ✅ Reviewed | ✅ Reviewed |
-| Signal | ✅ Reviewed |  ⏳ Pending |
+| Signal | ✅ Reviewed |  ✅ Reviewed |
 | Counter | ✅ Reviewed | ✅ Reviewed |
-| Current | ✅ Reviewed | ⏳ Pending |
-| Input | ✅ Reviewed | ⏳ Pending |
-| Meteo | ✅ Reviewed | ⏳ Pending |
-| Push | ✅ Reviewed | ⏳ Pending |
-| Scale | ✅ Reviewed | ⏳ Pending |
+| Current | ✅ Reviewed | ✅ Reviewed |
+| Input | ✅ Reviewed | ✅ Reviewed |
+| Meteo | ✅ Reviewed | ✅ Reviewed |
+| Push | ✅ Reviewed | ✅ Reviewed |
+| Scale | ✅ Reviewed | ✅ Reviewed |
 
 ## CHESTER SDK Project Generator
 **Author**: [Enzo Frese](https://github.com/FreseEnzo)
