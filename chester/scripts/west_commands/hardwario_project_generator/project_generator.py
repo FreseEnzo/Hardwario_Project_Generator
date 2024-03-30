@@ -112,6 +112,7 @@ def cmake(project_name: str, data):
         rendered_template = template.render(
             project_name=project_name,
             sources=sources,
+            data=data,
         )
 
         # Log message

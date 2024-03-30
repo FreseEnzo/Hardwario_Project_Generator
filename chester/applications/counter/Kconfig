@@ -11,7 +11,7 @@ menu "Application"
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
-	
+
 config CTR_LTE
 	default y
 # X0_A ---------------------------------------------------------------------- #

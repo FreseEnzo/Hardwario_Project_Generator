@@ -2,9 +2,9 @@
 version: 1
 project:
   bundle: com.hardwario.chester.signal
-  name: CHESTER signal
+  name: CHESTER Signal
   version: v1.0.0 
-  variant: signal
+  variant: Signal
 features: 
 - shell
 - ble
