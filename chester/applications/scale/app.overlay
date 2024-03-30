@@ -20,8 +20,12 @@
 
 &ctr_x3_ads122c04_a1 {
 	status = "okay";
+	gain = <7>;
+	vref = <1>;
 };
 
 &ctr_x3_ads122c04_a2 {
 	status = "okay";
+	gain = <7>;
+	vref = <1>;
 };
