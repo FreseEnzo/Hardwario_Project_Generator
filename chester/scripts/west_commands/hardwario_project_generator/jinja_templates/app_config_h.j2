@@ -1,14 +1,23 @@
-/*
- * Copyright (c) 2024 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
-
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
 	{%- do config_mode.append(1) %}
-{% endif %}
+{%- endif %}
+{%- if data['project']['company'] or data['project']['license'] -%}
+/*
+	{%- if data['project']['company'] %}
+ * Copyright (c) {{data['project']['company']}}
+	{%- endif %}
+	{%- if data['project']['company'] and data['project']['license'] %}
+ * 
+	{%- endif %}
+	{%- if data['project']['license'] %}
+ * {{data['project']['license'] }}
+	{%- endif %}
+ */
+{% raw %}
+{% endraw %}
+{%- endif -%}
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
