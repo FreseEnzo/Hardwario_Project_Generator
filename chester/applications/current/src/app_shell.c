@@ -175,6 +175,7 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 SHELL_CMD_REGISTER(sample, NULL,"Sample immediately.", cmd_sample);
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
 SHELL_CMD_REGISTER(aggreg, NULL,"Aggregate data immediately", cmd_aggreg);
+
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 

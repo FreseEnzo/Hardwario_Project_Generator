@@ -5,8 +5,6 @@ project:
   name: CHESTER Current
   version: v1.0.0
   variant: Current
-  company: HARDWARIO
-  license: 
 features: 
 - shell
 - accel
