@@ -27,6 +27,7 @@ LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
+
 static int cmd_sample(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -119,11 +120,11 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 				  app_config_cmd_config_event_report_rate, 1, 1),
 	
 	SHELL_CMD_ARG(backup-report-connected, NULL,
-				  "Set backup report connected (default: true)",
+				  "Get/Set report when backup is active (format: true, false).",
 				  app_config_cmd_config_backup_report_connected, 1, 1),
 	
 	SHELL_CMD_ARG(backup-report-disconnected, NULL,
-				  "Set backup report disconnected",
+				  "Get/Set report when backup is inactive (format: true, false).",
 				  app_config_cmd_config_backup_report_disconnected, 1, 1),
 	
 	SHELL_CMD_ARG(channel-active, NULL,
@@ -174,7 +175,6 @@ SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 SHELL_CMD_REGISTER(sample, NULL,"Sample immediately.", cmd_sample);
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
 SHELL_CMD_REGISTER(aggreg, NULL,"Aggregate data immediately", cmd_aggreg);
-
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
