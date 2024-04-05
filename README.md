@@ -32,14 +32,16 @@ This Python project generates a project structure and configuration files for th
 
 - **Generated CMakeLists.txt**
   - The script generates a CMakeLists.txt file based on the project configuration and source files found in the 'src' directory.
-### Installation
+### Usage
 
-To use the CHESTER SDK Project Generator, ensure you have the required dependencies installed:
-
+1. **Project Create**: 
 ```bash
-pip install PyYAML Jinja2
+west chester-create <name>
 ```
-
+2. **Project Update**: 
+```bash
+west chester-update <name>
+```
 ### YAML Configuration Example
 project.yaml
 ```yaml
@@ -156,14 +158,3 @@ extras:
 - CONFIG_NEWLIB_LIBC_NANO=n
 ```
 Note: Example generation files can be found in the src directory of this repository
-
-### Usage
-
-1. **Project Configuration**: Ensure you have a 'project.yaml' file that specifies project configurations such as project name, features, commands and extras. Otherwise, just use the command below into your project folder to generate a project.yaml example.
-```bash
-west scaffold
-```
-2. **Run the Generator**: This command should be used in project folder with a project.yaml previously configured
-```bash
-west scaffold
-```
