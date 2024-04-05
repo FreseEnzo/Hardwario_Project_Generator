@@ -13,59 +13,80 @@ from jinja2 import Environment, FileSystemLoader
 from project_data import *
 from west import log
 
-# Getting current directory
-current_directory = os.getcwd()
+
+def check_vendor(_topdir):
+    # Checks if vendor folder exists
+    dir_app_vendor = os.path.join(_topdir, "vendor")
+    dir_app_chester = os.path.join(_topdir, "chester")
+    if "vendor" in os.listdir(_topdir):
+        return dir_app_vendor
+    else:
+        return dir_app_chester
 
 
-def project_verification():
-    if not os.path.basename(os.path.dirname(current_directory)) == "applications":
-        log.wrn("Make sure you're into your /project folder in /applications folder")
-        sys.exit(1)  # Close run
+def project_create(_topdir, prj_name):
+    # Setup dirs
+    dir = check_vendor(_topdir)
+    app_dir = os.path.join(dir, "applications")
+    prj_dir = generate_project_folder(app_dir, prj_name)
+    yaml_dir = os.path.join(prj_dir, "project.yaml")
 
+    # Setup Jinja environment
+    jinja_templates_dir = (
+        "/scripts/west_commands/hardwario_project_generator/jinja_templates/"
+    )
+    jinja_templates_folder = os.path.join(
+        _topdir,
+        "chester",
+        *jinja_templates_dir.split("/"),
+    )
+    env = Environment(loader=FileSystemLoader(jinja_templates_folder))
+    template = env.get_template("project_yaml.j2")
 
-def yaml_source():
-
-    # YAML file
-    try:
-        yaml_file = os.path.join(current_directory, "project.yaml")
-        with open(yaml_file, "r") as stream:
-            data = yaml.safe_load(stream)
-    except:
-        log.wrn(
-            "project.yaml file was not found in the current folder."
-        )
-        log.inf("Generating project.yaml example", colorize= True)
+    # Render the template with data
+    rendered_template = template.render(project_name=prj_name)
+    if not os.path.exists(yaml_dir):
         try:
-            # Setup Jinja environment
-            jinja_templates_dir = (
-                "/scripts/west_commands/hardwario_project_generator/jinja_templates/"
-            )
-            current_dir = os.path.dirname(os.path.dirname(current_directory))
-            jinja_templates_folder = os.path.join(
-                current_dir,
-                *jinja_templates_dir.split("/"),
-            )
-            env = Environment(loader=FileSystemLoader(jinja_templates_folder))
-            template = env.get_template("project_yaml.j2")
-
-            # Render the template with data
-            rendered_template = template.render()
-            with open("project.yaml", "w") as f:
+            with open(yaml_dir, "w") as f:
                 f.write(rendered_template)
         except:
             log.err("Problem during project.yaml generation")
-            
+            sys.exit(1)
+    else:
+        log.wrn("The project.yaml file already exists in your project folder")
+        return False
+
+    return True
+
+
+def yaml_source(_topdir, prj_name):
+    # Setup dirs
+    dir = check_vendor(_topdir)
+    app_dir = os.path.join(dir, "applications")
+    prj_dir = os.path.join(app_dir, prj_name)
+    yaml_dir = os.path.join(prj_dir, "project.yaml")
+
+    # YAML file
+    try:
+        with open(yaml_dir, "r") as stream:
+            data = yaml.safe_load(stream)
+    except:
+        log.wrn(
+            "The project.yaml file was not found in the project folder. Please use 'west chester-create <folder_name>' to create the project."
+        )
     if not data["project"]["variant"]:
         log.wrn("No project variant found in project.yml.")
-        sys.exit(1)
+
     return data
 
 
-def generate_project_folder(project_name: str):
+def generate_project_folder(app_dir: str, project_name: str):
     # Create the project directory if it doesn't exist
-    project_dir = project_name
+    project_dir = os.path.join(app_dir, project_name)
     if not os.path.exists(project_dir):
         os.makedirs(project_dir)
+    else:
+        log.wrn("This project name already exists")
     return project_dir
 
 
@@ -88,23 +109,32 @@ def transform_to_slug(text: str):
     return slug
 
 
-def cmake(project_name: str, data):
+def cmake(top_dir, prj_name: str, project_name, data):
+    dir = check_vendor(top_dir)
+    app_dir = os.path.join(dir, "applications")
+    prj_dir = os.path.join(app_dir, prj_name)
+    cmake_dir = os.path.join(prj_dir, "CMakeLists.txt")
+    src_dir = os.path.join(prj_dir, "src")
     try:
         # Setup Jinja environment
         jinja_templates_dir = (
             "/scripts/west_commands/hardwario_project_generator/jinja_templates"
         )
-        current_dir = os.path.dirname(os.path.dirname(current_directory))
         jinja_templates_folder = os.path.join(
-            current_dir,
+            top_dir,
+            "chester",
             *jinja_templates_dir.split("/"),
         )
         env = Environment(loader=FileSystemLoader(jinja_templates_folder))
 
         # Walking into files
         sources = []
-        for root, dirs, files in os.walk("src"):
-            sources.append((root, dirs, files))
+        for root, dirs, files in os.walk(src_dir):
+            # Collect sources
+            for file in files:
+                if file.endswith(".c"):
+                    file_path = os.path.relpath(os.path.join(root, file), src_dir)
+                    sources.append(file_path)
 
         template = env.get_template("CMakeLists.j2")
 
@@ -116,29 +146,39 @@ def cmake(project_name: str, data):
         )
 
         # Log message
-        if os.path.exists("CMakeLists.txt"):
-            log.inf("CMakeLists.txt successfully updated", colorize=True)
+        if os.path.exists(cmake_dir):
+            log.inf("CMakeLists.txt successfully regenerated", colorize=True)
         else:
-            log.inf("CMakeLists.txt successfully generated", colorize=True)
+            log.inf("CMakeLists.txt successfully created", colorize=True)
 
         # Write the rendered template to CMakeLists.txt
-        with open("CMakeLists.txt", "w") as f:
+        with open(cmake_dir, "w") as f:
             f.write(rendered_template)
     except:
         log.err("CMakeLists.txt unsuccessfully created")
 
 
 def generate_file(
-    project_dir, project_name, file_status, src_dir, out_dir, jinja_path, **kwargs
+    topdir,
+    prj_name,
+    project_name,
+    file_status,
+    src_dir,
+    out_dir,
+    jinja_path,
+    **kwargs,
 ):
+    dir = check_vendor(topdir)
+    app_dir = os.path.join(dir, "applications")
+    prj_dir = os.path.join(app_dir, prj_name)
     try:
         # Setup Jinja environment
         jinja_templates_dir = (
             "/scripts/west_commands/hardwario_project_generator/jinja_templates"
         )
-        current_dir = os.path.dirname(os.path.dirname(current_directory))
         jinja_templates_folder = os.path.join(
-            current_dir,
+            topdir,
+            "chester",
             *jinja_templates_dir.split("/"),
         )
         env = Environment(
@@ -148,11 +188,10 @@ def generate_file(
         template = env.get_template(jinja_path)
 
         # Dir source
-        src_dir = os.path.join(project_dir, src_dir)
+        src_dir = os.path.join(prj_dir, src_dir)
         if not os.path.exists(src_dir):
             os.makedirs(src_dir)
         destination = os.path.join(src_dir, out_dir)
-
         if not os.path.exists(destination):
 
             # Render the template with data
@@ -219,98 +258,105 @@ def generate_file(
         log.err(f"{out_dir} unsuccessfully created")
 
 
-def run():
+def run(topdir, prj_name, mode):
 
     file_status: dict[str, list] = {"created": [], "updated": [], "error": []}
+    if mode == "create":
+        return project_create(topdir, prj_name)
 
-    project_verification()
+    elif mode == "update":
+        data = yaml_source(topdir, prj_name)
+        try:
+            project_name = transform_to_slug(data["project"]["name"])
+        except:
+            log.wrn("No project name found in project.yaml. Please update your project.yaml.")
+            sys.exit(1)  # Close run
 
-    data = yaml_source()
+        # Generate app_config.c
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="src",
+            out_dir="app_config.c",
+            jinja_path="app_config_c.j2",
+            **data,
+        )
 
-    try:
-        project_name = transform_to_slug(data["project"]["name"])
-    except:
-        log.wrn("No project name found in project.yaml")
-        sys.exit(1)  # Close run
+        # Generate app_config.h
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="src",
+            out_dir="app_config.h",
+            jinja_path="app_config_h.j2",
+            **data,
+        )
 
-    # Generate app_config.c
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="src",
-        out_dir="app_config.c",
-        jinja_path="app_config_c.j2",
-        **data,
-    )
+        # Generate app_shell.c
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="src",
+            out_dir="app_shell.c",
+            jinja_path="app_shell_c.j2",
+            **data,
+        )
 
-    # Generate app_config.h
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="src",
-        out_dir="app_config.h",
-        jinja_path="app_config_h.j2",
-        **data,
-    )
+        # Generate prj.confroject.
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="",
+            out_dir="prj.conf",
+            jinja_path="prj_conf.j2",
+            **data,
+        )
 
-    # Generate app_shell.c
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="src",
-        out_dir="app_shell.c",
-        jinja_path="app_shell_c.j2",
-        **data,
-    )
+        # Generate prj.conf
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="",
+            out_dir="app.overlay",
+            jinja_path="app_overlay.j2",
+            **data,
+        )
 
-    # Generate prj.confroject.
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="",
-        out_dir="prj.conf",
-        jinja_path="prj_conf.j2",
-        **data,
-    )
+        # Generate Kconfig
+        generate_file(
+            topdir,
+            prj_name,
+            project_name,
+            file_status,
+            src_dir="",
+            out_dir="Kconfig",
+            jinja_path="k_config.j2",
+            **data,
+        )
 
-    # Generate prj.conf
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="",
-        out_dir="app.overlay",
-        jinja_path="app_overlay.j2",
-        **data,
-    )
+        # Successfull creation log information
+        if len(file_status["created"]) > 0:
+            log.inf("Created files:", colorize=True)
+            for file in file_status["created"]:
+                log.inf(f"• {file}", colorize=True)
+        if len(file_status["updated"]) > 0:
+            log.inf("Updated files:", colorize=True)
+            for file in file_status["updated"]:
+                log.inf(f"• {file}", colorize=True)
 
-    # Generate Kconfig
-    generate_file(
-        current_directory,
-        project_name,
-        file_status,
-        src_dir="",
-        out_dir="Kconfig",
-        jinja_path="k_config.j2",
-        **data,
-    )
-
-    # Successfull creation log information
-    if len(file_status["created"]) > 0:
-        log.inf("Created files:", colorize=True)
-        for file in file_status["created"]:
-            log.inf(f"• {file}", colorize=True)
-    if len(file_status["updated"]) > 0:
-        log.inf("Updated files:", colorize=True)
-        for file in file_status["updated"]:
-            log.inf(f"• {file}", colorize=True)
-
-    # Generate CMakeLists.txt
-    cmake(project_name, data)
+        # Generate CMakeLists.txt
+        cmake(topdir, prj_name, project_name, data)
+        return True
 
 
 if __name__ == "__main__":

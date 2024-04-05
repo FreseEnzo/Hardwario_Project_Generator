@@ -15,9 +15,14 @@ west-commands:
       - name: check-ret-log
         class: CheckRetLog
         help: check LOG messages consistency
-  - file: scripts/west_commands/hardwario_project_generator/west_generator.py
+  - file: scripts/west_commands/hardwario_project_generator/chester-create.py
     commands:
-      - name: scaffold
-        class: ProjectGenerator
-        help: Generate Hardwario Project Application
+      - name: chester-create
+        class: ProjectCreate
+        help: create Hardwario Project Application
+  - file: scripts/west_commands/hardwario_project_generator/chester-update.py
+    commands:
+      - name: chester-update
+        class: ProjectUpdate
+        help: update Hardwario Project Application
 
