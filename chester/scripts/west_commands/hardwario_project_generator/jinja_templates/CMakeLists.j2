@@ -13,12 +13,10 @@ set(ENV{FW_NAME} "{{data['project']['name']}}")
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project({{ project_name }})
-{% for root, dirs, files in sources %}
-	{%- for file in files %}
-		{%- if file.endswith(".c") and file != 'app_tamper.c' and file != 'app_ble_svc.c'%}
+{% for file in sources %}
+	{%- if  file != 'app_tamper.c' and file != 'app_ble_svc.c'%}
 target_sources(app PRIVATE src/{{ file }})
-		{%- endif %}
-	{%- endfor %}
+	{%- endif %}
 {%- if 'app_tamper.c' in files %}    
 target_sources_ifdef(CONFIG_APP_TAMPER app PRIVATE src/app_tamper.c)
 {%- endif%}
