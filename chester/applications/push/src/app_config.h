@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2024 HARDWARIO a.s.
- *
- * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
- */
-
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -37,7 +31,7 @@ struct app_config {
 	int interval_sample;
 	int event_report_delay;
 	int event_report_rate;
-	bool backup_report_connected[4];
+	bool backup_report_connected;
 	bool backup_report_disconnected;
 
 	/* USER CODE BEGIN Struct Variables */

@@ -62,7 +62,7 @@ parameters:
     name: event-report-rate
     var: event_report_rate
     type: int
-    min: 1Set backup report disconnected
+    min: 1
     max: 3600
     default: 30
     help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
