@@ -21,9 +21,6 @@
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
-/* Includes ------------------------------------------------------------------*/
-/* Private includes --------------------------------------------------------------------*/
-
 /* Zephyr includes */
 #include <zephyr/shell/shell.h>
 
@@ -46,7 +43,6 @@ extern "C" {
 	{%- endif %}
 {%- endfor %}
 
-/* Private Variables -------------------------------------------------------------------*/
 {#- MODE LTE-LRW #}
 {%- if config_mode %}
 enum app_config_mode {
@@ -96,7 +92,6 @@ extern struct app_config g_app_config;
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-/* Private Functions -------------------------------------------------------------------*/
 {%- if config_mode %}
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}

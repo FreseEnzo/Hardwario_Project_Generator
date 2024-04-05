@@ -1,16 +1,25 @@
+{%- if data['project']['company'] or data['project']['license'] -%}
 #
-# Copyright (c) 2024 HARDWARIO a.s.
+	{%- if data['project']['company'] %}
+# Copyright (c) {{data['project']['company']}}
+	{%- endif %}
+	{%- if data['project']['company'] and data['project']['license'] %}
+# 
+	{%- endif %}
+	{%- if data['project']['license'] %}
+# {{data['project']['license'] }}
+	{%- endif %}
 #
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-#
-
+{% raw %}
+{% endraw %}
+{%- endif -%}
 menu "Application"
 
-# {{ variant_name | upper }} Project ------------------------------------------------- #
+# {{ variant_name | upper }} Project #
 {%- for feature in data['features'] %}
 {#- A1 -------------------------------------------------- #} 
 	{%- if feature == 'a1' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_A1
 	bool "Enable SHIELD_CTR_A1"
 	default y 
@@ -30,7 +39,7 @@ config I2C
 
 {#- B1 -------------------------------------------------- #} 
 	{%- if feature == 'b1' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_B1
 	bool "Enable SHIELD_CTR_B1"
 	default y 
@@ -50,7 +59,7 @@ config I2C
 
 {#- BAROMETER_TAG --------------------------------------- #} 
 	{%- if feature == 'barometer_tag' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_BAROMETER_TAG
 	bool "Enable SHIELD_CTR_BAROMETER_TAG"
 	default y 
@@ -67,7 +76,7 @@ config MPL3115A2
 
 {#- C1 -------------------------------------------------- #} 
 	{%- if feature == 'c1' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_C1
 	bool "Enable SHIELD_CTR_C1"
 	default y 
@@ -84,7 +93,7 @@ config I2C
 
 {#- C2 ------------------------------------------------- #} 
 	{%- if feature == 'c2' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_C2
 	bool "Enable SHIELD_CTR_C2"
 	default y 
@@ -101,7 +110,7 @@ config I2C
 
 {#- DS18B20 --------------------------------------------- #} 
 	{%- if feature == 'ds18b20' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_DS18B20
 	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
@@ -112,7 +121,7 @@ config CTR_DS18B20
 
 {#- GNSS ---------------------------------------- #} 
 	{%- if feature == 'gnss' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }}#
 config SHIELD_CTR_GNSS
 	bool "Enable SHIELD_CTR_GNSS"
 	default y 
@@ -123,7 +132,7 @@ config CTR_GNSS
 
 {#- K1 --------------------------------------------- #} 
 	{%- if feature == 'k1' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 
@@ -134,7 +143,7 @@ config CTR_K1
 
 {#- LRW ------------------------------------------- #} 
 	{%- if feature == 'lrw' %}
-# {{ feature | upper }}  ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
@@ -145,7 +154,7 @@ config CTR_LRW
 
 {#- LTE ------------------------------------------- #} 
 	{%- if feature == 'lte' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
@@ -156,7 +165,7 @@ config CTR_LTE
 
 {#- MACHINE_PROBE ------------------------------------------- #} 
 	{%- if feature == 'machine_probe' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_MACHINE_PROBE
 	bool "Enable SHIELD_CTR_MACHINE_PROBE"
 	default y 
@@ -167,7 +176,7 @@ config CTR_MACHINE_PROBE
 
 {#- MB7066_A --------------------------------------- #} 
 	{%- if feature == 'mb7066_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_MB7066_A"
 	default y 
@@ -181,7 +190,7 @@ config MB7066
 
 {#- MB7066_B ---------------------------------------- #} 
 	{%- if feature == 'mb7066_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_MB7066_B
 	bool "Enable SHIELD_CTR_MB7066_B"
 	default y 
@@ -195,7 +204,7 @@ config MB7066
 
 {#- METEO_A --------------------------------------- #} 
 	{%- if feature == 'meteo_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_METEO_A"
 	default y 
@@ -209,7 +218,7 @@ config CTR_X0
 
 {#- METEO_B ---------------------------------------- #} 
 	{%- if feature == 'METEO_B' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_METEO_B
 	bool "Enable SHIELD_CTR_METEO_B"
 	default y 
@@ -223,7 +232,7 @@ config CTR_X0
 
 {#- RTD_A --------------------------------------- #} 
 	{%- if feature == 'rtd_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_RTD_A"
 	default y 
@@ -237,7 +246,7 @@ config CTR_RTD
 
 {#- RTD_B ---------------------------------------- #} 
 	{%- if feature == 'rtd_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_RTD_B
 	bool "Enable SHIELD_CTR_RTD_B"
 	default y 
@@ -251,7 +260,7 @@ config CTR_RTD
 
 {#- S1 --------------------------------------------- #} 
 	{%- if feature == 's1' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_S1
 	bool "Enable SHIELD_CTR_S1"
 	default y 
@@ -265,7 +274,7 @@ config I2C
 
 {#- S2 --------------------------------------------- #} 
 	{%- if feature == 's2' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_S2
 	bool "Enable SHIELD_CTR_S2"
 	default y 
@@ -276,7 +285,7 @@ config CTR_HYGRO
 
 {#- SOIL_SENSOR --------------------------------------------- #} 
 	{%- if feature == 'soil_sensor' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_SOIL_SENSOR
 	bool "Enable SHIELD_CTR_SOIL_SENSOR"
 	default y 
@@ -287,7 +296,7 @@ config CTR_SOIL_SENSOR
 
 {#- WEIGHT_PROBE --------------------------------------------- #} 
 	{%- if feature == 'weight_probe' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_WEIGHT_PROBE
 	bool "Enable SHIELD_CTR_WEIGHT_PROBE"
 	default y 
@@ -298,7 +307,7 @@ config CTR_WEIGHT_PROBE
 	
 {#- X0A -------------------------------------------- #} 
 	{%- if feature == 'x0_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X0_A
 	bool "Enable SHIELD_CTR_X0_A"
 	default y 
@@ -309,7 +318,7 @@ config CTR_X0
 
 {#- X0B -------------------------------------------- #} 
 	{%- if feature == 'x0_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X0_B
 	bool "Enable SHIELD_CTR_X0_B"
 	default y 
@@ -320,7 +329,7 @@ config CTR_X0
 
 {#- X2A -------------------------------------------- #} 
 	{%- if feature == 'x2_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X2_A
 	bool "Enable SHIELD_CTR_X2_A"
 	default y 
@@ -343,7 +352,7 @@ config UART_SC16IS7XX
 
 {#- X2B -------------------------------------------- #} 
 	{%- if feature == 'x2_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X2_B
 	bool "Enable SHIELD_CTR_X2_B"
 	default y 
@@ -366,7 +375,7 @@ config UART_SC16IS7XX
 
 {#- X2_MODBUS_A -------------------------------------- #} 
 	{%- if feature == 'x2_modbus_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
 	default y
@@ -413,7 +422,7 @@ config I2C
 
 {#- X2_MODBUS_B ---------------------------------------- #} 
 	{%- if feature == 'x2_modbus_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X2_MODBUS_B
 	bool "Enable SHIELD_X2_MODBUS_B"
 	default y
@@ -454,7 +463,7 @@ config UART_SC16IS7XX
 
 {#- X3_A --------------------------------------------- #} 
 	{%- if feature == 'x3_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_CTR_X3_A
 	bool "Enable SHIELD_CTR_X3_A"
 	default y 
@@ -465,7 +474,7 @@ config CTR_X3
 
 {#- X3_B --------------------------------------------- #} 
 	{%- if feature == 'x3_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X3_B
 	bool "Enable SHIELD_CTR_X3_B"
 	default y 
@@ -476,7 +485,7 @@ config CTR_X3
 
 {#- X4_A --------------------------------------------- #} 
 	{%- if feature == 'x4_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_CTR_X4_A
 	bool "Enable SHIELD_CTR_X4_A"
 	default y 
@@ -487,7 +496,7 @@ config CTR_X4
 
 {#- X4_B --------------------------------------------- #} 
 	{%- if feature == 'x4_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X4_B
 	bool "Enable SHIELD_CTR_X4_B"
 	default y 
@@ -498,7 +507,7 @@ config CTR_X4
 
 {#- X7_A --------------------------------------------- #} 
 	{%- if feature == 'x7_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_CTR_X7_A
 	bool "Enable SHIELD_CTR_X7_A"
 	default y 
@@ -509,7 +518,7 @@ config CTR_X7
 
 {#- X7_B --------------------------------------------- #} 
 	{%- if feature == 'x7_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X7_B
 	bool "Enable SHIELD_CTR_X7_B"
 	default y 
@@ -520,7 +529,7 @@ config CTR_X7
 
 {#- X9_A --------------------------------------------- #} 
 	{%- if feature == 'x9_a' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_CTR_X9_A
 	bool "Enable SHIELD_CTR_X9_A"
 	default y 
@@ -531,7 +540,7 @@ config CTR_X9
 
 {#- X9_B --------------------------------------------- #} 
 	{%- if feature == 'x9_b' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X9_B
 	bool "Enable SHIELD_CTR_X9_B"
 	default y 
@@ -542,7 +551,7 @@ config CTR_X9
 
 {#- X10 --------------------------------------------- #} 
 	{%- if feature == 'x10' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_X10
 	bool "Enable SHIELD_CTR_X10"
 	default y 
@@ -553,7 +562,7 @@ config CTR_X10
 
 {#- Z --------------------------------------------- #} 
 	{%- if feature == 'z' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 
@@ -567,7 +576,7 @@ config I2C
 
 {#- PEOPLE_COUTER ------------------------------------ #} 
 	{%- if feature == 'people_counter' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config SHIELD_PEOPLE_COUNTER
 	bool "Enable SHIELD_PEOPLE_COUNTER"
 	default y
@@ -581,7 +590,7 @@ config I2C
 
 {#- TAMPER ----------------------------------------- #} 
 	{%- if feature == 'tamper' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config APP_TAMPER
 	bool "Enable tamper functionality"
 	default y 
@@ -590,7 +599,7 @@ config APP_TAMPER
 
 {#- REPORT_JITTER ---------------------------------- #} 
 	{%- if feature == 'report_jitter' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 
@@ -599,7 +608,7 @@ config APP_REPORT_JITTER
 
 {#- LAMBRECHT ---------------------------------------- #} 
 	{%- if feature == 'lambrecht' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config APP_LAMBRECHT
 	bool "Enable SHIELD_APP_LAMBRECHT"
 	default y
@@ -608,7 +617,7 @@ config APP_LAMBRECHT
 
 {#- FLIP_MODE ---------------------------------------- #} 
 	{%- if feature == 'flip_mode' %}
-# {{ feature | upper }} ---------------------------------------------------------------------- #
+# {{ feature | upper }} #
 config APP_FLIP_MODE
 	bool "Enable SHIELD_APP_FLIP_MODE"
 	default y

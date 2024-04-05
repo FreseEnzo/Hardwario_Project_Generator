@@ -1,10 +1,19 @@
+{%- if data['project']['company'] or data['project']['license'] -%}
 #
-# Copyright (c) 2024 HARDWARIO a.s.
+	{%- if data['project']['company'] %}
+# Copyright (c) {{data['project']['company']}}
+	{%- endif %}
+	{%- if data['project']['company'] and data['project']['license'] %}
+# 
+	{%- endif %}
+	{%- if data['project']['license'] %}
+#  {{data['project']['license'] }}
+	{%- endif %}
 #
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-#
-
-# Configurations ------------------------------------------------------------------ #
+{% raw %}
+{% endraw %}
+{%- endif -%}
+# Configurations #
 {%- for feature in data['features'] %}
 	{%- if feature == 'shell' %}
 CONFIG_ADC_SHELL=y
@@ -65,7 +74,7 @@ CONFIG_MB7066_SAMPLE_COUNT=1
 	{%- endif %}
 {%- endfor %}
 
-# Extra configurations ------------------------------------------------------------------ #
+# Extra configurations #
 
 {%- for extra in data['extras'] %}
 {{extra}}

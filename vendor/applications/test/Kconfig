@@ -1,0 +1,29 @@
+#
+# Copyright (c) 2024 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
+
+menu "Application"
+
+# METEO Project #
+# LTE #
+config SHIELD_CTR_LTE
+	bool "Enable SHIELD_CTR_LTE"
+	default y 
+
+config CTR_LTE
+	default y
+# LRW #
+config SHIELD_CTR_LRW
+	bool "Enable SHIELD_CTR_LRW"
+	default y 
+
+config CTR_LRW
+	default y
+
+endmenu
+
+menu "Zephyr Kernel"
+source "Kconfig.zephyr"
+endmenu

@@ -18,7 +18,6 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
-/* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
 {%- if commands and not variant_name_lower == 'scale' %}
 #include "app_work.h"
@@ -27,8 +26,6 @@
 #include "app_measure.h"
 #include "app_send.h"
 {%- endif %}
-
-/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -44,9 +41,7 @@
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
 
-/* USER CODE BEGIN Variables */
-/* USER CODE END Variables */
-{% if variant_name_lower == 'scale' %}
+{%- if variant_name_lower == 'scale' -%}
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -64,7 +59,7 @@ static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 	return 0;
 }
 {%- endif %}
-{% if variant_name_lower == 'meteo' %}
+{%- if variant_name_lower == 'meteo' -%}
 static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 {
 	int ret;
@@ -74,30 +69,32 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 		shell_help(shell);
 		return -EINVAL;
 	}
-{% if 'barometer_tag' in data['features']%}
+{%- if 'barometer_tag' in data['features']%}
+
 	shell_print(shell, "Barometer");
 	ret = shell_execute_cmd(shell, "mpl3115a2 read");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-{% if 'meteo_a' in data['features']%}
+{%- if 'meteo_a' in data['features']%}
+
 	shell_print(shell, "Meteo");
 	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_a");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-{% if 'meteo_b' in data['features']%}
-#if defined(CONFIG_SHIELD_CTR_METEO_B)
+{%- if 'meteo_b' in data['features']%}
+
 	shell_print(shell, "Meteo");
 	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_b");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-
 {%- if 's2' in data['features']%}
+
 	shell_print(shell, "Humidity");
 	ret = shell_execute_cmd(shell, "hygro read");
 	if (ret) {
@@ -107,7 +104,7 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 
 	return 0;
 }
-{%- endif %}
+{% endif %}
 {%- for command in commands %}
 static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
 {
@@ -184,6 +181,7 @@ SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}", cmd_{{ command
 {%- if variant_name_lower == 'scale' %}
 SHELL_CMD_REGISTER(measure, NULL, "Start measurement immediately.", cmd_measure);
 {% endif %}
+
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
