@@ -1,5 +1,8 @@
+{#- GLOBAL VARIABLES #}
 {%- set variant_name_lower = variant_name|lower -%}
 {%- set config_mode = [] -%}
+
+{#- COPYRIGHT AND LICENSE #}
 {%- if 'lte' in data['features'] and 'lrw' in data['features'] -%}
 	{%- do config_mode.append(1) %}
 {%- endif %}
@@ -18,6 +21,7 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
+
 #include "app_config.h"
 
 /* CHESTER includes */
@@ -45,6 +49,7 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 #define SETTINGS_PFX "{{ setting_pfx }}"
 
 struct app_config g_app_config;
+
 {#- STRUCT #}
 {% if data %}
 static struct app_config m_app_config_interim = {
@@ -59,11 +64,13 @@ static struct app_config m_app_config_interim = {
 	{%- endif -%}
 	{%- endif %}
 {%- endfor -%}
-{# MODE LTE-LRW #}
+
+{#- MODE LTE-LRW #}
 {%- if config_mode %}
 	.mode = APP_CONFIG_MODE_LTE,
 {%- endif -%}
-{# VARIANT INPUT #}
+
+{#- VARIANT INPUT #}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
 	.trigger_input_type = APP_CONFIG_INPUT_TYPE_NPN,
 	.counter_input_type = APP_CONFIG_INPUT_TYPE_NPN,
@@ -73,9 +80,10 @@ static struct app_config m_app_config_interim = {
 	/* USER CODE END Struct Variables */
 };
 {%- endif %}
-
+{% raw %}
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
+{% endraw %}
 
 {#- MODE LTE-LRW #}
 {%- if config_mode %}
@@ -201,7 +209,7 @@ int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t a
 	return -EINVAL;
 }
 {%- endif %}
-{% for parameter in parameters -%}
+{%- for parameter in parameters -%}
 
 {#- BOOL TYPE #}
 {%- if parameter['type'] == 'bool' %}
@@ -504,10 +512,11 @@ int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **ar
 	
 	return 0;
 }
-
+{% raw %}
 /* USER CODE BEGIN Functions 1 */
 /* USER CODE END Functions 1 */
-{# H_COMMIT #}
+{% endraw %}
+{#- H_COMMIT #}
 static int h_commit(void)
 {
 	LOG_DBG("Loaded settings in full");

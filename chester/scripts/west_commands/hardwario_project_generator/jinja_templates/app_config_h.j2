@@ -1,8 +1,11 @@
+{#- GLOBAL VARIABLES #}
 {%- set variant_name_lower = variant_name|lower %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
 	{%- do config_mode.append(1) %}
 {%- endif %}
+
+{#- COPYRIGHT AND LICENSE #}
 {%- if data['project']['company'] or data['project']['license'] -%}
 /*
 	{%- if data['project']['company'] %}
@@ -18,6 +21,7 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
+
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
@@ -39,8 +43,8 @@ extern "C" {
 {%- for feature in data['features'] %}
 	{%- if feature == 'k1' %}
 
-#define APP_CONFIG_CHANNEL_COUNT 4          
-	{%- endif %}
+#define APP_CONFIG_CHANNEL_COUNT 4  
+	{% endif %}
 {%- endfor %}
 
 {#- MODE LTE-LRW #}
@@ -88,25 +92,28 @@ struct app_config {
 };
 {% endif %}
 extern struct app_config g_app_config;
-
+{% raw %}
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
+{% endraw %}
 
+{#- MODE LTE-LRW #}
 {%- if config_mode %}
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
-
 {%- for parameter in data['parameters'] %}
 {%- if parameter['type'] == 'bool' or parameter['type'] == 'int' or parameter['type'] == 'float' or parameter['type'].split('[')[0] == 'array'  %}
 int app_config_cmd_config_{{ parameter['var'] }}(const struct shell *shell, size_t argc, char **argv);
 {%- endif %}
 {%- endfor %}
+
 {#- VARIANT CURRENT#}
 {%- if variant_name_lower.split(' ')[0] == 'current' %}
 int app_config_get_interval_report(void);
 int app_config_set_interval_report(int value);
 {%- endif %}
+
 {#- VARIANT INPUT#}
 {%- if variant_name_lower.split(' ')[0] == 'input' %}
 int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t argc, char **argv);

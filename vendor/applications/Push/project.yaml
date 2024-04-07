@@ -1,0 +1,193 @@
+# Hardwario YAML file for code generation
+version: 1
+project:
+  bundle: com.hardwario.chester.clime
+  name: CHESTER Current
+  version: v1.0.0
+  variant: meteo
+  company: aaaaaaaa
+  license: aaaa
+features: 
+- shell
+- accel
+- batt
+- button
+- bluetooth
+- buf
+- defaults
+- info
+- led
+- log
+- rtc
+- therm
+- wdog
+- entropy_generator
+- tinycrypt
+- tinycrypt_sha256
+- zcbor
+- zcbor_stop_on_error
+- lte
+- k1
+- s2
+- people_counter
+- barometer_tag
+- meteo_a
+- meteo_b
+#- z
+#- ds18b20
+parameters:
+- domain: app
+  name: channel-interval-sample
+  var: channel_interval_sample
+  type: int
+  min: 1
+  max: 86400
+  default: 60
+  help: 'Get/Set channel sample interval in seconds (format: <1-86400>).'
+
+- domain: app
+  name: channel-interval-aggreg
+  var: channel_interval_aggreg
+  type: int
+  min: 1
+  max: 86400
+  default: 300
+  help: 'Get/Set channel aggregate interval in seconds (format: <1-86400>).'
+
+- domain: app
+  name: interval-report
+  var: interval_report
+  type: int
+  min: 30
+  max: 86400
+  default: 900
+  help: 'Get/Set report interval in seconds (format: <30-86400>).'
+
+- domain: app
+  name: w1-therm-interval-sample
+  var: w1_therm_interval_sample
+  type: int
+  min: 1
+  max: 86400
+  default: 60
+  help: 'Get/Set report when hygro high temperature alarm is crossed (format: true, false).'
+
+- domain: app
+  name: w1-therm-interval-aggreg
+  var: w1_therm_interval_aggreg
+  type: int
+  min: 1
+  max: 86400
+  default: 300
+  help: 'Get/Set report when hygro low temperature alarm is crossed (format: true, false).'
+
+- domain: app
+  name: event-report-delay
+  var: event_report_delay
+  type: int
+  min: 1
+  max: 86400
+  default: 1
+  help: 'Get/Set event report delay in seconds (format: <1-86400>).'
+
+- domain: app
+  name: event-report-rate
+  var: event_report_rate
+  type: int
+  min: 1
+  max: 3600
+  default: 30
+  help: 'Get/Set event report rate in reports per hour (format: <1-3600>).'
+
+- domain: app
+  name: backup-report-connected
+  var: backup_report_connected
+  type: bool
+  default: true
+  help: 'Get/Set report when backup is active (format: true, false).'
+
+- domain: app
+  name: backup-report-disconnected
+  var: backup_report_disconnected
+  type: bool
+  default: true
+  help: 'Get/Set report when backup is inactive (format: true, false).'
+
+- domain: app
+  name: channel-active
+  var: channel_active
+  type: array[bool]
+  len: 4
+  default: null
+  help: 'Get/Set channel activation (format: <channel> <true|false>).'
+
+- domain: app
+  name: channel-differential
+  var: channel_differential
+  type: array[bool]
+  len: 4
+  default: null
+  help: 'Get/Set channel differential mode (format: <channel> <true|false>).'
+
+- domain: app
+  name: channel-calib-x0
+  var: channel_calib_x0
+  type: array[int]
+  len: 4
+  min: 30
+  max: 86400
+  default: null
+  help: 'Get/Set channel X0 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-y0
+  var: channel_calib_y0
+  type: array[int]
+  len: 4
+  min: 30
+  max: 86400
+  default: null
+  help: 'Get/Set channel Y0 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-x1
+  var: channel_calib_x1
+  type: array[int]
+  len: 4
+  min: 30
+  max: 86400
+  default: null
+  help: 'Get/Set channel X1 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+- domain: app
+  name: channel-calib-y1
+  var: channel_calib_y1
+  type: array[int]
+  len: 4
+  min: 30
+  max: 86400
+  default: null
+  help: 'Get/Set channel Y1 calibration point (format: <channel> <-2147483648..2147483647>).'
+
+commands:
+- domain: app
+  name: sample
+  callback: app_work_sample # This function should be manually created
+  help: 'Sample immediately.'
+
+- domain: app
+  name: send
+  callback: app_work_send # This function should be manually created
+  help: 'Send data immediately.'
+
+- domain: app
+  name: aggreg
+  callback: app_work_aggreg # This function should be manually created
+  help: 'Aggregate data immediately'
+
+extras:
+# Extras for prj.conf
+- CONFIG_ADC_TLA2021_INIT_PRIORITY=60 
+- CONFIG_ADC_NRFX_SAADC=n
+- CONFIG_ADC_SHELL=n
+- CONFIG_CTR_K1_LOG_LEVEL_DBG=y

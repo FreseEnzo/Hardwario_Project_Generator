@@ -1,18 +1,18 @@
 #
-# Copyright (c) 2024 HARDWARIO a.s.
+# Copyright (c) aaaaaaaa
 #
-#  SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#  aaaa
 #
 
 cmake_minimum_required(VERSION 3.20.0)
 
-set(ENV{FW_BUNDLE} "com.hardwario.chester")
+set(ENV{FW_BUNDLE} "com.hardwario.chester.clime")
 set(ENV{FW_VERSION} "v1.0.0")
-set(ENV{FW_NAME} "CHESTER test")
+set(ENV{FW_NAME} "CHESTER Current")
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
-project(chester-test)
+project(chester-current)
 
 target_sources(app PRIVATE src/app_shell.c)
 target_sources(app PRIVATE src/app_config.c)

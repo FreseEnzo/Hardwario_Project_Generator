@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) aaaaaaaa
+ *
+ * aaaa
+ */
+
+/* CHESTER CURRENT Project | METEO VARIANT*/
+
+/* LTE  */
+&ctr_lte_if {
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+/* K1  */
+/ {
+	ctr_k1: ctr_k1 {
+		compatible = "hardwario,ctr-k1";
+		status = "okay";
+		on1-gpios = <&ctr_k1_tca9534a 0 GPIO_ACTIVE_HIGH>;
+		on2-gpios = <&ctr_k1_tca9534a 1 GPIO_ACTIVE_HIGH>;
+		on3-gpios = <&ctr_k1_tca9534a 2 GPIO_ACTIVE_HIGH>;
+		on4-gpios = <&ctr_k1_tca9534a 3 GPIO_ACTIVE_HIGH>;
+		en-gpios = <&ctr_k1_tca9534a 4 GPIO_ACTIVE_HIGH>;
+		nc1-gpios = <&ctr_k1_tca9534a 5 GPIO_ACTIVE_HIGH>;
+		nc2-gpios = <&ctr_k1_tca9534a 6 GPIO_ACTIVE_HIGH>;
+		nc3-gpios = <&ctr_k1_tca9534a 7 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&i2c0 {
+	ctr_k1_tca9534a: ctr_k1_tca9534a@3d {
+		compatible = "ti,tca9538";
+		status = "okay";
+		reg = <0x3d>;
+		#gpio-cells = <2>;
+		gpio-controller;
+		ngpios = <8>;
+	};
+};
+/* S2  */
+&sht30_ext {
+	status = "okay";
+};
+/* PEOPLE_COUNTER  */
+&i2c0 {
+	people_counter: people_counter@7f {
+		compatible = "adastra,people-counter";
+		status = "okay";
+		reg = <0x7f>;
+	};
+};
+/* BAROMETER_TAG   */
+&ctr_barometer_tag {
+	status = "okay";
+};
+/* METEO_A  */
+&ctr_x0_a {
+	status = "okay";
+
+	ctr_meteo_a: ctr_meteo_a {
+		compatible = "hardwario,ctr-meteo";
+		slot = "A";
+		status = "okay";
+	};
+};
+
+&ctr_x0_pcal6416a_a {
+	status = "okay";
+};
