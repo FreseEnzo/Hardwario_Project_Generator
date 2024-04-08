@@ -6,15 +6,16 @@
 
 menu "Application"
 
-# SCALE H! Project ------------------------------------------------- #
-# LTE ---------------------------------------------------------------------- #
+# CHESTER SCALE Project | SCALE Variant 
+
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
 
 config CTR_LTE
 	default y
-# X3_A ---------------------------------------------------------------------- #
+# X3_A 
 config SHIELD_CTR_CTR_X3_A
 	bool "Enable SHIELD_CTR_X3_A"
 	default y 

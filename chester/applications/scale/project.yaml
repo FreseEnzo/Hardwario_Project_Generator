@@ -2,9 +2,11 @@
 version: 1
 project:
   bundle: com.hardwario.chester.scale
+  company: 2024 HARDWARIO a.s.
+  license: 'SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause'
   name: CHESTER Scale
   version: v1.0.0 
-  variant: Scale H!
+  variant: Scale 
 features: 
 - shell
 - accel

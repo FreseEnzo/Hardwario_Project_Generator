@@ -6,15 +6,16 @@
 
 menu "Application"
 
-# RANGE Project ------------------------------------------------- #
-# LTE ---------------------------------------------------------------------- #
+# CHESTER RANGE Project | RANGE Variant 
+
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
 
 config CTR_LTE
 	default y
-# MB7066_A ---------------------------------------------------------------------- #
+# MB7066_A 
 config SHIELD_CTR_A
 	bool "Enable SHIELD_CTR_MB7066_A"
 	default y 
@@ -24,14 +25,14 @@ config CTR_X0
 
 config MB7066
 	default y
-# DS18B20 ---------------------------------------------------------------------- #
+# DS18B20 
 config SHIELD_CTR_DS18B20
 	bool "Enable SHIELD_CTR_DS18B20"
 	default y 
 
 config CTR_DS18B20
 	default y
-# REPORT_JITTER ---------------------------------------------------------------------- #
+# REPORT_JITTER 
 config APP_REPORT_JITTER
 	bool "Add random time jitter to report transfers"
 	default y 

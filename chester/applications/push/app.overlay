@@ -1,11 +1,12 @@
-//
-// Copyright (c) 2024 HARDWARIO a.s.
-//
-// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-//
+/*
+ * Copyright (c) 2024 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
 
-/* PUSH Project ------------------------------------------------- */
-/* LRW  ---------------------------------------------------------------------- */
+/* CHESTER PUSH Project | PUSH Variant */
+
+/* LRW   */
 &ctr_lrw_if {
 	status = "okay";
 };
@@ -13,7 +14,7 @@
 &uart1 {
 	status = "okay";
 };
-/* LTE ---------------------------------------------------------------------- */
+/* LTE  */
 &ctr_lte_if {
 	status = "okay";
 };
@@ -21,7 +22,7 @@
 &uart0 {
 	status = "okay";
 };
-/* Z ---------------------------------------------------------------------- */
+/* Z  */
 &ctr_z {
 	status = "okay";
 };

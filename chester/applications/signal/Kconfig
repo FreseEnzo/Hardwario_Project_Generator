@@ -6,8 +6,9 @@
 
 menu "Application"
 
-# SIGNAL Project ------------------------------------------------- #
-# LTE ---------------------------------------------------------------------- #
+# CHESTER SIGNAL Project | SIGNAL Variant 
+
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 

@@ -3,10 +3,8 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-/* Includes ------------------------------------------------------------------*/
-#include "app_config.h"
 
-/* Private includes --------------------------------------------------------------------*/
+#include "app_config.h"
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -21,9 +19,6 @@
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
-
-/* USER CODE BEGIN Variables */
-/* USER CODE END Variables */
 
 static int print_help(const struct shell *shell, size_t argc, char **argv)
 {
@@ -68,9 +63,8 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 		
 	SHELL_SUBCMD_SET_END
 
-/* USER CODE BEGIN Functions 2 */
-/* USER CODE END Functions 2 */
-
+	/* USER CODE BEGIN Functions 2 */
+	/* USER CODE END Functions 2 */
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);

@@ -6,22 +6,23 @@
 
 menu "Application"
 
-# PUSH Project ------------------------------------------------- #
-# LRW  ---------------------------------------------------------------------- #
+# CHESTER PUSH Project | PUSH Variant 
+
+# LRW 
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
 
 config CTR_LRW
 	default y
-# LTE ---------------------------------------------------------------------- #
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
 
 config CTR_LTE
 	default y
-# Z ---------------------------------------------------------------------- #
+# Z 
 config SHIELD_CTR_Z
 	bool "Enable SHIELD_CTR_Z"
 	default y 

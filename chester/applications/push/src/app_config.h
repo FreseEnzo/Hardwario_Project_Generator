@@ -1,8 +1,11 @@
+/*
+ * Copyright (c) 2024 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
-
-/* Includes ------------------------------------------------------------------*/
-/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/shell/shell.h>
@@ -18,7 +21,6 @@
 extern "C" {
 #endif
 
-/* Private Variables -------------------------------------------------------------------*/
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
 	APP_CONFIG_MODE_LTE = 1,
@@ -43,7 +45,6 @@ extern struct app_config g_app_config;
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-/* Private Functions -------------------------------------------------------------------*/
 int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_show(const struct shell *shell, size_t argc, char **argv);
 int app_config_cmd_config_interval_report(const struct shell *shell, size_t argc, char **argv);

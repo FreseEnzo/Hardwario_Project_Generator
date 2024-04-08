@@ -2,6 +2,8 @@
 version: 1
 project:
   bundle: com.hardwario.chester.signal
+  company: 2024 HARDWARIO a.s.
+  license: 'SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause'
   name: CHESTER Signal
   version: v1.0.0 
   variant: Signal

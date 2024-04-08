@@ -1,7 +1,7 @@
 #
 # Copyright (c) 2024 HARDWARIO a.s.
 #
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#  SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
 
 cmake_minimum_required(VERSION 3.20.0)

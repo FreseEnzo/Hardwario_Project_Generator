@@ -1,8 +1,11 @@
-/* Includes ------------------------------------------------------------------*/
+/*
+ * Copyright (c) 2024 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
+
 #include "app_config.h"
 #include "app_work.h"
-
-/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -17,10 +20,6 @@
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
-
-/* USER CODE BEGIN Variables */
-/* USER CODE END Variables */
-
 
 static int cmd_sample(const struct shell *shell, size_t argc, char **argv)
 {
@@ -72,6 +71,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 	SHELL_CMD_ARG(mode, NULL,
 				  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
 				  app_config_cmd_config_mode, 1, 1),
+	
 	SHELL_CMD_ARG(interval-report, NULL,
 				  "Get/Set report interval in seconds (format: <30-86400>).",
 				  app_config_cmd_config_interval_report, 1, 1),
@@ -110,15 +110,15 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 		
 	SHELL_SUBCMD_SET_END
 
-/* USER CODE BEGIN Functions 2 */
-/* USER CODE END Functions 2 */
-
+	/* USER CODE BEGIN Functions 2 */
+	/* USER CODE END Functions 2 */
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
 
 SHELL_CMD_REGISTER(sample, NULL,"Sample immediately.", cmd_sample);
 SHELL_CMD_REGISTER(send, NULL,"Send data immediately.", cmd_send);
+
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 
