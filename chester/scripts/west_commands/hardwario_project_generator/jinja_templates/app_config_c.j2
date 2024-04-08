@@ -209,7 +209,7 @@ int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t a
 	return -EINVAL;
 }
 {%- endif %}
-{%- for parameter in parameters -%}
+{% for parameter in parameters -%}
 
 {#- BOOL TYPE #}
 {%- if parameter['type'] == 'bool' %}
@@ -648,3 +648,5 @@ static int init(void)
 }
 
 SYS_INIT(init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+{%- raw %}
+{% endraw%}

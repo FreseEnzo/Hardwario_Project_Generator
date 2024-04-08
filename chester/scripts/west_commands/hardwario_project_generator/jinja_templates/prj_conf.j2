@@ -14,7 +14,7 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
-# Configurations #
+# Configurations 
 {%- for feature in data['features'] %}
 	{%- if feature == 'shell' %}
 CONFIG_ADC_SHELL=y
@@ -75,7 +75,7 @@ CONFIG_MB7066_SAMPLE_COUNT=1
 	{%- endif %}
 {%- endfor %}
 
-# Extra configurations #
+# Extra configurations 
 
 {%- for extra in data['extras'] %}
 {{extra}}
@@ -83,3 +83,5 @@ CONFIG_MB7066_SAMPLE_COUNT=1
 
 # USER CODE BEGIN Config 
 # USER CODE END Config 
+{%- raw %}
+{% endraw%}

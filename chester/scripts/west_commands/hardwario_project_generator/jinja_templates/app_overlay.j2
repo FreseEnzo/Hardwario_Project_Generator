@@ -13,7 +13,7 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
-/* {{ data['project']['name'] | upper }} Project | {{ data['project']['variant'] | upper }} VARIANT */
+/* {{ data['project']['name'] | upper }} Project | {{ data['project']['variant'] | upper }} Variant */
 {% for feature in data['features'] %}
 {#- A1 #} 
 	{%- if feature == 'a1' %}
@@ -794,3 +794,5 @@
 	{%- endif -%}
 
 {%endfor%}
+{%- raw %}
+{% endraw%}

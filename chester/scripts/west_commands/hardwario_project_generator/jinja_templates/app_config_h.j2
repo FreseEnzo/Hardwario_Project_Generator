@@ -48,7 +48,7 @@ extern "C" {
 {%- endfor %}
 
 {#- MODE LTE-LRW #}
-{%- if config_mode %}
+{% if config_mode %}
 enum app_config_mode {
 	APP_CONFIG_MODE_NONE = 0,
 	APP_CONFIG_MODE_LTE = 1,
@@ -128,3 +128,5 @@ int app_config_cmd_config_counter_input_type(const struct shell *shell, size_t a
 #endif
 
 #endif /* APP_CONFIG_H_ */
+{%- raw %}
+{% endraw%}
