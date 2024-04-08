@@ -1,12 +1,12 @@
 #
 # Copyright (c) 2024 HARDWARIO a.s.
 #
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#  SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
 #
 
 cmake_minimum_required(VERSION 3.20.0)
 
-set(ENV{FW_BUNDLE} "com.hardwario.chester.clime")
+set(ENV{FW_BUNDLE} "com.hardwario.chester.current")
 set(ENV{FW_VERSION} "v1.0.0")
 set(ENV{FW_NAME} "CHESTER Current")
 
@@ -25,6 +25,4 @@ target_sources(app PRIVATE src/app_config.c)
 target_sources(app PRIVATE src/app_work.c)
 target_sources(app PRIVATE src/app_handler.c)
 target_sources(app PRIVATE src/app_backup.c)
-target_sources(app PRIVATE src/app_cbor.c)    
-target_sources_ifdef(CONFIG_CTR_BLE app PRIVATE src/app_ble_svc.c)    
-target_sources_ifdef(CONFIG_SHIELD_CTR_LTE app PRIVATE src/app_cbor.c)
+target_sources(app PRIVATE src/app_cbor.c)

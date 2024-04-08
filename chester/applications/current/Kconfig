@@ -6,22 +6,23 @@
 
 menu "Application"
 
-# CURRENT Project ------------------------------------------------- #
-# LTE ---------------------------------------------------------------------- #
+# CHESTER CURRENT Project | CURRENT Variant 
+
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
 
 config CTR_LTE
 	default y
-# LRW  ---------------------------------------------------------------------- #
+# LRW 
 config SHIELD_CTR_LRW
 	bool "Enable SHIELD_CTR_LRW"
 	default y 
 
 config CTR_LRW
 	default y
-# K1 ---------------------------------------------------------------------- #
+# K1 
 config SHIELD_CTR_K1
 	bool "Enable SHIELD_CTR_K1"
 	default y 

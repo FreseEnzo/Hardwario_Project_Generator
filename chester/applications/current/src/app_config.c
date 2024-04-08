@@ -4,10 +4,8 @@
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
 
-/* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
 
-/* Private includes --------------------------------------------------------------------*/
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 
@@ -32,7 +30,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 #define SETTINGS_PFX "chester-current"
 
-/* Private Variables -------------------------------------------------------------------*/
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
@@ -54,7 +51,6 @@ static struct app_config m_app_config_interim = {
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-/* Private Functions -------------------------------------------------------------------*/
 static void print_app_config_mode(const struct shell *shell)
 {
 	const char *mode;
@@ -108,6 +104,7 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 	return -EINVAL;
 }
+
 int app_config_get_interval_report(void)
 {
 	return m_app_config_interim.interval_report;

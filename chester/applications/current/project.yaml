@@ -1,7 +1,9 @@
 # Hardwario YAML file for code generation
 version: 1
 project:
-  bundle: com.hardwario.chester.clime
+  bundle: com.hardwario.chester.current
+  company: 2024 HARDWARIO a.s.
+  license: 'SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause'
   name: CHESTER Current
   version: v1.0.0
   variant: Current
