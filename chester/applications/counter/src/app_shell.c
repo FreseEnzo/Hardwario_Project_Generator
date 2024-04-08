@@ -3,11 +3,9 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-/* Includes ------------------------------------------------------------------*/
+
 #include "app_config.h"
 #include "app_work.h"
-
-/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -22,9 +20,6 @@
 /* USER CODE END Includes */
 
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
-
-/* USER CODE BEGIN Variables */
-/* USER CODE END Variables */
 
 static int cmd_sample(const struct shell *shell, size_t argc, char **argv)
 {
@@ -90,11 +85,11 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 				  app_config_cmd_config_event_report_rate, 1, 1),
 	
 	SHELL_CMD_ARG(backup-report-connected, NULL,
-				  "Set backup report connected (default: true)",
+				  "Get/Set report when backup is active (format: true, false).",
 				  app_config_cmd_config_backup_report_connected, 1, 1),
 	
 	SHELL_CMD_ARG(backup-report-disconnected, NULL,
-				  "Set backup report disconnected (default: true)",
+				  "Get/Set report when backup is inactive (format: true, false).",
 				  app_config_cmd_config_backup_report_disconnected, 1, 1),
 	
 	/* USER CODE BEGIN Functions 1 */
@@ -111,9 +106,8 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 		
 	SHELL_SUBCMD_SET_END
 
-/* USER CODE BEGIN Functions 2 */
-/* USER CODE END Functions 2 */
-
+	/* USER CODE BEGIN Functions 2 */
+	/* USER CODE END Functions 2 */
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);

@@ -80,13 +80,16 @@ static struct app_config m_app_config_interim = {
 	/* USER CODE END Struct Variables */
 };
 {%- endif %}
-{% raw %}
+{%- raw %}
+
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
-{% endraw %}
+
+{%- endraw %}
 
 {#- MODE LTE-LRW #}
 {%- if config_mode %}
+
 static void print_app_config_mode(const struct shell *shell)
 {
 	const char *mode;
@@ -140,7 +143,7 @@ int app_config_cmd_config_mode(const struct shell *shell, size_t argc, char **ar
 
 	return -EINVAL;
 }
-{%- endif %}
+{%- endif -%}
 
 {#- VARIANT CURRENT #}
 {%- if variant_name_lower.split(' ')[0] == 'current' %}
@@ -208,7 +211,7 @@ int app_config_cmd_config_trigger_input_type(const struct shell *shell, size_t a
 	shell_help(shell);
 	return -EINVAL;
 }
-{%- endif %}
+{% endif %}
 {% for parameter in parameters -%}
 
 {#- BOOL TYPE #}
