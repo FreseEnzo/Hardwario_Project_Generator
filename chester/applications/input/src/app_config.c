@@ -3,10 +3,9 @@
  *
  * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
  */
-/* Includes ------------------------------------------------------------------*/
+
 #include "app_config.h"
 
-/* Private includes --------------------------------------------------------------------*/
 /* CHESTER includes */
 #include <chester/ctr_config.h>
 
@@ -31,7 +30,6 @@ LOG_MODULE_REGISTER(app_config, LOG_LEVEL_DBG);
 
 #define SETTINGS_PFX "chester-input"
 
-/* Private Variables -------------------------------------------------------------------*/
 struct app_config g_app_config;
 
 static struct app_config m_app_config_interim = {
@@ -65,7 +63,6 @@ static struct app_config m_app_config_interim = {
 /* USER CODE BEGIN Variables */
 /* USER CODE END Variables */
 
-/* Private Functions -------------------------------------------------------------------*/
 static void print_counter_input_type(const struct shell *shell)
 {
 	const char *type;

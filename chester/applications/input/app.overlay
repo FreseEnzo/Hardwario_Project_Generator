@@ -1,11 +1,12 @@
-//
-// Copyright (c) 2024 HARDWARIO a.s.
-//
-// SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-//
+/*
+ * Copyright (c) 2024 HARDWARIO a.s.
+ *
+ * SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+ */
 
-/* INPUT Project ------------------------------------------------- */
-/* LTE ---------------------------------------------------------------------- */
+/* CHESTER INPUT Project | INPUT Variant */
+
+/* LTE  */
 &ctr_lte_if {
 	status = "okay";
 };
@@ -13,7 +14,7 @@
 &uart0 {
 	status = "okay";
 };
-/* X0_A ---------------------------------------------------------------------- */
+/* X0_A  */
 &ctr_x0_a {
 	status = "okay";
 };
@@ -21,11 +22,11 @@
 &ctr_x0_pcal6416a_a {
 	status = "okay";
 };
-/* Z ---------------------------------------------------------------------- */
+/* Z  */
 &ctr_z {
 	status = "okay";
 };
-/* DS18B20 ---------------------------------------------------------------------- */
+/* DS18B20  */
 &ds2484 {
 	ds18b20_0: ds18b20_0 {
 		compatible = "maxim,ds18b20";
