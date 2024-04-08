@@ -4,9 +4,9 @@ project:
   bundle: com.hardwario.chester
   company:
   license:
-  name: CHESTER Tests
+  name: CHESTER test
   version: v1.0.0
-  variant: Tests
+  variant: test
 features: 
 - shell
 - accel

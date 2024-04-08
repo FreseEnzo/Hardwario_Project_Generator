@@ -1,6 +1,8 @@
-"""my_west_extension.py
-
-Basic example of a west extension."""
+#
+# Copyright (c) 2024 HARDWARIO a.s.
+#
+# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
+#
 
 from textwrap import dedent  # just for nicer code indentation
 
@@ -40,17 +42,16 @@ class ProjectCreate(WestCommand):
             ),
         )
 
+
     def do_add_parser(self, parser_adder):
-        # This is a bit of boilerplate, which allows you full control over the
-        # type of argparse handling you want. The "parser_adder" argument is
-        # the return value of an argparse.ArgumentParser.add_subparsers() call.
         parser = parser_adder.add_parser(
             self.name, help=self.help, description=self.description
         )
-        
         parser.add_argument('name', help='Name of the project')
 
         return parser  
+    
+    
     def do_run(self, args, unknown_args):
         topdir = get_west_workspace_root()
         try:

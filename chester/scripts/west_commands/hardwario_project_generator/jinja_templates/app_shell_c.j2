@@ -1,8 +1,11 @@
+{#- GLOBAL VARIABLES #}
 {%- set variant_name_lower = (variant_name|lower).split()[0] %}
 {%- set config_mode = []%}
 {%- if 'lte' and 'lrw' in data['features']-%}
 	{%- do config_mode.append(1) %}
 {%- endif %}
+
+{#- COPYRIGHT AND LICENSE #}
 {%- if data['project']['company'] or data['project']['license'] -%}
 /*
 	{%- if data['project']['company'] %}
@@ -18,7 +21,6 @@
 {% raw %}
 {% endraw %}
 {%- endif -%}
-/* Includes ------------------------------------------------------------------*/
 #include "app_config.h"
 {%- if commands and not variant_name_lower == 'scale' %}
 #include "app_work.h"
@@ -27,8 +29,6 @@
 #include "app_measure.h"
 #include "app_send.h"
 {%- endif %}
-
-/* Private includes --------------------------------------------------------------------*/
 
 /* Zephyr includes */
 #include <zephyr/kernel.h>
@@ -41,12 +41,12 @@
 
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
-
+{% raw %}
 LOG_MODULE_REGISTER(app_shell, LOG_LEVEL_INF);
+{% endraw %}
 
-/* USER CODE BEGIN Variables */
-/* USER CODE END Variables */
-{% if variant_name_lower == 'scale' %}
+{#- SCALE VARIANT #}
+{%- if variant_name_lower == 'scale' %}
 static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 {
 	if (argc > 1) {
@@ -63,8 +63,10 @@ static int cmd_measure(const struct shell *shell, size_t argc, char **argv)
 
 	return 0;
 }
-{%- endif %}
-{% if variant_name_lower == 'meteo' %}
+{% endif %}
+
+{#- METEO VARIANT #}
+{%- if variant_name_lower == 'meteo' %}
 static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 {
 	int ret;
@@ -74,30 +76,32 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 		shell_help(shell);
 		return -EINVAL;
 	}
-{% if 'barometer_tag' in data['features']%}
+{%- if 'barometer_tag' in data['features']%}
+
 	shell_print(shell, "Barometer");
 	ret = shell_execute_cmd(shell, "mpl3115a2 read");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-{% if 'meteo_a' in data['features']%}
+{%- if 'meteo_a' in data['features']%}
+
 	shell_print(shell, "Meteo");
 	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_a");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-{% if 'meteo_b' in data['features']%}
-#if defined(CONFIG_SHIELD_CTR_METEO_B)
+{%- if 'meteo_b' in data['features']%}
+
 	shell_print(shell, "Meteo");
 	ret = shell_execute_cmd(shell, "meteo read ctr_meteo_b");
 	if (ret) {
 		LOG_ERR("Call `shell_execute_cmd` failed: %d", ret);
 	}
 {%- endif %}
-
 {%- if 's2' in data['features']%}
+
 	shell_print(shell, "Humidity");
 	ret = shell_execute_cmd(shell, "hygro read");
 	if (ret) {
@@ -107,7 +111,9 @@ static int cmd_read(const struct shell *shell, size_t argc, char **argv)
 
 	return 0;
 }
-{%- endif %}
+{% endif %}
+
+{#- COMMANDS #}
 {%- for command in commands %}
 static int cmd_{{command['name']}}(const struct shell *shell, size_t argc, char **argv)
 {
@@ -146,7 +152,7 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 	SHELL_CMD_ARG(mode, NULL,
 				  "Get/Set communication mode (None/LTE/LoRaWAN) ('none', 'lte', 'lrw').",
 				  app_config_cmd_config_mode, 1, 1),
-	{%- endif %}
+	{% endif %}
 	{%- for parameter in parameters %}
 	{%- if parameter['type'] == 'array[int]' or parameter['type'] == 'array[bool]' %}
 	SHELL_CMD_ARG({{ parameter.name }}, NULL,
@@ -174,16 +180,20 @@ SHELL_STATIC_SUBCMD_SET_CREATE(
 
 /* USER CODE BEGIN Functions 2 */
 /* USER CODE END Functions 2 */
-
 );
 
 SHELL_CMD_REGISTER(app, &sub_app, "Application commands.", print_help);
+
+{#- COMMANDS #}
 {% for command in commands %}
 SHELL_CMD_REGISTER({{ command.name }}, NULL,"{{ command.help }}", cmd_{{ command.name }});
 {%- endfor %}
+
+{#- SCALE VARIANT #}
 {%- if variant_name_lower == 'scale' %}
 SHELL_CMD_REGISTER(measure, NULL, "Start measurement immediately.", cmd_measure);
 {% endif %}
+
 /* USER CODE BEGIN Functions 3 */
 /* USER CODE END Functions 3 */
 

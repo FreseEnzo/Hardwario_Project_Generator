@@ -1,9 +1,19 @@
+{#- COPYRIGHT AND LICENSE #}
+{%- if data['project']['company'] or data['project']['license'] -%}
 #
-# Copyright (c) 2024 HARDWARIO a.s.
+	{%- if data['project']['company'] %}
+# Copyright (c) {{data['project']['company']}}
+	{%- endif %}
+	{%- if data['project']['company'] and data['project']['license'] %}
+# 
+	{%- endif %}
+	{%- if data['project']['license'] %}
+#  {{data['project']['license'] }}
+	{%- endif %}
 #
-# SPDX-License-Identifier: LicenseRef-HARDWARIO-5-Clause
-#
-
+{% raw %}
+{% endraw %}
+{%- endif -%}
 cmake_minimum_required(VERSION 3.20.0)
 
 set(ENV{FW_BUNDLE} "{{data['project']['bundle']}}")

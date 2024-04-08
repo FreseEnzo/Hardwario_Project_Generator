@@ -269,7 +269,9 @@ def run(topdir, prj_name, mode):
         try:
             project_name = transform_to_slug(data["project"]["name"])
         except:
-            log.wrn("No project name found in project.yaml. Please update your project.yaml.")
+            log.wrn(
+                "No project name found in project.yaml. Please update your project.yaml."
+            )
             sys.exit(1)  # Close run
 
         # Generate app_config.c
