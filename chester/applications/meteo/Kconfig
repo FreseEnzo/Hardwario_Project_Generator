@@ -6,15 +6,16 @@
 
 menu "Application"
 
-# METEO Project ------------------------------------------------- #
-# LTE ---------------------------------------------------------------------- #
+# CHESTER METEO Project | METEO Variant 
+
+# LTE 
 config SHIELD_CTR_LTE
 	bool "Enable SHIELD_CTR_LTE"
 	default y 
 
 config CTR_LTE
 	default y
-# X2_MODBUS_A ---------------------------------------------------------------------- #
+# X2_MODBUS_A 
 config SHIELD_CTR_X2_MODBUS_A
 	bool "Enable SHIELD_X2_MODBUS_A"
 	default y
