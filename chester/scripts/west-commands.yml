@@ -15,12 +15,12 @@ west-commands:
       - name: check-ret-log
         class: CheckRetLog
         help: check LOG messages consistency
-  - file: scripts/west_commands/hardwario_project_generator/chester-create.py
+  - file: scripts/west_commands/project_generator/chester-create.py
     commands:
       - name: chester-create
         class: ProjectCreate
         help: create Hardwario Project Application
-  - file: scripts/west_commands/hardwario_project_generator/chester-update.py
+  - file: scripts/west_commands/project_generator/chester-update.py
     commands:
       - name: chester-update
         class: ProjectUpdate

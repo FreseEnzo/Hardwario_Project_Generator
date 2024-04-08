@@ -23,19 +23,27 @@ set(ENV{FW_NAME} "{{data['project']['name']}}")
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project({{ project_name }})
+{%- if 'lrw' in data['features']%}
+
+add_custom_command(
+    COMMAND ../../../scripts/gen-msg-key.py ../codec/cbor-decoder.yaml ../src/msg_key.h
+    OUTPUT ../src/msg_key.h
+    MAIN_DEPENDENCY ../codec/cbor-decoder.yaml
+)
+{%- endif %}
 {% for file in sources %}
 	{%- if  file != 'app_tamper.c' and file != 'app_ble_svc.c'%}
 target_sources(app PRIVATE src/{{ file }})
 	{%- endif %}
-{%- if 'app_tamper.c' in files %}    
+	{%- if 'app_tamper.c' in files %}    
 target_sources_ifdef(CONFIG_APP_TAMPER app PRIVATE src/app_tamper.c)
-{%- endif%}
-{%- if 'app_ble_svc.c' in files %}    
+	{%- endif%}
+	{%- if 'app_ble_svc.c' in files %}    
 target_sources_ifdef(CONFIG_CTR_BLE app PRIVATE src/app_ble_svc.c)
-{%- endif%}
-{%- if 'app_cbor.c' in files %}    
+	{%- endif%}
+	{%- if 'app_cbor.c' in files %}    
 target_sources_ifdef(CONFIG_SHIELD_CTR_LTE app PRIVATE src/app_cbor.c)
-{%- endif%}
+	{%- endif%}
 {%- endfor %}
 {%- raw %}
 {% endraw%}

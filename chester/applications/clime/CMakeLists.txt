@@ -14,6 +14,12 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project(chester-clime)
 
+add_custom_command(
+    COMMAND ../../../scripts/gen-msg-key.py ../codec/cbor-decoder.yaml ../src/msg_key.h
+    OUTPUT ../src/msg_key.h
+    MAIN_DEPENDENCY ../codec/cbor-decoder.yaml
+)
+
 target_sources(app PRIVATE src/app_sensor.c)
 target_sources(app PRIVATE src/main.c)
 target_sources(app PRIVATE src/app_shell.c)

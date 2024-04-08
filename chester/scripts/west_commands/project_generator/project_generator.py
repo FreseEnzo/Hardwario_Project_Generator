@@ -33,7 +33,7 @@ def project_create(_topdir, prj_name):
 
     # Setup Jinja environment
     jinja_templates_dir = (
-        "/scripts/west_commands/hardwario_project_generator/jinja_templates/"
+        "/scripts/west_commands/project_generator/jinja_templates/"
     )
     jinja_templates_folder = os.path.join(
         _topdir,
@@ -118,7 +118,7 @@ def cmake(top_dir, prj_name: str, project_name, data):
     try:
         # Setup Jinja environment
         jinja_templates_dir = (
-            "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+            "/scripts/west_commands/project_generator/jinja_templates"
         )
         jinja_templates_folder = os.path.join(
             top_dir,
@@ -174,7 +174,7 @@ def generate_file(
     try:
         # Setup Jinja environment
         jinja_templates_dir = (
-            "/scripts/west_commands/hardwario_project_generator/jinja_templates"
+            "/scripts/west_commands/project_generator/jinja_templates"
         )
         jinja_templates_folder = os.path.join(
             topdir,
